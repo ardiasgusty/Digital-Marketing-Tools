@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HypeDrive OS - Honda Bintaro</title>
+    <title>Digital Marketing - Honda Bintaro</title>
     
     <style>
         :root {
@@ -21,36 +21,47 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
-        /* ================= EPIC LOGIN SCREEN (HYPEDRIVE EDITION) ================= */
+        /* ================= FLAT DESIGN CREATIVE LOGIN ================= */
         #login-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: 99999;
-            background: url('https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+            background-color: #f0f4f8; overflow: hidden;
         }
-        #login-screen::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(231,76,60,0.2) 100%); backdrop-filter: blur(8px);
+        body.dark-mode #login-screen { background-color: #1a1a1a; }
+        
+        /* Animated Background Elements */
+        .bg-shape { position: absolute; border-radius: 50%; opacity: 0.6; animation: float 15s infinite ease-in-out; z-index: 0; }
+        .bg-shape:nth-child(1) { width: 300px; height: 300px; background: #e74c3c; top: -10%; left: -10%; animation-delay: 0s; }
+        .bg-shape:nth-child(2) { width: 400px; height: 400px; background: #3498db; bottom: -20%; right: -10%; animation-delay: -5s; }
+        .bg-shape:nth-child(3) { width: 200px; height: 200px; background: #f1c40f; top: 40%; left: 60%; animation-delay: -10s; }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(30px, -50px) scale(1.1) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) scale(0.9) rotate(240deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); }
         }
+
         .login-box {
-            position: relative; z-index: 1; background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(255,255,255,0.1);
-            padding: 50px 40px; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center; width: 90%; max-width: 400px; backdrop-filter: blur(15px); color: white;
+            position: relative; z-index: 1; background: var(--card-bg); border: 1px solid var(--border);
+            padding: 50px 40px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px;
         }
-        .login-box h2 { margin: 0 0 5px 0; color: #fff; font-size: 36px; font-weight: 900; font-style: italic; letter-spacing: 1px; }
-        .login-box p { color: #aaa; font-size: 13px; margin-bottom: 30px; letter-spacing: 0.5px; text-transform: uppercase; font-weight: bold;}
-        .login-box .form-control { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 10px; font-size: 16px; margin-bottom: 15px; width: 100%; text-align: center; transition: 0.3s;}
-        .login-box .form-control:focus { border-color: #e74c3c; outline: none; box-shadow: 0 0 15px rgba(231,76,60,0.3); }
-        .login-box .btn { background: linear-gradient(90deg, #e74c3c, #c0392b); font-size: 16px; padding: 15px; border-radius: 10px; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-top: 10px; border:none; color:white; cursor:pointer; width:100%; transition:0.3s;}
-        .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(231,76,60,0.5); }
-        .login-box .error-msg { color: #ff7675; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(255,0,0,0.2); padding: 8px; border-radius: 6px; }
+        body.dark-mode .login-box { box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .login-box h2 { margin: 0 0 5px 0; color: var(--primary); font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+        .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; font-weight: 500;}
+        .login-box .form-control { background: var(--bg); border: 2px solid var(--border); color: var(--text-main); padding: 15px; border-radius: 8px; font-size: 16px; margin-bottom: 15px; width: 100%; text-align: center; transition: 0.3s;}
+        .login-box .form-control:focus { border-color: var(--accent); outline: none; }
+        .login-box .btn { background: var(--accent); font-size: 16px; padding: 15px; border-radius: 8px; font-weight: bold; margin-top: 10px; border:none; color:white; cursor:pointer; width:100%; transition:0.3s;}
+        .login-box .btn:hover { background: #c0392b; transform: translateY(-2px); }
+        .login-box .error-msg { color: #e74c3c; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(231,76,60,0.1); padding: 10px; border-radius: 6px; }
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
         .header { background: var(--card-bg); padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; transition: background 0.3s; }
-        .header-title h1 { margin: 0; font-size: 24px; color: var(--primary); font-weight: 900; font-style: italic; letter-spacing: -0.5px; }
+        .header-title h1 { margin: 0; font-size: 24px; color: var(--primary); font-weight: 800; letter-spacing: -0.5px; }
         .header-title p { margin: 4px 0 0 0; font-size: 13px; color: var(--text-muted); }
         .header-actions { display: flex; gap: 10px; align-items: center; }
         
-        .btn-theme { background: var(--border); border: none; font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: 0.3s; }
+        .btn-theme { background: var(--border); border: none; font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: 0.3s; color: var(--text-main); }
         .btn-logout { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
         .btn-logout:hover { background: var(--accent); color: white; }
         
@@ -90,14 +101,14 @@
         .data-table th { background: var(--primary); color: white; border-color: var(--primary); }
         
         .btn-sm { padding: 8px 12px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; display: inline-flex; align-items: center; gap: 5px;}
-        .bg-red { background: #c0392b; } .bg-green { background: #27ae60; } .bg-dark { background: #2c3e50; } .bg-gray { background: #7f8c8d; }
+        .bg-red { background: #e74c3c; } .bg-green { background: #27ae60; } .bg-dark { background: #2c3e50; } .bg-gray { background: #95a5a6; }
         .badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight:bold; color: white; }
         
         .thumb-preview { width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background: var(--bg); display:flex; align-items:center; justify-content:center; text-align:center; font-size:10px; color:var(--text-muted); padding:2px;}
 
         /* GITHUB CONFIG BOXES */
         .gh-box { background: var(--bg); border: 1px solid var(--border); padding: 25px; border-radius: 12px; margin-bottom: 25px; position: relative;}
-        .gh-box h4 { margin-top:0; border-bottom: 2px solid var(--primary); padding-bottom: 10px; display:inline-block; margin-bottom:20px; }
+        .gh-box h4 { margin-top:0; border-bottom: 2px solid var(--primary); padding-bottom: 10px; display:inline-block; margin-bottom:20px; color: var(--primary); }
         .input-group { display: flex; gap: 10px; align-items: center; }
         .input-group .form-control { margin-bottom: 0; }
         
@@ -114,9 +125,15 @@
         .gh-modal-footer { padding: 15px 20px; background: var(--card-bg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .gh-current-path { font-size: 12px; color: var(--text-muted); word-break: break-all; }
 
-        /* SCROLL TO TOP */
-        #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--accent); color: white; cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s; }
+        /* SCROLL TO TOP SVG ICON */
+        #scrollTopBtn { 
+            display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; border: none; outline: none; 
+            background-color: var(--accent); color: white; cursor: pointer; width: 50px; height: 50px; 
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
         #scrollTopBtn:hover { background-color: #c0392b; transform: translateY(-3px); }
+        #scrollTopBtn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
         /* FULLSCREEN SPREADSHEET */
         .fullscreen-mode { position: fixed !important; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 9999; background: var(--bg); border-radius:0 !important; border:none !important; padding:0 !important; margin:0 !important;}
@@ -126,14 +143,19 @@
 </head>
 <body>
 
-    <!-- ================= EPIC LOGIN SCREEN ================= -->
+    <!-- ================= FLAT CREATIVE LOGIN SCREEN ================= -->
     <div id="login-screen">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        
         <div class="login-box">
-            <h2>HypeDrive OS</h2>
-            <p>Digital Framework • Honda Bintaro</p>
-            <div id="error-msg" class="error-msg">⚠️ Password salah!</div>
-            <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password" onkeypress="if(event.key === 'Enter') verifyPassword()">
-            <button class="btn" onclick="verifyPassword()">Akses Dashboard 🚀</button>
+            <h2>Digital Marketing</h2>
+            <p>Honda Bintaro Framework</p>
+            <div id="error-msg" class="error-msg">⚠️ Password salah! Silakan coba lagi.</div>
+            <!-- Memastikan enter memicu login -->
+            <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password" onkeydown="if(event.key === 'Enter') { event.preventDefault(); verifyPassword(); }">
+            <button class="btn" onclick="verifyPassword()">Masuk ke Dashboard</button>
         </div>
     </div>
 
@@ -141,8 +163,8 @@
     <div id="dashboard-screen">
         <header class="header">
             <div class="header-title">
-                <h1>HypeDrive OS 🔥</h1>
-                <p>Digital Dealer Framework - Honda Bintaro</p>
+                <h1>Digital Marketing Honda Bintaro</h1>
+                <p>Internal Tools & Framework</p>
             </div>
             <div class="header-actions">
                 <button class="btn-theme" onclick="toggleTheme()" id="theme-btn">🌙</button>
@@ -188,7 +210,7 @@
                 <div class="tool-card" onclick="openTool('jsoneditor')">
                     <div class="tool-icon" style="background: #ffcccc; color: #ff3838;">🛠️</div>
                     <h3>JSON Editor</h3>
-                    <p>Akses cepat ke editor JSON HypeDrive OS.</p>
+                    <p>Edit data JSON pendukung platform.</p>
                 </div>
                 <div class="tool-card" onclick="openTool('elearning')">
                     <div class="tool-icon" style="background: #c8d6e5; color: #222f3e;">🎓</div>
@@ -251,7 +273,7 @@
                     <h4 style="margin-top:0; color:var(--primary);">📺 Preview Visual Konten</h4>
                     <input type="file" id="media-upload" class="form-control" accept="image/*,video/*" onchange="previewMedia(this)">
                     <div id="media-preview" class="media-preview-box">
-                        <span style="color:var(--text-muted); font-size:13px;">Preview Gambar/Video akan muncul di sini (Data aman, tidak di-upload)</span>
+                        <span style="color:var(--text-muted); font-size:13px;">Preview Gambar/Video akan muncul di sini</span>
                     </div>
                 </div>
 
@@ -528,9 +550,35 @@
             <!-- ================= 7. JSON EDITOR ================= -->
             <div id="jsoneditor-section" class="tool-section">
                 <div class="section-header"><h2>🛠️ JSON Editor</h2></div>
-                <p style="font-size:14px; color:var(--text-muted);">Akses halaman editor JSON khusus untuk memanipulasi data HypeDrive OS secara manual.</p>
-                <!-- Tambahkan link JSON Editor aslimu di tag href ini -->
-                <a href="#" target="_blank" style="display:inline-block; padding:12px 24px; background:var(--primary); color:white; text-decoration:none; border-radius:6px; font-weight:bold;">Buka JSON Editor ↗</a>
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:30px;">Akses halaman editor JSON khusus untuk memanipulasi data dan konfigurasi sistem secara manual.</p>
+                
+                <div class="tools-grid">
+                    <!-- Ganti link '#' dengan link editor aslimu nanti -->
+                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                        <div class="tool-icon" style="background: #ffeaa7; color: #d63031;">📝</div>
+                        <h3>Blogger Editor</h3><p>Update konten produk dan script untuk postingan Blogger secara instan.</p>
+                    </div>
+                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                        <div class="tool-icon" style="background: #dff9fb; color: #22a6b3;">📑</div>
+                        <h3>Pricelist Editor</h3><p>Ubah daftar harga kendaraan dan simulasi kredit tanpa menyentuh code.</p>
+                    </div>
+                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                        <div class="tool-icon" style="background: #e8dbff; color: #8e44ad;">✨</div>
+                        <h3>Build Your Dreams</h3><p>Tools konfigurasi atau fitur khusus lainnya untuk marketing campaign.</p>
+                    </div>
+                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                        <div class="tool-icon" style="background: #e8f4fd; color: #0984e3;">🖼️</div>
+                        <h3>Website Banner</h3><p>Mengubah gambar banner desktop dan mobile.</p>
+                    </div>
+                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                        <div class="tool-icon" style="background: #c8d6e5; color: #222f3e;">🎓</div>
+                        <h3>E-Learning JSON</h3><p>Edit modul materi, video, dan evaluasi platform e-learning.</p>
+                    </div>
+                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                        <div class="tool-icon" style="background: #f1f2f6; color: #2d3436;">⚙️</div>
+                        <h3>System JSON</h3><p>Konfigurasi core system dan data struktur halaman utama.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- ================= 8. E-LEARNING HUB ================= -->
@@ -549,7 +597,7 @@
     </div>
 
     <!-- GITHUB BROWSER MODAL -->
-    <div id="gh-modal">
+    <div id="gh-modal" style="display: none;">
         <div class="gh-modal-content">
             <div class="gh-modal-header">
                 <h3 id="gh-modal-title">Pilih File/Folder JSON</h3>
@@ -570,12 +618,14 @@
         </div>
     </div>
 
-    <!-- SCROLL TO TOP BTN -->
-    <button id="scrollTopBtn" onclick="scrollToTop()">⬆️</button>
+    <!-- SCROLL TO TOP SVG BTN -->
+    <button id="scrollTopBtn" onclick="scrollToTop()">
+        <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
 
     <script>
         // ================= GLOBAL VARIABLES =================
-        const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
+        const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; 
         let contentDB = [];
         let kpiDB = [];
         let currentGHPath = "";
@@ -592,7 +642,7 @@
         
         window.onscroll = function() {
             const btn = document.getElementById("scrollTopBtn");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { btn.style.display = "block"; } else { btn.style.display = "none"; }
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { btn.style.display = "flex"; } else { btn.style.display = "none"; }
         };
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
@@ -617,20 +667,15 @@
 
         // ================= INIT =================
         window.addEventListener('DOMContentLoaded', () => {
-            // Check Auth
             if (sessionStorage.getItem('auth_hb') === 'true') { 
                 document.getElementById('login-screen').style.display='none'; 
                 document.getElementById('dashboard-screen').style.display='flex'; 
             }
-
-            // Load Theme
             if(localStorage.getItem('honda_theme') === 'dark') toggleTheme();
             
-            // Load Gemini API Key
             const savedGeminiKey = localStorage.getItem('gemini_api_key');
             if(savedGeminiKey) document.querySelectorAll('.api-key-input').forEach(el => el.value = savedGeminiKey);
             
-            // Load GitHub Config
             const savedGH = JSON.parse(localStorage.getItem('gh_config') || '{}');
             if(savedGH.token) document.querySelectorAll('.gh-sync-token').forEach(el => el.value = savedGH.token);
             if(savedGH.user) document.querySelectorAll('.gh-sync-user').forEach(el => el.value = savedGH.user);
@@ -681,7 +726,7 @@
                 } catch(e) {}
 
                 const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
-                const bodyData = { message: `Auto-update ${filename} via HypeDrive OS`, content: contentBase64 };
+                const bodyData = { message: `Auto-update ${filename} via Digital Marketing OS`, content: contentBase64 };
                 if(sha) bodyData.sha = sha;
 
                 const putRes = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${filename}`, {
@@ -904,9 +949,11 @@
         // ================= 4. CONTENT PERFORMANCE MONITOR =================
         function generateThumbnailPreview(url) {
             const container = document.getElementById('thumb-container');
-            const match = url.match(/\/p\/([a-zA-Z0-9_-]+)/);
+            // Regex diperluas untuk mendeteksi /p/, /reel/, atau /reels/
+            const match = url.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
             if(match && match[1]) {
-                container.innerHTML = `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${match[1]}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'background:var(--card-bg);\\'>📸<br>IG Post</div>'">`;
+                const proxyUrl = `https://images.weserv.nl/?url=https://www.instagram.com/p/${match[1]}/media/?size=t`;
+                container.innerHTML = `<img src="${proxyUrl}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'background:var(--card-bg); font-size:24px;\\'>📸</div>'">`;
             } else { container.innerHTML = "(Auto)"; }
         }
 
@@ -937,7 +984,7 @@
             `;
             document.getElementById('mon-result').style.display = 'block';
 
-            const match = link.match(/\/p\/([a-zA-Z0-9_-]+)/);
+            const match = link.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
             const shortcode = match ? match[1] : null;
 
             contentDB.push({ title, link, shortcode, month, week, evalDateRaw, datePub, pilar, reach, action, statusBadge, what, soWhat, nowWhat });
@@ -959,7 +1006,7 @@
             const filteredData = contentDB.filter(item => (fMonth === "All" || item.month === fMonth) && (fWeek === "All" || item.week === fWeek));
 
             filteredData.forEach((item, idx) => {
-                const thumb = item.shortcode ? `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${item.shortcode}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\'>📸</div>'">` : `<div class="thumb-preview">N/A</div>`;
+                const thumb = item.shortcode ? `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${item.shortcode}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
                 tbody.innerHTML += `<tr>
                     <td style="width:70px;">${thumb}</td>
                     <td><b>${item.title}</b><br><a href="${item.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">Bulan: ${item.month}, Minggu: ${item.week}</span></td>
