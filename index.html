@@ -21,18 +21,32 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
-        /* ================= LOGIN SCREEN ================= */
-        #login-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
-        body.dark-mode #login-screen { background: linear-gradient(135deg, #2d3436 0%, #000000 100%); }
-        .login-box { background: var(--card-bg); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 400px; }
-        .login-box h2 { margin-top: 0; color: var(--primary); }
-        .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
-        .error-msg { color: var(--accent); font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; }
+        /* ================= EPIC LOGIN SCREEN (HYPEDRIVE EDITION) ================= */
+        #login-screen {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: 99999;
+            background: url('https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+        }
+        #login-screen::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(231,76,60,0.2) 100%); backdrop-filter: blur(8px);
+        }
+        .login-box {
+            position: relative; z-index: 1; background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 40px; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center; width: 90%; max-width: 400px; backdrop-filter: blur(15px); color: white;
+        }
+        .login-box h2 { margin: 0 0 5px 0; color: #fff; font-size: 36px; font-weight: 900; font-style: italic; letter-spacing: 1px; }
+        .login-box p { color: #aaa; font-size: 13px; margin-bottom: 30px; letter-spacing: 0.5px; text-transform: uppercase; font-weight: bold;}
+        .login-box .form-control { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 10px; font-size: 16px; margin-bottom: 15px; width: 100%; text-align: center; transition: 0.3s;}
+        .login-box .form-control:focus { border-color: #e74c3c; outline: none; box-shadow: 0 0 15px rgba(231,76,60,0.3); }
+        .login-box .btn { background: linear-gradient(90deg, #e74c3c, #c0392b); font-size: 16px; padding: 15px; border-radius: 10px; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-top: 10px; border:none; color:white; cursor:pointer; width:100%; transition:0.3s;}
+        .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(231,76,60,0.5); }
+        .login-box .error-msg { color: #ff7675; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(255,0,0,0.2); padding: 8px; border-radius: 6px; }
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
         .header { background: var(--card-bg); padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; transition: background 0.3s; }
-        .header-title h1 { margin: 0; font-size: 24px; color: var(--primary); font-weight: 800; letter-spacing: -0.5px; }
+        .header-title h1 { margin: 0; font-size: 24px; color: var(--primary); font-weight: 900; font-style: italic; letter-spacing: -0.5px; }
         .header-title p { margin: 4px 0 0 0; font-size: 13px; color: var(--text-muted); }
         .header-actions { display: flex; gap: 10px; align-items: center; }
         
@@ -101,8 +115,8 @@
         .gh-current-path { font-size: 12px; color: var(--text-muted); word-break: break-all; }
 
         /* SCROLL TO TOP */
-        #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--primary); color: white; cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s; }
-        #scrollTopBtn:hover { background-color: var(--accent); transform: translateY(-3px); }
+        #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--accent); color: white; cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s; }
+        #scrollTopBtn:hover { background-color: #c0392b; transform: translateY(-3px); }
 
         /* FULLSCREEN SPREADSHEET */
         .fullscreen-mode { position: fixed !important; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 9999; background: var(--bg); border-radius:0 !important; border:none !important; padding:0 !important; margin:0 !important;}
@@ -112,18 +126,18 @@
 </head>
 <body>
 
-    <!-- LOGIN SCREEN -->
+    <!-- ================= EPIC LOGIN SCREEN ================= -->
     <div id="login-screen">
         <div class="login-box">
-            <h2>Restricted Access</h2>
-            <p>Honda Bintaro Marketing OS</p>
-            <div id="error-msg" class="error-msg">Password salah!</div>
-            <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password" onkeypress="handleEnter(event)">
-            <button class="btn btn-accent" onclick="verifyPassword()">Masuk ke Dashboard</button>
+            <h2>HypeDrive OS</h2>
+            <p>Digital Framework • Honda Bintaro</p>
+            <div id="error-msg" class="error-msg">⚠️ Password salah!</div>
+            <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password" onkeypress="if(event.key === 'Enter') verifyPassword()">
+            <button class="btn" onclick="verifyPassword()">Akses Dashboard 🚀</button>
         </div>
     </div>
 
-    <!-- DASHBOARD SCREEN -->
+    <!-- ================= DASHBOARD SCREEN ================= -->
     <div id="dashboard-screen">
         <header class="header">
             <div class="header-title">
@@ -163,7 +177,7 @@
                 </div>
                 <div class="tool-card" onclick="openTool('kpi')">
                     <div class="tool-icon" style="background: #ffeaa7; color: #d63031;">📈</div>
-                    <h3>Weekly Channel Evaluator</h3>
+                    <h3>Weekly Evaluator</h3>
                     <p>Hitung ER mingguan dan rekap data KPI ke Database GitHub.</p>
                 </div>
                 <div class="tool-card" onclick="openTool('response')">
@@ -237,7 +251,7 @@
                     <h4 style="margin-top:0; color:var(--primary);">📺 Preview Visual Konten</h4>
                     <input type="file" id="media-upload" class="form-control" accept="image/*,video/*" onchange="previewMedia(this)">
                     <div id="media-preview" class="media-preview-box">
-                        <span style="color:var(--text-muted); font-size:13px;">Preview Gambar/Video akan muncul di sini</span>
+                        <span style="color:var(--text-muted); font-size:13px;">Preview Gambar/Video akan muncul di sini (Data aman, tidak di-upload)</span>
                     </div>
                 </div>
 
@@ -319,7 +333,6 @@
             <div id="monitor-section" class="tool-section">
                 <div class="section-header"><h2>🎯 Content Performance Monitor</h2></div>
                 
-                <!-- GITHUB INTEGRATION UI (SESUAI SCREENSHOT) -->
                 <div class="gh-box">
                     <h4>🔗 GitHub Integration Sync</h4>
                     <div class="form-group">
@@ -415,7 +428,6 @@
             <div id="kpi-section" class="tool-section">
                 <div class="section-header"><h2>📈 Weekly Channel Evaluator</h2></div>
                 
-                <!-- GITHUB INTEGRATION UI (Reusable styling) -->
                 <div class="gh-box">
                     <h4>🔗 GitHub Integration Sync</h4>
                     <div class="form-row">
@@ -517,7 +529,7 @@
             <div id="jsoneditor-section" class="tool-section">
                 <div class="section-header"><h2>🛠️ JSON Editor</h2></div>
                 <p style="font-size:14px; color:var(--text-muted);">Akses halaman editor JSON khusus untuk memanipulasi data HypeDrive OS secara manual.</p>
-                <!-- Nanti kamu bisa ganti "#" di bawah ini dengan link aslimu ya -->
+                <!-- Tambahkan link JSON Editor aslimu di tag href ini -->
                 <a href="#" target="_blank" style="display:inline-block; padding:12px 24px; background:var(--primary); color:white; text-decoration:none; border-radius:6px; font-weight:bold;">Buka JSON Editor ↗</a>
             </div>
 
@@ -530,7 +542,6 @@
                 <div style="width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:var(--card-bg);">
                     <iframe src="https://elearning.argust.my.id" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
-                <p style="font-size:12px; color:var(--text-muted); text-align:center;">*Jika halaman E-Learning tidak muncul, silakan klik tombol "Buka di Tab Baru".</p>
             </div>
 
         </main>
@@ -545,11 +556,10 @@
                 <button class="gh-modal-close" onclick="closeGHModal()">X</button>
             </div>
             <div class="gh-modal-body">
-                <div class="gh-list-item" onclick="navigateGHUp()" id="gh-modal-up" style="display:none; font-weight:bold; background:var(--border);">
+                <div class="gh-list-item" onclick="navigateGHUp()" id="gh-modal-up" style="display:none; font-weight:bold; background:var(--bg);">
                     <span class="gh-icon">⬅️</span> .. (Kembali)
                 </div>
                 <div id="gh-modal-list">
-                    <!-- List items injected here -->
                     <div style="padding:20px; text-align:center; color:var(--text-muted);">Memuat data dari GitHub... ⏳</div>
                 </div>
             </div>
@@ -564,7 +574,15 @@
     <button id="scrollTopBtn" onclick="scrollToTop()">⬆️</button>
 
     <script>
-        // ================= THEME & SCROLL LOGIC =================
+        // ================= GLOBAL VARIABLES =================
+        const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
+        let contentDB = [];
+        let kpiDB = [];
+        let currentGHPath = "";
+        let currentGHTargetInput = "";
+        let currentGHMode = "file";
+
+        // ================= UTILITIES & THEME =================
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -578,13 +596,41 @@
         };
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
+        function getMonthAndWeek(dateString) {
+            if(!dateString) return { month: "Unknown", week: "1" };
+            const d = new Date(dateString);
+            const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            return { month: months[d.getMonth()], week: Math.ceil(d.getDate() / 7).toString() };
+        }
+
+        // ================= AUTHENTICATION =================
+        function verifyPassword() {
+            const input = document.getElementById('password-input').value;
+            if(!input) return;
+            if (btoa(input.split('').reverse().join('')) === TARGET_HASH) {
+                sessionStorage.setItem('auth_hb', 'true');
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard-screen').style.display = 'flex';
+            } else { document.getElementById('error-msg').style.display = 'block'; }
+        }
+        function logout() { sessionStorage.removeItem('auth_hb'); location.reload(); }
+
         // ================= INIT =================
         window.addEventListener('DOMContentLoaded', () => {
+            // Check Auth
+            if (sessionStorage.getItem('auth_hb') === 'true') { 
+                document.getElementById('login-screen').style.display='none'; 
+                document.getElementById('dashboard-screen').style.display='flex'; 
+            }
+
+            // Load Theme
             if(localStorage.getItem('honda_theme') === 'dark') toggleTheme();
             
+            // Load Gemini API Key
             const savedGeminiKey = localStorage.getItem('gemini_api_key');
             if(savedGeminiKey) document.querySelectorAll('.api-key-input').forEach(el => el.value = savedGeminiKey);
             
+            // Load GitHub Config
             const savedGH = JSON.parse(localStorage.getItem('gh_config') || '{}');
             if(savedGH.token) document.querySelectorAll('.gh-sync-token').forEach(el => el.value = savedGH.token);
             if(savedGH.user) document.querySelectorAll('.gh-sync-user').forEach(el => el.value = savedGH.user);
@@ -647,7 +693,6 @@
             } catch (err) { statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal sync. Cek izin Token.</span>`; }
         }
 
-        // PULL JSON DARI GITHUB
         async function pullDBFromGithub(type) {
             syncGHFields();
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
@@ -683,10 +728,6 @@
         }
 
         // ================= GITHUB BROWSER MODAL =================
-        let currentGHPath = "";
-        let currentGHTargetInput = "";
-        let currentGHMode = "file"; // 'file' or 'folder'
-
         function openGHModal(mode, inputId) {
             syncGHFields();
             const { token, user, repo } = JSON.parse(localStorage.getItem('gh_config'));
@@ -715,7 +756,6 @@
                 const data = await fetchGHData(currentGHPath);
                 listEl.innerHTML = "";
                 
-                // Sort folders first
                 const sorted = data.sort((a,b) => {
                     if(a.type === 'dir' && b.type !== 'dir') return -1;
                     if(a.type !== 'dir' && b.type === 'dir') return 1;
@@ -737,8 +777,7 @@
                         } else {
                             if(currentGHMode === 'file' && item.name.endsWith('.json')) {
                                 document.getElementById(currentGHTargetInput).value = item.path;
-                                syncGHFields();
-                                closeGHModal();
+                                syncGHFields(); closeGHModal();
                             } else if (currentGHMode === 'file') {
                                 alert("Harap pilih file berekstensi .json!");
                             }
@@ -758,26 +797,116 @@
         function selectGHFolder() {
             if(currentGHMode === 'folder') {
                 document.getElementById(currentGHTargetInput).value = currentGHPath;
-                syncGHFields();
-                closeGHModal();
+                syncGHFields(); closeGHModal();
             }
         }
 
-        // ================= HELPER =================
-        function getMonthAndWeek(dateString) {
-            if(!dateString) return { month: "Unknown", week: "1" };
-            const d = new Date(dateString);
-            const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            return { month: months[d.getMonth()], week: Math.ceil(d.getDate() / 7).toString() };
+        // ================= NAVIGATION =================
+        function openTool(toolId) {
+            document.getElementById('menu-grid').style.display = 'none';
+            document.getElementById('btn-back').style.display = 'inline-block';
+            document.querySelectorAll('.tool-section').forEach(sec => sec.style.display = 'none');
+            document.getElementById(toolId + '-section').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function showHome() {
+            document.getElementById('menu-grid').style.display = 'grid';
+            document.getElementById('btn-back').style.display = 'none';
+            document.querySelectorAll('.tool-section').forEach(sec => sec.style.display = 'none');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function toggleFullScreen(wrapId, btnId) {
+            const wrap = document.getElementById(wrapId);
+            const btnExit = document.getElementById(btnId);
+            wrap.classList.toggle('fullscreen-mode');
+            if(wrap.classList.contains('fullscreen-mode')) {
+                btnExit.style.display = 'block'; document.body.style.overflow = 'hidden';
+            } else {
+                btnExit.style.display = 'none'; document.body.style.overflow = 'auto';
+            }
         }
 
-        // ================= 4. CONTENT PERFORMANCE (LOCAL ADD) =================
+        // ================= 2. AI GENERATOR =================
+        function syncApiKey(val) {
+            localStorage.setItem('gemini_api_key', val.trim());
+            document.querySelectorAll('.api-key-input').forEach(el => { if(el.value !== val) el.value = val; });
+        }
+        function toggleBriefOptions() {
+            const isBrief = document.getElementById('gen-type').value === 'Brief';
+            document.getElementById('opt-caption-length').style.display = isBrief ? 'none' : 'block';
+            document.getElementById('opt-brief-duration').style.display = isBrief ? 'block' : 'none';
+        }
+        function updateDynamicLabels() {
+            const fw = document.getElementById('gen-framework').value;
+            if(fw.includes('PAS')) {
+                document.getElementById('lbl-prob').innerText = "Masalah / Pain Point (Problem)";
+                document.getElementById('lbl-feat').innerText = "Solusi yang Ditawarkan (Solution)";
+            } else {
+                document.getElementById('lbl-prob').innerText = "Fitur Utama (Feature)";
+                document.getElementById('lbl-feat').innerText = "Keuntungan & Manfaat (Advantage & Benefit)";
+            }
+        }
+        async function generateAIContent() {
+            const apiKey = localStorage.getItem('gemini_api_key');
+            if(!apiKey) return alert("⚠️ API Key Gemini kosong! Masukkan kunci di kolom yang tersedia.");
+
+            const type = document.getElementById('gen-type').value;
+            const length = document.getElementById('gen-length').value;
+            const duration = document.getElementById('gen-duration').value;
+            const fw = document.getElementById('gen-framework').value;
+            const prod = document.getElementById('gen-product').value;
+            const prob = document.getElementById('gen-problem').value;
+            const feat = document.getElementById('gen-feature').value;
+            const cta = document.getElementById('gen-cta').value;
+
+            if(!prod || !prob || !feat) return alert("Lengkapi data!");
+            const btn = document.getElementById('btn-generate');
+            btn.innerText = "⏳ Sedang Menulis..."; btn.disabled = true;
+
+            let sysPrompt = type === 'Caption' 
+                ? `Buatkan caption IG mobil ${prod}. Framework: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Arahan panjang: ${length}. Beri label framework (P/A/S) di tiap paragraf. Sertakan #HondaBintaro.`
+                : `Buatkan Video Script Reels. Durasi: ${duration}. Mobil: ${prod}. Framework: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Buat format tabel "Visual" dan "Audio".`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
+                });
+                const data = await response.json();
+                if(data.error) throw new Error(data.error.message);
+                document.getElementById('gen-output').innerText = data.candidates[0].content.parts[0].text;
+                document.getElementById('gen-result-box').style.display = 'block';
+            } catch (err) { alert("Error AI: " + err.message); } 
+            finally { btn.innerText = "Generate via AI 🪄"; btn.disabled = false; }
+        }
+
+        // ================= 3. 3C CHECKER =================
+        function previewMedia(input) {
+            const file = input.files[0];
+            const preview = document.getElementById('media-preview');
+            preview.innerHTML = '';
+            if(file) {
+                const url = URL.createObjectURL(file);
+                preview.innerHTML = file.type.startsWith('video/') ? `<video src="${url}" controls></video>` : `<img src="${url}">`;
+            } else { preview.innerHTML = `<span style="color:var(--text-muted); font-size:13px;">Preview Gambar/Video akan muncul di sini</span>`; }
+        }
+        function cekHasilAudit() {
+            const total = document.querySelectorAll('.chk-item').length;
+            const checked = document.querySelectorAll('.chk-item:checked').length;
+            const gap = total - checked;
+            let summary = `Total Checklist Terpenuhi: ${checked} / ${total}\n\n`;
+            if(gap === 0) { summary += "✅ KONTEN AMAN! Semua syarat Brand Alignment terpenuhi. Konten siap untuk dipublish."; } 
+            else { summary += `⚠️ PERLU REVISI: Ada ${gap} syarat yang belum terpenuhi. Perbaiki elemen visual/caption sebelum dipublish.`; }
+            document.getElementById('audit-summary-text').innerText = summary;
+            document.getElementById('audit-summary-box').style.display = 'block';
+        }
+
+        // ================= 4. CONTENT PERFORMANCE MONITOR =================
         function generateThumbnailPreview(url) {
             const container = document.getElementById('thumb-container');
             const match = url.match(/\/p\/([a-zA-Z0-9_-]+)/);
             if(match && match[1]) {
-                // IG images sering diblokir, fallback icon disiapkan
-                container.innerHTML = `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${match[1]}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'background:#f1f2f6;\\'>📸<br>IG Post</div>'">`;
+                container.innerHTML = `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${match[1]}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'background:var(--card-bg);\\'>📸<br>IG Post</div>'">`;
             } else { container.innerHTML = "(Auto)"; }
         }
 
@@ -799,8 +928,8 @@
             let statusBadge = reachRatio >= 15 || action >= 3 ? `<span class="badge bg-green">✅ On Track</span>` : `<span class="badge bg-red">⚠️ Off Track</span>`;
             
             const what = `Reach mencapai <b>${reach} akun</b> (${reachRatio.toFixed(1)}% dari followers) & <b>${action} aksi</b>.`;
-            let soWhat = reachRatio >= 15 || action >= 3 ? `Visual/Hook bekerja dengan sangat baik. Audiens tertarik dengan pesan konten.` : `Distribusi terhenti. Audiens <i>drop-off</i> di 3 detik pertama atau visual kurang memancing.`;
-            let nowWhat = reachRatio >= 15 || action >= 3 ? `Format terbukti efektif. Replikasi untuk materi berikutnya.` : `Evaluasi ulang <i>hook</i> visual dan <i>copywriting</i> baris pertama.`;
+            let soWhat = reachRatio >= 15 || action >= 3 ? `Visual/Hook bekerja dengan sangat baik. Audiens tertarik dengan pesan konten.` : `Distribusi terhenti. Audiens drop-off di 3 detik pertama atau visual kurang memancing.`;
+            let nowWhat = reachRatio >= 15 || action >= 3 ? `Format terbukti efektif. Replikasi untuk materi berikutnya.` : `Evaluasi ulang hook visual dan copywriting baris pertama.`;
 
             document.getElementById('mon-wsw').innerHTML = `
                 <div style="margin-bottom:10px;">Status: ${statusBadge} <span style="font-size:12px; color:var(--text-muted);">(Target Reach Ideal: >15% atau Action >3)</span></div>
@@ -814,6 +943,11 @@
             contentDB.push({ title, link, shortcode, month, week, evalDateRaw, datePub, pilar, reach, action, statusBadge, what, soWhat, nowWhat });
             localStorage.setItem('honda_content_db', JSON.stringify(contentDB));
             renderContentDatabase();
+        }
+
+        function loadContentDatabase() {
+            const data = localStorage.getItem('honda_content_db');
+            if(data) { contentDB = JSON.parse(data); renderContentDatabase(); }
         }
 
         function renderContentDatabase() {
@@ -830,16 +964,13 @@
                     <td style="width:70px;">${thumb}</td>
                     <td><b>${item.title}</b><br><a href="${item.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">Bulan: ${item.month}, Minggu: ${item.week}</span></td>
                     <td>${item.pilar}</td>
-                    <td>
-                        <div style="margin-bottom:8px;">${item.statusBadge}</div>
-                        <div style="font-size:11px; color:var(--text-main);"><b>W:</b> ${item.what}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}</div>
-                    </td>
+                    <td><div style="margin-bottom:8px;">${item.statusBadge}</div><div style="font-size:11px; color:var(--text-main);"><b>W:</b> ${item.what}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}</div></td>
                     <td style="width:50px;"><button onclick="contentDB.splice(${idx},1); localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase();" class="btn-sm bg-red">X</button></td>
                 </tr>`;
             });
         }
 
-        // ================= 5. KPI (LOCAL ADD) =================
+        // ================= 5. WEEKLY KPI =================
         function calculateKPILocal() {
             const evalDateRaw = document.getElementById('kpi-eval-date').value;
             if(!evalDateRaw) return alert("Pilih Tanggal Evaluasi!");
@@ -859,6 +990,11 @@
             renderKPIDatabase();
         }
 
+        function loadKPIDatabase() {
+            const data = localStorage.getItem('honda_kpi_db');
+            if(data) { kpiDB = JSON.parse(data); renderKPIDatabase(); }
+        }
+
         function renderKPIDatabase() {
             const fMonth = document.getElementById('filter-kpi-month').value;
             const fWeek = document.getElementById('filter-kpi-week').value;
@@ -876,6 +1012,35 @@
             });
         }
 
+        // ================= 6. AI CARE RESPONSE =================
+        async function generateCareAI() {
+            const apiKey = localStorage.getItem('gemini_api_key');
+            if(!apiKey) return alert("⚠️ API Key Gemini kosong!");
+            
+            const salutation = document.getElementById('care-salutation').value;
+            const name = document.getElementById('care-name').value || "Pelanggan";
+            const comment = document.getElementById('care-input').value;
+            const direction = document.getElementById('care-direction').value;
+            
+            if(!comment) return alert("Masukkan komentar pelanggan!");
+            const btn = document.getElementById('btn-care');
+            btn.innerText = "⏳ Sedang Merakit Balasan..."; btn.disabled = true;
+            
+            const promptText = `Sebagai CS Honda Bintaro, balas komentar ini: "${comment}". 
+Sapa pelanggan ramah: "${salutation} ${name}". Gunakan framework CARE (Connect, Acknowledge, Respond, Extend). Arahkan akhir ke: ${direction}. Tulis natural, langsung output teksnya.`;
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                });
+                const data = await response.json();
+                if(data.error) throw new Error(data.error.message);
+                document.getElementById('care-output').innerText = data.candidates[0].content.parts[0].text;
+                document.getElementById('care-result-box').style.display = 'block';
+            } catch (err) { alert("Error AI: " + err.message); } 
+            finally { btn.innerText = "Buat Balasan CARE via AI 💬"; btn.disabled = false; }
+        }
     </script>
 </body>
 </html>
