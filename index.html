@@ -21,68 +21,52 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
-        /* ================= FLAT CREATIVE GRAFFITI LOGIN SCREEN ================= */
+        /* ================= SPACE FLAT DESIGN LOGIN SCREEN ================= */
         #login-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: 99999;
-            /* Latar belakang mural graffiti dari gambar user */
-            background: url('https://files.oaiusercontent.com/file-K1o2M7vJ39o8vF6KjXv3J?se=2026-07-08T03%3A10%3A18Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D1293c3c7-1a48-43d9-953e-32d2b512c1b2.webp&sig=ZqR7E8zV9c9P%2BMV8t8X29C8N%2BX58E8o2T%2Bi6A%2BR7n4E%3D') center/cover no-repeat;
-            background-color: #f0f4f8; overflow: hidden;
-        }
-        
-        /* Overlay agar form login tetap terbaca di atas gambar mural */
-        #login-screen::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
-            backdrop-filter: blur(5px); z-index: 0;
+            background-color: #0b132b; overflow: hidden;
         }
 
-        /* Animated Floating Elements */
-        .shape { position: absolute; border-radius: 20px; z-index: 1; opacity: 0.8; animation: float 6s infinite ease-in-out; }
-        .shape-1 { width: 120px; height: 120px; background: linear-gradient(45deg, #ff9a9e, #fecfef); top: 15%; left: 20%; animation-delay: 0s; }
-        .shape-2 { width: 180px; height: 180px; background: linear-gradient(45deg, #a18cd1, #fbc2eb); bottom: 10%; right: 15%; border-radius: 50%; animation-delay: -2s; }
-        .shape-3 { width: 80px; height: 80px; background: linear-gradient(45deg, #ffecd2, #fcb69f); top: 50%; left: 75%; animation-delay: -4s; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        /* Stars Background */
+        .stars { position: absolute; width: 100%; height: 100%; z-index: 0; background-image: radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; animation: twinkle 4s infinite alternate; opacity: 0.7; }
+        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
+
+        /* Flat Planets */
+        .planet { position: absolute; border-radius: 50%; z-index: 1; }
+        .planet-1 { width: 150px; height: 150px; background: #e74c3c; top: 15%; left: 15%; box-shadow: inset -15px -15px 0px rgba(0,0,0,0.2); animation: orbit 20s linear infinite; }
+        .planet-2 { width: 80px; height: 80px; background: #3498db; bottom: 20%; right: 20%; box-shadow: inset -10px -10px 0px rgba(0,0,0,0.2); animation: orbit 15s linear infinite reverse; }
+        .planet-3 { width: 40px; height: 40px; background: #f1c40f; top: 30%; right: 30%; box-shadow: inset -5px -5px 0px rgba(0,0,0,0.2); }
+        @keyframes orbit { 100% { transform: rotate(360deg); } }
+
+        /* Shooting Stars (Comets) */
+        .comet { position: absolute; width: 2px; height: 50px; background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0)); z-index: 1; transform: rotate(-45deg); animation: shootingStar 3s infinite linear; opacity: 0; }
+        .comet-1 { top: -50px; left: 30%; animation-delay: 0s; }
+        .comet-2 { top: -50px; left: 70%; animation-delay: 1.5s; height: 80px; }
+        .comet-3 { top: -50px; left: 10%; animation-delay: 2.5s; }
+        @keyframes shootingStar {
+            0% { transform: rotate(-45deg) translate(0, 0); opacity: 1; }
+            100% { transform: rotate(-45deg) translate(-500px, 500px); opacity: 0; }
         }
 
         .login-box {
-            position: relative; z-index: 2; background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(255, 255, 255, 0.5); 
-            padding: 50px 40px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
-            text-align: center; width: 90%; max-width: 420px; backdrop-filter: blur(10px);
+            position: relative; z-index: 2; background: #ffffff; border: 4px solid #eaedf1; 
+            padding: 40px; border-radius: 12px; box-shadow: 10px 10px 0px rgba(0,0,0,0.3); 
+            text-align: center; width: 90%; max-width: 400px;
         }
-        body.dark-mode .login-box { background: rgba(30, 30, 30, 0.9); border-color: rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-
-        .login-box h2 { margin: 0 0 5px 0; color: #2c3e50; font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
-        body.dark-mode .login-box h2 { color: #fff; }
-        .login-box p { color: #7f8c8d; font-size: 14px; margin-bottom: 30px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;}
-        body.dark-mode .login-box p { color: #aaa; }
-
-        .login-box .form-control { 
-            background: #f8f9fa; border: 2px solid #eaedf1; color: #2d3436; padding: 15px; 
-            border-radius: 12px; font-size: 16px; margin-bottom: 20px; width: 100%; 
-            text-align: center; transition: 0.3s; font-weight: 600;
-        }
-        body.dark-mode .login-box .form-control { background: #121212; border-color: #333; color: #fff; }
-        .login-box .form-control:focus { border-color: #e74c3c; outline: none; box-shadow: 0 0 0 4px rgba(231,76,60,0.1); }
         
-        .login-box .btn { 
-            background: linear-gradient(135deg, #e74c3c, #c0392b); font-size: 16px; padding: 16px; 
-            border-radius: 12px; font-weight: 800; border:none; color:white; cursor:pointer; 
-            width:100%; transition:all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(231,76,60,0.4);
-        }
-        .login-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(231,76,60,0.5); }
-        .login-box .error-msg { color: #e74c3c; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(231,76,60,0.1); padding: 10px; border-radius: 8px; }
-
+        .login-box h2 { margin: 0 0 5px 0; color: #2c3e50; font-size: 26px; font-weight: 900; }
+        .login-box p { color: #7f8c8d; font-size: 13px; margin-bottom: 25px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
+        .login-box .form-control { background: #f8f9fa; border: 2px solid #bdc3c7; color: #2c3e50; padding: 15px; border-radius: 6px; font-size: 16px; margin-bottom: 15px; width: 100%; text-align: center; transition: 0.3s; font-weight: bold;}
+        .login-box .form-control:focus { border-color: #e74c3c; outline: none; }
+        .login-box .btn { background: #e74c3c; font-size: 16px; padding: 15px; border-radius: 6px; font-weight: 900; margin-top: 10px; border:none; color:white; cursor:pointer; width:100%; transition:0.3s; text-transform: uppercase;}
+        .login-box .btn:hover { background: #c0392b; transform: translateY(2px); box-shadow: inset 0 3px 0 rgba(0,0,0,0.2); }
+        .login-box .error-msg { color: #e74c3c; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #fadbd8; padding: 10px; border-radius: 6px; border: 1px solid #e74c3c;}
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
         .header { background: var(--card-bg); padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; transition: background 0.3s; }
-        .header-title h1 { margin: 0; font-size: 24px; color: var(--primary); font-weight: 800; letter-spacing: -0.5px; }
+        .header-title h1 { margin: 0; font-size: 24px; color: var(--primary); font-weight: 900; letter-spacing: -0.5px; }
         .header-title p { margin: 4px 0 0 0; font-size: 13px; color: var(--text-muted); }
         .header-actions { display: flex; gap: 10px; align-items: center; }
         
@@ -99,14 +83,14 @@
         .tool-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; transition: 0.2s; position: relative; overflow: hidden; }
         .tool-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); transform: translateY(-3px); border-color: var(--primary); }
         .tool-icon { display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 10px; font-size: 20px; margin-bottom: 15px; }
-        .tool-card h3 { margin: 0 0 8px 0; font-size: 17px; color: var(--primary); }
+        .tool-card h3 { margin: 0 0 8px 0; font-size: 17px; color: var(--primary); font-weight: bold; }
         .tool-card p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
         /* FORM ELEMENTS & ACCORDIONS */
         .tool-section { display: none; background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border); animation: fadeIn 0.4s ease; margin-bottom: 30px;}
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .section-header { border-bottom: 2px solid var(--border); padding-bottom: 15px; margin-bottom: 25px; }
-        .section-header h2 { margin: 0; color: var(--primary); display:flex; align-items:center; gap:8px; }
+        .section-header h2 { margin: 0; color: var(--primary); display:flex; align-items:center; gap:8px; font-weight: 900; }
         .section-header p { margin: 5px 0 0 0; color: var(--text-muted); font-size: 13px; }
 
         .form-row { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; }
@@ -116,7 +100,8 @@
         .form-control:focus { outline: none; border-color: var(--primary); }
         textarea.form-control { resize: vertical; min-height: 80px; }
         
-        .btn { padding: 12px 20px; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%;}
+        /* Perbaikan Jarak Tombol Evaluasi/Generate ke Result Box */
+        .btn { padding: 12px 20px; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; margin-bottom: 30px; /* Tambahan margin bottom */ }
         .btn-accent { background: var(--accent); }
         
         /* COLLAPSIBLE ACCORDION STYLE USING DETAILS */
@@ -185,15 +170,22 @@
 
         /* FULLSCREEN SPREADSHEET */
         .fullscreen-mode { position: fixed !important; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 9999; background: var(--bg); border-radius:0 !important; border:none !important; padding:0 !important; margin:0 !important;}
+        
+        .result-box { background: var(--bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-top: 25px;} /* Extra margin-top applied */
     </style>
 </head>
 <body>
 
-    <!-- ================= FLAT CREATIVE LOGIN SCREEN ================= -->
+    <!-- ================= SPACE FLAT DESIGN LOGIN SCREEN ================= -->
     <div id="login-screen">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
+        <div class="stars"></div>
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+        <div class="planet planet-3"></div>
+        <div class="comet comet-1"></div>
+        <div class="comet comet-2"></div>
+        <div class="comet comet-3"></div>
+        
         <div class="login-box">
             <h2>Digital Marketing</h2>
             <p>Honda Bintaro Framework</p>
@@ -267,7 +259,7 @@
             <div id="spreadsheet-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div><h2>📊 Database & Content Plan</h2></div>
-                    <button class="btn btn-accent" style="width:auto; padding:8px 15px;" onclick="toggleFullScreen('sheet-wrap', 'btn-exit-fs')">Layar Penuh ⛶</button>
+                    <button class="btn btn-accent" style="width:auto; padding:8px 15px; margin-bottom: 0;" onclick="toggleFullScreen('sheet-wrap', 'btn-exit-fs')">Layar Penuh ⛶</button>
                 </div>
                 
                 <div class="sheet-tabs">
@@ -408,7 +400,7 @@
                                 </table>
                             </div>
                             
-                            <button class="btn btn-accent" onclick="cekHasilAudit()">📝 Generate Ringkasan Audit</button>
+                            <button class="btn btn-accent" style="margin-bottom:0;" onclick="cekHasilAudit()">📝 Generate Ringkasan Audit</button>
                             <div id="audit-summary-box" class="result-box" style="display:none; background:var(--card-bg); border-left:4px solid var(--primary);">
                                 <h4 style="margin-top:0; color:var(--primary);">Hasil Audit Cepat</h4>
                                 <p id="audit-summary-text" style="font-size:14px; white-space:pre-wrap; margin:0;"></p>
@@ -422,7 +414,6 @@
             <div id="monitor-section" class="tool-section">
                 <div class="section-header"><h2>🎯 Content Performance Monitor</h2></div>
                 
-                <!-- Collapsible GitHub Config Box -->
                 <details class="config-accordion">
                     <summary>🔗 GitHub Integration Sync (Content Monitor)</summary>
                     <div style="padding:10px;">
@@ -444,11 +435,11 @@
                 </details>
 
                 <div class="form-row">
-                    <div class="form-group"><label>Nama / Judul Konten</label><input type="text" id="mon-title" class="form-control" placeholder="Contoh: Reels Edukasi Hybrid"></div>
-                    <div class="form-group"><label>Link / URL Konten</label><input type="text" id="mon-link" class="form-control" placeholder="https://www.instagram.com/..." oninput="generateThumbnailPreview(this.value)"></div>
-                    <div class="form-group" style="flex:0.3; text-align:center;">
+                    <div class="form-group" style="flex: 2;"><label>Nama / Judul Konten</label><input type="text" id="mon-title" class="form-control" placeholder="Contoh: Reels Edukasi Hybrid"></div>
+                    <div class="form-group" style="flex: 2;"><label>Link / URL Konten</label><input type="text" id="mon-link" class="form-control" placeholder="https://www.instagram.com/..." oninput="generateThumbnailPreview(this.value)"></div>
+                    <div class="form-group" style="flex: 0.5; text-align:center;">
                         <label>Thumbnail</label>
-                        <div id="thumb-container" class="thumb-preview">(Auto)</div>
+                        <div id="thumb-container" class="thumb-preview" style="margin:auto;">(Auto)</div>
                     </div>
                 </div>
                 
@@ -517,7 +508,6 @@
             <div id="kpi-section" class="tool-section">
                 <div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2></div>
                 
-                <!-- Synced GitHub Config Box -->
                 <details class="config-accordion">
                     <summary>🔗 GitHub Integration Sync (Channel Evaluator)</summary>
                     <div style="padding:10px;">
@@ -541,7 +531,7 @@
                 <div style="display:flex; gap:20px; flex-wrap:wrap;">
                     <div style="flex:1; min-width:300px;">
                         <div class="form-row">
-                            <div class="form-group"><label>Periode Evaluasi</label><select id="kpi-period" class="form-control"><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select></div>
+                            <div class="form-group"><label>Periode Evaluasi</label><select id="kpi-period" class="form-control" onchange="toggleKPIDate()"><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select></div>
                             <div class="form-group"><label>Platform Media</label><select id="kpi-platform" class="form-control"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select></div>
                         </div>
                         <div class="form-group"><label>Tanggal Evaluasi (Kalender)</label><input type="date" id="kpi-eval-date" class="form-control"></div>
@@ -611,9 +601,11 @@
                 <div class="form-group">
                     <label>Arahkan percakapan ke mana? (Extend)</label>
                     <select id="care-direction" class="form-control">
-                        <option value="Arahkan mereka untuk klik Link di Bio untuk cek promo.">Arahkan ke Link Bio (Cek Promo)</option>
+                        <option value="Arahkan mereka untuk klik Link di Bio (Cek Promo).">Arahkan ke Link Bio (Cek Promo)</option>
                         <option value="Arahkan mereka untuk melakukan Test Drive di Dealer Honda Bintaro.">Arahkan ke Test Drive</option>
                         <option value="Minta mereka untuk DM nomor WA agar bisa dihubungi Sales.">Minta Drop Nomor WA via DM</option>
+                        <option value="Arahkan mereka untuk menghubungi Whatsapp Booking Service di nomor 0811-9789-983.">Whatsapp Booking Service (0811-9789-983)</option>
+                        <option value="Arahkan mereka untuk menghubungi Whatsapp Service (General) di nomor 0851-1102-6559.">Whatsapp Service (0851-1102-6559)</option>
                         <option value="Berikan edukasi fitur dengan ramah, jangan menjelekkan kompetitor.">Edukasi Fitur / Klarifikasi (Defensive)</option>
                     </select>
                 </div>
@@ -669,7 +661,7 @@
             <div id="elearning-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div><h2>🎓 E-Learning Hub</h2></div>
-                    <button class="btn bg-blue" style="width:auto; padding:8px 15px;" onclick="window.open('https://elearning.argust.my.id', '_blank')">Buka di Tab Baru ↗</button>
+                    <button class="btn bg-blue" style="width:auto; padding:8px 15px; margin-bottom: 0;" onclick="window.open('https://elearning.argust.my.id', '_blank')">Buka di Tab Baru ↗</button>
                 </div>
                 <div style="width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:var(--card-bg);">
                     <iframe src="https://elearning.argust.my.id" style="width: 100%; height: 100%; border: none;"></iframe>
@@ -697,7 +689,7 @@
             </div>
             <div class="gh-modal-footer">
                 <div class="gh-current-path" id="gh-modal-path">Path: /</div>
-                <button id="gh-btn-select-folder" class="btn-sm bg-green" style="display:none;" onclick="selectGHFolder()">Pilih Folder Ini</button>
+                <button id="gh-btn-select-folder" class="btn-sm bg-green" style="display:none; margin-bottom: 0;" onclick="selectGHFolder()">Pilih Folder Ini</button>
             </div>
         </div>
     </div>
@@ -709,7 +701,7 @@
 
     <script>
         // ================= GLOBAL CONFIGS =================
-        const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // reverse of b3JhdG5pYmFkbm9obWQ= -> dmhondabintaro
+        const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
         let contentDB = []; let kpiDB = [];
         let currentGHPath = ""; let currentGHTargetInput = ""; let currentGHMode = "file";
 
@@ -907,7 +899,7 @@
             if(file) {
                 const url = URL.createObjectURL(file);
                 preview.innerHTML = file.type.startsWith('video/') ? `<video src="${url}" controls></video>` : `<img src="${url}">`;
-            } else { preview.innerHTML = `<span style="color:var(--text-muted); font-size:12px;">Preview Gambar/Video akan muncul di sini</span>`; }
+            } else { preview.innerHTML = `<span style="color:var(--text-muted); font-size:12px;">Preview Gambar/Video</span>`; }
         }
         function cekHasilAudit() {
             const total = document.querySelectorAll('.chk-item').length;
@@ -1020,6 +1012,10 @@
             } else { container.innerHTML = "(Auto)"; }
         }
 
+        function toggleMonitorDate() {
+            // Placeholder func jika butuh ubah logic mingguan/bulanan
+        }
+
         function evaluateContentLocal() {
             const title = document.getElementById('mon-title').value || "Konten Tanpa Judul";
             const link = document.getElementById('mon-link').value || "#";
@@ -1043,7 +1039,10 @@
             let soWhat = reachRatio >= 15 ? `Visual/Hook bekerja dengan baik.` : `Hook visual kurang optimal menahan drop-off audiens.`;
             let nowWhat = reachRatio >= 15 ? `Format terbukti efektif, replikasi materi.` : `Evaluasi ulang hook visual dan copywriting baris pertama.`;
 
-            document.getElementById('mon-wsw').innerHTML = `<b>WHAT:</b> ${what}<br><b>SO WHAT:</b> ${soWhat}<br><b>NOW WHAT:</b> ${nowWhat}`;
+            document.getElementById('mon-wsw').innerHTML = `
+                <div style="margin-bottom:10px;">Status: ${statusBadge} <span style="font-size:12px; color:var(--text-muted);">(Target Reach Ideal: >15% atau Action >3)</span></div>
+                <b>WHAT:</b> ${what}<br><b>SO WHAT:</b> ${soWhat}<br><b>NOW WHAT:</b> ${nowWhat}
+            `;
             document.getElementById('mon-result').style.display = 'block';
             
             const match = link.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
@@ -1071,17 +1070,25 @@
                 (fCategory === "All" || item.category === fCategory)
             ).forEach((item, idx) => {
                 const thumb = item.shortcode ? `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${item.shortcode}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
+                
+                // Construct WSW with bold prefixes exactly like screenshot
+                const wswHTML = `<b>W:</b> ${item.what}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}`;
+
                 tbody.innerHTML += `<tr>
                     <td>${thumb}</td>
-                    <td><b>${item.title}</b><br><a href="${item.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">${item.month} - W${item.week}</span></td>
-                    <td><span class="badge bg-dark">${item.platform}</span> <span class="badge bg-gray">${item.category}</span><br><small>${item.pilar}</small></td>
-                    <td><div style="margin-bottom:5px;">${item.statusBadge}</div><div style="font-size:11px; line-height:1.4;">${item.what}</div></td>
-                    <td><button onclick="contentDB.splice(${idx},1); localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase();" class="btn-sm bg-red">X</button></td>
+                    <td><b>${item.title}</b><br><a href="${item.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">Bulan: ${item.month}, Minggu: ${item.week}</span></td>
+                    <td><span class="badge bg-dark">${item.platform}</span> <span class="badge bg-gray">${item.category || ''}</span><br><small>${item.pilar}</small></td>
+                    <td><div style="margin-bottom:5px;">${item.statusBadge}</div><div style="font-size:11px; line-height:1.4; color:var(--text-main);">${wswHTML}</div></td>
+                    <td style="text-align:center;"><button onclick="contentDB.splice(${idx},1); localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase();" class="btn-sm bg-red">X</button></td>
                 </tr>`;
             });
         }
 
         // ================= 5. WEEKLY/MONTHLY CHANNEL EVALUATOR =================
+        function toggleKPIDate() {
+            // Placeholder
+        }
+
         function calculateKPILocal() {
             const evalDateRaw = document.getElementById('kpi-eval-date').value;
             if(!evalDateRaw) return alert("Pilih Tanggal Evaluasi!");
@@ -1120,7 +1127,7 @@
                     <td><span class="badge bg-dark">${item.platform}</span><br><small>${item.period}</small></td>
                     <td>${item.foll.toLocaleString()}</td><td>${item.int.toLocaleString()}</td>
                     <td style="font-weight:bold;">${item.er}%</td><td>${item.status}</td>
-                    <td><button onclick="kpiDB.splice(${idx},1); localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase();" class="btn-sm bg-red">X</button></td>
+                    <td style="text-align:center;"><button onclick="kpiDB.splice(${idx},1); localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase();" class="btn-sm bg-red">X</button></td>
                 </tr>`;
             });
         }
@@ -1166,12 +1173,14 @@
             if(!comment) return alert("Masukkan komentar!");
             const btn = document.getElementById('btn-care'); btn.innerText = "⏳ Merakit Balasan..."; btn.disabled = true;
             
-            const promptText = `Sebagai CS Honda Bintaro, balas komentar: "${comment}". Sapa ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan ke: ${direction}. Tulis bahasa Indonesia natural.`;
+            const promptText = `Sebagai CS Honda Bintaro, balas komentar: "${comment}". 
+Sapa pelanggan ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan ke: ${direction}. Tulis bahasa Indonesia natural.`;
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
                 });
                 const data = await response.json();
+                if(data.error) throw new Error(data.error.message);
                 const outText = data.candidates[0].content.parts[0].text;
                 document.getElementById('care-output').innerText = outText;
                 document.getElementById('care-result-box').style.display = 'block';
