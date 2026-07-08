@@ -1,11 +1,13 @@
 [
   {
     "month": "Juli",
-    "week": "1",
-    "evalDateRaw": "2026-07-07",
+    "week": "2",
+    "evalDateRaw": "2026-07-08",
+    "period": "Weekly",
+    "platform": "Instagram",
     "foll": 15381,
-    "int": 1200,
-    "er": "7.80",
+    "int": 3500,
+    "er": "22.76",
     "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
   }
 ]
