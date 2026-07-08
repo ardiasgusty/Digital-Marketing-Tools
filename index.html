@@ -21,37 +21,40 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
-        /* ================= CREATIVE FLUID LOGIN SCREEN ================= */
+        /* ================= SPACE FLAT DESIGN LOGIN SCREEN ================= */
         #login-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: 99999;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
-            overflow: hidden;
+            background-color: #0b1320; overflow: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        .stars { position: absolute; width: 100%; height: 100%; z-index: 0; background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 80px 70px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 150px 160px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 250px 40px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 300px 180px, #fff, rgba(0,0,0,0)); background-repeat: repeat; background-size: 350px 350px; opacity: 0.6; animation: twinkle 4s infinite alternate;}
+        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
 
-        /* Glassmorphism Login Box */
+        .planet { position: absolute; border-radius: 50%; z-index: 1; }
+        .planet-red { width: 160px; height: 160px; background: #e74c3c; top: 15%; left: 10%; box-shadow: inset -15px -15px 0px rgba(0,0,0,0.15); }
+        .planet-yellow { width: 45px; height: 45px; background: #f1c40f; top: 30%; right: 28%; box-shadow: inset -5px -5px 0px rgba(0,0,0,0.15); }
+        .planet-blue { width: 90px; height: 90px; background: #3498db; bottom: 15%; right: 15%; box-shadow: inset -10px -10px 0px rgba(0,0,0,0.15); }
+
+        .comet { position: absolute; width: 2px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0)); z-index: 1; transform: rotate(-45deg); animation: shootingStar 4s infinite linear; opacity: 0; }
+        .comet-1 { top: 0px; left: 30%; animation-delay: 1s; }
+        .comet-2 { top: -50px; left: 70%; animation-delay: 2.5s; height: 100px; }
+        .comet-3 { top: 20%; left: 80%; animation-delay: 3.5s; }
+        @keyframes shootingStar { 0% { transform: rotate(-45deg) translate(0, 0); opacity: 1; } 100% { transform: rotate(-45deg) translate(-800px, 800px); opacity: 0; } }
+
         .login-box {
-            position: relative; z-index: 2; background: rgba(255, 255, 255, 0.15); 
-            border: 1px solid rgba(255, 255, 255, 0.3); padding: 50px 40px; 
-            border-radius: 20px; box-shadow: 0 25px 45px rgba(0,0,0,0.2); 
-            text-align: center; width: 90%; max-width: 420px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: relative; z-index: 2; background: #ffffff; border: 4px solid #eaedf1; 
+            padding: 45px 40px; border-radius: 12px; box-shadow: 10px 10px 0px rgba(0,0,0,0.3); 
+            text-align: center; width: 90%; max-width: 400px;
         }
         
-        .login-box h2 { margin: 0 0 5px 0; color: #fff; font-size: 32px; font-weight: 900; letter-spacing: -0.5px; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .login-box p { color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 35px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;}
-        .login-box .form-control { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); color: #fff; padding: 15px; border-radius: 10px; font-size: 16px; margin-bottom: 20px; width: 100%; text-align: center; transition: 0.3s; font-weight: bold;}
-        .login-box .form-control::placeholder { color: rgba(255,255,255,0.6); }
-        .login-box .form-control:focus { border-color: #fff; outline: none; background: rgba(255,255,255,0.3);}
-        .login-box .btn { background: #fff; font-size: 16px; padding: 15px; border-radius: 10px; font-weight: 900; margin-top: 5px; border:none; color:#e73c7e; cursor:pointer; width:100%; transition:all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
-        .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(231,76,60,0.8); padding: 10px; border-radius: 8px; }
+        .login-box h2 { margin: 0 0 5px 0; color: #2c3e50; font-size: 26px; font-weight: 900; }
+        .login-box p { color: #7f8c8d; font-size: 12px; margin-bottom: 30px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;}
+        .login-box .form-control { background: #f8f9fa; border: 2px solid #bdc3c7; color: #2c3e50; padding: 14px; border-radius: 4px; font-size: 15px; margin-bottom: 20px; width: 100%; text-align: center; transition: 0.3s; font-weight: bold;}
+        .login-box .form-control:focus { border-color: #e74c3c; outline: none; }
+        .login-box .btn { background: #e74c3c; font-size: 16px; padding: 14px; border-radius: 4px; font-weight: 900; margin-top: 5px; border:none; color:white; cursor:pointer; width:100%; transition:0.3s; text-transform: uppercase; letter-spacing: 0.5px;}
+        .login-box .btn:hover { background: #c0392b; transform: translateY(2px); box-shadow: inset 0 3px 0 rgba(0,0,0,0.2); }
+        .login-box .error-msg { color: #e74c3c; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #fadbd8; padding: 10px; border-radius: 6px; border: 1px solid #e74c3c;}
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
@@ -90,7 +93,6 @@
         .form-control:focus { outline: none; border-color: var(--primary); }
         textarea.form-control { resize: vertical; min-height: 80px; }
         
-        /* Margin Fix */
         .btn { padding: 12px 20px; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; margin-bottom: 30px; }
         .btn-accent { background: var(--accent); }
         
@@ -103,10 +105,29 @@
         .data-table th, .data-table td { border: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top;}
         .data-table th { background: var(--primary); color: white; border-color: var(--primary); }
         
-        .btn-sm { padding: 8px 12px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 5px;}
+        .btn-sm { padding: 8px 12px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; display: inline-flex; align-items: center; gap: 5px; justify-content:center;}
         .bg-red { background: #e74c3c; } .bg-green { background: #27ae60; } .bg-dark { background: #2c3e50; } .bg-gray { background: #95a5a6; } .bg-blue { background: #3498db; }
         .badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight:bold; color: white; display:inline-block; margin-bottom:3px; }
         .thumb-preview { width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background: var(--bg); display:flex; align-items:center; justify-content:center; text-align:center; font-size:10px; color:var(--text-muted); padding:2px;}
+
+        /* GITHUB CONFIG BOXES */
+        .target-box { background: #e8f4fd; border: 1px dashed #3498db; padding: 15px; border-radius: 8px; margin-bottom: 20px;}
+        body.dark-mode .target-box { background: rgba(52, 152, 219, 0.1); }
+        .input-group { display: flex; gap: 10px; align-items: center; }
+        .input-group .form-control { margin-bottom: 0; }
+        
+        /* GITHUB MODAL */
+        #gh-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .gh-modal-content { background: var(--card-bg); width: 90%; max-width: 600px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .gh-modal-header { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .gh-modal-header h3 { margin: 0; font-size: 16px; }
+        .gh-modal-close { background: var(--accent); color: white; border: none; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .gh-modal-body { padding: 0; max-height: 60vh; overflow-y: auto; background: var(--bg); }
+        .gh-list-item { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s; color: var(--text-main); font-size: 14px; }
+        .gh-list-item:hover { background: var(--card-bg); }
+        .gh-icon { font-size: 18px; }
+        .gh-modal-footer { padding: 15px 20px; background: var(--card-bg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .gh-current-path { font-size: 12px; color: var(--text-muted); word-break: break-all; }
 
         /* SPREADSHEET TABS */
         .sheet-tabs { display: flex; gap: 8px; margin-bottom: 15px; overflow-x: auto; }
@@ -141,14 +162,25 @@
         .fullscreen-mode { position: fixed !important; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 9999; background: var(--bg); border-radius:0 !important; border:none !important; padding:0 !important; margin:0 !important;}
         .result-box { background: var(--bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-top: 0px; margin-bottom: 20px; }
         
-        .target-box { background: #e8f4fd; border: 1px dashed #3498db; padding: 15px; border-radius: 8px; margin-bottom: 20px;}
-        body.dark-mode .target-box { background: rgba(52, 152, 219, 0.1); }
+        /* DISTRIBUTION SECTION PIE CHART */
+        .chart-container { width: 100%; max-width: 300px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .dist-legend { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; }
+        .dist-legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; }
+        .color-box { width: 12px; height: 12px; border-radius: 3px; }
     </style>
 </head>
 <body>
 
-    <!-- ================= CREATIVE FLUID LOGIN SCREEN ================= -->
+    <!-- ================= SPACE FLAT DESIGN LOGIN SCREEN ================= -->
     <div id="login-screen">
+        <div class="stars"></div>
+        <div class="planet planet-red"></div>
+        <div class="planet planet-yellow"></div>
+        <div class="planet planet-blue"></div>
+        <div class="comet comet-1"></div>
+        <div class="comet comet-2"></div>
+        <div class="comet comet-3"></div>
+        
         <div class="login-box">
             <h2>Digital Marketing</h2>
             <p>Honda Bintaro Framework</p>
@@ -172,7 +204,7 @@
         </header>
 
         <main class="main-content">
-            <div id="btn-back" class="back-nav" onclick="showHome()">← Kembali ke Menu Utama</div>
+            <div id="btn-back" class="back-nav" onclick="backAction()">← Kembali</div>
 
             <!-- MENU GRID -->
             <div class="tools-grid" id="menu-grid">
@@ -195,7 +227,12 @@
                 <div class="tool-card" onclick="openTool('analytics-hub')">
                     <div class="tool-icon" style="background: #dff9fb; color: #22a6b3;">🎯</div>
                     <h3>Performance & Analytics</h3>
-                    <p>Evaluasi Reach, Engagement, dan KPI Channel dengan target WSW kustom.</p>
+                    <p>Evaluasi Reach, Engagement, dan KPI Channel dengan target WSN kustom.</p>
+                </div>
+                <div class="tool-card" onclick="openTool('distribution')">
+                    <div class="tool-icon" style="background: #ffeaa7; color: #f39c12;">🥧</div>
+                    <h3>Content Distribution Planner</h3>
+                    <p>Analisa persentase pilar konten bulanan dari data Awareness Monitor.</p>
                 </div>
                 <div class="tool-card" onclick="openTool('response')">
                     <div class="tool-icon" style="background: #ffe0b2; color: #e17055;">💬</div>
@@ -233,6 +270,41 @@
                 </div>
             </div>
 
+            <!-- ================= NEW MENU: CONTENT DISTRIBUTION ================= -->
+            <div id="distribution-section" class="tool-section">
+                <div class="section-header"><h2>🥧 Content Distribution Planner</h2><p>Hitung persentase sebaran pilar konten per bulan berdasarkan data JSON Awareness Monitor dan bandingkan dengan standar ideal.</p></div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Pilih Bulan Analisa</label>
+                        <select id="dist-month" class="form-control">
+                            <option>Januari</option><option>Februari</option><option>Maret</option><option>April</option><option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option><option>September</option><option>Oktober</option><option>November</option><option>Desember</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="btn btn-accent" onclick="calculateDistribution()">Hitung Distribusi Konten 🥧</button>
+
+                <div id="dist-result-box" class="result-box" style="display:none; background:var(--card-bg); border-left:4px solid var(--warning);">
+                    <h4 style="margin-top:0; color:var(--primary);">Hasil Distribusi Pilar</h4>
+                    <div class="two-col-layout" style="grid-template-columns: 1fr 1fr;">
+                        <div>
+                            <p style="font-size:14px; font-weight:bold;">Total Konten Bulan Ini: <span id="dist-total" style="color:var(--accent); font-size:18px;">0</span></p>
+                            <table class="data-table">
+                                <thead><tr><th>Pilar Konten</th><th>Aktual (%)</th><th>Standar Ideal (%)</th></tr></thead>
+                                <tbody id="dist-table-body"></tbody>
+                            </table>
+                            <p id="dist-analysis" style="font-size:13px; margin-top:15px; color:var(--text-muted); line-height:1.5;"></p>
+                        </div>
+                        <div class="chart-container">
+                            <!-- Simple CSS Pie Chart Representation -->
+                            <div id="css-pie-chart" style="width:150px; height:150px; border-radius:50%; background: #eee;"></div>
+                            <div class="dist-legend" id="dist-legend-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ================= 1. SPREADSHEET ================= -->
             <div id="spreadsheet-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
@@ -262,13 +334,21 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group"><label>Framework</label><select id="gen-framework" class="form-control" onchange="updateDynamicLabels()"><option value="PAS (Problem, Agitate, Solution)">PAS (Problem, Agitate, Solution)</option><option value="FAB (Feature, Advantage, Benefit)">FAB (Feature, Advantage, Benefit)</option></select></div>
+                    <div class="form-group">
+                        <label>Framework</label>
+                        <select id="gen-framework" class="form-control" onchange="updateDynamicLabels()">
+                            <option value="PAS (Problem, Agitate, Solution)">PAS (Problem, Agitate, Solution)</option>
+                            <option value="FAB (Feature, Advantage, Benefit)">FAB (Feature, Advantage, Benefit)</option>
+                            <option value="StorBrand (Story, Brand, Offer)">StorBrand (Story, Brand, Offer)</option>
+                            <option value="AIDA (Attention, Interest, Desire, Action)">AIDA (Attention, Interest, Desire, Action)</option>
+                        </select>
+                    </div>
                     <div class="form-group"><label>Nama Produk / Promo</label><input type="text" id="gen-product" class="form-control"></div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group"><label id="lbl-prob">Masalah / Pain Point</label><input type="text" id="gen-problem" class="form-control"></div>
-                    <div class="form-group"><label id="lbl-feat">Solusi / Fitur</label><input type="text" id="gen-feature" class="form-control"></div>
+                    <div class="form-group"><label id="lbl-prob">Masalah / Pain Point (Problem)</label><input type="text" id="gen-problem" class="form-control"></div>
+                    <div class="form-group"><label id="lbl-feat">Solusi yang Ditawarkan (Solution)</label><input type="text" id="gen-feature" class="form-control"></div>
                 </div>
                 
                 <div class="form-group"><label>Call-to-Action (CTA)</label><input type="text" id="gen-cta" class="form-control" placeholder="Contoh: Test drive sekarang, link di bio!"></div>
@@ -327,27 +407,35 @@
                 </div>
             </div>
 
-            <!-- ================= 4. AWARENESS CPM (FOLLOWER BASED) ================= -->
+            <!-- ================= 4A. AWARENESS CPM (FOLLOWER BASED) ================= -->
             <div id="mon-awareness-section" class="tool-section">
                 <div class="section-header"><h2>👀 Awareness Monitor (Follower Based)</h2><p>Evaluasi jangkauan konten berdasarkan rasio <b>Reach vs Followers</b>.</p></div>
                 
                 <details class="config-accordion"><summary>🔗 Pengaturan Target & GitHub Sync (Awareness DB)</summary>
                     <div style="padding:10px;">
                         <div class="target-box">
-                            <h4 style="margin:top:0; color:var(--info);">🎯 Atur Target Awareness</h4>
+                            <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Awareness</h4>
                             <div class="form-row">
-                                <div class="form-group"><label>Target Reach Ratio (%)</label><input type="number" id="cpm-aw-target-reach" class="form-control" value="15" step="0.1"></div>
-                                <div class="form-group"><label>Target Interaksi / Aksi (Saves/DM/Clicks)</label><input type="number" id="cpm-aw-target-action" class="form-control" value="3"></div>
+                                <div class="form-group"><label>Target Reach Ratio Minimal (%)</label><input type="number" id="cpm-aw-target-reach" class="form-control" value="15" step="0.1"></div>
+                                <div class="form-group"><label>Target Aksi Minimal (Saves/DM/Clicks dll)</label><input type="number" id="cpm-aw-target-action" class="form-control" value="3"></div>
                             </div>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Berdasarkan benchmark algoritma Instagram & TikTok terbaru, jangkauan organik akun sehat minimal menyentuh 15% dari total followers untuk dapat direkomendasikan lebih luas.</p>
                         </div>
                         <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
                             <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
                         </div>
-                        <div class="form-group"><label>File Path JSON (Awareness DB)</label><input type="text" id="gh-path-aw" class="form-control gh-sync-path-aw" placeholder="Contoh: data/cpm_awareness.json" onchange="syncGHFields(this.value, 'pathAw')"></div>
-                        <!-- API Gemini untuk WSW AI -->
-                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSW AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSW menyala" oninput="syncApiKey(this.value)"></div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex:2;">
+                                <label>File Path JSON (Awareness DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-aw" class="form-control gh-sync-path-aw" placeholder="Contoh: data/cpm_awareness.json" onchange="syncGHFields(this.value, 'pathAw')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-aw')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -374,13 +462,13 @@
                 <div class="form-row">
                     <div class="form-group"><label>Followers Saat Ini</label><input type="number" id="aw-foll" class="form-control" value="15381"></div>
                     <div class="form-group"><label>Total Reach</label><input type="number" id="aw-reach" class="form-control" placeholder="0"></div>
-                    <div class="form-group"><label>Total Aksi (Saves/DM/Clicks)</label><input type="number" id="aw-action" class="form-control" placeholder="0"></div>
+                    <div class="form-group"><label>Total Aksi (Saves/DM/Clicks dll)</label><input type="number" id="aw-action" class="form-control" placeholder="0"></div>
                 </div>
                 
                 <button id="btn-eval-aw" class="btn btn-accent" onclick="evaluateCPM('awareness')">Evaluasi & Tambah ke Tabel 👇</button>
                 
                 <div id="aw-result" class="result-box" style="display:none; border-left:4px solid var(--success); background:var(--card-bg);">
-                    <h3 style="margin-top:0; color:var(--primary);">📊 Insight Evaluasi (W-S-W) AI</h3>
+                    <h3 style="margin-top:0; color:var(--primary);">📊 Insight Evaluasi (W-S-N) AI</h3>
                     <div id="aw-wsw" style="font-size:14px; line-height:1.6;"></div>
                 </div>
 
@@ -399,7 +487,7 @@
 
                 <div style="overflow-x:auto;">
                     <table class="data-table">
-                        <thead><tr><th>Preview</th><th>Detail Konten</th><th>Platform & Pilar</th><th>Performa (W-S-W)</th><th>Aksi</th></tr></thead>
+                        <thead><tr><th>Preview</th><th>Detail Konten</th><th>Platform & Pilar</th><th>Performa (W-S-N)</th><th>Aksi</th></tr></thead>
                         <tbody id="db-body-aw"></tbody>
                     </table>
                 </div>
@@ -407,21 +495,30 @@
 
             <!-- ================= 4B. ENGAGEMENT CPM (REACH BASED) ================= -->
             <div id="mon-engagement-section" class="tool-section">
-                <div class="section-header"><h2>❤️ Engagement Monitor (Reach Based)</h2><p>Evaluasi interaksi konten berdasarkan rasio <b>Aksi vs Reach</b> (Fokus pada algoritma *non-follower*).</p></div>
+                <div class="section-header"><h2>❤️ Engagement Monitor (Reach Based)</h2><p>Evaluasi interaksi konten berdasarkan rasio <b>Aksi vs Reach</b> (Fokus pada efektivitas konten terhadap *non-follower*).</p></div>
                 
                 <details class="config-accordion"><summary>🔗 Pengaturan Target & GitHub Sync (Engagement DB)</summary>
                     <div style="padding:10px;">
                         <div class="target-box">
-                            <h4 style="margin:top:0; color:var(--info);">🎯 Atur Target Engagement Rate on Reach (ERR)</h4>
-                            <div class="form-group"><label>Target ERR (%)</label><input type="number" id="cpm-en-target-err" class="form-control" value="3.5" step="0.1"></div>
+                            <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Engagement Rate on Reach (ERR)</h4>
+                            <div class="form-group"><label>Target ERR Minimal (%)</label><input type="number" id="cpm-en-target-err" class="form-control" value="3.5" step="0.1"></div>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Standar interaksi industri otomotif. Dari total audiens yang melihat (Reach), minimal 3.5% harus melakukan aksi agar konten dinilai 'berkualitas' oleh algoritma penyebaran (Explore/FYP).</p>
                         </div>
                         <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
                             <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
                         </div>
-                        <div class="form-group"><label>File Path JSON (Engagement DB)</label><input type="text" id="gh-path-en" class="form-control gh-sync-path-en" placeholder="Contoh: data/cpm_engagement.json" onchange="syncGHFields(this.value, 'pathEn')"></div>
-                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSW AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSW menyala" oninput="syncApiKey(this.value)"></div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex:2;">
+                                <label>File Path JSON (Engagement DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-en" class="form-control gh-sync-path-en" placeholder="Contoh: data/cpm_engagement.json" onchange="syncGHFields(this.value, 'pathEn')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-en')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -447,13 +544,13 @@
 
                 <div class="form-row">
                     <div class="form-group"><label>Total Reach (Views)</label><input type="number" id="en-reach" class="form-control" placeholder="0"></div>
-                    <div class="form-group"><label>Total Aksi Interaksi (Likes/Komen/Share/Save/Klik)</label><input type="number" id="en-action" class="form-control" placeholder="0"></div>
+                    <div class="form-group"><label>Total Aksi Interaksi (Saves/DM/Clicks/Share dll)</label><input type="number" id="en-action" class="form-control" placeholder="0"></div>
                 </div>
                 
                 <button id="btn-eval-en" class="btn btn-accent" onclick="evaluateCPM('engagement')">Evaluasi & Tambah ke Tabel 👇</button>
                 
                 <div id="en-result" class="result-box" style="display:none; border-left:4px solid var(--success); background:var(--card-bg);">
-                    <h3 style="margin-top:0; color:var(--primary);">📊 Insight Evaluasi (W-S-W) AI</h3>
+                    <h3 style="margin-top:0; color:var(--primary);">📊 Insight Evaluasi (W-S-N) AI</h3>
                     <div id="en-wsw" style="font-size:14px; line-height:1.6;"></div>
                 </div>
 
@@ -472,7 +569,7 @@
 
                 <div style="overflow-x:auto;">
                     <table class="data-table">
-                        <thead><tr><th>Preview</th><th>Detail Konten</th><th>Platform & Pilar</th><th>Performa (W-S-W)</th><th>Aksi</th></tr></thead>
+                        <thead><tr><th>Preview</th><th>Detail Konten</th><th>Platform & Pilar</th><th>Performa (W-S-N)</th><th>Aksi</th></tr></thead>
                         <tbody id="db-body-en"></tbody>
                     </table>
                 </div>
@@ -480,22 +577,33 @@
 
             <!-- ================= 5. CHANNEL EVALUATOR (KPI) ================= -->
             <div id="kpi-channel-section" class="tool-section">
-                <div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2></div>
+                <div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2><p>Audit keseluruhan metrik akun berdasarkan target Engagement Rate kustom.</p></div>
                 
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan Target & GitHub Sync (Channel KPI)</summary>
                     <div style="padding:10px;">
                         <div class="target-box">
-                            <h4 style="margin:top:0; color:var(--info);">🎯 Atur Target Engagement Rate (ER)</h4>
-                            <div class="form-group"><label>Target ER Ideal Minimal (%)</label><input type="number" id="kpi-target-er" class="form-control" value="1.0" step="0.1"></div>
-                            <div class="form-group"><label>Target ER Sangat Baik (%)</label><input type="number" id="kpi-target-er-high" class="form-control" value="3.5" step="0.1"></div>
+                            <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Engagement Rate (ER)</h4>
+                            <div class="form-row">
+                                <div class="form-group"><label>Target ER Ideal Minimal (%)</label><input type="number" id="kpi-target-er" class="form-control" value="1.0" step="0.1"></div>
+                                <div class="form-group"><label>Target ER Sangat Baik (%)</label><input type="number" id="kpi-target-er-high" class="form-control" value="3.5" step="0.1"></div>
+                            </div>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Benchmark ini mengukur kesehatan akun secara keseluruhan (Follower vs Total Interaksi mingguan/bulanan). ER di bawah 1% menandakan audiens bosan/terlalu hard-selling.</p>
                         </div>
                         <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
                             <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
                         </div>
-                        <div class="form-group"><label>File Path JSON (KPI DB)</label><input type="text" id="gh-path-kpi" class="form-control gh-sync-path-kpi" placeholder="data/arsip_kpi.json" onchange="syncGHFields(this.value, 'pathKPI')"></div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON (KPI DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-kpi" class="form-control gh-sync-path-kpi" placeholder="Contoh: data/arsip_kpi.json" onchange="syncGHFields(this.value, 'pathKPI')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-kpi')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </details>
 
@@ -509,8 +617,8 @@
                             <div class="form-group"><label>Tanggal Evaluasi</label><input type="date" id="kpi-eval-date" class="form-control" onchange="autoFillWeek('kpi-eval-date', 'kpi-week')"></div>
                             <div class="form-group" id="kpi-week-group"><label>Minggu Ke-</label><input type="number" id="kpi-week" class="form-control" placeholder="Auto/Manual"></div>
                         </div>
-                        <div class="form-group"><label>Total Followers</label><input type="number" id="kpi-foll" class="form-control" value="15381"></div>
-                        <div class="form-group"><label>Total Interaksi Akun (Like+Komen+Share+Save)</label><input type="number" id="kpi-int" class="form-control" placeholder="0"></div>
+                        <div class="form-group"><label>Total Followers Saat Ini</label><input type="number" id="kpi-foll" class="form-control" value="15381"></div>
+                        <div class="form-group"><label>Total Interaksi Akun (Semua Postingan dalam periode tsb)</label><input type="number" id="kpi-int" class="form-control" placeholder="0"></div>
                         <button id="btn-eval-kpi" class="btn btn-accent" onclick="calculateKPILocal()">Hitung & Tambah ke Tabel 👇</button>
                     </div>
                 </div>
@@ -518,16 +626,14 @@
                 <div id="kpi-result" class="result-box" style="display:none; text-align:center; background:var(--card-bg);"></div>
 
                 <h4 style="margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:10px;">Arsip KPI Channel</h4>
-                
                 <div class="filter-bar">
-                    <strong>Filter Channel:</strong>
+                    <strong>Filter:</strong>
                     <select id="filter-kpi-platform" class="form-control" style="width:130px; margin:0;" onchange="renderDB('kpi')"><option value="All">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select>
                     <select id="filter-kpi-period" class="form-control" style="width:130px; margin:0;" onchange="renderDB('kpi')"><option value="All">Semua Periode</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select>
                     <select id="filter-kpi-month" class="form-control" style="width:130px; margin:0;" onchange="renderDB('kpi')">
                         <option value="All">Semua Bulan</option><option>Januari</option><option>Februari</option><option>Maret</option><option>April</option><option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option><option>September</option><option>Oktober</option><option>November</option><option>Desember</option>
                     </select>
                 </div>
-                
                 <div style="display:flex; justify-content:flex-end; gap:10px; margin-bottom:10px;">
                     <button class="btn-sm bg-dark" onclick="pullDBFromGithub('kpi')">↓ Tarik Data JSON</button>
                     <button class="btn-sm bg-green" onclick="syncDBToGithub('kpi')">↑ Simpan JSON Langsung</button>
@@ -637,6 +743,29 @@
         <footer class="footer" style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">&copy; 2026 Honda Bintaro Digital Division</footer>
     </div>
 
+    <!-- GITHUB BROWSER MODAL -->
+    <div id="gh-modal" style="display: none;">
+        <div class="gh-modal-content">
+            <div class="gh-modal-header">
+                <h3 id="gh-modal-title">Pilih File/Folder JSON</h3>
+                <button class="gh-modal-close" onclick="closeGHModal()">X</button>
+            </div>
+            <div class="gh-modal-body">
+                <div class="gh-list-item" onclick="navigateGHUp()" id="gh-modal-up" style="display:none; font-weight:bold; background:var(--bg);">
+                    <span class="gh-icon">⬅️</span> .. (Kembali)
+                </div>
+                <div id="gh-modal-list">
+                    <div style="padding:20px; text-align:center; color:var(--text-muted);">Memuat data dari GitHub... ⏳</div>
+                </div>
+            </div>
+            <div class="gh-modal-footer">
+                <div class="gh-current-path" id="gh-modal-path">Path: /</div>
+                <button id="gh-btn-select-folder" class="btn-sm bg-green" style="display:none; margin-bottom: 0;" onclick="selectGHFolder()">Pilih Folder Ini</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCROLL TO TOP SVG BTN -->
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
@@ -646,6 +775,7 @@
         const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
         let dbAwareness = []; let dbEngagement = []; let dbKPI = [];
         let editIdx = { awareness: -1, engagement: -1, kpi: -1 };
+        let currentGHPath = ""; let currentGHTargetInput = ""; let currentGHMode = "file";
 
         // ================= UTILITIES & THEME =================
         function toggleTheme() {
@@ -669,7 +799,7 @@
         function calculateWeek(dateString) {
             if(!dateString) return 1;
             const d = new Date(dateString);
-            return Math.floor((d.getDate() - 1) / 7) + 1; // 1-7 = W1, 8-14 = W2
+            return Math.floor((d.getDate() - 1) / 7) + 1; // Fix logic: 1-7 = W1, 8-14 = W2
         }
         function autoFillWeek(dateInputId, weekInputId) {
             const val = document.getElementById(dateInputId).value;
@@ -736,6 +866,17 @@
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        function backAction() {
+            const activeSections = document.querySelectorAll('.tool-section');
+            let currentId = '';
+            activeSections.forEach(sec => { if(sec.style.display === 'block') currentId = sec.id; });
+
+            if(['mon-awareness-section', 'mon-engagement-section', 'kpi-channel-section'].includes(currentId)) {
+                openTool('analytics-hub');
+            } else {
+                showHome();
+            }
+        }
         function showHome() {
             document.getElementById('menu-grid').style.display = 'grid';
             document.getElementById('btn-back').style.display = 'none';
@@ -753,6 +894,58 @@
             document.getElementById('main-sheet-frame').src = url;
         }
 
+        // ================= CONTENT DISTRIBUTION PLANNER =================
+        function calculateDistribution() {
+            const month = document.getElementById('dist-month').value;
+            let counts = { "Product Education": 0, "Promo Activation": 0, "Dealer Credibility": 0, "Customer Story": 0 };
+            let total = 0;
+            dbAwareness.forEach(item => {
+                if(item.month === month) {
+                    if(counts[item.pilar] !== undefined) counts[item.pilar]++;
+                    total++;
+                }
+            });
+
+            document.getElementById('dist-total').innerText = total;
+            const tbody = document.getElementById('dist-table-body'); tbody.innerHTML = "";
+            const ideal = { "Product Education": 40, "Promo Activation": 30, "Dealer Credibility": 15, "Customer Story": 15 };
+            const colors = { "Product Education": "#3498db", "Promo Activation": "#e74c3c", "Dealer Credibility": "#2ecc71", "Customer Story": "#f1c40f" };
+
+            let gradientStr = ""; let currentPercent = 0; let legendHTML = "";
+
+            if(total === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Belum ada data konten di bulan ${month}</td></tr>`;
+                document.getElementById('css-pie-chart').style.background = "#eee";
+                document.getElementById('dist-legend-container').innerHTML = "";
+                document.getElementById('dist-analysis').innerText = "";
+            } else {
+                Object.keys(counts).forEach((pilar, idx) => {
+                    const actualPct = ((counts[pilar] / total) * 100).toFixed(1);
+                    const diff = (actualPct - ideal[pilar]).toFixed(1);
+                    let diffBadge = diff > 5 ? `<span style="color:var(--accent);"> (+${diff}%)</span>` : diff < -5 ? `<span style="color:var(--warning);"> (${diff}%)</span>` : `<span style="color:var(--success);"> (Sesuai)</span>`;
+                    
+                    tbody.innerHTML += `<tr>
+                        <td><b>${pilar}</b></td>
+                        <td>${actualPct}% ${diffBadge}</td>
+                        <td>${ideal[pilar]}%</td>
+                    </tr>`;
+
+                    // Build Pie Chart
+                    gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
+                    currentPercent += parseFloat(actualPct);
+
+                    // Build Legend
+                    legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
+                });
+                gradientStr = gradientStr.slice(0, -2);
+                document.getElementById('css-pie-chart').style.background = `conic-gradient(${gradientStr})`;
+                document.getElementById('dist-legend-container').innerHTML = legendHTML;
+                document.getElementById('dist-analysis').innerText = `Analisa: Jika pilar tertentu melebihi batas toleransi (+/- 5%) dari standar ideal Honda, berarti distribusi konten tidak seimbang dan berpotensi membuat audiens bosan. Sesuaikan plan konten minggu berikutnya.`;
+            }
+            document.getElementById('dist-result-box').style.display = 'block';
+        }
+
+
         // ================= AI BRIEF LOGIC =================
         function toggleBriefOptions() {
             const isBrief = document.getElementById('gen-type').value === 'Brief';
@@ -764,6 +957,12 @@
             if(fw.includes('PAS')) {
                 document.getElementById('lbl-prob').innerText = "Masalah / Pain Point (Problem)";
                 document.getElementById('lbl-feat').innerText = "Solusi yang Ditawarkan (Solution)";
+            } else if (fw.includes('AIDA')) {
+                document.getElementById('lbl-prob').innerText = "Attention / Interest (Hook Utama)";
+                document.getElementById('lbl-feat').innerText = "Desire (Kenapa harus beli?)";
+            } else if (fw.includes('StorBrand')) {
+                document.getElementById('lbl-prob').innerText = "Story (Kisah/Konteks Audiens)";
+                document.getElementById('lbl-feat').innerText = "Brand Value (Peran Honda Bintaro)";
             } else {
                 document.getElementById('lbl-prob').innerText = "Fitur Utama (Feature)";
                 document.getElementById('lbl-feat').innerText = "Keuntungan & Manfaat (Advantage & Benefit)";
@@ -808,8 +1007,8 @@
             const btn = document.getElementById('btn-generate'); btn.innerText = "⏳ Sedang Menulis..."; btn.disabled = true;
 
             let sysPrompt = type === 'Caption' 
-                ? `Buatkan caption IG mobil ${prod}. Framework: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Arahan panjang: ${length}. Beri label framework (P/A/S atau F/A/B) di tiap paragraf. Sertakan #HondaBintaro.`
-                : `Buatkan Video Script Reels. Durasi: ${duration}. Mobil: ${prod}. Framework: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Buat format tabel "Visual" dan "Audio".`;
+                ? `Buatkan caption IG mobil ${prod}. Framework copywriting: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Arahan panjang: ${length}. Beri label huruf framework (P/A/S, dll) di tiap paragraf. Sertakan #HondaBintaro.`
+                : `Buatkan Video Script Reels. Durasi: ${duration}. Mobil: ${prod}. Framework copywriting: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Buat format tabel "Visual" dan "Audio".`;
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
@@ -912,6 +1111,47 @@
             renderDB('awareness'); renderDB('engagement'); renderDB('kpi');
         }
 
+        // ================= GITHUB FILE BROWSER MODAL =================
+        function openGHModal(mode, inputId) {
+            currentGHMode = mode; currentGHTargetInput = inputId; currentGHPath = "";
+            document.getElementById('gh-modal').style.display = 'flex';
+            document.getElementById('gh-modal-title').innerText = mode === 'file' ? 'Pilih File JSON' : 'Pilih Folder Gambar';
+            document.getElementById('gh-btn-select-folder').style.display = mode === 'folder' ? 'block' : 'none';
+            renderGHModalContents();
+        }
+        function closeGHModal() { document.getElementById('gh-modal').style.display = 'none'; }
+        async function renderGHModalContents() {
+            const listEl = document.getElementById('gh-modal-list'); const pathEl = document.getElementById('gh-modal-path'); const upBtn = document.getElementById('gh-modal-up');
+            pathEl.innerText = `Path: /${currentGHPath}`; listEl.innerHTML = `<div style="padding:20px; text-align:center;">Memuat... ⏳</div>`; upBtn.style.display = currentGHPath === "" ? 'none' : 'flex';
+            try {
+                const data = await fetchGHData(currentGHPath); listEl.innerHTML = "";
+                const sorted = data.sort((a,b) => (a.type === 'dir' ? -1 : 1));
+                sorted.forEach(item => {
+                    const icon = item.type === 'dir' ? '📁' : '📄';
+                    const div = document.createElement('div'); div.className = 'gh-list-item';
+                    div.innerHTML = `<span class="gh-icon">${icon}</span> <span>${item.name}</span>`;
+                    div.onclick = () => {
+                        if(item.type === 'dir') { currentGHPath = item.path; renderGHModalContents(); } 
+                        else if(currentGHMode === 'file' && item.name.endsWith('.json')) {
+                            document.getElementById(currentGHTargetInput).value = item.path;
+                            
+                            // Map correct path variable
+                            let pType = "";
+                            if(currentGHTargetInput === 'gh-path-aw') pType = 'pathAw';
+                            else if (currentGHTargetInput === 'gh-path-en') pType = 'pathEn';
+                            else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
+                            
+                            syncGHFields(item.path, pType);
+                            closeGHModal();
+                        }
+                    };
+                    listEl.appendChild(div);
+                });
+            } catch(e) { listEl.innerHTML = `<div style="padding:20px; color:red; text-align:center;">Gagal memuat.</div>`; }
+        }
+        function navigateGHUp() { let parts = currentGHPath.split('/'); parts.pop(); currentGHPath = parts.join('/'); renderGHModalContents(); }
+        function selectGHFolder() { document.getElementById(currentGHTargetInput).value = currentGHPath; syncGHFields(currentGHPath, 'pathImg'); closeGHModal(); }
+
         // ================= CPM LOGIC (AWARENESS & ENGAGEMENT) =================
         function generateThumbnailPreview(url, containerId) {
             const container = document.getElementById(containerId);
@@ -961,12 +1201,12 @@
 
             let soWhat = ""; let nowWhat = "";
 
-            // GEMINI AI INTEGRATION FOR W-S-W
+            // GEMINI AI INTEGRATION FOR W-S-N
             const apiKey = localStorage.getItem('gemini_api_key');
             if (apiKey) {
                 const btn = document.getElementById(`btn-eval-${prefix}`);
                 const oriText = btn.innerText;
-                btn.innerText = "⏳ Memproses W-S-W dengan AI..."; btn.disabled = true;
+                btn.innerText = "⏳ Memproses W-S-N dengan AI..."; btn.disabled = true;
 
                 try {
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
@@ -978,7 +1218,7 @@
                     const aiResult = JSON.parse(text);
                     soWhat = aiResult.soWhat; nowWhat = aiResult.nowWhat;
                 } catch(e) {
-                    console.log("AI WSW Failed, using local logic.");
+                    console.log("AI WSN Failed, using local logic.");
                     soWhat = statusBadge.includes('On Track') ? `Kombinasi visual dan copy bekerja efektif memancing interaksi.` : `Distribusi gagal memancing minat, indikasi audiens drop-off cepat.`;
                     nowWhat = statusBadge.includes('On Track') ? `Replikasi format ini, pertimbangkan boosting Meta Ads.` : `Evaluasi hook 3 detik pertama dan CTA.`;
                 } finally { btn.innerText = oriText; btn.disabled = false; }
