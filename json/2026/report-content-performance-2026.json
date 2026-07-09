@@ -38,5 +38,25 @@
     "what": "Platform: <b>Instagram</b>. Reach Rate: <b>1.1%</b>. ER: <b>0.13%</b>. ERR: <b>11.83%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
     "soWhat": "Meskipun kualitas konten terbukti sangat baik karena menghasilkan ERR yang tinggi (11.83%), distribusinya sangat kurang sehingga jangkauan (Reach Rate 1.1%) dan ER (0.13%) berada jauh di bawah target. Minimnya jangkauan ini berimbas langsung pada nihilnya konversi DM yang berhasil didapatkan.",
     "nowWhat": "Guna mengatasi masalah distribusi, segera jalankan taktik berbayar (IG Ads) dan optimasi hashtag relevan untuk memperluas jangkauan konten ke audiens baru. Selain itu, integrasikan Call-to-Action (CTA) yang lebih kuat dan persuasif pada visual atau caption untuk memancing konversi DM."
+  },
+  {
+    "title": "Macet Gak Bikin Pegel",
+    "link": "https://www.instagram.com/reel/DaRun8exDyA/",
+    "shortcode": "DaRun8exDyA",
+    "month": "Juli",
+    "week": "1",
+    "evalDateRaw": "2026-07-09",
+    "datePub": "2026-07-02",
+    "pilar": "Product Education",
+    "platform": "Instagram",
+    "category": "Reels",
+    "foll": 15382,
+    "reach": 1608,
+    "interaksi": 38,
+    "dmCount": "0",
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 10.5% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.25% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 2.36% <span class=\"badge bg-red\">Off Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>10.5%</b>. ER: <b>0.25%</b>. ERR: <b>2.36%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
+    "soWhat": "Seluruh metrik performa Reels berada di bawah target (off-track), mengindikasikan kegagalan ganda dalam menarik algoritma untuk distribusi luas serta ketidakmampuan konten memicu interaksi audiens hingga menghasilkan konversi DM. Rendahnya nilai ERR (2.36%) dan ER (0.25%) mempertegas bahwa konsep visual maupun pesan yang disampaikan saat ini kurang relevan dan gagal menciptakan ketertarikan.",
+    "nowWhat": "Segera lakukan evaluasi menyeluruh terhadap strategi konten dengan merombak total hook visual pada 3 detik pertama serta menyisipkan call-to-action (CTA) yang lebih kuat untuk mendorong konversi DM. Selain itu, lakukan A/B testing pada format video yang lebih interaktif dan relevan dengan tren audiens guna memulihkan distribusi algoritma serta meningkatkan engagement rate."
   }
 ]
