@@ -21,40 +21,68 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
-        /* ================= SPACE FLAT DESIGN LOGIN SCREEN ================= */
+        /* ================= VIBRANT CREATIVE LOGIN SCREEN ================= */
         #login-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: 99999;
-            background-color: #0b1320; overflow: hidden;
+            background-color: #ff9a9e;
+            background-image: 
+                radial-gradient(at 40% 20%, #fecfef 0px, transparent 50%),
+                radial-gradient(at 80% 0%, #a1c4fd 0px, transparent 50%),
+                radial-gradient(at 0% 50%, #c2e9fb 0px, transparent 50%),
+                radial-gradient(at 80% 50%, #e0c3fc 0px, transparent 50%),
+                radial-gradient(at 0% 100%, #8ec5fc 0px, transparent 50%),
+                radial-gradient(at 80% 100%, #e0c3fc 0px, transparent 50%),
+                radial-gradient(at 0% 0%, #ff9a9e 0px, transparent 50%);
+            animation: meshAnimate 10s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+        body.dark-mode #login-screen {
+            background-color: #1a1a2e;
+            background-image: 
+                radial-gradient(at 40% 20%, #2f3640 0px, transparent 50%),
+                radial-gradient(at 80% 0%, #353b48 0px, transparent 50%),
+                radial-gradient(at 0% 50%, #273c75 0px, transparent 50%),
+                radial-gradient(at 80% 50%, #192a56 0px, transparent 50%);
+            animation: meshAnimateDark 10s ease-in-out infinite alternate;
         }
 
-        .stars { position: absolute; width: 100%; height: 100%; z-index: 0; background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 80px 70px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 150px 160px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 250px 40px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 300px 180px, #fff, rgba(0,0,0,0)); background-repeat: repeat; background-size: 350px 350px; opacity: 0.6; animation: twinkle 4s infinite alternate;}
-        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
+        @keyframes meshAnimate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(45deg); } }
+        @keyframes meshAnimateDark { 0% { filter: hue-rotate(0deg) brightness(1.2); } 100% { filter: hue-rotate(30deg) brightness(0.8); } }
 
-        .planet { position: absolute; border-radius: 50%; z-index: 1; }
-        .planet-red { width: 160px; height: 160px; background: #e74c3c; top: 15%; left: 10%; box-shadow: inset -15px -15px 0px rgba(0,0,0,0.15); }
-        .planet-yellow { width: 45px; height: 45px; background: #f1c40f; top: 30%; right: 28%; box-shadow: inset -5px -5px 0px rgba(0,0,0,0.15); }
-        .planet-blue { width: 90px; height: 90px; background: #3498db; bottom: 15%; right: 15%; box-shadow: inset -10px -10px 0px rgba(0,0,0,0.15); }
+        /* Floating Agency Icons */
+        .floating-icon { position: absolute; font-size: 4rem; animation: floatIcon 6s infinite ease-in-out; opacity: 0.8; z-index: 1; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1)); }
+        .fi-1 { top: 15%; left: 15%; animation-delay: 0s; }
+        .fi-2 { top: 20%; right: 15%; animation-delay: 1.5s; font-size: 5rem; }
+        .fi-3 { bottom: 15%; left: 20%; animation-delay: 3s; font-size: 3.5rem; }
+        .fi-4 { bottom: 20%; right: 20%; animation-delay: 4.5s; font-size: 4.5rem; }
+        @keyframes floatIcon {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-30px) rotate(15deg) scale(1.1); }
+            100% { transform: translateY(0px) rotate(0deg) scale(1); }
+        }
 
-        .comet { position: absolute; width: 2px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0)); z-index: 1; transform: rotate(-45deg); animation: shootingStar 4s infinite linear; opacity: 0; }
-        .comet-1 { top: 0px; left: 30%; animation-delay: 1s; }
-        .comet-2 { top: -50px; left: 70%; animation-delay: 2.5s; height: 100px; }
-        .comet-3 { top: 20%; left: 80%; animation-delay: 3.5s; }
-        @keyframes shootingStar { 0% { transform: rotate(-45deg) translate(0, 0); opacity: 1; } 100% { transform: rotate(-45deg) translate(-800px, 800px); opacity: 0; } }
-
+        /* Glassmorphism Login Box */
         .login-box {
-            position: relative; z-index: 2; background: #ffffff; border: 4px solid #eaedf1; 
-            padding: 45px 40px; border-radius: 12px; box-shadow: 10px 10px 0px rgba(0,0,0,0.3); 
-            text-align: center; width: 90%; max-width: 400px;
+            position: relative; z-index: 2; background: rgba(255, 255, 255, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.5); padding: 50px 40px; border-radius: 24px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15); text-align: center; width: 90%; max-width: 420px;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         }
+        body.dark-mode .login-box { background: rgba(20, 20, 30, 0.7); border-color: rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
         
-        .login-box h2 { margin: 0 0 5px 0; color: #2c3e50; font-size: 26px; font-weight: 900; }
-        .login-box p { color: #7f8c8d; font-size: 12px; margin-bottom: 30px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;}
-        .login-box .form-control { background: #f8f9fa; border: 2px solid #bdc3c7; color: #2c3e50; padding: 14px; border-radius: 4px; font-size: 15px; margin-bottom: 20px; width: 100%; text-align: center; transition: 0.3s; font-weight: bold;}
-        .login-box .form-control:focus { border-color: #e74c3c; outline: none; }
-        .login-box .btn { background: #e74c3c; font-size: 16px; padding: 14px; border-radius: 4px; font-weight: 900; margin-top: 5px; border:none; color:white; cursor:pointer; width:100%; transition:0.3s; text-transform: uppercase; letter-spacing: 0.5px;}
-        .login-box .btn:hover { background: #c0392b; transform: translateY(2px); box-shadow: inset 0 3px 0 rgba(0,0,0,0.2); }
-        .login-box .error-msg { color: #e74c3c; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #fadbd8; padding: 10px; border-radius: 6px; border: 1px solid #e74c3c;}
+        .login-box h2 { margin: 0 0 5px 0; color: var(--primary); font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+        body.dark-mode .login-box h2 { color: #fff; }
+        .login-box p { color: var(--text-muted); font-size: 13px; margin-bottom: 35px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;}
+        body.dark-mode .login-box p { color: #aaa; }
+        
+        .login-box .form-control { background: rgba(255,255,255,0.9); border: 2px solid transparent; color: #2d3436; padding: 16px; border-radius: 12px; font-size: 16px; margin-bottom: 20px; width: 100%; text-align: center; transition: 0.3s; font-weight: bold; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
+        body.dark-mode .login-box .form-control { background: rgba(0,0,0,0.5); color: #fff; }
+        .login-box .form-control:focus { border-color: #a1c4fd; outline: none; box-shadow: 0 0 0 4px rgba(161, 196, 253, 0.3); }
+        
+        .login-box .btn { background: linear-gradient(135deg, #667eea, #764ba2); font-size: 16px; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 5px; border:none; color:white; cursor:pointer; width:100%; transition:all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);}
+        .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(118, 75, 162, 0.5); }
+        .login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #ff7675; padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(231,76,60,0.2);}
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
@@ -93,7 +121,7 @@
         .form-control:focus { outline: none; border-color: var(--primary); }
         textarea.form-control { resize: vertical; min-height: 80px; }
         
-        .btn { padding: 12px 20px; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; margin-bottom: 35px; /* Margin Lega Sesuai Request */ }
+        .btn { padding: 12px 20px; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; margin-bottom: 30px; }
         .btn-accent { background: var(--accent); }
         
         details.config-accordion { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; padding: 5px 10px; }
@@ -171,24 +199,25 @@
 </head>
 <body>
 
+    <!-- ================= VIBRANT CREATIVE LOGIN SCREEN ================= -->
     <div id="login-screen">
-        <div class="stars"></div>
-        <div class="planet planet-red"></div>
-        <div class="planet planet-yellow"></div>
-        <div class="planet planet-blue"></div>
-        <div class="comet comet-1"></div>
-        <div class="comet comet-2"></div>
-        <div class="comet comet-3"></div>
+        <div class="creative-shape shape-1"></div>
+        <div class="creative-shape shape-2"></div>
+        <div class="floating-icon fi-1">🚀</div>
+        <div class="floating-icon fi-2">💡</div>
+        <div class="floating-icon fi-3">🎨</div>
+        <div class="floating-icon fi-4">📈</div>
         
         <div class="login-box">
             <h2>Digital Marketing</h2>
             <p>Honda Bintaro Framework</p>
             <div id="error-msg" class="error-msg">⚠️ Password salah! Hubungi Admin.</div>
             <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password" onkeydown="if(event.key === 'Enter') { event.preventDefault(); verifyPassword(); }">
-            <button class="btn" onclick="verifyPassword()">Akses Dashboard 🚀</button>
+            <button class="btn" onclick="verifyPassword()">Akses Dashboard</button>
         </div>
     </div>
 
+    <!-- ================= DASHBOARD SCREEN ================= -->
     <div id="dashboard-screen">
         <header class="header">
             <div class="header-title">
@@ -204,11 +233,12 @@
         <main class="main-content">
             <div id="btn-back" class="back-nav" onclick="backAction()">← Kembali</div>
 
+            <!-- MENU GRID -->
             <div class="tools-grid" id="menu-grid">
                 <div class="tool-card" onclick="openTool('spreadsheet')">
                     <div class="tool-icon" style="background: #dfe6e9; color: #0984e3;">📊</div>
                     <h3>Database & Content Plan</h3>
-                    <p>Akses langsung ke spreadsheet DM Plan, KPI SID, dan Jadwal Live.</p>
+                    <p>Akses langsung ke spreadsheet DM Plan, Link Penting, dan Jadwal Live.</p>
                 </div>
                 <div class="tool-card" onclick="openTool('generator')">
                     <div class="tool-icon" style="background: #e8dbff; color: #8e44ad;">✨</div>
@@ -247,6 +277,7 @@
                 </div>
             </div>
 
+            <!-- ================= SUB-MENU: PERFORMANCE & ANALYTICS HUB ================= -->
             <div id="analytics-hub-section" class="tool-section" style="background: transparent; border: none; padding: 0;">
                 <div class="section-header"><h2>🎯 Performance & Analytics Hub</h2><p>Pilih metode evaluasi performa konten atau audit KPI channel bulanan/mingguan.</p></div>
                 <div class="tools-grid">
@@ -261,6 +292,7 @@
                 </div>
             </div>
 
+            <!-- ================= DISTRIBUTION PLANNER ================= -->
             <div id="distribution-section" class="tool-section">
                 <div class="section-header"><h2>🥧 Content Distribution Planner</h2><p>Hitung persentase sebaran pilar konten per bulan berdasarkan data JSON Content Performance Monitor.</p></div>
                 
@@ -294,6 +326,7 @@
                 </div>
             </div>
 
+            <!-- ================= 1. SPREADSHEET & LINK PENTING ================= -->
             <div id="spreadsheet-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div><h2>📊 Database & Content Plan</h2></div>
@@ -304,12 +337,59 @@
                     <button class="tab-btn" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/10YB8WrOiEVxYczKKh5auSEThddoD9NUvQXqGFHsh3d4/edit?usp=sharing')">KPI SID</button>
                     <button class="tab-btn" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/10YB8WrOiEVxYczKKh5auSEThddoD9NUvQXqGFHsh3d4/edit?usp=sharing')">Jadwal Live Tiktok</button>
                 </div>
-                <div id="sheet-wrap" style="width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:white; position:relative;">
+                <div id="sheet-wrap" style="width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:white; position:relative; margin-bottom:40px;">
                     <button id="btn-exit-fs" onclick="toggleFullScreen('sheet-wrap', 'btn-exit-fs')" style="display:none; position:absolute; top:10px; right:40px; z-index:10000; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Tutup Layar Penuh ✖</button>
                     <iframe id="main-sheet-frame" src="https://docs.google.com/spreadsheets/d/10YB8WrOiEVxYczKKh5auSEThddoD9NUvQXqGFHsh3d4/edit?usp=sharing" style="width: 100%; height: 100%; border: none; background: white;"></iframe>
                 </div>
+
+                <hr style="border: 0; border-top: 2px dashed var(--border); margin: 30px 0;">
+
+                <div class="section-header"><h2>🔗 Kumpulan Link Penting</h2><p>Simpan link rujukan, aset, atau referensi penting untuk tim digital.</p></div>
+                
+                <details class="config-accordion">
+                    <summary>🔗 Pengaturan GitHub Sync (Link DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+                            <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON (Links DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-links" class="form-control gh-sync-path-links" placeholder="Contoh: data/link_penting.json" onchange="syncGHFields(this.value, 'pathLinks')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-links')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="form-row">
+                    <div class="form-group"><label>Nama Situs / Deskripsi</label><input type="text" id="link-name" class="form-control" placeholder="Contoh: Aset Logo Honda 2026"></div>
+                    <div class="form-group" style="flex: 2;"><label>URL Link</label><input type="url" id="link-url" class="form-control" placeholder="https://..."></div>
+                </div>
+                <button class="btn btn-accent" onclick="addLinkLocal()">Tambah Link ➕</button>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <h4 style="margin:0;">Daftar Link</h4>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-sm bg-dark" onclick="pullDBFromGithub('links')">↓ Tarik Data JSON</button>
+                        <button class="btn-sm bg-green" onclick="syncDBToGithub('links')">↑ Simpan JSON Langsung</button>
+                    </div>
+                </div>
+                <div id="github-status-links" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
+
+                <div style="overflow-x:auto;">
+                    <table class="data-table">
+                        <thead><tr><th>Nama Situs / Deskripsi</th><th>Link Rujukan</th><th style="text-align:center;">Aksi</th></tr></thead>
+                        <tbody id="db-body-links"></tbody>
+                    </table>
+                </div>
             </div>
 
+            <!-- ================= 2. AI GENERATOR ================= -->
             <div id="generator-section" class="tool-section">
                 <div class="section-header"><h2>✨ AI Caption & Brief Generator</h2></div>
                 <details class="config-accordion"><summary>🔑 Google Gemini API Configuration</summary><div style="padding:10px;"><input type="password" class="form-control api-key-input" placeholder="Paste API Key Gemini di sini..." oninput="syncApiKey(this.value)"></div></details>
@@ -334,8 +414,8 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group"><label id="lbl-prob">Masalah / Pain Point</label><input type="text" id="gen-problem" class="form-control"></div>
-                    <div class="form-group"><label id="lbl-feat">Solusi / Fitur</label><input type="text" id="gen-feature" class="form-control"></div>
+                    <div class="form-group"><label id="lbl-prob">Masalah / Pain Point (Problem)</label><input type="text" id="gen-problem" class="form-control"></div>
+                    <div class="form-group"><label id="lbl-feat">Solusi yang Ditawarkan (Solution)</label><input type="text" id="gen-feature" class="form-control"></div>
                 </div>
                 
                 <div class="form-group"><label>Call-to-Action (CTA)</label><input type="text" id="gen-cta" class="form-control" placeholder="Contoh: Test drive sekarang, link di bio!"></div>
@@ -349,6 +429,7 @@
                 <div class="history-box"><h4 style="margin-top:0; color:var(--primary);">💾 Arsip Lokal Caption/Brief (Browser)</h4><ul id="gen-history-list" class="history-list"></ul><button class="btn-sm bg-red" style="margin-top:10px;" onclick="clearGenHistory()">Hapus Semua Riwayat</button></div>
             </div>
 
+            <!-- ================= 3. 3C CHECKER WITH STICKY LAYOUT ================= -->
             <div id="checker-section" class="tool-section">
                 <div class="section-header" style="margin-bottom:15px;"><h2>✅ 3C Brand Alignment Checker</h2></div>
                 <div class="two-col-layout">
@@ -393,8 +474,9 @@
                 </div>
             </div>
 
+            <!-- ================= 4. CONTENT PERFORMANCE MONITOR (UNIFIED) ================= -->
             <div id="monitor-section" class="tool-section">
-                <div class="section-header"><h2>🎯 Content Performance Monitor</h2><p>Evaluasi <b>Awareness (ER Follower)</b> dan <b>Content Quality (ERR Reach)</b> dalam satu kali input.</p></div>
+                <div class="section-header"><h2>🎯 Content Performance Monitor</h2><p>Evaluasi <b>Awareness (ER Follower)</b> dan <b>Content Quality (ERR Reach)</b> dalam satu pintu. Memisahkan Interaksi murni dengan Konversi (DM/Click).</p></div>
                 
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan Target & GitHub Sync (Content DB)</summary>
@@ -402,10 +484,10 @@
                         <div class="target-box">
                             <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Ideal</h4>
                             <div class="form-row">
-                                <div class="form-group"><label>Target Awareness (Reach Ratio) Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
-                                <div class="form-group"><label>Target Engagement (ERR) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
+                                <div class="form-group"><label>Target ER (Follower Base) Minimal (%)</label><input type="number" id="cpm-target-er" class="form-control" value="15" step="0.1"></div>
+                                <div class="form-group"><label>Target ERR (Reach Base) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
                             </div>
-                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Awareness) yang sehat minimal menyentuh 15% dari total followers. ERR (Engagement Rate by Reach) ideal minimal 3.5% dari audiens yang melihat (baik follower maupun non-follower).</p>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Berdasarkan rata-rata industri, jangkauan organik yang sehat minimal menyentuh 15% dari total followers. Sementara untuk kualitas interaksi, ERR (Engagement Rate by Reach) ideal minimal 3.5% dari audiens yang melihat.</p>
                         </div>
                         <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
@@ -434,9 +516,9 @@
                 </div>
                 
                 <div class="form-row">
-                    <div class="form-group"><label>Tanggal Evaluasi (Kalender)</label><input type="date" id="mon-eval-date" class="form-control" onchange="autoFillWeek('mon-eval-date', 'mon-week')"></div>
+                    <div class="form-group"><label>Tanggal Publish Konten</label><input type="date" id="mon-date" class="form-control" onchange="autoFillWeek('mon-date', 'mon-week')"></div>
                     <div class="form-group"><label>Minggu Ke-</label><input type="number" id="mon-week" class="form-control" placeholder="Bisa diedit"></div>
-                    <div class="form-group"><label>Tanggal Publish Konten</label><input type="date" id="mon-date" class="form-control"></div>
+                    <div class="form-group"><label>Tanggal Evaluasi (Ditarik)</label><input type="date" id="mon-eval-date" class="form-control"></div>
                 </div>
 
                 <div class="form-row">
@@ -455,7 +537,7 @@
                     <div class="form-group"><label>Total Reach (Views)</label><input type="number" id="mon-reach" class="form-control" placeholder="0"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Total Interaksi (Likes+Komen+Shares+Saves+Repost)</label><input type="number" id="mon-int" class="form-control" placeholder="0"></div>
+                    <div class="form-group"><label>Total Interaksi Kualitas (Likes+Komen+Shares+Saves+Repost)</label><input type="number" id="mon-int" class="form-control" placeholder="0"></div>
                     <div class="form-group"><label>Total DM / Klik (Informasi Konversi Terpisah)</label><input type="number" id="mon-dm" class="form-control" placeholder="0"></div>
                 </div>
                 
@@ -491,6 +573,7 @@
                 </div>
             </div>
 
+            <!-- ================= 5. CHANNEL EVALUATOR (KPI) ================= -->
             <div id="kpi-channel-section" class="tool-section">
                 <div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2><p>Audit keseluruhan metrik akun berdasarkan target Engagement Rate kustom.</p></div>
                 
@@ -565,6 +648,7 @@
                 </div>
             </div>
 
+            <!-- ================= 6. AI CARE RESPONSE ================= -->
             <div id="response-section" class="tool-section">
                 <div class="section-header"><h2>💬 AI CARE Response Assistant</h2></div>
                 
@@ -611,6 +695,7 @@
                 </div>
             </div>
 
+            <!-- ================= 7. JSON EDITOR ================= -->
             <div id="jsoneditor-section" class="tool-section">
                 <div class="section-header"><h2>🛠️ JSON Editor</h2></div>
                 <p style="font-size:14px; color:var(--text-muted); margin-bottom:30px;">Akses platform editor JSON eksternal untuk manipulasi konfigurasi digital secara terpisah.</p>
@@ -643,6 +728,7 @@
                 </div>
             </div>
 
+            <!-- ================= 8. E-LEARNING HUB ================= -->
             <div id="elearning-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div><h2>🎓 E-Learning Hub</h2></div>
@@ -657,6 +743,7 @@
         <footer class="footer" style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">&copy; 2026 Honda Bintaro Digital Division</footer>
     </div>
 
+    <!-- GITHUB BROWSER MODAL -->
     <div id="gh-modal" style="display: none;">
         <div class="gh-modal-content">
             <div class="gh-modal-header">
@@ -678,6 +765,7 @@
         </div>
     </div>
 
+    <!-- SCROLL TO TOP SVG BTN -->
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
@@ -685,7 +773,7 @@
     <script>
         // ================= GLOBAL CONFIGS & DBs =================
         const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
-        let contentDB = []; let kpiDB = [];
+        let contentDB = []; let kpiDB = []; let linksDB = [];
         let editIdx = { content: -1, kpi: -1 };
         let currentGHPath = ""; let currentGHTargetInput = ""; let currentGHMode = "file";
 
@@ -711,7 +799,7 @@
         function calculateWeek(dateString) {
             if(!dateString) return 1;
             const d = new Date(dateString);
-            return Math.ceil(d.getDate() / 7).toString(); // Fix logic: 1-7 = W1, 8-14 = W2
+            return Math.ceil(d.getDate() / 7).toString();
         }
         function autoFillWeek(dateInputId, weekInputId) {
             const val = document.getElementById(dateInputId).value;
@@ -745,6 +833,7 @@
             document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = config.repo || '');
             if(document.getElementById('gh-path-cpm')) document.getElementById('gh-path-cpm').value = config.pathContent || '';
             if(document.getElementById('gh-path-kpi')) document.getElementById('gh-path-kpi').value = config.pathKPI || '';
+            if(document.getElementById('gh-path-links')) document.getElementById('gh-path-links').value = config.pathLinks || '';
 
             localStorage.setItem('gh_config', JSON.stringify(config));
         }
@@ -803,6 +892,41 @@
         function changeSheet(btn, url) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
             document.getElementById('main-sheet-frame').src = url;
+        }
+
+        // ================= LINK PENTING LOGIC =================
+        function addLinkLocal() {
+            const name = document.getElementById('link-name').value;
+            const url = document.getElementById('link-url').value;
+            if(!name || !url) return alert("Harap lengkapi nama situs dan URL link!");
+            
+            linksDB.push({ name, url });
+            localStorage.setItem('honda_links_db', JSON.stringify(linksDB));
+            
+            document.getElementById('link-name').value = "";
+            document.getElementById('link-url').value = "";
+            renderLinksDatabase();
+        }
+
+        function delLink(idx) {
+            linksDB.splice(idx, 1);
+            localStorage.setItem('honda_links_db', JSON.stringify(linksDB));
+            renderLinksDatabase();
+        }
+
+        function renderLinksDatabase() {
+            const tbody = document.getElementById('db-body-links'); tbody.innerHTML = "";
+            if(linksDB.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Belum ada link yang tersimpan.</td></tr>`;
+                return;
+            }
+            linksDB.forEach((item, idx) => {
+                tbody.innerHTML += `<tr>
+                    <td><b>${item.name}</b></td>
+                    <td><a href="${item.url}" target="_blank" style="color:var(--info); font-weight:bold;">Akses Link ↗</a></td>
+                    <td style="text-align:center; width:80px;"><button onclick="delLink(${idx})" class="btn-sm bg-red" style="width:100%;">X Hapus</button></td>
+                </tr>`;
+            });
         }
 
         // ================= CONTENT DISTRIBUTION PLANNER =================
@@ -987,7 +1111,8 @@
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             let path, statusElId;
             if(type === 'content') { path = config.pathContent; statusElId = 'github-status-content-table'; }
-            else { path = config.pathKPI; statusElId = 'github-status-kpi-table'; }
+            else if(type === 'kpi') { path = config.pathKPI; statusElId = 'github-status-kpi-table'; }
+            else if(type === 'links') { path = config.pathLinks; statusElId = 'github-status-links'; }
             
             const statusEl = document.getElementById(statusElId);
             if(!path) return alert("Path kosong!");
@@ -996,7 +1121,9 @@
                 const ghData = await fetchGHData(path);
                 const jsonData = JSON.parse(decodeURIComponent(escape(atob(ghData.content))));
                 if(type === 'content') { contentDB = jsonData; localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase(); } 
-                else { kpiDB = jsonData; localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase(); }
+                else if(type === 'kpi') { kpiDB = jsonData; localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase(); }
+                else if(type === 'links') { linksDB = jsonData; localStorage.setItem('honda_links_db', JSON.stringify(linksDB)); renderLinksDatabase(); }
+                
                 statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
                 setTimeout(() => statusEl.innerHTML = "", 5000);
             } catch(e) { statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`; }
@@ -1006,12 +1133,14 @@
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             if(type === 'content') { pushGHData(config.pathContent, contentDB, 'github-status-content-table'); } 
             else if (type === 'kpi') { pushGHData(config.pathKPI, kpiDB, 'github-status-kpi-table'); }
+            else if (type === 'links') { pushGHData(config.pathLinks, linksDB, 'github-status-links'); }
         }
 
         function loadDBs() {
             const cb = localStorage.getItem('honda_content_db'); if(cb) contentDB = JSON.parse(cb);
             const kp = localStorage.getItem('honda_kpi_db'); if(kp) kpiDB = JSON.parse(kp);
-            renderContentDatabase(); renderKPIDatabase();
+            const lb = localStorage.getItem('honda_links_db'); if(lb) linksDB = JSON.parse(lb);
+            renderContentDatabase(); renderKPIDatabase(); renderLinksDatabase();
         }
 
         // ================= GITHUB FILE BROWSER MODAL =================
@@ -1042,6 +1171,7 @@
                             let pType = "";
                             if(currentGHTargetInput === 'gh-path-cpm') pType = 'pathContent';
                             else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
+                            else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
                             
                             syncGHFields(item.path, pType);
                             closeGHModal();
@@ -1072,8 +1202,10 @@
                 const evalDateRaw = document.getElementById('mon-eval-date').value;
                 
                 if(!evalDateRaw) { alert("Pilih Tanggal Evaluasi!"); return; }
+                if(!datePub || datePub === "Belum Set") { alert("Pilih Tanggal Publish untuk menghitung Minggu Ke- !"); return; }
+                
                 const month = getMonthFromDate(evalDateRaw);
-                const week = document.getElementById('mon-week').value || calculateWeek(evalDateRaw);
+                const week = document.getElementById('mon-week').value || calculateWeek(datePub);
 
                 const platform = document.getElementById('mon-platform').value;
                 const category = document.getElementById('mon-category').value;
@@ -1095,8 +1227,8 @@
                 const reachStatusHTML = reachRatio >= targetReach ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
                 const errStatusHTML = err >= targetERR ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
                 
-                // Construct separated status badges for the table
-                const statusBadge = `<div><b>ER (Foll):</b> ${reachRatio.toFixed(1)}% ${reachStatusHTML}</div><div style="margin-top:2px;"><b>ERR (Reach):</b> ${err.toFixed(2)}% ${errStatusHTML}</div>`;
+                const isOnTrack = (reachRatio >= targetReach) && (err >= targetERR);
+                let statusBadge = `<div><b>ER (Foll):</b> ${reachRatio.toFixed(1)}% ${reachStatusHTML}</div><div style="margin-top:2px;"><b>ERR (Reach):</b> ${err.toFixed(2)}% ${errStatusHTML}</div>`;
                 
                 const what = `Platform: <b>${platform}</b>. Awareness (Follower): <b>${reachRatio.toFixed(1)}%</b>. Engagement (Reach): <b>${err.toFixed(2)}%</b>. DM Konversi: <b>${dmCount}</b>. Target -> ER >${targetReach}% | ERR >${targetERR}%.`;
                 
