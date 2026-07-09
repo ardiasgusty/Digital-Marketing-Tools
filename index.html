@@ -82,7 +82,7 @@
         
         .login-box .btn { background: linear-gradient(135deg, #667eea, #764ba2); font-size: 16px; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 5px; border:none; color:white; cursor:pointer; width:100%; transition:all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);}
         .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(118, 75, 162, 0.5); }
-        .login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(231,76,60,0.8); padding: 10px; border-radius: 8px; }
+        .login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #ff7675; padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(231,76,60,0.2);}
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
@@ -199,7 +199,6 @@
 </head>
 <body>
 
-    <!-- ================= VIBRANT FLUID LOGIN SCREEN ================= -->
     <div id="login-screen">
         <div class="creative-shape shape-1"></div>
         <div class="creative-shape shape-2"></div>
@@ -217,7 +216,6 @@
         </div>
     </div>
 
-    <!-- ================= DASHBOARD SCREEN ================= -->
     <div id="dashboard-screen">
         <header class="header">
             <div class="header-title">
@@ -233,7 +231,6 @@
         <main class="main-content">
             <div id="btn-back" class="back-nav" onclick="backAction()">← Kembali</div>
 
-            <!-- MENU GRID -->
             <div class="tools-grid" id="menu-grid">
                 <div class="tool-card" onclick="openTool('spreadsheet')">
                     <div class="tool-icon" style="background: #dfe6e9; color: #0984e3;">📊</div>
@@ -250,7 +247,6 @@
                     <h3>3C Brand Checker</h3>
                     <p>Form Audit 15-Point, Preview Visual Sticky, dan Celah Revisi Konten.</p>
                 </div>
-                <!-- HUB ANALITIK -->
                 <div class="tool-card" onclick="openTool('analytics-hub')">
                     <div class="tool-icon" style="background: #dff9fb; color: #22a6b3;">🎯</div>
                     <h3>Performance & Analytics</h3>
@@ -278,13 +274,12 @@
                 </div>
             </div>
 
-            <!-- ================= SUB-MENU: PERFORMANCE & ANALYTICS HUB ================= -->
             <div id="analytics-hub-section" class="tool-section" style="background: transparent; border: none; padding: 0;">
                 <div class="section-header"><h2>🎯 Performance & Analytics Hub</h2><p>Pilih metode evaluasi performa konten atau audit KPI channel bulanan/mingguan.</p></div>
                 <div class="tools-grid">
                     <div class="tool-card" onclick="openTool('monitor')">
                         <div class="tool-icon" style="background: #ffeaa7; color: #d63031;">👀</div>
-                        <h3>Content Performance Monitor</h3><p>Evaluasi <b>Awareness (Followers)</b> dan <b>Engagement (Reach)</b> dalam 1 kali input data.</p>
+                        <h3>Content Performance Monitor</h3><p>Evaluasi <b>Reach Rate</b>, <b>ER</b>, dan <b>ERR</b> dalam 1 kali input data.</p>
                     </div>
                     <div class="tool-card" onclick="openTool('kpi-channel')">
                         <div class="tool-icon" style="background: #e8f4fd; color: #0984e3;">📈</div>
@@ -293,7 +288,6 @@
                 </div>
             </div>
 
-            <!-- ================= DISTRIBUTION PLANNER ================= -->
             <div id="distribution-section" class="tool-section">
                 <div class="section-header"><h2>🥧 Content Distribution Planner</h2><p>Hitung persentase sebaran pilar konten per bulan berdasarkan data JSON Content Performance Monitor.</p></div>
                 
@@ -327,7 +321,6 @@
                 </div>
             </div>
 
-            <!-- ================= 1. SPREADSHEET & LINK PENTING ================= -->
             <div id="spreadsheet-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div><h2>📊 Database & Content Plan</h2></div>
@@ -390,7 +383,6 @@
                 </div>
             </div>
 
-            <!-- ================= 2. AI GENERATOR ================= -->
             <div id="generator-section" class="tool-section">
                 <div class="section-header"><h2>✨ AI Caption & Brief Generator</h2></div>
                 <details class="config-accordion"><summary>🔑 Google Gemini API Configuration</summary><div style="padding:10px;"><input type="password" class="form-control api-key-input" placeholder="Paste API Key Gemini di sini..." oninput="syncApiKey(this.value)"></div></details>
@@ -430,7 +422,6 @@
                 <div class="history-box"><h4 style="margin-top:0; color:var(--primary);">💾 Arsip Lokal Caption/Brief (Browser)</h4><ul id="gen-history-list" class="history-list"></ul><button class="btn-sm bg-red" style="margin-top:10px;" onclick="clearGenHistory()">Hapus Semua Riwayat</button></div>
             </div>
 
-            <!-- ================= 3. 3C CHECKER WITH STICKY LAYOUT ================= -->
             <div id="checker-section" class="tool-section">
                 <div class="section-header" style="margin-bottom:15px;"><h2>✅ 3C Brand Alignment Checker</h2></div>
                 <div class="two-col-layout">
@@ -475,9 +466,8 @@
                 </div>
             </div>
 
-            <!-- ================= 4. CONTENT PERFORMANCE MONITOR (UNIFIED) ================= -->
             <div id="monitor-section" class="tool-section">
-                <div class="section-header"><h2>🎯 Content Performance Monitor</h2><p>Evaluasi <b>Awareness (ER Follower)</b> dan <b>Content Quality (ERR Reach)</b> dalam satu pintu. Memisahkan Interaksi murni dengan Konversi (DM/Click).</p></div>
+                <div class="section-header"><h2>🎯 Content Performance Monitor</h2><p>Evaluasi <b>Reach Rate</b>, <b>ER (Follower)</b>, dan <b>ERR (Reach)</b> dalam satu kali input.</p></div>
                 
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan Target & GitHub Sync (Content DB)</summary>
@@ -485,10 +475,11 @@
                         <div class="target-box">
                             <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Ideal</h4>
                             <div class="form-row">
-                                <div class="form-group"><label>Target Awareness (Reach Ratio) Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
-                                <div class="form-group"><label>Target Engagement (ERR) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
+                                <div class="form-group"><label>Target Reach Rate (Awareness) Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
+                                <div class="form-group"><label>Target ER (Follower Base) Minimal (%)</label><input type="number" id="cpm-target-er" class="form-control" value="1.0" step="0.1"></div>
+                                <div class="form-group"><label>Target ERR (Reach Base) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
                             </div>
-                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Awareness) yang sehat minimal menyentuh 15% dari total followers. ERR (Engagement Rate by Reach) ideal minimal 3.5% dari audiens yang melihat (baik follower maupun non-follower).</p>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Reach) yang sehat minimal 15% dari total followers. ER berstandar 1% dari followers. ERR (Engagement by Reach) ideal minimal 3.5% dari audiens yang benar-benar melihat.</p>
                         </div>
                         <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
@@ -538,7 +529,7 @@
                     <div class="form-group"><label>Total Reach (Views)</label><input type="number" id="mon-reach" class="form-control" placeholder="0"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Total Interaksi Kualitas (Likes+Komen+Shares+Saves+Repost)</label><input type="number" id="mon-int" class="form-control" placeholder="0"></div>
+                    <div class="form-group"><label>Total Interaksi (Likes+Komen+Shares+Saves+Repost)</label><input type="number" id="mon-int" class="form-control" placeholder="0"></div>
                     <div class="form-group"><label>Total DM / Klik (Informasi Konversi Terpisah)</label><input type="number" id="mon-dm" class="form-control" placeholder="0"></div>
                 </div>
                 
@@ -574,7 +565,6 @@
                 </div>
             </div>
 
-            <!-- ================= 5. CHANNEL EVALUATOR (KPI) ================= -->
             <div id="kpi-channel-section" class="tool-section">
                 <div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2><p>Audit keseluruhan metrik akun berdasarkan target Engagement Rate kustom.</p></div>
                 
@@ -627,14 +617,13 @@
                 <h4 style="margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:10px;">Arsip KPI Channel</h4>
                 
                 <div class="filter-bar">
-                    <strong>Filter Channel:</strong>
+                    <strong>Filter:</strong>
                     <select id="filter-kpi-platform" class="form-control" style="width:130px; margin:0;" onchange="renderKPIDatabase()"><option value="All">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select>
                     <select id="filter-kpi-period" class="form-control" style="width:130px; margin:0;" onchange="renderKPIDatabase()"><option value="All">Semua Periode</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select>
                     <select id="filter-kpi-month" class="form-control" style="width:130px; margin:0;" onchange="renderKPIDatabase()">
                         <option value="All">Semua Bulan</option><option>Januari</option><option>Februari</option><option>Maret</option><option>April</option><option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option><option>September</option><option>Oktober</option><option>November</option><option>Desember</option>
                     </select>
                 </div>
-                
                 <div style="display:flex; justify-content:flex-end; gap:10px; margin-bottom:10px;">
                     <button class="btn-sm bg-dark" onclick="pullDBFromGithub('kpi')">↓ Tarik Data JSON</button>
                     <button class="btn-sm bg-green" onclick="syncDBToGithub('kpi')">↑ Simpan JSON Langsung</button>
@@ -649,7 +638,6 @@
                 </div>
             </div>
 
-            <!-- ================= 6. AI CARE RESPONSE ================= -->
             <div id="response-section" class="tool-section">
                 <div class="section-header"><h2>💬 AI CARE Response Assistant</h2></div>
                 
@@ -696,7 +684,6 @@
                 </div>
             </div>
 
-            <!-- ================= 7. JSON EDITOR ================= -->
             <div id="jsoneditor-section" class="tool-section">
                 <div class="section-header"><h2>🛠️ JSON Editor</h2></div>
                 <p style="font-size:14px; color:var(--text-muted); margin-bottom:30px;">Akses platform editor JSON eksternal untuk manipulasi konfigurasi digital secara terpisah.</p>
@@ -729,7 +716,6 @@
                 </div>
             </div>
 
-            <!-- ================= 8. E-LEARNING HUB ================= -->
             <div id="elearning-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div><h2>🎓 E-Learning Hub</h2></div>
@@ -744,7 +730,6 @@
         <footer class="footer" style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">&copy; 2026 Honda Bintaro Digital Division</footer>
     </div>
 
-    <!-- GITHUB BROWSER MODAL -->
     <div id="gh-modal" style="display: none;">
         <div class="gh-modal-content">
             <div class="gh-modal-header">
@@ -766,7 +751,6 @@
         </div>
     </div>
 
-    <!-- SCROLL TO TOP SVG BTN -->
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
@@ -966,11 +950,8 @@
                         <td>${ideal[pilar]}%</td>
                     </tr>`;
 
-                    // Build Pie Chart
                     gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
                     currentPercent += parseFloat(actualPct);
-
-                    // Build Legend
                     legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
                 });
                 gradientStr = gradientStr.slice(0, -2);
@@ -980,7 +961,6 @@
             }
             document.getElementById('dist-result-box').style.display = 'block';
         }
-
 
         // ================= AI BRIEF LOGIC =================
         function toggleBriefOptions() {
@@ -1221,21 +1201,29 @@
                 const interaksi = parseFloat(document.getElementById('mon-int').value) || 0;
                 const dmCount = document.getElementById('mon-dm').value || "0";
                 
-                // Targets (Make sure HTML IDs match here!)
-                const targetReach = parseFloat(document.getElementById('cpm-target-reach').value) || 15;
+                // Targets
+                const targetReachRate = parseFloat(document.getElementById('cpm-target-reach').value) || 15;
+                const targetER = parseFloat(document.getElementById('cpm-target-er').value) || 1.0;
                 const targetERR = parseFloat(document.getElementById('cpm-target-err').value) || 3.5;
 
                 // Calculations
-                const reachRatio = (reach / foll) * 100;
+                const reachRate = (reach / foll) * 100;
+                const er = (interaksi / foll) * 100;
                 const err = reach > 0 ? (interaksi / reach) * 100 : 0;
                 
-                const reachStatusHTML = reachRatio >= targetReach ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
+                const rrStatusHTML = reachRate >= targetReachRate ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
+                const erStatusHTML = er >= targetER ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
                 const errStatusHTML = err >= targetERR ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
                 
-                const isOnTrack = (reachRatio >= targetReach) && (err >= targetERR);
-                let statusBadge = `<div><b>ER (Foll):</b> ${reachRatio.toFixed(1)}% ${reachStatusHTML}</div><div style="margin-top:2px;"><b>ERR (Reach):</b> ${err.toFixed(2)}% ${errStatusHTML}</div>`;
+                const isOnTrackRR = reachRate >= targetReachRate;
+                const isOnTrackER = er >= targetER;
+                const isOnTrackERR = err >= targetERR;
                 
-                const what = `Platform: <b>${platform}</b>. Awareness (Follower): <b>${reachRatio.toFixed(1)}%</b>. Engagement (Reach): <b>${err.toFixed(2)}%</b>. DM Konversi: <b>${dmCount}</b>. Target -> ER >${targetReach}% | ERR >${targetERR}%.`;
+                let statusBadge = `<div style="margin-bottom:2px;"><b>Reach Rate:</b> ${reachRate.toFixed(1)}% ${rrStatusHTML}</div>`;
+                statusBadge += `<div style="margin-bottom:2px;"><b>ER:</b> ${er.toFixed(2)}% ${erStatusHTML}</div>`;
+                statusBadge += `<div><b>ERR:</b> ${err.toFixed(2)}% ${errStatusHTML}</div>`;
+                
+                const what = `Platform: <b>${platform}</b>. Reach Rate: <b>${reachRate.toFixed(1)}%</b>. ER: <b>${er.toFixed(2)}%</b>. ERR: <b>${err.toFixed(2)}%</b>. DM Konversi: <b>${dmCount}</b>. Target -> RR >${targetReachRate}% | ER >${targetER}% | ERR >${targetERR}%.`;
                 
                 let soWhat = ""; let nowWhat = "";
 
@@ -1247,10 +1235,11 @@
                     btn.innerText = "⏳ Memproses W-S-N dengan AI..."; btn.disabled = true;
 
                     const sysPrompt = `Analisa performa konten ${platform} kategori ${category} (Maks 2 kalimat So What, 2 kalimat Now What).
-                    Target Awareness (Reach/Foll): >${targetReach}%. Aktual: ${reachRatio.toFixed(1)}% (${reachRatio >= targetReach ? 'On Track' : 'Off Track'}).
-                    Target Engagement (Interaksi/Reach): >${targetERR}%. Aktual: ${err.toFixed(2)}% (${err >= targetERR ? 'On Track' : 'Off Track'}).
-                    Konversi (DM): ${dmCount}.
-                    Buat analisa tajam berdasarkan kedua status di atas. Jika ER off track tapi ERR on track, jelaskan bahwa konten bagus tapi distribusi kurang. Return murni JSON format {"soWhat":"...", "nowWhat":"..."}`;
+                    Target Reach Rate: >${targetReachRate}%. Aktual: ${reachRate.toFixed(1)}% (${isOnTrackRR ? 'On Track' : 'Off Track'}).
+                    Target ER: >${targetER}%. Aktual: ${er.toFixed(2)}% (${isOnTrackER ? 'On Track' : 'Off Track'}).
+                    Target ERR: >${targetERR}%. Aktual: ${err.toFixed(2)}% (${isOnTrackERR ? 'On Track' : 'Off Track'}).
+                    Konversi DM: ${dmCount}.
+                    Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on track, jelaskan bahwa konten bagus tapi distribusi kurang. Return murni JSON format {"soWhat":"...", "nowWhat":"..."}`;
 
                     try {
                         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
@@ -1263,12 +1252,12 @@
                         soWhat = aiResult.soWhat; nowWhat = aiResult.nowWhat;
                     } catch(e) {
                         console.log("AI WSN Failed, using local logic.");
-                        soWhat = (err >= targetERR) ? `Kombinasi visual dan copy bekerja efektif memancing interaksi yang melihat.` : `Distribusi gagal memancing minat, indikasi audiens drop-off cepat.`;
-                        nowWhat = (err >= targetERR) ? `Replikasi format ini, pertimbangkan boosting Meta Ads untuk menaikkan Reach.` : `Evaluasi hook 3 detik pertama dan CTA.`;
+                        soWhat = isOnTrackERR ? `Kombinasi visual dan copy bekerja efektif memancing interaksi yang melihat.` : `Distribusi gagal memancing minat, indikasi audiens drop-off cepat.`;
+                        nowWhat = isOnTrackERR ? `Replikasi format ini, pertimbangkan boosting Meta Ads untuk menaikkan Reach.` : `Evaluasi hook 3 detik pertama dan CTA.`;
                     } finally { btn.innerText = oriText; btn.disabled = false; }
                 } else {
-                    soWhat = (err >= targetERR) ? `Kombinasi visual dan copy bekerja efektif memancing interaksi.` : `Distribusi gagal memancing minat, indikasi audiens drop-off cepat.`;
-                    nowWhat = (err >= targetERR) ? `Replikasi format ini, pertimbangkan boosting Meta Ads.` : `Evaluasi hook 3 detik pertama dan CTA.`;
+                    soWhat = isOnTrackERR ? `Kombinasi visual dan copy bekerja efektif memancing interaksi.` : `Distribusi gagal memancing minat, indikasi audiens drop-off cepat.`;
+                    nowWhat = isOnTrackERR ? `Replikasi format ini, pertimbangkan boosting Meta Ads.` : `Evaluasi hook 3 detik pertama dan CTA.`;
                 }
 
                 document.getElementById('mon-wsw').innerHTML = `
@@ -1416,7 +1405,7 @@
                     <td style="font-weight:bold; font-size:15px;">${item.er}%</td><td>${item.status}</td>
                     <td style="text-align:center; min-width:80px;">
                         <button onclick="editKPI(${idx})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%; justify-content:center;">✏️ Edit</button>
-                        <button onclick="kpiDB.splice(${idx},1); localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase();" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
+                        <button onclick="dbKPI.splice(${idx},1); localStorage.setItem('honda_kpi_db', JSON.stringify(dbKPI)); renderKPIDatabase();" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
                     </td>
                 </tr>`;
             });
