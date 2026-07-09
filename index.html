@@ -82,7 +82,7 @@
         
         .login-box .btn { background: linear-gradient(135deg, #667eea, #764ba2); font-size: 16px; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 5px; border:none; color:white; cursor:pointer; width:100%; transition:all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);}
         .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(118, 75, 162, 0.5); }
-        .login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #ff7675; padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(231,76,60,0.2);}
+        .login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: rgba(231,76,60,0.8); padding: 10px; border-radius: 8px; }
 
         /* HEADER & NAV */
         #dashboard-screen { display: none; flex: 1; flex-direction: column; }
@@ -199,7 +199,7 @@
 </head>
 <body>
 
-    <!-- ================= VIBRANT CREATIVE LOGIN SCREEN ================= -->
+    <!-- ================= VIBRANT FLUID LOGIN SCREEN ================= -->
     <div id="login-screen">
         <div class="creative-shape shape-1"></div>
         <div class="creative-shape shape-2"></div>
@@ -250,6 +250,7 @@
                     <h3>3C Brand Checker</h3>
                     <p>Form Audit 15-Point, Preview Visual Sticky, dan Celah Revisi Konten.</p>
                 </div>
+                <!-- HUB ANALITIK -->
                 <div class="tool-card" onclick="openTool('analytics-hub')">
                     <div class="tool-icon" style="background: #dff9fb; color: #22a6b3;">🎯</div>
                     <h3>Performance & Analytics</h3>
@@ -484,10 +485,10 @@
                         <div class="target-box">
                             <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Ideal</h4>
                             <div class="form-row">
-                                <div class="form-group"><label>Target ER (Follower Base) Minimal (%)</label><input type="number" id="cpm-target-er" class="form-control" value="15" step="0.1"></div>
-                                <div class="form-group"><label>Target ERR (Reach Base) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
+                                <div class="form-group"><label>Target Awareness (Reach Ratio) Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
+                                <div class="form-group"><label>Target Engagement (ERR) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
                             </div>
-                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Berdasarkan rata-rata industri, jangkauan organik yang sehat minimal menyentuh 15% dari total followers. Sementara untuk kualitas interaksi, ERR (Engagement Rate by Reach) ideal minimal 3.5% dari audiens yang melihat.</p>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Awareness) yang sehat minimal menyentuh 15% dari total followers. ERR (Engagement Rate by Reach) ideal minimal 3.5% dari audiens yang melihat (baik follower maupun non-follower).</p>
                         </div>
                         <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
@@ -517,7 +518,7 @@
                 
                 <div class="form-row">
                     <div class="form-group"><label>Tanggal Publish Konten</label><input type="date" id="mon-date" class="form-control" onchange="autoFillWeek('mon-date', 'mon-week')"></div>
-                    <div class="form-group"><label>Minggu Ke-</label><input type="number" id="mon-week" class="form-control" placeholder="Bisa diedit"></div>
+                    <div class="form-group"><label>Minggu Ke-</label><input type="number" id="mon-week" class="form-control" placeholder="Bisa diedit manual"></div>
                     <div class="form-group"><label>Tanggal Evaluasi (Ditarik)</label><input type="date" id="mon-eval-date" class="form-control"></div>
                 </div>
 
@@ -965,8 +966,11 @@
                         <td>${ideal[pilar]}%</td>
                     </tr>`;
 
+                    // Build Pie Chart
                     gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
                     currentPercent += parseFloat(actualPct);
+
+                    // Build Legend
                     legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
                 });
                 gradientStr = gradientStr.slice(0, -2);
@@ -976,6 +980,7 @@
             }
             document.getElementById('dist-result-box').style.display = 'block';
         }
+
 
         // ================= AI BRIEF LOGIC =================
         function toggleBriefOptions() {
@@ -1086,7 +1091,7 @@
         async function pushGHData(filename, dataObj, statusElementId) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             const statusEl = document.getElementById(statusElementId);
-            if(!config.token || !config.user || !config.repo || !filename) { statusEl.innerHTML = `<span style="color:red;">❌ Sync Gagal: Path/Config kosong!</span>`; return; }
+            if(!config.token || !config.user || !config.repo || !filename) { statusEl.innerHTML = `<span style="color:red;">❌ Sync Gagal: Isi field lengkap!</span>`; return; }
             statusEl.innerHTML = "<i>Memulai sinkronisasi ke GitHub... ⏳</i>";
             try {
                 let sha = "";
@@ -1216,7 +1221,7 @@
                 const interaksi = parseFloat(document.getElementById('mon-int').value) || 0;
                 const dmCount = document.getElementById('mon-dm').value || "0";
                 
-                // Targets
+                // Targets (Make sure HTML IDs match here!)
                 const targetReach = parseFloat(document.getElementById('cpm-target-reach').value) || 15;
                 const targetERR = parseFloat(document.getElementById('cpm-target-err').value) || 3.5;
 
