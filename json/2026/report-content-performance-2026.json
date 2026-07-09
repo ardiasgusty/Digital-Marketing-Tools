@@ -58,5 +58,25 @@
     "what": "Platform: <b>Instagram</b>. Reach Rate: <b>10.5%</b>. ER: <b>0.25%</b>. ERR: <b>2.36%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
     "soWhat": "Seluruh metrik performa Reels berada di bawah target (off-track), mengindikasikan kegagalan ganda dalam menarik algoritma untuk distribusi luas serta ketidakmampuan konten memicu interaksi audiens hingga menghasilkan konversi DM. Rendahnya nilai ERR (2.36%) dan ER (0.25%) mempertegas bahwa konsep visual maupun pesan yang disampaikan saat ini kurang relevan dan gagal menciptakan ketertarikan.",
     "nowWhat": "Segera lakukan evaluasi menyeluruh terhadap strategi konten dengan merombak total hook visual pada 3 detik pertama serta menyisipkan call-to-action (CTA) yang lebih kuat untuk mendorong konversi DM. Selain itu, lakukan A/B testing pada format video yang lebih interaktif dan relevan dengan tren audiens guna memulihkan distribusi algoritma serta meningkatkan engagement rate."
+  },
+  {
+    "title": "Walk Away Auto Lock ",
+    "link": "https://www.instagram.com/p/DaSOrU-EfrO",
+    "shortcode": "DaSOrU-EfrO",
+    "month": "Juli",
+    "week": "1",
+    "evalDateRaw": "2026-07-09",
+    "datePub": "2026-07-02",
+    "pilar": "Product Education",
+    "platform": "Instagram",
+    "category": "Feed / Photo",
+    "foll": 15382,
+    "reach": 88,
+    "interaksi": 8,
+    "dmCount": "0",
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 0.6% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.05% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 9.09% <span class=\"badge bg-green\">On Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>0.6%</b>. ER: <b>0.05%</b>. ERR: <b>9.09%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
+    "soWhat": "Kombinasi visual dan copy bekerja efektif memancing interaksi yang melihat.",
+    "nowWhat": "Replikasi format ini, pertimbangkan boosting Meta Ads untuk menaikkan Reach."
   }
 ]
