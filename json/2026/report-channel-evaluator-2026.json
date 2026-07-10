@@ -9,5 +9,16 @@
     "int": 447,
     "er": "2.91",
     "status": "<span class=\"badge\" style=\"background:var(--info);\">Ideal</span>"
+  },
+  {
+    "month": "Juli",
+    "week": "-",
+    "evalDateRaw": "2026-07-31",
+    "period": "Monthly",
+    "platform": "Instagram",
+    "foll": 15390,
+    "int": 5600,
+    "er": "36.39",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
   }
 ]
