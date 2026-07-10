@@ -310,9 +310,18 @@
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan GitHub Sync (Monthly Report DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group"><label>File Path JSON Report Bulanan (.json)</label>
-                            <div class="input-group">
-                                <input type="text" id="gh-path-monthly" class="form-control gh-sync-path-monthly" placeholder="Contoh: json/2026/report-content-performance-monthly-2026.json" onchange="syncGHFields(this.value, 'pathMonthly')">
+                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+                            <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON Report Bulanan (.json)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-monthly" class="form-control gh-sync-path-monthly" placeholder="Contoh: json/2026/report-content-performance-monthly-2026.json" onchange="syncGHFields(this.value, 'pathMonthly')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-monthly')">📂 Browse File</button>
+                                </div>
                             </div>
                         </div>
                         <p style="font-size:11px; color:var(--text-muted); margin:0;">*Data di generate secara otomatis dari tabel Performance Monitor dan Channel Evaluator, lalu disimpan ke dalam file JSON bulanan ini.</p>
@@ -406,11 +415,17 @@
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan GitHub Sync (Link DB)</summary>
                     <div style="padding:10px;">
+                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+                            <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Links DB)</label>
                                 <div class="input-group">
                                     <input type="text" id="gh-path-links" class="form-control gh-sync-path-links" placeholder="Contoh: data/link_penting.json" onchange="syncGHFields(this.value, 'pathLinks')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-links')">📂 Browse File</button>
                                 </div>
                             </div>
                         </div>
@@ -443,7 +458,8 @@
             <!-- ================= 2. AI GENERATOR ================= -->
             <div id="generator-section" class="tool-section">
                 <div class="section-header"><h2>✨ AI Caption & Brief Generator</h2></div>
-                
+                <details class="config-accordion"><summary>🔑 Google Gemini API Configuration</summary><div style="padding:10px;"><input type="password" class="form-control api-key-input" placeholder="Paste API Key Gemini di sini..." oninput="syncApiKey(this.value)"></div></details>
+
                 <div class="form-row">
                     <div class="form-group"><label>Tipe Output</label><select id="gen-type" class="form-control" onchange="toggleBriefOptions()"><option value="Caption">📝 Teks Caption</option><option value="Brief">🎬 Video Brief / Script</option></select></div>
                     <div class="form-group" id="opt-caption-length"><label>Panjang Caption</label><select id="gen-length" class="form-control"><option value="Singkat">Singkat (Anti-Bosan)</option><option value="Normal">Normal (Lebih Detail)</option></select></div>
@@ -479,7 +495,7 @@
                 <div class="history-box"><h4 style="margin-top:0; color:var(--primary);">💾 Arsip Lokal Caption/Brief (Browser)</h4><ul id="gen-history-list" class="history-list"></ul><button class="btn-sm bg-red" style="margin-top:10px;" onclick="clearGenHistory()">Hapus Semua Riwayat</button></div>
             </div>
 
-            <!-- ================= 3. 3C CHECKER ================= -->
+            <!-- ================= 3. 3C CHECKER WITH STICKY LAYOUT ================= -->
             <div id="checker-section" class="tool-section">
                 <div class="section-header" style="margin-bottom:15px;"><h2>✅ 3C Brand Alignment Checker</h2></div>
                 <div class="two-col-layout">
@@ -526,7 +542,7 @@
 
             <!-- ================= 4. UNIFIED CONTENT PERFORMANCE MONITOR ================= -->
             <div id="monitor-section" class="tool-section">
-                <div class="section-header"><h2>🎯 Content Performance Monitor (Mingguan)</h2><p>Evaluasi <b>Awareness (Reach Rate)</b>, <b>ER (Follower)</b>, dan <b>Content Quality (ERR Reach)</b>. Memisahkan Interaksi murni dengan Konversi (DM/Click).</p></div>
+                <div class="section-header"><h2>🎯 Content Performance Monitor (Mingguan)</h2><p>Evaluasi <b>Awareness (ER Follower)</b> dan <b>Content Quality (ERR Reach)</b> dalam satu kali input.</p></div>
                 
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan Target & GitHub Sync (Content DB)</summary>
@@ -534,20 +550,27 @@
                         <div class="target-box">
                             <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Ideal Mingguan</h4>
                             <div class="form-row">
-                                <div class="form-group"><label>Target Reach Rate (Awareness) (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
-                                <div class="form-group"><label>Target ER (Follower Base) (%)</label><input type="number" id="cpm-target-er" class="form-control" value="1.0" step="0.1"></div>
-                                <div class="form-group"><label>Target ERR (Reach Base) (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
+                                <div class="form-group"><label>Target Reach Rate (Awareness) Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
+                                <div class="form-group"><label>Target ER (Follower Base) Minimal (%)</label><input type="number" id="cpm-target-er" class="form-control" value="1.0" step="0.1"></div>
+                                <div class="form-group"><label>Target ERR (Reach Base) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
                             </div>
-                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Reach) yang sehat minimal 15% dari total followers. ER berstandar 1% dari followers. ERR (Engagement by Reach) ideal minimal 3.5% dari audiens yang benar-benar melihat.</p>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Reach) yang sehat minimal menyentuh 15% dari total followers. ER berstandar 1% dari followers. ERR (Engagement by Reach) ideal minimal 3.5% dari audiens yang benar-benar melihat.</p>
+                        </div>
+                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+                            <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
                         </div>
                         <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON Utama (.json)</label>
                                 <div class="input-group">
                                     <input type="text" id="gh-path-cpm" class="form-control gh-sync-path-cpm" placeholder="Contoh: data/arsip_konten.json" onchange="syncGHFields(this.value, 'pathContent')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-cpm')">📂 Browse File</button>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -627,15 +650,22 @@
                         <div class="target-box">
                             <h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Akun</h4>
                             <div class="form-row">
-                                <div class="form-group"><label>Target Average ER Ideal (%)</label><input type="number" id="kpi-target-er" class="form-control" value="1.0" step="0.1"></div>
+                                <div class="form-group"><label>Target Average ER Ideal Minimal (%)</label><input type="number" id="kpi-target-er" class="form-control" value="1.0" step="0.1"></div>
                                 <div class="form-group"><label>Target Average ER Sangat Baik (%)</label><input type="number" id="kpi-target-er-high" class="form-control" value="3.5" step="0.1"></div>
                             </div>
+                            <p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Benchmark ini mengukur kesehatan akun secara keseluruhan (Follower vs Total Interaksi mingguan/bulanan). ER di bawah 1% menandakan audiens bosan/terlalu hard-selling.</p>
+                        </div>
+                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+                            <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
                         </div>
                         <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON KPI Mingguan/Bulanan (.json)</label>
                                 <div class="input-group">
                                     <input type="text" id="gh-path-kpi" class="form-control gh-sync-path-kpi" placeholder="Contoh: data/arsip_kpi.json" onchange="syncGHFields(this.value, 'pathKPI')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-kpi')">📂 Browse File</button>
                                 </div>
                             </div>
                         </div>
@@ -741,6 +771,28 @@
         <footer class="footer" style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">&copy; 2026 Honda Bintaro Digital Division</footer>
     </div>
 
+    <!-- GITHUB BROWSER MODAL -->
+    <div id="gh-modal" style="display: none;">
+        <div class="gh-modal-content">
+            <div class="gh-modal-header">
+                <h3 id="gh-modal-title">Pilih File/Folder JSON</h3>
+                <button class="gh-modal-close" onclick="closeGHModal()">X</button>
+            </div>
+            <div class="gh-modal-body">
+                <div class="gh-list-item" onclick="navigateGHUp()" id="gh-modal-up" style="display:none; font-weight:bold; background:var(--bg);">
+                    <span class="gh-icon">⬅️</span> .. (Kembali)
+                </div>
+                <div id="gh-modal-list">
+                    <div style="padding:20px; text-align:center; color:var(--text-muted);">Memuat data dari GitHub... ⏳</div>
+                </div>
+            </div>
+            <div class="gh-modal-footer">
+                <div class="gh-current-path" id="gh-modal-path">Path: /</div>
+                <button id="gh-btn-select-folder" class="btn-sm bg-green" style="display:none; margin-bottom: 0;" onclick="selectGHFolder()">Pilih Folder Ini</button>
+            </div>
+        </div>
+    </div>
+
     <!-- SCROLL TO TOP SVG BTN -->
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -752,8 +804,9 @@
         let contentDB = []; let kpiDB = []; let linksDB = []; let monthlyReportDB = [];
         let editIdx = { content: -1, kpi: -1 };
 
+        // DIBERSIHKAN: Secret/Token tidak boleh ditaruh di dalam Source Code secara langsung
         const DEFAULT_CONFIG = {
-            token: "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",
+            token: "",
             user: "ardiasgusty",
             repo: "ardiasgusty.github.io",
             pathContent: "json/2026/report-content-performance-2026.json",
@@ -848,10 +901,15 @@
             if(localStorage.getItem('honda_theme') === 'dark') toggleTheme();
             
             if (!localStorage.getItem('gh_config')) localStorage.setItem('gh_config', JSON.stringify(DEFAULT_CONFIG));
-            if (!localStorage.getItem('gemini_api_key')) localStorage.setItem('gemini_api_key', "AQ.Ab8RN6J6RFVxzq_E1Wsk73IelKquDAqW1-AZKGBYwktoxVtyng");
-
+            
             const savedGeminiKey = localStorage.getItem('gemini_api_key');
             if(savedGeminiKey) document.querySelectorAll('.api-key-input').forEach(el => el.value = savedGeminiKey);
+            
+            const ghConf = JSON.parse(localStorage.getItem('gh_config'));
+            document.querySelectorAll('.gh-sync-token').forEach(el => el.value = ghConf.token || "");
+            document.querySelectorAll('.gh-sync-user').forEach(el => el.value = ghConf.user || "");
+            document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = ghConf.repo || "");
+            
             syncGHFields(null, null);
 
             // Auto Load DBs from Github
@@ -974,8 +1032,11 @@
                         <td>${ideal[pilar]}%</td>
                     </tr>`;
 
+                    // Build Pie Chart
                     gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
                     currentPercent += parseFloat(actualPct);
+
+                    // Build Legend
                     legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
                 });
                 gradientStr = gradientStr.slice(0, -2);
@@ -1146,9 +1207,7 @@
             const total = document.querySelectorAll('.chk-item').length;
             const checked = document.querySelectorAll('.chk-item:checked').length;
             const gap = total - checked;
-            let summary = `Total Checklist Terpenuhi: ${checked} / ${total}
-
-`;
+            let summary = `Total Checklist Terpenuhi: ${checked} / ${total}\n\n`;
             if(gap === 0) { summary += "✅ KONTEN AMAN! Semua syarat Brand Alignment terpenuhi. Konten siap untuk dipublish."; } 
             else { summary += `⚠️ PERLU REVISI: Ada ${gap} syarat yang belum terpenuhi. Silakan lengkapi tabel 'Gap Awal' dan perbaiki elemen visual/caption sebelum dipublish.`; }
             document.getElementById('audit-summary-text').innerText = summary;
@@ -1223,13 +1282,55 @@
             renderContentDatabase(); renderKPIDatabase(); renderLinksDatabase();
         }
 
-        // ================= UNIFIED CONTENT PERFORMANCE MONITOR =================
+        // ================= GITHUB FILE BROWSER MODAL =================
+        function openGHModal(mode, inputId) {
+            currentGHMode = mode; currentGHTargetInput = inputId; currentGHPath = "";
+            document.getElementById('gh-modal').style.display = 'flex';
+            document.getElementById('gh-modal-title').innerText = mode === 'file' ? 'Pilih File JSON' : 'Pilih Folder Gambar';
+            document.getElementById('gh-btn-select-folder').style.display = mode === 'folder' ? 'block' : 'none';
+            renderGHModalContents();
+        }
+        function closeGHModal() { document.getElementById('gh-modal').style.display = 'none'; }
+        async function renderGHModalContents() {
+            const listEl = document.getElementById('gh-modal-list'); const pathEl = document.getElementById('gh-modal-path'); const upBtn = document.getElementById('gh-modal-up');
+            pathEl.innerText = `Path: /${currentGHPath}`; listEl.innerHTML = `<div style="padding:20px; text-align:center;">Memuat... ⏳</div>`; upBtn.style.display = currentGHPath === "" ? 'none' : 'flex';
+            try {
+                const data = await fetchGHData(currentGHPath); listEl.innerHTML = "";
+                const sorted = data.sort((a,b) => (a.type === 'dir' ? -1 : 1));
+                sorted.forEach(item => {
+                    const icon = item.type === 'dir' ? '📁' : '📄';
+                    const div = document.createElement('div'); div.className = 'gh-list-item';
+                    div.innerHTML = `<span class="gh-icon">${icon}</span> <span>${item.name}</span>`;
+                    div.onclick = () => {
+                        if(item.type === 'dir') { currentGHPath = item.path; renderGHModalContents(); } 
+                        else if(currentGHMode === 'file' && item.name.endsWith('.json')) {
+                            document.getElementById(currentGHTargetInput).value = item.path;
+                            
+                            // Map correct path variable
+                            let pType = "";
+                            if(currentGHTargetInput === 'gh-path-cpm') pType = 'pathContent';
+                            else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
+                            else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
+                            else if (currentGHTargetInput === 'gh-path-monthly') pType = 'pathMonthly';
+                            
+                            syncGHFields(item.path, pType);
+                            closeGHModal();
+                        }
+                    };
+                    listEl.appendChild(div);
+                });
+            } catch(e) { listEl.innerHTML = `<div style="padding:20px; color:red; text-align:center;">Gagal memuat.</div>`; }
+        }
+        function navigateGHUp() { let parts = currentGHPath.split('/'); parts.pop(); currentGHPath = parts.join('/'); renderGHModalContents(); }
+        function selectGHFolder() { document.getElementById(currentGHTargetInput).value = currentGHPath; syncGHFields(currentGHPath, 'pathImg'); closeGHModal(); }
+
+        // ================= 4. UNIFIED CONTENT PERFORMANCE MONITOR =================
         function generateThumbnailPreview(url, containerId) {
             const container = document.getElementById(containerId);
             const match = url.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
             if(match && match[1]) {
                 const proxyUrl = `https://images.weserv.nl/?url=https://www.instagram.com/p/${match[1]}/media/?size=t`;
-                container.innerHTML = `<img src="${proxyUrl}" class="thumb-preview" onerror="this.outerHTML='<div class=\'thumb-preview\' style=\'font-size:24px;\'>📸</div>'">`;
+                container.innerHTML = `<img src="${proxyUrl}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">`;
             } else { container.innerHTML = "📸"; }
         }
 
@@ -1281,6 +1382,7 @@
                 
                 let soWhat = ""; let nowWhat = "";
 
+                // GEMINI AI INTEGRATION FOR W-S-N
                 const apiKey = localStorage.getItem('gemini_api_key');
                 if (apiKey) {
                     const btn = document.getElementById('btn-eval-mon');
@@ -1368,7 +1470,7 @@
             contentDB.forEach((item, idx) => {
                 if((fMonth !== "All" && item.month !== fMonth) || (fPlatform !== "All" && item.platform !== fPlatform) || (fCategory !== "All" && item.category !== fCategory)) return;
                 
-                const thumb = item.shortcode ? `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${item.shortcode}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\'thumb-preview\' style=\'font-size:24px;\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
+                const thumb = item.shortcode ? `<img src="https://images.weserv.nl/?url=https://www.instagram.com/p/${item.shortcode}/media/?size=t" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
                 const wsnHTML = `<b>W:</b> ${item.what.replace(/<br>/g, '')}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}`;
 
                 tbody.innerHTML += `<tr>
@@ -1384,7 +1486,7 @@
             });
         }
 
-        // ================= 5. CHANNEL EVALUATOR (KPI) =================
+        // ================= 5. WEEKLY/MONTHLY CHANNEL EVALUATOR =================
         function toggleKPIDate() {
             const period = document.getElementById('kpi-period').value;
             document.getElementById('kpi-week-group').style.display = period === 'Weekly' ? 'block' : 'none';
