@@ -90,14 +90,14 @@
     "pilar": "Dealer Credibility",
     "platform": "Instagram",
     "category": "Feed / Photo",
-    "foll": 15382,
-    "reach": 400,
+    "foll": 15378,
+    "reach": 402,
     "interaksi": 21,
     "dmCount": "0",
-    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 2.6% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.14% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 5.25% <span class=\"badge bg-green\">On Track</span></div>",
-    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>2.6%</b>. ER: <b>0.14%</b>. ERR: <b>5.25%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
-    "soWhat": "Kombinasi visual dan copy bekerja efektif memancing interaksi yang melihat.",
-    "nowWhat": "Replikasi format ini, pertimbangkan boosting Meta Ads untuk menaikkan Reach."
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 2.6% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.14% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 5.22% <span class=\"badge bg-green\">On Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>2.6%</b>. ER: <b>0.14%</b>. ERR: <b>5.22%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
+    "soWhat": "Meskipun kualitas konten terbukti sangat baik karena berhasil menarik interaksi dari audiens yang melihatnya (ERR 5,22%), distribusinya sangat minim sehingga jangkauan (Reach Rate 2,6%) dan ER (0,14%) berada jauh di bawah target. Akibat sempitnya distribusi ini, konten gagal menjangkau audiens potensial baru dan menghasilkan nol konversi DM.",
+    "nowWhat": "Segera lakukan promosi berbayar (Instagram Ads) untuk melipatgandakan jangkauan konten yang secara kualitas sudah terbukti efektif ini. Selain itu, sertakan instruksi *Call-to-Action* (CTA) yang lebih kuat dan insentif menarik di dalam caption atau gambar untuk memicu audiens mengirimkan DM."
   },
   {
     "title": "Honda Family Fair",
@@ -116,7 +116,7 @@
     "dmCount": "0",
     "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 0.4% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.05% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 11.76% <span class=\"badge bg-green\">On Track</span></div>",
     "what": "Platform: <b>Instagram</b>. Reach Rate: <b>0.4%</b>. ER: <b>0.05%</b>. ERR: <b>11.76%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
-    "soWhat": "Kombinasi visual dan copy bekerja efektif memancing interaksi yang melihat.",
-    "nowWhat": "Replikasi format ini, pertimbangkan boosting Meta Ads untuk menaikkan Reach."
+    "soWhat": "Meskipun jangkauan (Reach Rate 0,4%) dan interaksi keseluruhan (ER 0,05%) sangat rendah, tingginya ERR yang mencapai 11,76% membuktikan kualitas konten sebenarnya sangat menarik namun distribusinya sangat buruk. Akibatnya, minimnya paparan konten ini membuat potensi interaksi tidak maksimal hingga gagal menghasilkan konversi DM sama sekali.",
+    "nowWhat": "Untuk mengatasi masalah distribusi, kita perlu mendongkrak jangkauan secara instan lewat Instagram Ads (Boost Post) atau kolaborasi, serta mengoptimalkan algoritma organik melalui penggunaan keyword dan hashtag relevan. Selain itu, sisipkan Call-to-Action (CTA) yang lebih agresif dan persuasif di caption maupun visual untuk merangsang audiens melakukan konversi via DM."
   }
 ]
