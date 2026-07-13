@@ -2,5 +2,33 @@
   {
     "name": "Social Blade",
     "url": "https://socialblade.com"
+  },
+  {
+    "name": "Meta Ads Honda Bintaro (1085536315731503)",
+    "url": "https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503&columns=name%2Cdelivery%2Crecommendations_guidance%2Cresults%2Ccost_per_result%2Cbudget%2Cspend%2Cimpressions%2Creach%2Cactions%3Aonsite_conversion.total_messaging_connection%2Cactions%3Aonsite_conversion.messaging_first_reply%2Cactions%3Aomni_purchase%2Cschedule%2Cend_time%2Cattribution_setting%2Cbid%2Clast_significant_edit%2Cquality_score_organic%2Cquality_score_ectr%2Cquality_score_ecvr%2Ccampaign_name%2Ccost_per_action_type%3Aomni_purchase&attribution_windows=default"
+  },
+  {
+    "name": "Tiktok Ads",
+    "url": "ads.tiktok.com"
+  },
+  {
+    "name": "Google Ads",
+    "url": "https://ads.google.com"
+  },
+  {
+    "name": "Billing Meta Ads Honda Bintaro",
+    "url": "https://business.facebook.com/billing_hub/accounts/details/?business_id=1971446882930169&asset_id=1085536315731503&payment_account_id=1085536315731503&placement=ads_manager&entrypoint=ads_ecosystem_navigation_ads_billing_tool_plugin&payment_account_id_from_jsmodule=1085536315731503"
+  },
+  {
+    "name": "Billing Tiktok Ads",
+    "url": "https://ads.tiktok.com/i18n/account/payment?aadvid=7194279338676682753"
+  },
+  {
+    "name": "Billing Google Ads",
+    "url": "https://ads.google.com/aw/billing/summary?ocid=344233617&euid=289823264&__u=3523471136&uscid=344233617&__c=5261525833&authuser=0&subid=all-en-awhp-g-aw-c-home-signin-bgc%21o2-s500g500%7Cib%3A6653296821%7Cib%3A9279461727%7Cib%3A7966379274%7C-ahpm-0000000179-0000000001"
+  },
+  {
+    "name": "Github",
+    "url": "https://github.com"
   }
 ]
