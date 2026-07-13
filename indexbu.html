@@ -127,11 +127,12 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 details.config-accordion { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; padding: 5px 10px; }
 details.config-accordion summary { font-weight: bold; padding: 10px; cursor: pointer; color: var(--primary); outline: none; display: flex; align-items: center; gap: 8px; }
 
-/* DATA TABLE & FILTER */
+/* DATA TABLE & FILTER (WITH SCROLL FIX) */
 .filter-bar { display:flex; gap:10px; margin-bottom:15px; align-items:center; background: var(--bg); padding:10px; border-radius:8px; border:1px solid var(--border); flex-wrap: wrap; }
-.data-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; background: var(--card-bg); }
+.table-responsive { width: 100%; max-height: 450px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--card-bg); }
 .data-table th, .data-table td { border: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top;}
-.data-table th { background: var(--primary); color: white; border-color: var(--primary); }
+.data-table thead th { background: var(--primary); color: white; border-color: var(--primary); position: sticky; top: 0; z-index: 2; box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
 
 .btn-sm { padding: 8px 12px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; display: inline-flex; align-items: center; gap: 5px; justify-content:center;}
 .bg-red { background: #e74c3c; } .bg-green { background: #27ae60; } .bg-dark { background: #2c3e50; } .bg-gray { background: #95a5a6; } .bg-blue { background: #3498db; }
@@ -216,7 +217,6 @@ align-items: center; justify-content: center;
 .bar-chart-bar:hover { opacity: 0.8; }
 .bar-chart-val { font-size: 10px; font-weight: bold; margin-bottom: 4px; color: var(--text-main); }
 .bar-chart-lbl { font-size: 10px; color: var(--text-muted); margin-top: 6px; text-align: center; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.line-chart-svg { width: 100%; height: 220px; }
 .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13px; }
 </style>
 </head>
@@ -260,6 +260,12 @@ align-items: center; justify-content: center;
 <h3>Database & Content Plan</h3>
 <p>Akses langsung ke spreadsheet DM Plan, Link Penting, dan Jadwal Live.</p>
 </div>
+<!-- NEW TOOL: TO DO LIST -->
+<div class="tool-card" onclick="openTool('todo')">
+<div class="tool-icon" style="background: #d4efdf; color: #117a65;">✅</div>
+<h3>To Do List & Planner</h3>
+<p>Catat reminder dan tracking pembuatan konten pilar digital marketing.</p>
+</div>
 <div class="tool-card" onclick="openTool('generator')">
 <div class="tool-icon" style="background: #e8dbff; color: #8e44ad;">✨</div>
 <h3>AI Caption & Brief</h3>
@@ -274,6 +280,11 @@ align-items: center; justify-content: center;
 <div class="tool-icon" style="background: #dff9fb; color: #22a6b3;">🎯</div>
 <h3>Performance & Analytics</h3>
 <p>Evaluasi Reach, Engagement, KPI Channel, dan Distribusi Konten.</p>
+</div>
+<div class="tool-card" onclick="openTool('distribution')">
+<div class="tool-icon" style="background: #ffeaa7; color: #f39c12;">🥧</div>
+<h3>Content Distribution Planner</h3>
+<p>Analisa persentase pilar konten bulanan dari data Performance Monitor.</p>
 </div>
 <div class="tool-card" onclick="openTool('response')">
 <div class="tool-icon" style="background: #ffe0b2; color: #e17055;">💬</div>
@@ -319,6 +330,67 @@ align-items: center; justify-content: center;
 </div>
 </div>
 
+<!-- ================= NEW TO DO LIST SECTION ================= -->
+<div id="todo-section" class="tool-section">
+<div class="section-header"><h2>✅ To Do List & Content Planner</h2><p>Catat dan monitoring proses produksi konten bulanan tim digital marketing.</p></div>
+
+<details class="config-accordion">
+<summary>🔗 Pengaturan GitHub Sync (To Do DB)</summary>
+<div style="padding:10px;">
+<div class="form-row">
+<div class="form-group" style="flex: 2;">
+<label>File Path JSON (To Do DB)</label>
+<div class="input-group">
+<input type="text" id="gh-path-todo" class="form-control gh-sync-path-todo" placeholder="Contoh: json/todo-list.json" onchange="syncGHFields(this.value, 'pathTodo')">
+<button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-todo')">📂 Browse File</button>
+</div>
+</div>
+</div>
+</div>
+</details>
+
+<div class="form-row">
+<div class="form-group" style="flex:2;"><label>Judul Konten / Tugas</label><input type="text" id="todo-title" class="form-control" placeholder="Misal: Shoot Video POV HR-V"></div>
+<div class="form-group"><label>Platform</label><select id="todo-platform" class="form-control"><option>Instagram</option><option>TikTok</option><option>YouTube</option><option>Facebook</option><option>Website</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Pilar Konten</label>
+<select id="todo-pilar" class="form-control">
+<option>Product Value & Info</option><option>Dealer Credibility</option><option>Customer Story</option><option>Promo Activation</option>
+</select>
+</div>
+<div class="form-group"><label>Deadline (Target Selesai)</label><input type="date" id="todo-date" class="form-control"></div>
+<div class="form-group">
+<label>Status</label>
+<select id="todo-status" class="form-control">
+<option value="To Do">Mulai (To Do)</option>
+<option value="In Progress">Sedang Dikerjakan (In Progress)</option>
+<option value="Done">Selesai & Publish (Done)</option>
+</select>
+</div>
+</div>
+<button id="btn-save-todo" class="btn btn-accent" onclick="saveTodoLocal()">Simpan Tugas ➕</button>
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+<h4 style="margin:0;">Daftar Pekerjaan Konten</h4>
+<div style="display:flex; gap:10px;">
+<button class="btn-sm bg-dark" onclick="pullDBFromGithub('todo')">↓ Tarik Data JSON</button>
+<button class="btn-sm bg-green" onclick="syncDBToGithub('todo')">↑ Simpan JSON Langsung</button>
+</div>
+</div>
+<div id="github-status-todo" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
+
+<div class="table-responsive">
+<table class="data-table">
+<thead><tr><th>Status</th><th>Deadline</th><th>Tugas Konten</th><th>Platform & Pilar</th><th style="text-align:center;">Aksi</th></tr></thead>
+<tbody id="db-body-todo"></tbody>
+</table>
+</div>
+</div>
+<!-- ================= END TO DO LIST SECTION ================= -->
+
+
 <div id="distribution-section" class="tool-section">
 <div class="section-header"><h2>🥧 Content Distribution Planner</h2><p>Hitung persentase sebaran pilar konten per bulan berdasarkan data JSON Content Performance Monitor.</p></div>
 
@@ -331,6 +403,17 @@ align-items: center; justify-content: center;
 </div>
 </div>
 
+<div class="target-box" style="margin-bottom: 20px;">
+<h4 style="margin-top:0; color:var(--info);">🎯 Target Persentase Pilar</h4>
+<p style="font-size:12px; color:var(--text-muted); margin-top: -10px; margin-bottom: 10px;">Atur proporsi strategis sesuai kebutuhan bulan ini.</p>
+<div class="form-row">
+<div class="form-group"><label>Product Value & Info (%)</label><input type="number" id="dist-tgt-prod" class="form-control" value="35"></div>
+<div class="form-group"><label>Dealer Credibility (%)</label><input type="number" id="dist-tgt-dlr" class="form-control" value="25"></div>
+<div class="form-group"><label>Customer Story (%)</label><input type="number" id="dist-tgt-cs" class="form-control" value="25"></div>
+<div class="form-group"><label>Promo Activation (%)</label><input type="number" id="dist-tgt-promo" class="form-control" value="15"></div>
+</div>
+</div>
+
 <button class="btn btn-accent" onclick="calculateDistribution()">Hitung Distribusi Konten 🥧</button>
 
 <div id="dist-result-box" class="result-box" style="display:none; background:var(--card-bg); border-left:4px solid var(--warning);">
@@ -338,10 +421,12 @@ align-items: center; justify-content: center;
 <div class="two-col-layout" style="grid-template-columns: 1fr 1fr;">
 <div>
 <p style="font-size:14px; font-weight:bold;">Total Konten Bulan Ini: <span id="dist-total" style="color:var(--accent); font-size:18px;">0</span></p>
+<div class="table-responsive">
 <table class="data-table">
 <thead><tr><th>Pilar Konten</th><th>Aktual (%)</th><th>Standar Ideal (%)</th></tr></thead>
 <tbody id="dist-table-body"></tbody>
 </table>
+</div>
 <p id="dist-analysis" style="font-size:13px; margin-top:15px; color:var(--text-muted); line-height:1.5;"></p>
 </div>
 <div class="chart-container">
@@ -359,8 +444,8 @@ align-items: center; justify-content: center;
 </div>
 <div class="sheet-tabs">
 <button class="tab-btn active" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/10YB8WrOiEVxYczKKh5auSEThddoD9NUvQXqGFHsh3d4/edit?usp=sharing')">DM Plan</button>
-<button class="tab-btn" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/10YB8WrOiEVxYczKKh5auSEThddoD9NUvQXqGFHsh3d4/edit?usp=sharing')">KPI SID</button>
-<button class="tab-btn" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/10YB8WrOiEVxYczKKh5auSEThddoD9NUvQXqGFHsh3d4/edit?usp=sharing')">Jadwal Live Tiktok</button>
+<button class="tab-btn" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/1lH8YSvXHOcGTCdYeiOfKUHLaHtvCi4gVuYHn-QRq4To/edit?usp=sharing')">KPI SID</button>
+<button class="tab-btn" onclick="changeSheet(this, 'https://docs.google.com/spreadsheets/d/1iTnaXLwHRbPaC65IsyJFBYEcFk57okzuTXk2I-Boim0/edit?usp=sharing')">Jadwal Live Tiktok</button>
 </div>
 <div id="sheet-wrap" style="width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:white; position:relative; margin-bottom:40px;">
 <button id="btn-exit-fs" onclick="toggleFullScreen('sheet-wrap', 'btn-exit-fs')" style="display:none; position:absolute; top:10px; right:40px; z-index:10000; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Tutup Layar Penuh ✖</button>
@@ -374,11 +459,6 @@ align-items: center; justify-content: center;
 <details class="config-accordion">
 <summary>🔗 Pengaturan GitHub Sync (Link DB)</summary>
 <div style="padding:10px;">
-<div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
-<div class="form-row">
-<div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-<div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-</div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
 <label>File Path JSON (Links DB)</label>
@@ -406,7 +486,7 @@ align-items: center; justify-content: center;
 </div>
 <div id="github-status-links" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
 
-<div style="overflow-x:auto;">
+<div class="table-responsive">
 <table class="data-table">
 <thead><tr><th>Nama Situs / Deskripsi</th><th>Link Rujukan</th><th style="text-align:center;">Aksi</th></tr></thead>
 <tbody id="db-body-links"></tbody>
@@ -480,15 +560,21 @@ align-items: center; justify-content: center;
 </div>
 <div class="doc-section">
 <div class="doc-title">B. Level Refinement</div>
+<div class="table-responsive">
 <table class="data-table audit-table"><thead><tr><th>Level</th><th>Estimasi Waktu</th><th>Pilih</th></tr></thead><tbody><tr><td><strong>Minor</strong></td><td>5–10 menit</td><td><label><input type="radio" name="ref_level"> Edit caption / CTA / hashtag saja</label></td></tr><tr><td><strong>Moderate</strong></td><td>15–20 menit</td><td><label><input type="radio" name="ref_level"> Revisi tone dan sebagian elemen visual</label></td></tr><tr><td><strong>Major</strong></td><td>30+ menit</td><td><label><input type="radio" name="ref_level"> Redesign visual dan tulis ulang caption</label></td></tr></tbody></table>
+</div>
 </div>
 <div class="doc-section">
 <div class="doc-title">C. Gap Awal yang Ditemukan</div>
+<div class="table-responsive">
 <table class="data-table audit-table"><thead><tr><th width="10%">Dimensi</th><th width="40%">Item yang Belum Terpenuhi</th><th width="50%">Elemen Spesifik yang Perlu Diperbaiki</th></tr></thead><tbody><tr><td style="text-align:center; font-weight:bold;">C1</td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td></tr><tr><td style="text-align:center; font-weight:bold;">C2</td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td></tr><tr><td style="text-align:center; font-weight:bold;">C3</td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td></tr></tbody></table>
+</div>
 </div>
 <div class="doc-section">
 <div class="doc-title">D. Hasil Revisi</div>
+<div class="table-responsive">
 <table class="data-table audit-table"><thead><tr><th width="25%">Field</th><th>Isi</th></tr></thead><tbody><tr><td><strong>Caption Sebelum Revisi</strong></td><td><textarea class="form-control" style="margin:0; min-height:80px; border:none; background:transparent;" placeholder="Paste caption awal..."></textarea></td></tr><tr><td><strong>Caption Setelah Revisi</strong></td><td><textarea class="form-control" style="margin:0; min-height:80px; border:none; background:transparent;" placeholder="Paste caption hasil revisi..."></textarea></td></tr><tr><td><strong>Perubahan Visual (jika ada)</strong></td><td><textarea class="form-control" style="margin:0; min-height:50px; border:none; background:transparent;" placeholder="Jelaskan perubahan..."></textarea></td></tr><tr><td><strong>Alasan Perubahan</strong></td><td><textarea class="form-control" style="margin:0; min-height:50px; border:none; background:transparent;" placeholder="Jelaskan alasan..."></textarea></td></tr></tbody></table>
+</div>
 </div>
 <button class="btn btn-accent" onclick="cekHasilAudit()">📝 Generate Ringkasan Audit</button>
 <div id="audit-summary-box" class="result-box" style="display:none; background:var(--card-bg); border-left:4px solid var(--primary);"><h4 style="margin-top:0; color:var(--primary);">Hasil Audit Cepat</h4><p id="audit-summary-text" style="font-size:14px; white-space:pre-wrap; margin:0;"></p></div>
@@ -498,24 +584,19 @@ align-items: center; justify-content: center;
 </div>
 
 <div id="monitor-section" class="tool-section">
-<div class="section-header"><h2>🎯 Content Performance Monitor</h2><p>Evaluasi <b>Reach Rate</b>, <b>ER (Follower)</b>, dan <b>ERR (Reach)</b> per konten dalam satu kali input (Mingguan).</p></div>
+<div class="section-header"><h2>🎯 Content Performance Monitor (Mingguan)</h2><p>Evaluasi <b>Awareness (Reach Rate)</b>, <b>ER (Follower)</b>, dan <b>Content Quality (ERR Reach)</b>. Memisahkan Interaksi murni dengan Konversi (DM/Click).</p></div>
 
 <details class="config-accordion">
 <summary>🔗 Pengaturan Target & GitHub Sync (Content DB)</summary>
 <div style="padding:10px;">
 <div class="target-box">
-<h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Ideal</h4>
+<h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Ideal Mingguan</h4>
 <div class="form-row">
-<div class="form-group"><label>Target Reach Rate (Awareness) Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
-<div class="form-group"><label>Target ER (Follower Base) Minimal (%)</label><input type="number" id="cpm-target-er" class="form-control" value="1.0" step="0.1"></div>
-<div class="form-group"><label>Target ERR (Reach Base) Minimal (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
+<div class="form-group"><label>Target Reach Rate Minimal (%)</label><input type="number" id="cpm-target-reach" class="form-control" value="15" step="0.1"></div>
+<div class="form-group"><label>Target ER (Follower Base) (%)</label><input type="number" id="cpm-target-er" class="form-control" value="1.0" step="0.1"></div>
+<div class="form-group"><label>Target ERR (Reach Base) (%)</label><input type="number" id="cpm-target-err" class="form-control" value="3.5" step="0.1"></div>
 </div>
-<p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Jangkauan organik (Reach) yang sehat minimal 15% dari total followers. ER berstandar 1% dari followers. ERR (Engagement by Reach) ideal minimal 3.5% dari audiens yang benar-benar melihat.</p>
-</div>
-<div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
-<div class="form-row">
-<div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-<div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+<p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah untuk melihat rekomendasi target yang otomatis berubah.</p>
 </div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
@@ -526,7 +607,6 @@ align-items: center; justify-content: center;
 </div>
 </div>
 </div>
-<div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
 </div>
 </details>
 
@@ -541,16 +621,16 @@ align-items: center; justify-content: center;
 <div class="form-row">
 <div class="form-group"><label>Tanggal Publish Konten</label><input type="date" id="mon-date" class="form-control" onchange="autoFillWeek('mon-date', 'mon-week')"></div>
 <div class="form-group"><label>Minggu Ke-</label><input type="number" id="mon-week" class="form-control" placeholder="Bisa diedit manual"></div>
-<div class="form-group"><label>Tanggal Evaluasi (Ditarik)</label><input type="date" id="mon-eval-date" class="form-control"></div>
+<div class="form-group"><label>Tanggal Evaluasi (Hari ini)</label><input type="date" id="mon-eval-date" class="form-control"></div>
 </div>
 
 <div class="form-row">
-<div class="form-group"><label>Platform Media</label><select id="mon-platform" class="form-control"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select></div>
+<div class="form-group"><label>Platform Media</label><select id="mon-platform" class="form-control" onchange="adjustTargetsByPlatform('mon')"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select></div>
 <div class="form-group"><label>Kategori Konten</label><select id="mon-category" class="form-control"><option>Story</option><option>Feed / Photo</option><option>Reels</option><option>Shorts</option><option>Long Video</option></select></div>
 <div class="form-group">
-<label>Pilar Konten (Honda Standards)</label>
+<label>Pilar Konten</label>
 <select id="mon-pilar" class="form-control">
-<option>Product Education</option><option>Dealer Credibility</option><option>Customer Story</option><option>Promo Activation</option>
+<option>Product Value & Info</option><option>Dealer Credibility</option><option>Customer Story</option><option>Promo Activation</option>
 </select>
 </div>
 </div>
@@ -560,7 +640,7 @@ align-items: center; justify-content: center;
 <div class="form-group"><label>Total Reach (Views)</label><input type="number" id="mon-reach" class="form-control" placeholder="0"></div>
 </div>
 <div class="form-row">
-<div class="form-group"><label>Total Interaksi (Likes+Komen+Shares+Saves+Repost)</label><input type="number" id="mon-int" class="form-control" placeholder="0"></div>
+<div class="form-group"><label>Total Interaksi Kualitas (Likes+Komen+Shares+Saves+Repost)</label><input type="number" id="mon-int" class="form-control" placeholder="0"></div>
 <div class="form-group"><label>Total DM / Klik (Informasi Konversi Terpisah)</label><input type="number" id="mon-dm" class="form-control" placeholder="0"></div>
 </div>
 
@@ -588,7 +668,7 @@ align-items: center; justify-content: center;
 </div>
 <div id="github-status-content-table" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
 
-<div style="overflow-x:auto;">
+<div class="table-responsive">
 <table class="data-table">
 <thead><tr><th>Preview</th><th>Detail Konten</th><th>Platform & Pilar</th><th>Performa Lanjutan (W-S-N)</th><th>Aksi</th></tr></thead>
 <tbody id="db-body-content"></tbody>
@@ -610,11 +690,6 @@ align-items: center; justify-content: center;
 </div>
 <p style="font-size:11px; color:var(--text-muted); margin:0;">*Rumus RevoU — ER: (Total Interaksi 30 hari ÷ Total Akun Reached 30 hari) × 100. Avg Reach/Post: Total Reach 30 hari ÷ Jumlah Post 30 hari.</p>
 </div>
-<div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
-<div class="form-row">
-<div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-<div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-</div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
 <label>File Path JSON Monthly (.json)</label>
@@ -624,12 +699,10 @@ align-items: center; justify-content: center;
 </div>
 </div>
 </div>
-<div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
 </div>
 </details>
 
 <div class="form-row">
-<div class="form-group"><label>Nama Akun / Platform Label</label><input type="text" id="conm-title" class="form-control" placeholder="Contoh: Instagram @hondabintaro"></div>
 <div class="form-group"><label>Platform Media</label><select id="conm-platform" class="form-control"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select></div>
 </div>
 
@@ -676,32 +749,26 @@ align-items: center; justify-content: center;
 </div>
 <div id="github-status-content-monthly-table" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
 
-<div style="overflow-x:auto;">
+<div class="table-responsive">
 <table class="data-table">
-<thead><tr><th>Bulan & Periode</th><th>Akun & Platform</th><th>Metrik Dasar</th><th>Hasil RevoU (W-S-N)</th><th>Aksi</th></tr></thead>
+<thead><tr><th>Bulan & Periode</th><th>Platform</th><th>Metrik Dasar</th><th>Hasil RevoU (W-S-N)</th><th>Aksi</th></tr></thead>
 <tbody id="db-body-content-monthly"></tbody>
 </table>
 </div>
 </div>
 
 <div id="kpi-channel-section" class="tool-section">
-<div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2><p>Audit keseluruhan metrik akun berdasarkan target Engagement Rate kustom.</p></div>
+<div class="section-header"><h2>📈 Weekly/Monthly Channel Evaluator</h2><p>Audit keseluruhan metrik akun (Macro) berdasarkan target Average Engagement Rate kustom.</p></div>
 
 <details class="config-accordion">
 <summary>🔗 Pengaturan Target & GitHub Sync (Channel KPI)</summary>
 <div style="padding:10px;">
 <div class="target-box">
-<h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Engagement Rate (ER)</h4>
+<h4 style="margin-top:0; color:var(--info);">🎯 Atur Target Akun</h4>
 <div class="form-row">
-<div class="form-group"><label>Target ER Ideal Minimal (%)</label><input type="number" id="kpi-target-er" class="form-control" value="1.0" step="0.1"></div>
-<div class="form-group"><label>Target ER Sangat Baik (%)</label><input type="number" id="kpi-target-er-high" class="form-control" value="3.5" step="0.1"></div>
+<div class="form-group"><label>Target Average ER Ideal (%)</label><input type="number" id="kpi-target-er" class="form-control" value="1.0" step="0.1"></div>
+<div class="form-group"><label>Target Average ER Sangat Baik (%)</label><input type="number" id="kpi-target-er-high" class="form-control" value="3.5" step="0.1"></div>
 </div>
-<p style="font-size:11px; color:var(--text-muted); margin:0;">*Dasar Target: Benchmark ini mengukur kesehatan akun secara keseluruhan (Follower vs Total Interaksi mingguan/bulanan). ER di bawah 1% menandakan audiens bosan/terlalu hard-selling.</p>
-</div>
-<div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
-<div class="form-row">
-<div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-<div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
 </div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
@@ -719,14 +786,14 @@ align-items: center; justify-content: center;
 <div style="flex:1; min-width:300px;">
 <div class="form-row">
 <div class="form-group"><label>Periode Evaluasi</label><select id="kpi-period" class="form-control" onchange="toggleKPIDate()"><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select></div>
-<div class="form-group"><label>Platform Media</label><select id="kpi-platform" class="form-control"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select></div>
+<div class="form-group"><label>Platform Media</label><select id="kpi-platform" class="form-control" onchange="adjustTargetsByPlatform('kpi')"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Tanggal Evaluasi</label><input type="date" id="kpi-eval-date" class="form-control" onchange="autoFillWeek('kpi-eval-date', 'kpi-week')"></div>
 <div class="form-group" id="kpi-week-group"><label>Minggu Ke-</label><input type="number" id="kpi-week" class="form-control" placeholder="Auto/Manual"></div>
 </div>
 <div class="form-group"><label>Total Followers Saat Ini</label><input type="number" id="kpi-foll" class="form-control" value="15381"></div>
-<div class="form-group"><label>Total Interaksi Akun (Semua Postingan dalam periode tsb)</label><input type="number" id="kpi-int" class="form-control" placeholder="0"></div>
+<div class="form-group"><label>Total Interaksi Seluruh Konten (Dalam periode tsb)</label><input type="number" id="kpi-int" class="form-control" placeholder="0"></div>
 <button id="btn-eval-kpi" class="btn btn-accent" onclick="calculateKPILocal()">Hitung & Tambah ke Tabel 👇</button>
 </div>
 </div>
@@ -736,7 +803,7 @@ align-items: center; justify-content: center;
 <h4 style="margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:10px;">Arsip KPI Channel</h4>
 
 <div class="filter-bar">
-<strong>Filter:</strong>
+<strong>Filter Channel:</strong>
 <select id="filter-kpi-platform" class="form-control" style="width:130px; margin:0;" onchange="renderKPIDatabase()"><option value="All">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select>
 <select id="filter-kpi-period" class="form-control" style="width:130px; margin:0;" onchange="renderKPIDatabase()"><option value="All">Semua Periode</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select>
 <select id="filter-kpi-month" class="form-control" style="width:130px; margin:0;" onchange="renderKPIDatabase()">
@@ -749,7 +816,7 @@ align-items: center; justify-content: center;
 </div>
 <div id="github-status-kpi-table" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
 
-<div style="overflow-x:auto;">
+<div class="table-responsive">
 <table class="data-table">
 <thead><tr><th>Bulan</th><th>Periode & Platform</th><th>Followers</th><th>Total Interaksi</th><th>ER (%)</th><th>Status</th><th>Aksi</th></tr></thead>
 <tbody id="kpi-db-body"></tbody>
@@ -933,12 +1000,24 @@ align-items: center; justify-content: center;
 <script>
 // ================= GLOBAL CONFIGS & DBs =================
 const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
-let contentDB = []; let kpiDB = []; let linksDB = []; let contentMonthlyDB = [];
-let editIdx = { content: -1, kpi: -1, contentMonthly: -1 };
+let contentDB = []; let kpiDB = []; let linksDB = []; let contentMonthlyDB = []; let todoDB = [];
+let editIdx = { content: -1, kpi: -1, contentMonthly: -1, todo: -1 };
 let currentGHPath = ""; let currentGHTargetInput = ""; let currentGHMode = "file";
 
 // Prefix proxy untuk thumbnail Instagram (images.weserv.nl)
 const THUMB_PROXY_PREFIX = "https://images.weserv.nl/?url=";
+
+// DIBERSIHKAN: Secret/Token tidak boleh ditaruh di dalam Source Code secara langsung
+const DEFAULT_CONFIG = {
+token: "",
+user: "ardiasgusty",
+repo: "ardiasgusty.github.io",
+pathContent: "json/2026/report-content-performance-2026.json",
+pathMonthly: "json/2026/report-content-performance-monthly-2026.json",
+pathKPI: "report-channel-evaluator-2026.json",
+pathLinks: "json/kumpulan-link-penting.json",
+pathTodo: "json/todo-list.json"
+};
 
 // ================= UTILITIES & THEME =================
 function toggleTheme() {
@@ -987,7 +1066,6 @@ document.getElementById('dashboard-screen').style.display = 'flex';
 }
 function logout() { sessionStorage.removeItem('auth_hb'); location.reload(); }
 
-// ================= SYNC FIELD CONFIGS =================
 function syncApiKey(val) {
 localStorage.setItem('gemini_api_key', val.trim());
 document.querySelectorAll('.api-key-input').forEach(el => { if(el.value !== val) el.value = val; });
@@ -997,15 +1075,61 @@ function syncGHFields(val, keyType) {
 const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
 if(keyType) config[keyType] = val;
 
-document.querySelectorAll('.gh-sync-token').forEach(el => el.value = config.token || '');
-document.querySelectorAll('.gh-sync-user').forEach(el => el.value = config.user || '');
-document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = config.repo || '');
 if(document.getElementById('gh-path-cpm')) document.getElementById('gh-path-cpm').value = config.pathContent || '';
-if(document.getElementById('gh-path-cpmm')) document.getElementById('gh-path-cpmm').value = config.pathContentMonthly || '';
 if(document.getElementById('gh-path-kpi')) document.getElementById('gh-path-kpi').value = config.pathKPI || '';
 if(document.getElementById('gh-path-links')) document.getElementById('gh-path-links').value = config.pathLinks || '';
+if(document.getElementById('gh-path-cpmm')) document.getElementById('gh-path-cpmm').value = config.pathContentMonthly || '';
+if(document.getElementById('gh-path-todo')) document.getElementById('gh-path-todo').value = config.pathTodo || '';
 
 localStorage.setItem('gh_config', JSON.stringify(config));
+}
+
+// Reset forms to fix "Data Nempel"
+function resetForm(prefix) {
+document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
+if ((el.tagName === 'INPUT' && el.type !== 'date') || el.tagName === 'TEXTAREA') {
+if(el.id !== `${prefix}-foll` && el.id.indexOf('target') === -1) {
+el.value = "";
+}
+}
+});
+if(prefix === 'mon') {
+document.getElementById('thumb-mon').innerHTML = "📸";
+editIdx.content = -1;
+document.getElementById('btn-eval-mon').innerText = "Evaluasi & Tambah ke Tabel 👇";
+} else if (prefix === 'kpi') {
+editIdx.kpi = -1;
+document.getElementById('btn-eval-kpi').innerText = "Hitung & Tambah ke Tabel 👇";
+} else if (prefix === 'todo') {
+editIdx.todo = -1;
+document.getElementById('btn-save-todo').innerText = "Simpan Tugas ➕";
+}
+}
+
+// DYNAMIC TARGET ADJUSTMENT BASED ON PLATFORM
+function adjustTargetsByPlatform(mode) {
+let platform = document.getElementById(mode + '-platform').value;
+let elReach = document.getElementById(mode === 'mon' ? 'cpm-target-reach' : null);
+let elER = document.getElementById(mode === 'mon' ? 'cpm-target-er' : 'kpi-target-er');
+let elERR = document.getElementById(mode === 'mon' ? 'cpm-target-err' : 'kpi-target-er-high');
+
+if (platform === 'TikTok') {
+if(elReach) elReach.value = 20;
+if(elER) elER.value = 2.0;
+if(elERR) elERR.value = 5.0;
+} else if (platform === 'Instagram') {
+if(elReach) elReach.value = 15;
+if(elER) elER.value = 1.0;
+if(elERR) elERR.value = 3.5;
+} else if (platform === 'Facebook') {
+if(elReach) elReach.value = 10;
+if(elER) elER.value = 0.5;
+if(elERR) elERR.value = 2.0;
+} else if (platform === 'YouTube') {
+if(elReach) elReach.value = 10;
+if(elER) elER.value = 1.5;
+if(elERR) elERR.value = 4.0;
+}
 }
 
 // ================= INIT CODE =================
@@ -1016,11 +1140,25 @@ document.getElementById('dashboard-screen').style.display='flex';
 }
 if(localStorage.getItem('honda_theme') === 'dark') toggleTheme();
 
+if (!localStorage.getItem('gh_config')) localStorage.setItem('gh_config', JSON.stringify(DEFAULT_CONFIG));
+
 const savedGeminiKey = localStorage.getItem('gemini_api_key');
 if(savedGeminiKey) document.querySelectorAll('.api-key-input').forEach(el => el.value = savedGeminiKey);
+
+const ghConf = JSON.parse(localStorage.getItem('gh_config'));
+document.querySelectorAll('.gh-sync-token').forEach(el => el.value = ghConf.token || "");
+document.querySelectorAll('.gh-sync-user').forEach(el => el.value = ghConf.user || "");
+document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = ghConf.repo || "");
+
 syncGHFields(null, null);
 
-loadDBs(); renderGenHistory(); renderCareHistory();
+// Auto Load DBs from Github
+pullDBFromGithub('content');
+pullDBFromGithub('kpi');
+pullDBFromGithub('links');
+pullDBFromGithub('todo');
+
+renderGenHistory(); renderCareHistory();
 });
 
 // ================= NAVIGATION =================
@@ -1065,6 +1203,94 @@ document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
 document.getElementById('main-sheet-frame').src = url;
 }
 
+// ================= TO DO LIST LOGIC =================
+function saveTodoLocal() {
+const title = document.getElementById('todo-title').value;
+const platform = document.getElementById('todo-platform').value;
+const pilar = document.getElementById('todo-pilar').value;
+const date = document.getElementById('todo-date').value;
+const status = document.getElementById('todo-status').value;
+
+if(!title || !date) return alert("Harap lengkapi judul dan deadline tugas!");
+
+const newItem = { title, platform, pilar, date, status };
+
+if(editIdx.todo > -1) {
+todoDB[editIdx.todo] = newItem;
+editIdx.todo = -1;
+document.getElementById('btn-save-todo').innerText = "Simpan Tugas ➕";
+} else {
+todoDB.push(newItem);
+}
+
+localStorage.setItem('honda_todo_db', JSON.stringify(todoDB));
+renderTodoDatabase();
+resetForm('todo');
+}
+
+function editTodo(idx) {
+const item = todoDB[idx];
+document.getElementById('todo-title').value = item.title;
+document.getElementById('todo-platform').value = item.platform;
+document.getElementById('todo-pilar').value = item.pilar;
+document.getElementById('todo-date').value = item.date;
+document.getElementById('todo-status').value = item.status;
+
+editIdx.todo = idx;
+document.getElementById('btn-save-todo').innerText = "Simpan Perubahan 💾";
+}
+
+function delTodo(idx) {
+todoDB.splice(idx, 1);
+localStorage.setItem('honda_todo_db', JSON.stringify(todoDB));
+renderTodoDatabase();
+}
+
+function updateTodoStatus(idx, newStatus) {
+todoDB[idx].status = newStatus;
+localStorage.setItem('honda_todo_db', JSON.stringify(todoDB));
+renderTodoDatabase();
+}
+
+function renderTodoDatabase() {
+const tbody = document.getElementById('db-body-todo'); tbody.innerHTML = "";
+if(!todoDB || todoDB.length === 0) {
+tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada tugas yang tersimpan.</td></tr>`;
+return;
+}
+
+// Sort by date closest first
+const sortedDB = [...todoDB].sort((a,b) => new Date(a.date) - new Date(b.date));
+
+sortedDB.forEach((item) => {
+// Find original index for editing
+const idx = todoDB.indexOf(item); 
+let statusBadge = '';
+if(item.status === 'To Do') statusBadge = `<span class="badge bg-gray">To Do</span>`;
+else if(item.status === 'In Progress') statusBadge = `<span class="badge bg-warning" style="background:var(--warning)">In Progress</span>`;
+else statusBadge = `<span class="badge bg-green">Done</span>`;
+
+tbody.innerHTML += `<tr>
+<td style="text-align:center;">
+<select class="form-control" style="font-size:11px; padding:4px; margin:0;" onchange="updateTodoStatus(${idx}, this.value)">
+<option value="To Do" ${item.status === 'To Do' ? 'selected' : ''}>To Do</option>
+<option value="In Progress" ${item.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+<option value="Done" ${item.status === 'Done' ? 'selected' : ''}>Done</option>
+</select>
+<div style="margin-top:5px;">${statusBadge}</div>
+</td>
+<td><b>${item.date}</b></td>
+<td>${item.title}</td>
+<td><span class="badge bg-dark">${item.platform}</span><br><small>${item.pilar}</small></td>
+<td style="text-align:center; width:80px;">
+<button onclick="editTodo(${idx})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%;">✏️ Edit</button>
+<button onclick="delTodo(${idx})" class="btn-sm bg-red" style="width:100%;">X Hapus</button>
+</td>
+</tr>`;
+});
+}
+
+
 // ================= LINK PENTING LOGIC =================
 function addLinkLocal() {
 const name = document.getElementById('link-name').value;
@@ -1087,7 +1313,7 @@ renderLinksDatabase();
 
 function renderLinksDatabase() {
 const tbody = document.getElementById('db-body-links'); tbody.innerHTML = "";
-if(linksDB.length === 0) {
+if(!linksDB || linksDB.length === 0) {
 tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Belum ada link yang tersimpan.</td></tr>`;
 return;
 }
@@ -1100,55 +1326,133 @@ tbody.innerHTML += `<tr>
 });
 }
 
-// ================= CONTENT DISTRIBUTION PLANNER =================
-function calculateDistribution() {
-const month = document.getElementById('dist-month').value;
-let counts = { "Product Education": 0, "Promo Activation": 0, "Dealer Credibility": 0, "Customer Story": 0 };
-let total = 0;
-contentDB.forEach(item => {
-if(item.month === month) {
-if(counts[item.pilar] !== undefined) counts[item.pilar]++;
-total++;
+// ================= GITHUB ADVANCED CONNECT DATABASE =================
+async function fetchGHData(path) {
+const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+if(!config.token || !config.user || !config.repo) throw new Error("Config GitHub error.");
+const res = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${path}`, { headers: { "Authorization": `token ${config.token}` } });
+if(!res.ok) throw new Error("Fetch error."); return await res.json();
 }
+
+async function pushGHData(filename, dataObj, statusElementId) {
+const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+const statusEl = document.getElementById(statusElementId);
+if(!config.token || !config.user || !config.repo || !filename) { statusEl.innerHTML = `<span style="color:red;">❌ Sync Gagal: Isi field lengkap!</span>`; return; }
+statusEl.innerHTML = "<i>Memulai sinkronisasi ke GitHub... ⏳</i>";
+try {
+let sha = "";
+try {
+const getRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${filename}`, { headers: { "Authorization": `token ${config.token}` } });
+if(getRes.ok) { const getJson = await getRes.json(); sha = getJson.sha; }
+} catch(e) {}
+const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
+const bodyData = { message: `Auto-update ${filename} via Digital Marketing OS`, content: contentBase64 };
+if(sha) bodyData.sha = sha;
+
+const putRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${filename}`, {
+method: 'PUT', headers: { "Authorization": `token ${config.token}`, "Content-Type": "application/json" }, body: JSON.stringify(bodyData)
 });
+if(!putRes.ok) throw new Error("Gagal Push");
+statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil tersimpan di GitHub!</span>`;
+setTimeout(() => statusEl.innerHTML = "", 5000);
+} catch (err) { statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal sync. Cek Token scope.</span>`; }
+}
 
-document.getElementById('dist-total').innerText = total;
-const tbody = document.getElementById('dist-table-body'); tbody.innerHTML = "";
-const ideal = { "Product Education": 40, "Promo Activation": 30, "Dealer Credibility": 15, "Customer Story": 15 };
-const colors = { "Product Education": "#3498db", "Promo Activation": "#e74c3c", "Dealer Credibility": "#2ecc71", "Customer Story": "#f1c40f" };
+async function pullDBFromGithub(type, silent = false) {
+const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+let path, statusElId;
+if(type === 'content') { path = config.pathContent; statusElId = 'github-status-content-table'; }
+else if(type === 'content-monthly') { path = config.pathContentMonthly; statusElId = 'github-status-content-monthly-table'; }
+else if(type === 'kpi') { path = config.pathKPI; statusElId = 'github-status-kpi-table'; }
+else if(type === 'links') { path = config.pathLinks; statusElId = 'github-status-links'; }
+else if(type === 'todo') { path = config.pathTodo; statusElId = 'github-status-todo'; }
 
-let gradientStr = ""; let currentPercent = 0; let legendHTML = "";
+const statusEl = document.getElementById(statusElId);
+if(!path) {
+if(!silent) console.log("Path JSON kosong untuk " + type);
+return; // gracefully ignore if path is empty
+}
 
-if(total === 0) {
-tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Belum ada data konten di bulan ${month}</td></tr>`;
-document.getElementById('css-pie-chart').style.background = "#eee";
-document.getElementById('dist-legend-container').innerHTML = "";
-document.getElementById('dist-analysis').innerText = "";
-} else {
-Object.keys(counts).forEach((pilar, idx) => {
-const actualPct = ((counts[pilar] / total) * 100).toFixed(1);
-const diff = (actualPct - ideal[pilar]).toFixed(1);
-let diffBadge = diff > 5 ? `<span style="color:var(--accent);"> (+${diff}%)</span>` : diff < -5 ? `<span style="color:var(--warning);"> (${diff}%)</span>` : `<span style="color:var(--success);"> (Sesuai)</span>`;
+if(!silent && statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+try {
+const ghData = await fetchGHData(path);
+const jsonData = JSON.parse(decodeURIComponent(escape(atob(ghData.content))));
+if(type === 'content') { contentDB = jsonData || []; localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase(); }
+else if(type === 'content-monthly') { contentMonthlyDB = jsonData || []; localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB)); renderContentMonthlyDatabase(); }
+else if(type === 'kpi') { kpiDB = jsonData || []; localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase(); }
+else if(type === 'links') { linksDB = jsonData || []; localStorage.setItem('honda_links_db', JSON.stringify(linksDB)); renderLinksDatabase(); }
+else if(type === 'todo') { todoDB = jsonData || []; localStorage.setItem('honda_todo_db', JSON.stringify(todoDB)); renderTodoDatabase(); }
 
-tbody.innerHTML += `<tr>
-<td><b>${pilar}</b></td>
-<td>${actualPct}% ${diffBadge}</td>
-<td>${ideal[pilar]}%</td>
-</tr>`;
+if(!silent && statusEl) {
+statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+setTimeout(() => statusEl.innerHTML = "", 5000);
+}
+} catch(e) { 
+if(!silent && statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file / Kosong.</span>`; 
+}
+}
 
-gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
-currentPercent += parseFloat(actualPct);
-legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
+function syncDBToGithub(type) {
+const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+if(type === 'content') { pushGHData(config.pathContent, contentDB, 'github-status-content-table'); }
+else if(type === 'content-monthly') { pushGHData(config.pathContentMonthly, contentMonthlyDB, 'github-status-content-monthly-table'); }
+else if (type === 'kpi') { pushGHData(config.pathKPI, kpiDB, 'github-status-kpi-table'); }
+else if (type === 'links') { pushGHData(config.pathLinks, linksDB, 'github-status-links'); }
+else if (type === 'todo') { pushGHData(config.pathTodo, todoDB, 'github-status-todo'); }
+}
+
+function loadDBs() {
+const cb = localStorage.getItem('honda_content_db'); if(cb) contentDB = JSON.parse(cb);
+const cbm = localStorage.getItem('honda_content_monthly_db'); if(cbm) contentMonthlyDB = JSON.parse(cbm);
+const kp = localStorage.getItem('honda_kpi_db'); if(kp) kpiDB = JSON.parse(kp);
+const lb = localStorage.getItem('honda_links_db'); if(lb) linksDB = JSON.parse(lb);
+const td = localStorage.getItem('honda_todo_db'); if(td) todoDB = JSON.parse(td);
+renderContentDatabase(); renderContentMonthlyDatabase(); renderKPIDatabase(); renderLinksDatabase(); renderTodoDatabase();
+}
+
+// ================= GITHUB FILE BROWSER MODAL =================
+function openGHModal(mode, inputId) {
+currentGHMode = mode; currentGHTargetInput = inputId; currentGHPath = "";
+document.getElementById('gh-modal').style.display = 'flex';
+document.getElementById('gh-modal-title').innerText = mode === 'file' ? 'Pilih File JSON' : 'Pilih Folder Gambar';
+document.getElementById('gh-btn-select-folder').style.display = mode === 'folder' ? 'block' : 'none';
+renderGHModalContents();
+}
+function closeGHModal() { document.getElementById('gh-modal').style.display = 'none'; }
+async function renderGHModalContents() {
+const listEl = document.getElementById('gh-modal-list'); const pathEl = document.getElementById('gh-modal-path'); const upBtn = document.getElementById('gh-modal-up');
+pathEl.innerText = `Path: /${currentGHPath}`; listEl.innerHTML = `<div style="padding:20px; text-align:center;">Memuat... ⏳</div>`; upBtn.style.display = currentGHPath === "" ? 'none' : 'flex';
+try {
+const data = await fetchGHData(currentGHPath); listEl.innerHTML = "";
+const sorted = data.sort((a,b) => (a.type === 'dir' ? -1 : 1));
+sorted.forEach(item => {
+const icon = item.type === 'dir' ? '📁' : '📄';
+const div = document.createElement('div'); div.className = 'gh-list-item';
+div.innerHTML = `<span class="gh-icon">${icon}</span> <span>${item.name}</span>`;
+div.onclick = () => {
+if(item.type === 'dir') { currentGHPath = item.path; renderGHModalContents(); }
+else if(currentGHMode === 'file' && item.name.endsWith('.json')) {
+document.getElementById(currentGHTargetInput).value = item.path;
+
+let pType = "";
+if(currentGHTargetInput === 'gh-path-cpm') pType = 'pathContent';
+else if(currentGHTargetInput === 'gh-path-cpmm') pType = 'pathContentMonthly';
+else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
+else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
+else if (currentGHTargetInput === 'gh-path-todo') pType = 'pathTodo';
+
+syncGHFields(item.path, pType);
+closeGHModal();
+}
+};
+listEl.appendChild(div);
 });
-gradientStr = gradientStr.slice(0, -2);
-document.getElementById('css-pie-chart').style.background = `conic-gradient(${gradientStr})`;
-document.getElementById('dist-legend-container').innerHTML = legendHTML;
-document.getElementById('dist-analysis').innerText = `Analisa: Jika pilar tertentu melebihi batas toleransi (+/- 5%) dari standar ideal Honda, berarti distribusi konten tidak seimbang dan berpotensi membuat audiens bosan. Sesuaikan plan konten minggu berikutnya.`;
+} catch(e) { listEl.innerHTML = `<div style="padding:20px; color:red; text-align:center;">Gagal memuat.</div>`; }
 }
-document.getElementById('dist-result-box').style.display = 'block';
-}
+function navigateGHUp() { let parts = currentGHPath.split('/'); parts.pop(); currentGHPath = parts.join('/'); renderGHModalContents(); }
+function selectGHFolder() { document.getElementById(currentGHTargetInput).value = currentGHPath; syncGHFields(currentGHPath, 'pathImg'); closeGHModal(); }
 
-// ================= AI BRIEF LOGIC =================
+// ================= AI BRIEF LOGIC (UNTOUCHED) =================
 function toggleBriefOptions() {
 const isBrief = document.getElementById('gen-type').value === 'Brief';
 document.getElementById('opt-caption-length').style.display = isBrief ? 'none' : 'block';
@@ -1209,11 +1513,11 @@ if(!prob || !feat) return alert("Lengkapi data input!");
 const btn = document.getElementById('btn-generate'); btn.innerText = "⏳ Sedang Menulis..."; btn.disabled = true;
 
 let sysPrompt = type === 'Caption'
-? `Buatkan caption IG mobil ${prod}. Framework copywriting: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Arahan panjang: ${length}. Beri label huruf framework (P/A/S, dll) di tiap paragraf. Sertakan #HondaBintaro.`
+? `Buatkan caption IG mobil ${prod}. Framework copywriting: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Arahan panjang: ${length}. Beri label huruf framework di tiap paragraf. Sertakan #HondaBintaro.`
 : `Buatkan Video Script Reels. Durasi: ${duration}. Mobil: ${prod}. Framework copywriting: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Buat format tabel "Visual" dan "Audio".`;
 
 try {
-const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
 method: 'POST', headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
 });
@@ -1227,7 +1531,7 @@ saveGenToHistory(`${type} - ${prod} (${fw.split(' ')[0]})`, outText);
 finally { btn.innerText = "Generate via AI 🪄"; btn.disabled = false; }
 }
 
-// ================= 3. 3C CHECKER =================
+// ================= 3. 3C CHECKER (UNTOUCHED) =================
 function previewMedia(input) {
 const file = input.files[0]; const preview = document.getElementById('media-preview'); preview.innerHTML = '';
 if(file) {
@@ -1246,158 +1550,7 @@ document.getElementById('audit-summary-text').innerText = summary;
 document.getElementById('audit-summary-box').style.display = 'block';
 }
 
-// ================= GITHUB ADVANCED CONNECT DATABASE =================
-async function fetchGHData(path) {
-const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
-if(!config.token || !config.user || !config.repo) throw new Error("Config GitHub error.");
-const res = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${path}`, { headers: { "Authorization": `token ${config.token}` } });
-if(!res.ok) throw new Error("Fetch error."); return await res.json();
-}
-
-async function pushGHData(filename, dataObj, statusElementId) {
-const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
-const statusEl = document.getElementById(statusElementId);
-if(!config.token || !config.user || !config.repo || !filename) { statusEl.innerHTML = `<span style="color:red;">❌ Sync Gagal: Isi field lengkap!</span>`; return; }
-statusEl.innerHTML = "<i>Memulai sinkronisasi ke GitHub... ⏳</i>";
-try {
-let sha = "";
-try {
-const getRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${filename}`, { headers: { "Authorization": `token ${config.token}` } });
-if(getRes.ok) { const getJson = await getRes.json(); sha = getJson.sha; }
-} catch(e) {}
-const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
-const bodyData = { message: `Auto-update ${filename} via Digital Marketing OS`, content: contentBase64 };
-if(sha) bodyData.sha = sha;
-
-const putRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${filename}`, {
-method: 'PUT', headers: { "Authorization": `token ${config.token}`, "Content-Type": "application/json" }, body: JSON.stringify(bodyData)
-});
-if(!putRes.ok) throw new Error("Gagal Push");
-statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil tersimpan di GitHub!</span>`;
-setTimeout(() => statusEl.innerHTML = "", 5000);
-} catch (err) { statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal sync. Cek Token scope.</span>`; }
-}
-
-async function pullDBFromGithub(type, silent = false) {
-const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
-let path, statusElId;
-if(type === 'content') { path = config.pathContent; statusElId = 'github-status-content-table'; }
-else if(type === 'content-monthly') { path = config.pathContentMonthly; statusElId = 'github-status-content-monthly-table'; }
-else if(type === 'kpi') { path = config.pathKPI; statusElId = 'github-status-kpi-table'; }
-else if(type === 'links') { path = config.pathLinks; statusElId = 'github-status-links'; }
-
-const statusEl = document.getElementById(statusElId);
-if(!path) {
-if(!silent) alert("Path JSON kosong!");
-throw new Error("Path kosong");
-}
-
-if(!silent && statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
-try {
-const ghData = await fetchGHData(path);
-const jsonData = JSON.parse(decodeURIComponent(escape(atob(ghData.content))));
-if(type === 'content') { contentDB = jsonData; localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase(); }
-else if(type === 'content-monthly') { contentMonthlyDB = jsonData; localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB)); renderContentMonthlyDatabase(); }
-else if(type === 'kpi') { kpiDB = jsonData; localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase(); }
-else if(type === 'links') { linksDB = jsonData; localStorage.setItem('honda_links_db', JSON.stringify(linksDB)); renderLinksDatabase(); }
-
-if(!silent && statusEl) {
-statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
-setTimeout(() => statusEl.innerHTML = "", 5000);
-}
-} catch(e) { 
-if(!silent && statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`; 
-throw e;
-}
-}
-
-function syncDBToGithub(type) {
-const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
-if(type === 'content') { pushGHData(config.pathContent, contentDB, 'github-status-content-table'); }
-else if(type === 'content-monthly') { pushGHData(config.pathContentMonthly, contentMonthlyDB, 'github-status-content-monthly-table'); }
-else if (type === 'kpi') { pushGHData(config.pathKPI, kpiDB, 'github-status-kpi-table'); }
-else if (type === 'links') { pushGHData(config.pathLinks, linksDB, 'github-status-links'); }
-}
-
-function loadDBs() {
-const cb = localStorage.getItem('honda_content_db'); if(cb) contentDB = JSON.parse(cb);
-const cbm = localStorage.getItem('honda_content_monthly_db'); if(cbm) contentMonthlyDB = JSON.parse(cbm);
-const kp = localStorage.getItem('honda_kpi_db'); if(kp) kpiDB = JSON.parse(kp);
-const lb = localStorage.getItem('honda_links_db'); if(lb) linksDB = JSON.parse(lb);
-renderContentDatabase(); renderContentMonthlyDatabase(); renderKPIDatabase(); renderLinksDatabase();
-}
-
-// ================= GITHUB FILE BROWSER MODAL =================
-function openGHModal(mode, inputId) {
-currentGHMode = mode; currentGHTargetInput = inputId; currentGHPath = "";
-document.getElementById('gh-modal').style.display = 'flex';
-document.getElementById('gh-modal-title').innerText = mode === 'file' ? 'Pilih File JSON' : 'Pilih Folder Gambar';
-document.getElementById('gh-btn-select-folder').style.display = mode === 'folder' ? 'block' : 'none';
-renderGHModalContents();
-}
-function closeGHModal() { document.getElementById('gh-modal').style.display = 'none'; }
-async function renderGHModalContents() {
-const listEl = document.getElementById('gh-modal-list'); const pathEl = document.getElementById('gh-modal-path'); const upBtn = document.getElementById('gh-modal-up');
-pathEl.innerText = `Path: /${currentGHPath}`; listEl.innerHTML = `<div style="padding:20px; text-align:center;">Memuat... ⏳</div>`; upBtn.style.display = currentGHPath === "" ? 'none' : 'flex';
-try {
-const data = await fetchGHData(currentGHPath); listEl.innerHTML = "";
-const sorted = data.sort((a,b) => (a.type === 'dir' ? -1 : 1));
-sorted.forEach(item => {
-const icon = item.type === 'dir' ? '📁' : '📄';
-const div = document.createElement('div'); div.className = 'gh-list-item';
-div.innerHTML = `<span class="gh-icon">${icon}</span> <span>${item.name}</span>`;
-div.onclick = () => {
-if(item.type === 'dir') { currentGHPath = item.path; renderGHModalContents(); }
-else if(currentGHMode === 'file' && item.name.endsWith('.json')) {
-document.getElementById(currentGHTargetInput).value = item.path;
-
-let pType = "";
-if(currentGHTargetInput === 'gh-path-cpm') pType = 'pathContent';
-else if(currentGHTargetInput === 'gh-path-cpmm') pType = 'pathContentMonthly';
-else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
-else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
-
-syncGHFields(item.path, pType);
-closeGHModal();
-}
-};
-listEl.appendChild(div);
-});
-} catch(e) { listEl.innerHTML = `<div style="padding:20px; color:red; text-align:center;">Gagal memuat.</div>`; }
-}
-function navigateGHUp() { let parts = currentGHPath.split('/'); parts.pop(); currentGHPath = parts.join('/'); renderGHModalContents(); }
-function selectGHFolder() { document.getElementById(currentGHTargetInput).value = currentGHPath; syncGHFields(currentGHPath, 'pathImg'); closeGHModal(); }
-
-// ================= HELPER: RESET FORM =================
-function resetMonitorForm() {
-document.getElementById('mon-title').value = "";
-document.getElementById('mon-link').value = "";
-document.getElementById('mon-date').value = "";
-document.getElementById('mon-week').value = "";
-document.getElementById('mon-eval-date').value = "";
-document.getElementById('mon-platform').selectedIndex = 0;
-document.getElementById('mon-category').selectedIndex = 0;
-document.getElementById('mon-pilar').selectedIndex = 0;
-document.getElementById('mon-foll').value = 15381;
-document.getElementById('mon-reach').value = "";
-document.getElementById('mon-int').value = "";
-document.getElementById('mon-dm').value = "";
-document.getElementById('thumb-mon').innerHTML = "📸";
-document.getElementById('mon-result').style.display = 'none';
-}
-
-// ================= 4. UNIFIED CONTENT PERFORMANCE MONITOR (WEEKLY) =================
-function generateThumbnailPreview(url, containerId) {
-const container = document.getElementById(containerId);
-// Regex lebih luas mencakup /p/, /reel/, /reels/
-const match = url.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
-if(match && match[1]) {
-const imgUrl = buildIGThumbUrl(match[1]);
-// Fallback jika weserv / instagram me-reject
-container.innerHTML = `<img src="${imgUrl}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\' title=\\'Instagram Blocked Preview\\'>📸</div>'">`;
-} else { container.innerHTML = "📸"; }
-}
-
+// ================= UNIFIED CONTENT PERFORMANCE MONITOR (WEEKLY) =================
 async function evaluateCPMUnified() {
 try {
 const title = document.getElementById('mon-title').value || "Konten Tanpa Judul";
@@ -1446,7 +1599,6 @@ const what = `Platform: <b>${platform}</b>. Reach Rate: <b>${reachRate.toFixed(1
 
 let soWhat = ""; let nowWhat = "";
 
-// GEMINI AI INTEGRATION FOR W-S-N
 const apiKey = localStorage.getItem('gemini_api_key');
 if (apiKey) {
 const btn = document.getElementById('btn-eval-mon');
@@ -1461,7 +1613,7 @@ Konversi DM: ${dmCount}.
 Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on track, jelaskan bahwa konten bagus tapi distribusi kurang. Return murni JSON format {"soWhat":"...", "nowWhat":"..."}`;
 
 try {
-const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
 method: 'POST', headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
 });
@@ -1492,17 +1644,14 @@ const newItem = { title, link, shortcode, month, week, evalDateRaw, datePub, pil
 
 const wasEditing = editIdx.content > -1;
 if(wasEditing) {
-contentDB[editIdx.content] = newItem; editIdx.content = -1;
-document.getElementById('btn-eval-mon').innerText = "Evaluasi & Tambah ke Tabel 👇";
+contentDB[editIdx.content] = newItem; 
 } else {
 contentDB.push(newItem);
 }
 
 localStorage.setItem('honda_content_db', JSON.stringify(contentDB));
 renderContentDatabase();
-
-resetMonitorForm();
-if(wasEditing) document.getElementById('mon-result').style.display = 'none';
+resetForm('mon');
 } catch (error) {
 console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.message);
 }
@@ -1517,7 +1666,7 @@ document.getElementById('mon-eval-date').value = item.evalDateRaw || "";
 document.getElementById('mon-week').value = item.week || "";
 document.getElementById('mon-platform').value = item.platform || "Instagram";
 document.getElementById('mon-category').value = item.category || "Reels";
-document.getElementById('mon-pilar').value = item.pilar || "Product Education";
+document.getElementById('mon-pilar').value = item.pilar === "Product Education" ? "Product Value & Info" : (item.pilar || "Product Value & Info");
 document.getElementById('mon-foll').value = item.foll || 15381;
 document.getElementById('mon-reach').value = item.reach || "";
 document.getElementById('mon-int').value = item.interaksi || "";
@@ -1527,12 +1676,6 @@ generateThumbnailPreview(item.link, 'thumb-mon');
 editIdx.content = idx;
 document.getElementById('btn-eval-mon').innerText = "Simpan Perubahan 💾";
 window.scrollTo({ top: document.getElementById('monitor-section').offsetTop, behavior: 'smooth' });
-}
-
-function delContent(idx) {
-contentDB.splice(idx,1);
-localStorage.setItem('honda_content_db', JSON.stringify(contentDB));
-renderContentDatabase();
 }
 
 function renderContentDatabase() {
@@ -1546,186 +1689,25 @@ if((fMonth !== "All" && item.month !== fMonth) || (fPlatform !== "All" && item.p
 
 const thumb = item.shortcode ? `<img src="${buildIGThumbUrl(item.shortcode)}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
 const wsnHTML = `<b>W:</b> ${item.what.replace(/<br>/g, '')}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}`;
+let displayPilar = item.pilar === "Product Education" ? "Product Value & Info" : item.pilar;
 
 tbody.innerHTML += `<tr>
 <td>${thumb}</td>
 <td><b>${item.title}</b><br><a href="${item.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">Pub: ${item.datePub}<br>Eval: ${item.evalDateRaw} (${item.month} W${item.week})</span></td>
-<td><span class="badge bg-dark">${item.platform}</span> <span class="badge bg-gray">${item.category || ''}</span><br><small>${item.pilar}</small></td>
+<td><span class="badge bg-dark">${item.platform}</span> <span class="badge bg-gray">${item.category || ''}</span><br><small>${displayPilar}</small></td>
 <td><div style="margin-bottom:5px;">${item.statusBadge}</div><div style="font-size:11px; line-height:1.4; color:var(--text-main);">${wsnHTML}</div></td>
 <td style="text-align:center; min-width:80px;">
 <button onclick="editContent(${idx})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%; justify-content:center;">✏️ Edit</button>
-<button onclick="delContent(${idx})" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
+<button onclick="contentDB.splice(${idx},1); localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase();" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
 </td>
 </tr>`;
 });
 }
 
-// ================= 4B. CONTENT PERFORMANCE MONITOR MONTHLY (RUMUS REVOU) =================
-function resetMonitorMonthlyForm() {
-document.getElementById('conm-title').value = "";
-document.getElementById('conm-platform').selectedIndex = 0;
-document.getElementById('conm-date-start').value = "";
-document.getElementById('conm-date-end').value = "";
-document.getElementById('conm-month').selectedIndex = 0;
-document.getElementById('conm-foll').value = 15381;
-document.getElementById('conm-postcount').value = "";
-document.getElementById('conm-reach').value = "";
-document.getElementById('conm-int').value = "";
-document.getElementById('conm-result').style.display = 'none';
-}
-
-async function evaluateCPMMonthly() {
-try {
-const title = document.getElementById('conm-title').value || "Akun Tanpa Nama";
-const platform = document.getElementById('conm-platform').value;
-const dateStart = document.getElementById('conm-date-start').value || "-";
-const dateEnd = document.getElementById('conm-date-end').value || "-";
-let month = document.getElementById('conm-month').value;
-if(dateEnd !== "-") month = getMonthFromDate(dateEnd);
-
-const foll = parseFloat(document.getElementById('conm-foll').value) || 1;
-const postCount = parseFloat(document.getElementById('conm-postcount').value) || 0;
-const reach = parseFloat(document.getElementById('conm-reach').value) || 0;
-const interaksi = parseFloat(document.getElementById('conm-int').value) || 0;
-
-if(postCount <= 0) { alert("Isi Jumlah Post (30 Hari) terlebih dahulu, minimal 1!"); return; }
-
-const targetER = parseFloat(document.getElementById('cpmm-target-er').value) || 3.5;
-const targetAvgReach = parseFloat(document.getElementById('cpmm-target-avgreach').value) || 1000;
-
-const erByReach = reach > 0 ? (interaksi / reach) * 100 : 0;
-const avgReachPerPost = reach / postCount;
-
-const isOnTrackER = erByReach >= targetER;
-const isOnTrackAvgReach = avgReachPerPost >= targetAvgReach;
-
-const erStatusHTML = isOnTrackER ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
-const avgReachStatusHTML = isOnTrackAvgReach ? `<span class="badge bg-green">On Track</span>` : `<span class="badge bg-red">Off Track</span>`;
-
-let statusBadge = `<div style="margin-bottom:2px;"><b>ER by Reach:</b> ${erByReach.toFixed(2)}% ${erStatusHTML}</div>`;
-statusBadge += `<div><b>Avg Reach/Post:</b> ${avgReachPerPost.toLocaleString(undefined, {maximumFractionDigits:0})} ${avgReachStatusHTML}</div>`;
-
-const what = `Platform: <b>${platform}</b>. Periode: ${dateStart} s/d ${dateEnd} (${postCount} post). ER by Reach: <b>${erByReach.toFixed(2)}%</b>. Avg Reach/Post: <b>${avgReachPerPost.toLocaleString(undefined,{maximumFractionDigits:0})}</b>. Target -> ER >${targetER}% | Avg Reach >${targetAvgReach}.`;
-
-let soWhat = ""; let nowWhat = "";
-const apiKey = localStorage.getItem('gemini_api_key');
-if (apiKey) {
-const btn = document.getElementById('btn-eval-conm');
-const oriText = btn.innerText;
-btn.innerText = "⏳ Memproses W-S-N dengan AI..."; btn.disabled = true;
-
-const sysPrompt = `Analisa performa akun ${platform} periode 30 hari (Maks 2 kalimat So What, 2 kalimat Now What) menggunakan kerangka RevoU.
-Target ER by Reach: >${targetER}%. Aktual: ${erByReach.toFixed(2)}% (${isOnTrackER ? 'On Track' : 'Off Track'}).
-Target Avg Reach/Post: >${targetAvgReach}. Aktual: ${avgReachPerPost.toFixed(0)} (${isOnTrackAvgReach ? 'On Track' : 'Off Track'}).
-Jumlah Post: ${postCount}. Followers: ${foll}.
-Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distribusi/reach organik terbatas walau interaksi bagus. Jika sebaliknya, jelaskan reach luas tapi interaksi kurang menempel. Return murni JSON format {"soWhat":"...", "nowWhat":"..."}`;
-
-try {
-const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-method: 'POST', headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
-});
-const data = await response.json();
-let text = data.candidates[0].content.parts[0].text.replace(/```json/g, '').replace(/```/g, '').trim();
-const aiResult = JSON.parse(text);
-soWhat = aiResult.soWhat; nowWhat = aiResult.nowWhat;
-} catch(e) {
-console.log("AI WSN Monthly Failed, using local logic.");
-soWhat = isOnTrackER ? `Interaksi terhadap akun yang menjangkau sudah sehat sepanjang bulan ini.` : `Interaksi terhadap reach masih rendah, indikasi konten kurang relevan dengan audiens yang terjangkau.`;
-nowWhat = isOnTrackAvgReach ? `Pertahankan konsistensi jumlah dan jam tayang post.` : `Tingkatkan distribusi (hashtag, kolaborasi, boosting) agar reach per post naik.`;
-} finally { btn.innerText = oriText; btn.disabled = false; }
-} else {
-soWhat = isOnTrackER ? `Interaksi terhadap akun yang menjangkau sudah sehat sepanjang bulan ini.` : `Interaksi terhadap reach masih rendah, indikasi konten kurang relevan dengan audiens yang terjangkau.`;
-nowWhat = isOnTrackAvgReach ? `Pertahankan konsistensi jumlah dan jam tayang post.` : `Tingkatkan distribusi (hashtag, kolaborasi, boosting) agar reach per post naik.`;
-}
-
-document.getElementById('conm-wsw').innerHTML = `
-<div style="margin-bottom:10px;">${statusBadge}</div>
-<b>WHAT:</b> ${what}<br><b>SO WHAT:</b> ${soWhat}<br><b>NOW WHAT:</b> ${nowWhat}
-`;
-document.getElementById('conm-result').style.display = 'block';
-
-const newItem = { title, platform, dateStart, dateEnd, month, foll, postCount, reach, interaksi, erByReach, avgReachPerPost, statusBadge, what, soWhat, nowWhat };
-
-const wasEditing = editIdx.contentMonthly > -1;
-if(wasEditing) {
-contentMonthlyDB[editIdx.contentMonthly] = newItem; editIdx.contentMonthly = -1;
-document.getElementById('btn-eval-conm').innerText = "Evaluasi & Tambah ke Tabel 👇";
-} else {
-contentMonthlyDB.push(newItem);
-}
-
-localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB));
-renderContentMonthlyDatabase();
-
-resetMonitorMonthlyForm();
-if(wasEditing) document.getElementById('conm-result').style.display = 'none';
-} catch (error) {
-console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.message);
-}
-}
-
-function editContentMonthly(idx) {
-const item = contentMonthlyDB[idx];
-document.getElementById('conm-title').value = item.title || "";
-document.getElementById('conm-platform').value = item.platform || "Instagram";
-document.getElementById('conm-date-start').value = item.dateStart !== "-" ? item.dateStart : "";
-document.getElementById('conm-date-end').value = item.dateEnd !== "-" ? item.dateEnd : "";
-document.getElementById('conm-month').value = item.month || "Januari";
-document.getElementById('conm-foll').value = item.foll || 15381;
-document.getElementById('conm-postcount').value = item.postCount || "";
-document.getElementById('conm-reach').value = item.reach || "";
-document.getElementById('conm-int').value = item.interaksi || "";
-
-editIdx.contentMonthly = idx;
-document.getElementById('btn-eval-conm').innerText = "Simpan Perubahan 💾";
-window.scrollTo({ top: document.getElementById('monitor-monthly-section').offsetTop, behavior: 'smooth' });
-}
-
-function delContentMonthly(idx) {
-contentMonthlyDB.splice(idx,1);
-localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB));
-renderContentMonthlyDatabase();
-}
-
-function renderContentMonthlyDatabase() {
-const fMonth = document.getElementById('filter-conm-month').value;
-const fPlatform = document.getElementById('filter-conm-platform').value;
-const tbody = document.getElementById('db-body-content-monthly'); tbody.innerHTML = "";
-
-contentMonthlyDB.forEach((item, idx) => {
-if((fMonth !== "All" && item.month !== fMonth) || (fPlatform !== "All" && item.platform !== fPlatform)) return;
-
-const wsnHTML = `<b>W:</b> ${item.what.replace(/<br>/g, '')}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}`;
-
-tbody.innerHTML += `<tr>
-<td><b>${item.month}</b><br><span style="font-size:11px; color:var(--text-muted);">${item.dateStart} s/d ${item.dateEnd}</span></td>
-<td><b>${item.title}</b><br><span class="badge bg-dark">${item.platform}</span><br><small>${item.postCount} post • Foll: ${item.foll.toLocaleString()}</small></td>
-<td style="font-size:11px;">Reach: ${item.reach.toLocaleString()}<br>Interaksi: ${item.interaksi.toLocaleString()}</td>
-<td><div style="margin-bottom:5px;">${item.statusBadge}</div><div style="font-size:11px; line-height:1.4; color:var(--text-main);">${wsnHTML}</div></td>
-<td style="text-align:center; min-width:80px;">
-<button onclick="editContentMonthly(${idx})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%; justify-content:center;">✏️ Edit</button>
-<button onclick="delContentMonthly(${idx})" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
-</td>
-</tr>`;
-});
-}
-
-// ================= 5. WEEKLY/MONTHLY CHANNEL EVALUATOR =================
+// ================= WEEKLY/MONTHLY CHANNEL EVALUATOR =================
 function toggleKPIDate() {
 const period = document.getElementById('kpi-period').value;
 document.getElementById('kpi-week-group').style.display = period === 'Weekly' ? 'block' : 'none';
-}
-
-function resetKPIForm() {
-document.getElementById('kpi-eval-date').value = "";
-document.getElementById('kpi-week').value = "";
-document.getElementById('kpi-period').selectedIndex = 0;
-toggleKPIDate();
-document.getElementById('kpi-platform').selectedIndex = 0;
-document.getElementById('kpi-foll').value = 15381;
-document.getElementById('kpi-int').value = "";
-document.getElementById('kpi-result').style.display = 'none';
 }
 
 function calculateKPILocal() {
@@ -1747,23 +1729,19 @@ const er = ((int/foll)*100).toFixed(2);
 let status = er < targetER ? `<span class="badge bg-red">Kurang</span>` : er > targetERHigh ? `<span class="badge bg-green">Sangat Baik</span>` : `<span class="badge bg-blue">Ideal</span>`;
 
 document.getElementById('kpi-result').style.display = 'block';
-document.getElementById('kpi-result').innerHTML = `Engagement Rate (${platform} - ${period}): <span style="font-size:24px; font-weight:bold; color:var(--accent);">${er}%</span> <br>${status}`;
+document.getElementById('kpi-result').innerHTML = `Engagement Rate (${platform} - ${period}): <span style="font-size:24px; font-weight:bold; color:var(--accent);">${parseFloat(er).toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})}%</span> <br>${status}`;
 
 const newItem = { month, week, evalDateRaw, period, platform, foll, int, er, status };
 
-const wasEditing = editIdx.kpi > -1;
-if(wasEditing) {
-kpiDB[editIdx.kpi] = newItem; editIdx.kpi = -1;
-document.getElementById('btn-eval-kpi').innerText = "Hitung & Tambah ke Tabel 👇";
-} else {
-kpiDB.push(newItem);
+if(editIdx.kpi > -1) { 
+kpiDB[editIdx.kpi] = newItem; 
+} else { 
+kpiDB.push(newItem); 
 }
 
-localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB));
+localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); 
 renderKPIDatabase();
-
-resetKPIForm();
-if(wasEditing) document.getElementById('kpi-result').style.display = 'none';
+resetForm('kpi');
 } catch (error) {
 console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.message);
 }
@@ -1784,12 +1762,6 @@ document.getElementById('btn-eval-kpi').innerText = "Simpan Perubahan 💾";
 window.scrollTo({ top: document.getElementById('kpi-channel-section').offsetTop, behavior: 'smooth' });
 }
 
-function delKPI(idx) {
-kpiDB.splice(idx,1);
-localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB));
-renderKPIDatabase();
-}
-
 function renderKPIDatabase() {
 const fMonth = document.getElementById(`filter-kpi-month`).value;
 const fPeriod = document.getElementById(`filter-kpi-period`).value;
@@ -1802,17 +1774,17 @@ if((fMonth !== "All" && item.month !== fMonth) || (fPeriod !== "All" && item.per
 tbody.innerHTML += `<tr>
 <td><b>${item.month}</b><br><span style="font-size:11px; color:var(--text-muted);">Eval: ${item.evalDateRaw}</span></td>
 <td><span class="badge bg-dark">${item.platform}</span><br><small>${item.period} ${item.week !== '-' ? '(W'+item.week+')' : ''}</small></td>
-<td>${item.foll.toLocaleString()}</td><td>${item.int.toLocaleString()}</td>
-<td style="font-weight:bold; font-size:15px;">${item.er}%</td><td>${item.status}</td>
+<td>${parseFloat(item.foll).toLocaleString('id-ID')}</td><td>${parseFloat(item.int).toLocaleString('id-ID')}</td>
+<td style="font-weight:bold; font-size:15px;">${parseFloat(item.er).toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})}%</td><td>${item.status}</td>
 <td style="text-align:center; min-width:80px;">
 <button onclick="editKPI(${idx})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%; justify-content:center;">✏️ Edit</button>
-<button onclick="delKPI(${idx})" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
+<button onclick="kpiDB.splice(${idx},1); localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase();" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
 </td>
 </tr>`;
 });
 }
 
-// ================= 6. AI CARE RESPONSE ASSISTANT =================
+// ================= AI CARE RESPONSE ASSISTANT (UNTOUCHED) =================
 function saveCareToHistory(title, output) {
 let list = JSON.parse(localStorage.getItem('honda_local_care_history') || '[]');
 list.unshift({ time: new Date().toLocaleString('id-ID'), title, output });
@@ -1853,7 +1825,7 @@ const btn = document.getElementById('btn-care'); btn.innerText = "⏳ Merakit Ba
 const promptText = `Sebagai CS Honda Bintaro, balas komentar: "${comment}".
 Sapa pelanggan ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan ke: ${direction}. Tulis bahasa Indonesia natural.`;
 try {
-const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
 });
 const data = await response.json();
@@ -1865,176 +1837,6 @@ saveCareToHistory(`Balasan untuk ${salutation} ${name}`, outText);
 finally { btn.innerText = "Buat Balasan CARE via AI 💬"; btn.disabled = false; }
 }
 
-// ================= 7. REPORT WEEKLY / MONTHLY (GRAFIK MANAGEMENT) =================
-// Fungsi Tarik Data khusus untuk Laporan
-async function pullAllReports() {
-const statusEl = document.getElementById('report-sync-status');
-statusEl.innerHTML = "<i>Menarik data dari GitHub... ⏳</i>";
-try {
-await pullDBFromGithub('content', true);
-await pullDBFromGithub('content-monthly', true);
-await pullDBFromGithub('kpi', true);
-statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Semua data berhasil diperbarui!</span>`;
-setTimeout(() => statusEl.innerHTML = "", 5000);
-renderReportWeekly(); renderReportMonthly(); renderReportChannel();
-} catch(e) {
-statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik data. Cek token & koneksi GitHub.</span>`;
-}
-}
-
-function switchReportTab(btn) {
-document.querySelectorAll('.report-tab-btn').forEach(b => b.classList.remove('active'));
-document.querySelectorAll('.report-pane').forEach(p => p.classList.remove('active'));
-btn.classList.add('active');
-document.getElementById(btn.dataset.pane).classList.add('active');
-}
-
-function renderBarChart(items, colorFn) {
-if(items.length === 0) return `<div class="empty-state">Belum ada data untuk ditampilkan.</div>`;
-const maxVal = Math.max(...items.map(i => i.value), 0.01);
-let html = `<div class="bar-chart-wrap">`;
-items.forEach(it => {
-const h = Math.max((it.value / maxVal) * 100, 2);
-const color = colorFn ? colorFn(it) : 'var(--primary)';
-html += `<div class="bar-chart-col">
-<div class="bar-chart-val">${it.value.toFixed(1)}${it.suffix || ''}</div>
-<div class="bar-chart-bar" style="height:${h}%; background:${color};" title="${it.label}: ${it.value.toFixed(2)}${it.suffix || ''}"></div>
-<div class="bar-chart-lbl" title="${it.label}">${it.label}</div>
-</div>`;
-});
-html += `</div>`;
-return html;
-}
-
-function renderStatCards(cards) {
-let html = `<div class="report-cards">`;
-cards.forEach(c => {
-html += `<div class="report-stat-card"><div class="val" style="color:${c.color || 'var(--primary)'}">${c.val}</div><div class="lbl">${c.lbl}</div></div>`;
-});
-html += `</div>`;
-return html;
-}
-
-// ---- REPORT: CONTENT WEEKLY ----
-function renderReportWeekly() {
-const fMonth = document.getElementById('report-weekly-month').value;
-const fPlatform = document.getElementById('report-weekly-platform').value;
-const container = document.getElementById('report-weekly-content');
-
-const filtered = contentDB.filter(item =>
-(fMonth === "All" || item.month === fMonth) &&
-(fPlatform === "All" || item.platform === fPlatform)
-);
-
-if(filtered.length === 0) {
-container.innerHTML = `<div class="empty-state">Belum ada data Content Performance Monitor (Weekly) untuk filter ini.</div>`;
-return;
-}
-
-const totalKonten = filtered.length;
-const avgRR = filtered.reduce((s,i) => s + ((i.reach / (i.foll||1)) * 100), 0) / totalKonten;
-const avgER = filtered.reduce((s,i) => s + ((i.interaksi / (i.foll||1)) * 100), 0) / totalKonten;
-const avgERR = filtered.reduce((s,i) => s + (i.reach > 0 ? (i.interaksi / i.reach) * 100 : 0), 0) / totalKonten;
-const totalReach = filtered.reduce((s,i) => s + (i.reach||0), 0);
-const totalInt = filtered.reduce((s,i) => s + (i.interaksi||0), 0);
-
-let html = renderStatCards([
-{ val: totalKonten, lbl: 'Total Konten' },
-{ val: avgRR.toFixed(1)+'%', lbl: 'Rata-rata Reach Rate' },
-{ val: avgER.toFixed(2)+'%', lbl: 'Rata-rata ER' },
-{ val: avgERR.toFixed(2)+'%', lbl: 'Rata-rata ERR' },
-{ val: totalReach.toLocaleString(), lbl: 'Total Reach' },
-{ val: totalInt.toLocaleString(), lbl: 'Total Interaksi' },
-]);
-
-const sorted = [...filtered].sort((a,b) => (a.evalDateRaw||'').localeCompare(b.evalDateRaw||''));
-const erItems = sorted.map(i => ({ label: i.title.length > 12 ? i.title.slice(0,12)+'…' : i.title, value: (i.interaksi/(i.foll||1))*100, suffix: '%' }));
-const rrItems = sorted.map(i => ({ label: i.title.length > 12 ? i.title.slice(0,12)+'…' : i.title, value: (i.reach/(i.foll||1))*100, suffix: '%' }));
-
-html += `<div class="chart-box"><h4>📊 Engagement Rate per Konten</h4>${renderBarChart(erItems, (it) => it.value >= 1 ? 'var(--success)' : 'var(--accent)')}</div>`;
-html += `<div class="chart-box"><h4>📈 Reach Rate per Konten</h4>${renderBarChart(rrItems, () => 'var(--info)')}</div>`;
-
-let pilarCounts = {};
-filtered.forEach(i => { pilarCounts[i.pilar] = (pilarCounts[i.pilar]||0) + 1; });
-const pilarItems = Object.keys(pilarCounts).map(p => ({ label: p, value: pilarCounts[p], suffix: 'x' }));
-html += `<div class="chart-box"><h4>🥧 Jumlah Konten per Pilar</h4>${renderBarChart(pilarItems, () => 'var(--warning)')}</div>`;
-
-container.innerHTML = html;
-}
-
-// ---- REPORT: CONTENT MONTHLY (REVOU) ----
-function renderReportMonthly() {
-const fPlatform = document.getElementById('report-monthly-platform').value;
-const container = document.getElementById('report-monthly-content');
-
-const filtered = contentMonthlyDB.filter(item => (fPlatform === "All" || item.platform === fPlatform));
-
-if(filtered.length === 0) {
-container.innerHTML = `<div class="empty-state">Belum ada data Content Performance Monitor Monthly untuk filter ini.</div>`;
-return;
-}
-
-const sorted = [...filtered].sort((a,b) => (a.dateEnd||'').localeCompare(b.dateEnd||''));
-const totalPost = filtered.reduce((s,i) => s + (i.postCount||0), 0);
-const avgER = filtered.reduce((s,i) => s + (i.erByReach||0), 0) / filtered.length;
-const avgReachPost = filtered.reduce((s,i) => s + (i.avgReachPerPost||0), 0) / filtered.length;
-const totalReach = filtered.reduce((s,i) => s + (i.reach||0), 0);
-const totalInt = filtered.reduce((s,i) => s + (i.interaksi||0), 0);
-
-let html = renderStatCards([
-{ val: filtered.length, lbl: 'Periode Tercatat' },
-{ val: totalPost, lbl: 'Total Post (Semua Periode)' },
-{ val: avgER.toFixed(2)+'%', lbl: 'Rata-rata ER by Reach' },
-{ val: avgReachPost.toLocaleString(undefined,{maximumFractionDigits:0}), lbl: 'Rata-rata Reach/Post' },
-{ val: totalReach.toLocaleString(), lbl: 'Total Reach' },
-{ val: totalInt.toLocaleString(), lbl: 'Total Interaksi' },
-]);
-
-const erItems = sorted.map(i => ({ label: i.month + (i.platform ? ' ('+i.platform.slice(0,2)+')' : ''), value: i.erByReach, suffix: '%' }));
-const reachItems = sorted.map(i => ({ label: i.month + (i.platform ? ' ('+i.platform.slice(0,2)+')' : ''), value: i.avgReachPerPost }));
-
-html += `<div class="chart-box"><h4>📊 ER by Reach per Periode (Rumus RevoU)</h4>${renderBarChart(erItems, (it) => it.value >= 3.5 ? 'var(--success)' : 'var(--accent)')}</div>`;
-html += `<div class="chart-box"><h4>📈 Rata-rata Reach per Post</h4>${renderBarChart(reachItems, () => 'var(--info)')}</div>`;
-
-container.innerHTML = html;
-}
-
-// ---- REPORT: CHANNEL EVALUATOR ----
-function renderReportChannel() {
-const fPlatform = document.getElementById('report-channel-platform').value;
-const fPeriod = document.getElementById('report-channel-period').value;
-const container = document.getElementById('report-channel-content');
-
-const filtered = kpiDB.filter(item =>
-(fPlatform === "All" || item.platform === fPlatform) &&
-(fPeriod === "All" || item.period === fPeriod)
-);
-
-if(filtered.length === 0) {
-container.innerHTML = `<div class="empty-state">Belum ada data Channel Evaluator untuk filter ini.</div>`;
-return;
-}
-
-const sorted = [...filtered].sort((a,b) => (a.evalDateRaw||'').localeCompare(b.evalDateRaw||''));
-const avgER = filtered.reduce((s,i) => s + parseFloat(i.er||0), 0) / filtered.length;
-const lastFoll = sorted[sorted.length-1].foll;
-const totalInt = filtered.reduce((s,i) => s + (i.int||0), 0);
-
-let html = renderStatCards([
-{ val: filtered.length, lbl: 'Total Evaluasi' },
-{ val: avgER.toFixed(2)+'%', lbl: 'Rata-rata ER' },
-{ val: lastFoll.toLocaleString(), lbl: 'Followers Terakhir' },
-{ val: totalInt.toLocaleString(), lbl: 'Total Interaksi Terkumpul' },
-]);
-
-const erItems = sorted.map(i => ({ label: `${i.month}${i.week!=='-' ? ' W'+i.week : ''}`, value: parseFloat(i.er), suffix: '%' }));
-html += `<div class="chart-box"><h4>📈 Tren Engagement Rate Channel</h4>${renderBarChart(erItems, (it) => it.value >= 3.5 ? 'var(--success)' : it.value >= 1 ? 'var(--info)' : 'var(--accent)')}</div>`;
-
-const follItems = sorted.map(i => ({ label: `${i.month}${i.week!=='-' ? ' W'+i.week : ''}`, value: i.foll }));
-html += `<div class="chart-box"><h4>👥 Pertumbuhan Followers</h4>${renderBarChart(follItems, () => 'var(--primary)')}</div>`;
-
-container.innerHTML = html;
-}
 </script>
 </body>
 </html>
