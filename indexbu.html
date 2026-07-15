@@ -1170,27 +1170,37 @@ localStorage.setItem('gh_config', JSON.stringify(config));
 }
 
 function resetForm(prefix) {
-document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
-if ((el.tagName === 'INPUT' && el.type !== 'date') || el.tagName === 'TEXTAREA') {
-if(el.id !== `${prefix}-foll` && el.id.indexOf('target') === -1) {
-el.value = "";
-}
-}
-});
-if(prefix === 'mon') {
-document.getElementById('thumb-mon').innerHTML = "📸";
-editIdx.content = -1;
-document.getElementById('btn-eval-mon').innerText = "Evaluasi & Tambah ke Tabel 👇";
-} else if (prefix === 'kpi') {
-editIdx.kpi = -1;
-document.getElementById('btn-eval-kpi').innerText = "Hitung & Tambah ke Tabel 👇";
-} else if (prefix === 'todo') {
-editIdx.todo = -1;
-document.getElementById('btn-save-todo').innerText = "Simpan Tugas ➕";
-} else if (prefix === 'conm') {
-editIdx.contentMonthly = -1;
-document.getElementById('btn-eval-conm').innerText = "Evaluasi & Tambah ke Tabel 👇";
-}
+    document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+            // Kecualikan followers, target, dan filter bulan agar tidak repot atur ulang
+            if(el.id !== `${prefix}-foll` && el.id.indexOf('target') === -1 && el.id.indexOf('month') === -1) {
+                if (el.tagName === 'SELECT') {
+                    el.selectedIndex = 0; // Kembalikan dropdown ke posisi atas
+                } else {
+                    el.value = ""; // Bersihkan text, url, number, dan kalender
+                }
+            }
+        }
+    });
+
+    // Kembalikan nama tombol & sembunyikan kotak hasil evaluasi sebelumnya
+    if(prefix === 'mon') {
+        document.getElementById('thumb-mon').innerHTML = "📸";
+        editIdx.content = -1;
+        document.getElementById('btn-eval-mon').innerText = "Evaluasi & Tambah ke Tabel 👇";
+        document.getElementById('mon-result').style.display = 'none';
+    } else if (prefix === 'kpi') {
+        editIdx.kpi = -1;
+        document.getElementById('btn-eval-kpi').innerText = "Hitung & Tambah ke Tabel 👇";
+        document.getElementById('kpi-result').style.display = 'none';
+    } else if (prefix === 'todo') {
+        editIdx.todo = -1;
+        document.getElementById('btn-save-todo').innerText = "Simpan Tugas ➕";
+    } else if (prefix === 'conm') {
+        editIdx.contentMonthly = -1;
+        document.getElementById('btn-eval-conm').innerText = "Evaluasi & Tambah ke Tabel 👇";
+        document.getElementById('conm-result').style.display = 'none';
+    }
 }
 
 // DYNAMIC TARGET ADJUSTMENT BASED ON PLATFORM
@@ -1319,16 +1329,17 @@ resetForm('todo');
 }
 
 function editTodo(idx) {
-// Fix index logic since we paginate and sort
-const item = todoDB[idx];
-document.getElementById('todo-title').value = item.title;
-document.getElementById('todo-platform').value = item.platform;
-document.getElementById('todo-pilar').value = item.pilar;
-document.getElementById('todo-date').value = item.date;
-document.getElementById('todo-status').value = item.status;
+    const item = todoDB[idx];
+    document.getElementById('todo-title').value = item.title;
+    document.getElementById('todo-platform').value = item.platform;
+    document.getElementById('todo-pilar').value = item.pilar;
+    document.getElementById('todo-date').value = item.date;
+    document.getElementById('todo-status').value = item.status;
 
-editIdx.todo = idx;
-document.getElementById('btn-save-todo').innerText = "Simpan Perubahan 💾";
+    editIdx.todo = idx;
+    document.getElementById('btn-save-todo').innerText = "Simpan Perubahan 💾";
+    // Scroll mulus ke atas dengan jarak 80px agar tidak tertutup Header
+    window.scrollTo({ top: document.getElementById('todo-section').offsetTop - 80, behavior: 'smooth' });
 }
 
 function delTodo(idx) {
@@ -1818,26 +1829,25 @@ console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.messag
 }
 
 function editContent(idx) {
-// Fix index logic since we paginate and filter
-const item = contentDB[idx];
-document.getElementById('mon-title').value = item.title || "";
-document.getElementById('mon-link').value = item.link || "";
-document.getElementById('mon-date').value = item.datePub || "";
-document.getElementById('mon-eval-date').value = item.evalDateRaw || "";
-document.getElementById('mon-week').value = item.week || "";
-document.getElementById('mon-platform').value = item.platform || "Instagram";
-document.getElementById('mon-category').value = item.category || "Reels";
-document.getElementById('mon-pilar').value = item.pilar === "Product Education" ? "Product Value & Info" : (item.pilar || "Product Value & Info");
-document.getElementById('mon-foll').value = item.foll || 15381;
-document.getElementById('mon-reach').value = item.reach || "";
-document.getElementById('mon-int').value = item.interaksi || "";
-document.getElementById('mon-dm').value = item.dmCount || "";
-generateThumbnailPreview(item.link, 'thumb-mon');
-adjustTargetsByPlatform('mon'); // Adjust target UI to match
+    const item = contentDB[idx];
+    document.getElementById('mon-title').value = item.title || "";
+    document.getElementById('mon-link').value = item.link || "";
+    document.getElementById('mon-date').value = item.datePub || "";
+    document.getElementById('mon-eval-date').value = item.evalDateRaw || "";
+    document.getElementById('mon-week').value = item.week || "";
+    document.getElementById('mon-platform').value = item.platform || "Instagram";
+    document.getElementById('mon-category').value = item.category || "Reels";
+    document.getElementById('mon-pilar').value = item.pilar === "Product Education" ? "Product Value & Info" : (item.pilar || "Product Value & Info");
+    document.getElementById('mon-foll').value = item.foll || 15381;
+    document.getElementById('mon-reach').value = item.reach || "";
+    document.getElementById('mon-int').value = item.interaksi || "";
+    document.getElementById('mon-dm').value = item.dmCount || "";
+    generateThumbnailPreview(item.link, 'thumb-mon');
+    adjustTargetsByPlatform('mon'); 
 
-editIdx.content = idx;
-document.getElementById('btn-eval-mon').innerText = "Simpan Perubahan 💾";
-window.scrollTo({ top: document.getElementById('monitor-section').offsetTop, behavior: 'smooth' });
+    editIdx.content = idx;
+    document.getElementById('btn-eval-mon').innerText = "Simpan Perubahan 💾";
+    window.scrollTo({ top: document.getElementById('monitor-section').offsetTop - 80, behavior: 'smooth' });
 }
 
 function renderContentDatabase() {
@@ -1976,20 +1986,20 @@ console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.messag
 }
 
 function editContentMonthly(idx) {
-const item = contentMonthlyDB[idx];
-document.getElementById('conm-platform').value = item.platform || "Instagram";
-document.getElementById('conm-date-start').value = item.dateStart !== "-" ? item.dateStart : "";
-document.getElementById('conm-date-end').value = item.dateEnd !== "-" ? item.dateEnd : "";
-document.getElementById('conm-month').value = item.month || "Januari";
-document.getElementById('conm-foll').value = item.foll || 15381;
-document.getElementById('conm-postcount').value = item.postCount || "";
-document.getElementById('conm-reach').value = item.reach || "";
-document.getElementById('conm-int').value = item.interaksi || "";
-adjustTargetsByPlatform('conm');
+    const item = contentMonthlyDB[idx];
+    document.getElementById('conm-platform').value = item.platform || "Instagram";
+    document.getElementById('conm-date-start').value = item.dateStart !== "-" ? item.dateStart : "";
+    document.getElementById('conm-date-end').value = item.dateEnd !== "-" ? item.dateEnd : "";
+    document.getElementById('conm-month').value = item.month || "Januari";
+    document.getElementById('conm-foll').value = item.foll || 15381;
+    document.getElementById('conm-postcount').value = item.postCount || "";
+    document.getElementById('conm-reach').value = item.reach || "";
+    document.getElementById('conm-int').value = item.interaksi || "";
+    adjustTargetsByPlatform('conm');
 
-editIdx.contentMonthly = idx;
-document.getElementById('btn-eval-conm').innerText = "Simpan Perubahan 💾";
-window.scrollTo({ top: document.getElementById('monitor-monthly-section').offsetTop, behavior: 'smooth' });
+    editIdx.contentMonthly = idx;
+    document.getElementById('btn-eval-conm').innerText = "Simpan Perubahan 💾";
+    window.scrollTo({ top: document.getElementById('monitor-monthly-section').offsetTop - 80, behavior: 'smooth' });
 }
 
 function renderContentMonthlyDatabase() {
@@ -2074,19 +2084,19 @@ console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.messag
 }
 
 function editKPI(idx) {
-const item = kpiDB[idx];
-document.getElementById(`kpi-eval-date`).value = item.evalDateRaw || "";
-document.getElementById(`kpi-period`).value = item.period || "Weekly";
-toggleKPIDate();
-if(item.period === 'Weekly') document.getElementById(`kpi-week`).value = item.week || "";
-document.getElementById(`kpi-platform`).value = item.platform || "Instagram";
-document.getElementById(`kpi-foll`).value = item.foll || "";
-document.getElementById(`kpi-int`).value = item.int || "";
-adjustTargetsByPlatform('kpi');
+    const item = kpiDB[idx];
+    document.getElementById(`kpi-eval-date`).value = item.evalDateRaw || "";
+    document.getElementById(`kpi-period`).value = item.period || "Weekly";
+    toggleKPIDate();
+    if(item.period === 'Weekly') document.getElementById(`kpi-week`).value = item.week || "";
+    document.getElementById(`kpi-platform`).value = item.platform || "Instagram";
+    document.getElementById(`kpi-foll`).value = item.foll || "";
+    document.getElementById(`kpi-int`).value = item.int || "";
+    adjustTargetsByPlatform('kpi');
 
-editIdx.kpi = idx;
-document.getElementById('btn-eval-kpi').innerText = "Simpan Perubahan 💾";
-window.scrollTo({ top: document.getElementById('kpi-channel-section').offsetTop, behavior: 'smooth' });
+    editIdx.kpi = idx;
+    document.getElementById('btn-eval-kpi').innerText = "Simpan Perubahan 💾";
+    window.scrollTo({ top: document.getElementById('kpi-channel-section').offsetTop - 80, behavior: 'smooth' });
 }
 
 function renderKPIDatabase() {
