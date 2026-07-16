@@ -318,5 +318,25 @@
     "what": "Platform: <b>Instagram</b>. Reach Rate: <b>1.7%</b>. ER: <b>0.16%</b>. ERR: <b>9.77%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
     "soWhat": "Meskipun Reach Rate (1.7%) dan Engagement Rate (0.16%) off-track, tingginya nilai ERR sebesar 9.77% membuktikan bahwa kualitas konten sebenarnya sangat menarik namun distribusinya sangat kurang. Akibatnya, konten bagus ini gagal menjangkau audiens yang lebih luas sehingga menghasilkan konversi DM yang nihil.",
     "nowWhat": "Segera lakukan paid boost menggunakan Instagram Ads untuk memperluas distribusi konten berkualitas ini ke target audiens yang lebih luas secara instan. Selain itu, perkuat Call-to-Action (CTA) penawaran langsung pada caption dan visual untuk memicu audiens melakukan konversi ke DM."
+  },
+  {
+    "title": "Your Color Your Vibe",
+    "link": "https://www.instagram.com/p/DakOgTuDlVT",
+    "shortcode": "DakOgTuDlVT",
+    "month": "Juli",
+    "week": "2",
+    "evalDateRaw": "2026-07-16",
+    "datePub": "2026-07-09",
+    "pilar": "Product Value & Info",
+    "platform": "Instagram",
+    "category": "Feed / Photo",
+    "foll": 15386,
+    "reach": 224,
+    "interaksi": 24,
+    "dmCount": "0",
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 1.5% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.16% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 10.71% <span class=\"badge bg-green\">On Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>1.5%</b>. ER: <b>0.16%</b>. ERR: <b>10.71%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
+    "soWhat": "Meskipun kualitas konten terbukti sangat menarik bagi audiens yang berhasil dijangkau (ERR sangat tinggi di 10.71%), penyebaran konten ini sangat terbatas dengan Reach Rate hanya 1.5% yang menyebabkan ER rendah dan nihil konversi DM. Hal ini menunjukkan bahwa konten sebenarnya berkualitas baik, namun distribusi atau visibilitasnya di algoritma Instagram sangat kurang.",
+    "nowWhat": "Segera dorong jangkauan konten serupa menggunakan iklan berbayar (Instagram Ads) serta optimasi kolaborasi atau hashtag relevan untuk memperluas distribusi secara organik. Selain itu, sematkan Call-to-Action (CTA) yang lebih persuasif dan langsung mengarah ke fitur DM otomatis untuk memicu konversi."
   }
 ]
