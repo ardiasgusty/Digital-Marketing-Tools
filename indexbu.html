@@ -37,30 +37,6 @@ radial-gradient(at 0% 0%, #ff9a9e 0px, transparent 50%);
 animation: meshAnimate 10s ease-in-out infinite alternate;
 overflow: hidden;
 }
-body.dark-mode #login-screen {
-background-color: #1a1a2e;
-background-image:
-radial-gradient(at 40% 20%, #2f3640 0px, transparent 50%),
-radial-gradient(at 80% 0%, #353b48 0px, transparent 50%),
-radial-gradient(at 0% 50%, #273c75 0px, transparent 50%),
-radial-gradient(at 80% 50%, #192a56 0px, transparent 50%);
-animation: meshAnimateDark 10s ease-in-out infinite alternate;
-}
-
-@keyframes meshAnimate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(45deg); } }
-@keyframes meshAnimateDark { 0% { filter: hue-rotate(0deg) brightness(1.2); } 100% { filter: hue-rotate(30deg) brightness(0.8); } }
-
-/* Floating Agency Icons */
-.floating-icon { position: absolute; font-size: 4rem; animation: floatIcon 6s infinite ease-in-out; opacity: 0.8; z-index: 1; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1)); }
-.fi-1 { top: 15%; left: 15%; animation-delay: 0s; }
-.fi-2 { top: 20%; right: 15%; animation-delay: 1.5s; font-size: 5rem; }
-.fi-3 { bottom: 15%; left: 20%; animation-delay: 3s; font-size: 3.5rem; }
-.fi-4 { bottom: 20%; right: 20%; animation-delay: 4.5s; font-size: 4.5rem; }
-@keyframes floatIcon {
-0% { transform: translateY(0px) rotate(0deg) scale(1); }
-50% { transform: translateY(-30px) rotate(15deg) scale(1.1); }
-100% { transform: translateY(0px) rotate(0deg) scale(1); }
-}
 
 /* Glassmorphism Login Box */
 .login-box {
@@ -69,20 +45,9 @@ border: 1px solid rgba(255, 255, 255, 0.5); padding: 50px 40px; border-radius: 2
 box-shadow: 0 25px 50px rgba(0,0,0,0.15); text-align: center; width: 90%; max-width: 420px;
 backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
 }
-body.dark-mode .login-box { background: rgba(20, 20, 30, 0.7); border-color: rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-
-.login-box h2 { margin: 0 0 5px 0; color: var(--primary); font-size: 32px; font-weight: 900; letter-spacing: -1px; }
-body.dark-mode .login-box h2 { color: #fff; }
-.login-box p { color: var(--text-muted); font-size: 13px; margin-bottom: 35px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;}
-body.dark-mode .login-box p { color: #aaa; }
-
 .login-box .form-control { background: rgba(255,255,255,0.9); border: 2px solid transparent; color: #2d3436; padding: 16px; border-radius: 12px; font-size: 16px; margin-bottom: 20px; width: 100%; text-align: center; transition: 0.3s; font-weight: bold; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
-body.dark-mode .login-box .form-control { background: rgba(0,0,0,0.5); color: #fff; }
-.login-box .form-control:focus { border-color: #a1c4fd; outline: none; box-shadow: 0 0 0 4px rgba(161, 196, 253, 0.3); }
-
 .login-box .btn { background: linear-gradient(135deg, #667eea, #764ba2); font-size: 16px; padding: 16px; border-radius: 12px; font-weight: 900; margin-top: 5px; border:none; color:white; cursor:pointer; width:100%; transition:all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);}
 .login-box .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(118, 75, 162, 0.5); }
-.login-box .error-msg { color: #fff; font-size: 13px; margin-bottom: 15px; display: none; font-weight: bold; background: #ff7675; padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(231,76,60,0.2);}
 
 /* HEADER & NAV */
 #dashboard-screen { display: none; flex: 1; flex-direction: column; }
@@ -93,11 +58,9 @@ body.dark-mode .login-box .form-control { background: rgba(0,0,0,0.5); color: #f
 
 .btn-theme { background: var(--border); border: none; font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: 0.3s; color: var(--text-main); }
 .btn-logout { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-.btn-logout:hover { background: var(--accent); color: white; }
 
 .main-content { padding: 40px 5%; flex: 1; }
 .back-nav { margin-bottom: 20px; display: inline-block; color: var(--accent); font-weight: bold; cursor: pointer; font-size: 14px; display: none;}
-.back-nav:hover { text-decoration: underline; }
 
 /* GRID MENU */
 .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 50px; }
@@ -129,7 +92,7 @@ details.config-accordion summary { font-weight: bold; padding: 10px; cursor: poi
 
 /* DATA TABLE, FILTER & PAGINATION */
 .filter-bar { display:flex; gap:10px; margin-bottom:15px; align-items:center; background: var(--bg); padding:10px; border-radius:8px; border:1px solid var(--border); flex-wrap: wrap; }
-.table-responsive { width: 100%; /*overflow-x: auto;*/ border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); /*max-height: 400px;*/}
+.table-responsive { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); }
 .data-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--card-bg); }
 .data-table th, .data-table td { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top;}
 .data-table thead th { background: var(--primary); color: white; border-bottom: none; position: sticky; top: 0; z-index: 2; box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
@@ -139,12 +102,6 @@ details.config-accordion summary { font-weight: bold; padding: 10px; cursor: poi
 .bg-red { background: #e74c3c; } .bg-green { background: #27ae60; } .bg-dark { background: #2c3e50; } .bg-gray { background: #95a5a6; } .bg-blue { background: #3498db; } .bg-warning { background: #f39c12; }
 .badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight:bold; color: white; display:inline-block; margin-bottom:3px; }
 .thumb-preview { width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background: var(--bg); display:flex; align-items:center; justify-content:center; text-align:center; font-size:10px; color:var(--text-muted); padding:2px;}
-
-/* GITHUB CONFIG BOXES */
-.target-box { background: #e8f4fd; border: 1px dashed #3498db; padding: 15px; border-radius: 8px; margin-bottom: 20px;}
-body.dark-mode .target-box { background: rgba(52, 152, 219, 0.1); }
-.input-group { display: flex; gap: 10px; align-items: center; }
-.input-group .form-control { margin-bottom: 0; }
 
 /* GITHUB MODAL */
 #gh-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
@@ -197,28 +154,6 @@ align-items: center; justify-content: center;
 .dist-legend { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; }
 .dist-legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; }
 .color-box { width: 12px; height: 12px; border-radius: 3px; }
-
-/* REPORT CHARTS */
-.report-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.report-tab-btn { background: var(--bg); border: 1px solid var(--border); padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; color: var(--text-main); transition: 0.2s;}
-.report-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-.report-tab-btn:hover:not(.active) { background: var(--border); }
-.report-pane { display: none; }
-.report-pane.active { display: block; }
-.report-filter-bar { display:flex; gap:10px; margin-bottom:20px; align-items:center; background: var(--bg); padding:10px; border-radius:8px; border:1px solid var(--border); flex-wrap: wrap; }
-.report-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
-.report-stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: center; }
-.report-stat-card .val { font-size: 24px; font-weight: 900; color: var(--primary); }
-.report-stat-card .lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-.chart-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
-.chart-box h4 { margin: 0 0 15px 0; color: var(--primary); font-size: 15px; }
-.bar-chart-wrap { display: flex; align-items: flex-end; gap: 8px; height: 220px; padding: 10px 5px; border-bottom: 2px solid var(--border); overflow-x: auto; }
-.bar-chart-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 40px; flex: 1; height: 100%; position: relative; }
-.bar-chart-bar { width: 60%; border-radius: 4px 4px 0 0; transition: 0.3s; min-height: 2px; position: relative; }
-.bar-chart-bar:hover { opacity: 0.8; }
-.bar-chart-val { font-size: 10px; font-weight: bold; margin-bottom: 4px; color: var(--text-main); }
-.bar-chart-lbl { font-size: 10px; color: var(--text-muted); margin-top: 6px; text-align: center; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -317,10 +252,6 @@ align-items: center; justify-content: center;
 <div class="tool-icon" style="background: #ffeaa7; color: #f39c12;">🥧</div>
 <h3>Content Distribution Planner</h3>
 <p>Analisa persentase pilar konten bulanan dari data JSON Performance Monitor.</p>
-</div>
-<div class="tool-card" onclick="openTool('report')">
-<div class="tool-icon" style="background: #fce4ec; color: #c2185b;">📑</div>
-<h3>Report Weekly / Monthly</h3><p>Ringkasan grafik otomatis dari data Content Weekly, Monthly, dan Channel Evaluator untuk management.</p>
 </div>
 </div>
 </div>
@@ -431,12 +362,10 @@ align-items: center; justify-content: center;
 <div class="two-col-layout" style="grid-template-columns: 1fr 1fr;">
 <div>
 <p style="font-size:14px; font-weight:bold;">Total Konten Bulan Ini: <span id="dist-total" style="color:var(--accent); font-size:18px;">0</span></p>
-<div class="table-responsive" style="max-height: none;">
 <table class="data-table">
 <thead><tr><th>Pilar Konten</th><th>Aktual (%)</th><th>Standar Ideal (%)</th></tr></thead>
 <tbody id="dist-table-body"></tbody>
 </table>
-</div>
 <p id="dist-analysis" style="font-size:13px; margin-top:15px; color:var(--text-muted); line-height:1.5;"></p>
 </div>
 <div class="chart-container">
@@ -849,7 +778,7 @@ align-items: center; justify-content: center;
 <div class="filter-bar">
 <strong>Filter Channel:</strong>
 <select id="filter-kpi-platform" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')"><option value="All">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select>
-<select id="filter-kpi-period" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')"><option value="All">Semua Periode</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select>
+<select id="filter-kpi-period" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')"><option value="All">Semua Periode</option><option>Weekly</option><option>Monthly</option></select>
 <select id="filter-kpi-month" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')">
 <option value="All">Semua Bulan</option><option>Januari</option><option>Februari</option><option>Maret</option><option>April</option><option>Mei</option><option>Juni</option><option>Juli</option><option>Agustus</option><option>September</option><option>Oktober</option><option>November</option><option>Desember</option>
 </select>
@@ -921,7 +850,7 @@ align-items: center; justify-content: center;
 <option value="All">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option>
 </select>
 <select id="report-channel-period" class="form-control" style="width:130px; margin:0;" onchange="renderReportChannel()">
-<option value="All">Semua Periode</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option>
+<option value="All">Semua Periode</option><option>Weekly</option><option>Monthly</option>
 </select>
 </div>
 <div id="report-channel-content"></div>
@@ -1060,10 +989,8 @@ let tableState = {
     links: { page: 1, limit: 10 }
 };
 
-// Prefix proxy untuk thumbnail Instagram (images.weserv.nl)
 const THUMB_PROXY_PREFIX = "https://images.weserv.nl/?url=";
 
-// DIBERSIHKAN: Secret/Token tidak boleh ditaruh di dalam Source Code secara langsung
 const DEFAULT_CONFIG = {
 token: "",
 user: "ardiasgusty",
@@ -1075,7 +1002,7 @@ pathLinks: "json/kumpulan-link-penting.json",
 pathTodo: "json/todo-list.json"
 };
 
-// ================= UTILITIES & THEME =================
+// ================= UTILITIES =================
 function toggleTheme() {
 document.body.classList.toggle('dark-mode');
 const isDark = document.body.classList.contains('dark-mode');
@@ -1160,6 +1087,9 @@ function syncGHFields(val, keyType) {
 const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
 if(keyType) config[keyType] = val;
 
+document.querySelectorAll('.gh-sync-token').forEach(el => el.value = config.token || '');
+document.querySelectorAll('.gh-sync-user').forEach(el => el.value = config.user || '');
+document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = config.repo || '');
 if(document.getElementById('gh-path-cpm')) document.getElementById('gh-path-cpm').value = config.pathContent || '';
 if(document.getElementById('gh-path-kpi')) document.getElementById('gh-path-kpi').value = config.pathKPI || '';
 if(document.getElementById('gh-path-links')) document.getElementById('gh-path-links').value = config.pathLinks || '';
@@ -1172,18 +1102,16 @@ localStorage.setItem('gh_config', JSON.stringify(config));
 function resetForm(prefix) {
     document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-            // Kecualikan followers, target, dan filter bulan agar tidak repot atur ulang
             if(el.id !== `${prefix}-foll` && el.id.indexOf('target') === -1 && el.id.indexOf('month') === -1) {
                 if (el.tagName === 'SELECT') {
-                    el.selectedIndex = 0; // Kembalikan dropdown ke posisi atas
+                    el.selectedIndex = 0;
                 } else {
-                    el.value = ""; // Bersihkan text, url, number, dan kalender
+                    el.value = "";
                 }
             }
         }
     });
 
-    // Kembalikan nama tombol & sembunyikan kotak hasil evaluasi sebelumnya
     if(prefix === 'mon') {
         document.getElementById('thumb-mon').innerHTML = "📸";
         editIdx.content = -1;
@@ -1203,7 +1131,6 @@ function resetForm(prefix) {
     }
 }
 
-// DYNAMIC TARGET ADJUSTMENT BASED ON PLATFORM
 function adjustTargetsByPlatform(mode) {
 let platform = document.getElementById(mode + '-platform').value;
 
@@ -1338,7 +1265,6 @@ function editTodo(idx) {
 
     editIdx.todo = idx;
     document.getElementById('btn-save-todo').innerText = "Simpan Perubahan 💾";
-    // Scroll mulus ke atas dengan jarak 80px agar tidak tertutup Header
     window.scrollTo({ top: document.getElementById('todo-section').offsetTop - 80, behavior: 'smooth' });
 }
 
@@ -1362,7 +1288,6 @@ document.getElementById('page-info-todo').innerText = "1 / 1";
 return;
 }
 
-// Sort by date closest first (clone array to not mess up original index mapping)
 let indexedDB = todoDB.map((item, index) => ({ ...item, originalIndex: index }));
 indexedDB.sort((a,b) => new Date(a.date) - new Date(b.date));
 
@@ -1562,7 +1487,6 @@ listEl.appendChild(div);
 function navigateGHUp() { let parts = currentGHPath.split('/'); parts.pop(); currentGHPath = parts.join('/'); renderGHModalContents(); }
 function selectGHFolder() { document.getElementById(currentGHTargetInput).value = currentGHPath; syncGHFields(currentGHPath, 'pathImg'); closeGHModal(); }
 
-
 // ================= CONTENT DISTRIBUTION PLANNER =================
 function calculateDistribution() {
 const month = document.getElementById('dist-month').value;
@@ -1610,8 +1534,11 @@ tbody.innerHTML += `<tr>
 <td>${ideal[pilar]}%</td>
 </tr>`;
 
+// Build Pie Chart
 gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
 currentPercent += parseFloat(actualPct);
+
+// Build Legend
 legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
 });
 gradientStr = gradientStr.slice(0, -2);
@@ -2002,6 +1929,12 @@ function editContentMonthly(idx) {
     window.scrollTo({ top: document.getElementById('monitor-monthly-section').offsetTop - 80, behavior: 'smooth' });
 }
 
+function delContentMonthly(idx) {
+contentMonthlyDB.splice(idx,1);
+localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB));
+renderContentMonthlyDatabase();
+}
+
 function renderContentMonthlyDatabase() {
 const fMonth = document.getElementById('filter-conm-month').value;
 const fPlatform = document.getElementById('filter-conm-platform').value;
@@ -2034,7 +1967,7 @@ tbody.innerHTML += `<tr>
 <td><div style="margin-bottom:5px;">${item.statusBadge}</div><div style="font-size:11px; line-height:1.4; color:var(--text-main);">${wsnHTML}</div></td>
 <td style="text-align:center; min-width:80px;">
 <button onclick="editContentMonthly(${item.originalIndex})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%; justify-content:center;">✏️ Edit</button>
-<button onclick="contentMonthlyDB.splice(${item.originalIndex},1); localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB)); renderContentMonthlyDatabase();" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
+<button onclick="delContentMonthly(${item.originalIndex})" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
 </td>
 </tr>`;
 });
@@ -2099,6 +2032,12 @@ function editKPI(idx) {
     window.scrollTo({ top: document.getElementById('kpi-channel-section').offsetTop - 80, behavior: 'smooth' });
 }
 
+function delKPI(idx) {
+kpiDB.splice(idx,1);
+localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB));
+renderKPIDatabase();
+}
+
 function renderKPIDatabase() {
 const fMonth = document.getElementById(`filter-kpi-month`).value;
 const fPeriod = document.getElementById(`filter-kpi-period`).value;
@@ -2134,13 +2073,13 @@ tbody.innerHTML += `<tr>
 <td style="font-weight:bold; font-size:15px;">${parseFloat(item.er).toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})}%</td><td>${item.status}</td>
 <td style="text-align:center; min-width:80px;">
 <button onclick="editKPI(${item.originalIndex})" class="btn-sm bg-blue" style="margin-bottom:5px; width:100%; justify-content:center;">✏️ Edit</button>
-<button onclick="kpiDB.splice(${item.originalIndex},1); localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase();" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
+<button onclick="delKPI(${item.originalIndex})" class="btn-sm bg-red" style="width:100%; justify-content:center;">X Hapus</button>
 </td>
 </tr>`;
 });
 }
 
-// ================= AI CARE RESPONSE ASSISTANT =================
+// ================= 6. AI CARE RESPONSE ASSISTANT (UNTOUCHED) =================
 function saveCareToHistory(title, output) {
 let list = JSON.parse(localStorage.getItem('honda_local_care_history') || '[]');
 list.unshift({ time: new Date().toLocaleString('id-ID'), title, output });
