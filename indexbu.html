@@ -129,10 +129,10 @@ details.config-accordion summary { font-weight: bold; padding: 10px; cursor: poi
 
 /* DATA TABLE, FILTER & PAGINATION */
 .filter-bar { display:flex; gap:10px; margin-bottom:15px; align-items:center; background: var(--bg); padding:10px; border-radius:8px; border:1px solid var(--border); flex-wrap: wrap; }
-.table-responsive { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); }
+.table-responsive { width: 100%; /*overflow-x: auto;*/ border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); /*max-height: 400px;*/}
 .data-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--card-bg); }
 .data-table th, .data-table td { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top;}
-.data-table thead th { background: var(--primary); color: white; border-bottom: none; }
+.data-table thead th { background: var(--primary); color: white; border-bottom: none; position: sticky; top: 0; z-index: 2; box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
 .pagination-controls { display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:12px; background:var(--bg); padding:10px; border-radius:8px; border:1px solid var(--border); }
 
 .btn-sm { padding: 8px 12px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; display: inline-flex; align-items: center; gap: 5px; justify-content:center;}
@@ -332,15 +332,20 @@ align-items: center; justify-content: center;
 <details class="config-accordion">
 <summary>🔗 Pengaturan GitHub Sync (To Do DB)</summary>
 <div style="padding:10px;">
-<div class="form-row">
-<div class="form-group" style="flex: 2;">
-<label>File Path JSON (To Do DB)</label>
-<div class="input-group">
-<input type="text" id="gh-path-todo" class="form-control gh-sync-path-todo" placeholder="Contoh: json/todo-list.json" onchange="syncGHFields(this.value, 'pathTodo')">
-<button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-todo')">📂 Browse File</button>
-</div>
-</div>
-</div>
+    <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+    <div class="form-row">
+    <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+    <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+    </div>
+    <div class="form-row">
+    <div class="form-group" style="flex: 2;">
+    <label>File Path JSON (To Do DB)</label>
+    <div class="input-group">
+    <input type="text" id="gh-path-todo" class="form-control gh-sync-path-todo" placeholder="Contoh: json/todo-list.json" onchange="syncGHFields(this.value, 'pathTodo')">
+    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-todo')">📂 Browse File</button>
+    </div>
+    </div>
+    </div>
 </div>
 </details>
 
@@ -425,8 +430,8 @@ align-items: center; justify-content: center;
 <h4 style="margin-top:0; color:var(--primary);">Hasil Distribusi Pilar</h4>
 <div class="two-col-layout" style="grid-template-columns: 1fr 1fr;">
 <div>
-<p style="font-size:14px; font-weight:bold;">Total Konten: <span id="dist-total" style="color:var(--accent); font-size:18px;">0</span></p>
-<div class="table-responsive">
+<p style="font-size:14px; font-weight:bold;">Total Konten Bulan Ini: <span id="dist-total" style="color:var(--accent); font-size:18px;">0</span></p>
+<div class="table-responsive" style="max-height: none;">
 <table class="data-table">
 <thead><tr><th>Pilar Konten</th><th>Aktual (%)</th><th>Standar Ideal (%)</th></tr></thead>
 <tbody id="dist-table-body"></tbody>
@@ -464,15 +469,20 @@ align-items: center; justify-content: center;
 <details class="config-accordion">
 <summary>🔗 Pengaturan GitHub Sync (Link DB)</summary>
 <div style="padding:10px;">
-<div class="form-row">
-<div class="form-group" style="flex: 2;">
-<label>File Path JSON (Links DB)</label>
-<div class="input-group">
-<input type="text" id="gh-path-links" class="form-control gh-sync-path-links" placeholder="Contoh: data/link_penting.json" onchange="syncGHFields(this.value, 'pathLinks')">
-<button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-links')">📂 Browse File</button>
-</div>
-</div>
-</div>
+    <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+    <div class="form-row">
+    <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+    <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+    </div>
+    <div class="form-row">
+    <div class="form-group" style="flex: 2;">
+    <label>File Path JSON (Links DB)</label>
+    <div class="input-group">
+    <input type="text" id="gh-path-links" class="form-control gh-sync-path-links" placeholder="Contoh: data/link_penting.json" onchange="syncGHFields(this.value, 'pathLinks')">
+    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-links')">📂 Browse File</button>
+    </div>
+    </div>
+    </div>
 </div>
 </details>
 
@@ -569,19 +579,19 @@ align-items: center; justify-content: center;
 </div>
 <div class="doc-section">
 <div class="doc-title">B. Level Refinement</div>
-<div class="table-responsive">
+<div class="table-responsive" style="max-height: none;">
 <table class="data-table audit-table"><thead><tr><th>Level</th><th>Estimasi Waktu</th><th>Pilih</th></tr></thead><tbody><tr><td><strong>Minor</strong></td><td>5–10 menit</td><td><label><input type="radio" name="ref_level"> Edit caption / CTA / hashtag saja</label></td></tr><tr><td><strong>Moderate</strong></td><td>15–20 menit</td><td><label><input type="radio" name="ref_level"> Revisi tone dan sebagian elemen visual</label></td></tr><tr><td><strong>Major</strong></td><td>30+ menit</td><td><label><input type="radio" name="ref_level"> Redesign visual dan tulis ulang caption</label></td></tr></tbody></table>
 </div>
 </div>
 <div class="doc-section">
 <div class="doc-title">C. Gap Awal yang Ditemukan</div>
-<div class="table-responsive">
+<div class="table-responsive" style="max-height: none;">
 <table class="data-table audit-table"><thead><tr><th width="10%">Dimensi</th><th width="40%">Item yang Belum Terpenuhi</th><th width="50%">Elemen Spesifik yang Perlu Diperbaiki</th></tr></thead><tbody><tr><td style="text-align:center; font-weight:bold;">C1</td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td></tr><tr><td style="text-align:center; font-weight:bold;">C2</td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td></tr><tr><td style="text-align:center; font-weight:bold;">C3</td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td><td><textarea class="form-control" style="margin:0; border:none; background:transparent;" placeholder="Ketik di sini..."></textarea></td></tr></tbody></table>
 </div>
 </div>
 <div class="doc-section">
 <div class="doc-title">D. Hasil Revisi</div>
-<div class="table-responsive">
+<div class="table-responsive" style="max-height: none;">
 <table class="data-table audit-table"><thead><tr><th width="25%">Field</th><th>Isi</th></tr></thead><tbody><tr><td><strong>Caption Sebelum Revisi</strong></td><td><textarea class="form-control" style="margin:0; min-height:80px; border:none; background:transparent;" placeholder="Paste caption awal..."></textarea></td></tr><tr><td><strong>Caption Setelah Revisi</strong></td><td><textarea class="form-control" style="margin:0; min-height:80px; border:none; background:transparent;" placeholder="Paste caption hasil revisi..."></textarea></td></tr><tr><td><strong>Perubahan Visual (jika ada)</strong></td><td><textarea class="form-control" style="margin:0; min-height:50px; border:none; background:transparent;" placeholder="Jelaskan perubahan..."></textarea></td></tr><tr><td><strong>Alasan Perubahan</strong></td><td><textarea class="form-control" style="margin:0; min-height:50px; border:none; background:transparent;" placeholder="Jelaskan alasan..."></textarea></td></tr></tbody></table>
 </div>
 </div>
@@ -607,6 +617,11 @@ align-items: center; justify-content: center;
 </div>
 <p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah untuk melihat rekomendasi target yang otomatis berubah.</p>
 </div>
+    <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+    <div class="form-row">
+    <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+    <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+    </div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
 <label>File Path JSON Utama (.json)</label>
@@ -616,6 +631,7 @@ align-items: center; justify-content: center;
 </div>
 </div>
 </div>
+    <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
 </div>
 </details>
 
@@ -703,6 +719,11 @@ align-items: center; justify-content: center;
 </div>
 <p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah untuk penyesuaian target otomatis.</p>
 </div>
+    <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+    <div class="form-row">
+    <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+    <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+    </div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
 <label>File Path JSON Monthly (.json)</label>
@@ -712,6 +733,7 @@ align-items: center; justify-content: center;
 </div>
 </div>
 </div>
+    <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input type="password" class="form-control api-key-input" placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
 </div>
 </details>
 
@@ -787,6 +809,11 @@ align-items: center; justify-content: center;
 <div class="form-group"><label>Target Average ER Sangat Baik (%)</label><input type="number" id="kpi-target-er-high" class="form-control" value="3.5" step="0.1"></div>
 </div>
 </div>
+    <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
+    <div class="form-row">
+    <div class="form-group"><label>Username / Owner</label><input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
+    <div class="form-group"><label>Repository</label><input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
+    </div>
 <div class="form-row">
 <div class="form-group" style="flex: 2;">
 <label>File Path JSON KPI Mingguan/Bulanan (.json)</label>
@@ -820,7 +847,7 @@ align-items: center; justify-content: center;
 <h4 style="margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:10px;">Arsip KPI Channel</h4>
 
 <div class="filter-bar">
-<strong>Filter:</strong>
+<strong>Filter Channel:</strong>
 <select id="filter-kpi-platform" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')"><option value="All">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select>
 <select id="filter-kpi-period" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')"><option value="All">Semua Periode</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option></select>
 <select id="filter-kpi-month" class="form-control" style="width:130px; margin:0;" onchange="renderTableRouter('kpi')">
@@ -852,7 +879,7 @@ align-items: center; justify-content: center;
 <p>Ringkasan grafik otomatis untuk laporan management, diambil langsung dari data yang sudah tersimpan di masing-masing menu.</p>
 </div>
 <div style="background:var(--bg); padding:10px; border-radius:8px; border:1px solid var(--border); display: flex; align-items: center; gap: 10px;">
-<span style="font-size:11px; color:var(--text-muted); max-width:150px;">Pastikan data terbaru ditarik sebelum presentasi.</span>
+<span style="font-size:11px; color:var(--text-muted); max-width:150px;">Pastikan data terbaru sudah ditarik sebelum presentasi.</span>
 <button class="btn-sm bg-dark" onclick="pullAllReports()">↓ Tarik Semua Data Terbaru</button>
 </div>
 </div>
@@ -1791,6 +1818,7 @@ console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.messag
 }
 
 function editContent(idx) {
+// Fix index logic since we paginate and filter
 const item = contentDB[idx];
 document.getElementById('mon-title').value = item.title || "";
 document.getElementById('mon-link').value = item.link || "";
@@ -1805,6 +1833,7 @@ document.getElementById('mon-reach').value = item.reach || "";
 document.getElementById('mon-int').value = item.interaksi || "";
 document.getElementById('mon-dm').value = item.dmCount || "";
 generateThumbnailPreview(item.link, 'thumb-mon');
+adjustTargetsByPlatform('mon'); // Adjust target UI to match
 
 editIdx.content = idx;
 document.getElementById('btn-eval-mon').innerText = "Simpan Perubahan 💾";
@@ -1956,16 +1985,11 @@ document.getElementById('conm-foll').value = item.foll || 15381;
 document.getElementById('conm-postcount').value = item.postCount || "";
 document.getElementById('conm-reach').value = item.reach || "";
 document.getElementById('conm-int').value = item.interaksi || "";
+adjustTargetsByPlatform('conm');
 
 editIdx.contentMonthly = idx;
 document.getElementById('btn-eval-conm').innerText = "Simpan Perubahan 💾";
 window.scrollTo({ top: document.getElementById('monitor-monthly-section').offsetTop, behavior: 'smooth' });
-}
-
-function delContentMonthly(idx) {
-contentMonthlyDB.splice(idx,1);
-localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB));
-renderContentMonthlyDatabase();
 }
 
 function renderContentMonthlyDatabase() {
@@ -2058,6 +2082,7 @@ if(item.period === 'Weekly') document.getElementById(`kpi-week`).value = item.we
 document.getElementById(`kpi-platform`).value = item.platform || "Instagram";
 document.getElementById(`kpi-foll`).value = item.foll || "";
 document.getElementById(`kpi-int`).value = item.int || "";
+adjustTargetsByPlatform('kpi');
 
 editIdx.kpi = idx;
 document.getElementById('btn-eval-kpi').innerText = "Simpan Perubahan 💾";
@@ -2105,7 +2130,7 @@ tbody.innerHTML += `<tr>
 });
 }
 
-// ================= AI CARE RESPONSE ASSISTANT (UNTOUCHED) =================
+// ================= AI CARE RESPONSE ASSISTANT =================
 function saveCareToHistory(title, output) {
 let list = JSON.parse(localStorage.getItem('honda_local_care_history') || '[]');
 list.unshift({ time: new Date().toLocaleString('id-ID'), title, output });
