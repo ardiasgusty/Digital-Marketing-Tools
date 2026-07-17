@@ -1100,18 +1100,21 @@ localStorage.setItem('gh_config', JSON.stringify(config));
 }
 
 function resetForm(prefix) {
+    // 1. Bersihkan semua field (Input, Textarea, Select) secara agresif
     document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-            if(el.id !== `${prefix}-foll` && el.id.indexOf('target') === -1 && el.id.indexOf('month') === -1) {
+            // Kecualikan input yang memang tidak boleh di-reset (seperti follower, target, atau filter)
+            if (!el.id.includes('-foll') && !el.id.includes('target') && !el.id.includes('month') && !el.id.includes('eval-date')) {
                 if (el.tagName === 'SELECT') {
-                    el.selectedIndex = 0;
+                    el.selectedIndex = 0; // Kembalikan ke opsi pertama
                 } else {
-                    el.value = "";
+                    el.value = ""; // Kosongkan text/date
                 }
             }
         }
     });
 
+    // 2. Kembalikan state Tombol, Index Edit, dan hilangkan Hasil Result
     if(prefix === 'mon') {
         document.getElementById('thumb-mon').innerHTML = "📸";
         editIdx.content = -1;
@@ -1265,7 +1268,11 @@ function editTodo(idx) {
 
     editIdx.todo = idx;
     document.getElementById('btn-save-todo').innerText = "Simpan Perubahan 💾";
-    window.scrollTo({ top: document.getElementById('todo-section').offsetTop - 80, behavior: 'smooth' });
+    
+    // Auto-scroll langsung menyorot ke judul field & langsung fokus
+    const targetField = document.getElementById('todo-title');
+    targetField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => targetField.focus(), 500);
 }
 
 function delTodo(idx) {
@@ -1774,7 +1781,11 @@ function editContent(idx) {
 
     editIdx.content = idx;
     document.getElementById('btn-eval-mon').innerText = "Simpan Perubahan 💾";
-    window.scrollTo({ top: document.getElementById('monitor-section').offsetTop - 80, behavior: 'smooth' });
+    
+    // Auto-scroll presisi ke field judul
+    const targetField = document.getElementById('mon-title');
+    targetField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => targetField.focus(), 500);
 }
 
 function renderContentDatabase() {
@@ -1926,7 +1937,11 @@ function editContentMonthly(idx) {
 
     editIdx.contentMonthly = idx;
     document.getElementById('btn-eval-conm').innerText = "Simpan Perubahan 💾";
-    window.scrollTo({ top: document.getElementById('monitor-monthly-section').offsetTop - 80, behavior: 'smooth' });
+    
+    // Auto-scroll presisi
+    const targetField = document.getElementById('conm-platform');
+    targetField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => targetField.focus(), 500);
 }
 
 function delContentMonthly(idx) {
@@ -2029,7 +2044,11 @@ function editKPI(idx) {
 
     editIdx.kpi = idx;
     document.getElementById('btn-eval-kpi').innerText = "Simpan Perubahan 💾";
-    window.scrollTo({ top: document.getElementById('kpi-channel-section').offsetTop - 80, behavior: 'smooth' });
+    
+    // Auto-scroll presisi
+    const targetField = document.getElementById('kpi-period');
+    targetField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => targetField.focus(), 500);
 }
 
 function delKPI(idx) {
