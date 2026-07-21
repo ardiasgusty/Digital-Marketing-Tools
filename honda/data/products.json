@@ -1,0 +1,195 @@
+{
+  "stepwgn": {
+    "name": "New Honda StepWGN",
+    "price": 637800000,
+    "variants": [
+      "2.0 e:HEV E-CVT OTR: Rp637.800.000"
+    ],
+    "dp": "Rp. -",
+    "angsuran": "Rp. -",
+    "seats": "7-Seater",
+    "engine": "2.0L DOHC i-VTEC Atkinson Cycle",
+    "description": "<p>Nikmati \"Ruang Hidup Kedua\" yang sesungguhnya. Kabin dirancang fleksibel dengan <b>2nd Row Captain Seat with Ottoman</b> untuk kenyamanan VIP, serta fitur legendaris <b>3rd Row Magic Seat</b> yang dapat melipat rata lantai. Udara kabin pun terjamin sehat berkat <i>Tri-Zone Auto A/C</i> dengan teknologi <b>Plasmacluster</b>.</p><br /><b>Powerful e:HEV Performance</b><br /><p>Teknologi Hybrid <b>e:HEV</b> memadukan mesin 2.0L dengan motor listrik bertenaga <b>184 PS</b> dan torsi instan <b>315 Nm</b>.</p><br /><b>Comprehensive Safety</b><br /><p>Berkendara tenang bersama keluarga dengan perlindungan <b>Honda SENSING™</b> terlengkap.</p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWvMwoB6GGssq0_Yk5nyjjcDifd7nYaEBj6hX7IBB9d8BfiykecuRo6d18_qIGmUs2rNy8xA_oiuFtIHyIDu0eGyPMHcT7Ym7zcT0DnHI7BZCTy8m9FaJHieJ3oA0y79RNiH9m9iL_WGVYt3WhDZEHoVcK2hMjKR3kpS63v-qtpLRgXkXOOwTsR3QJNejF/s1600/stepwgn-spada.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWvMwoB6GGssq0_Yk5nyjjcDifd7nYaEBj6hX7IBB9d8BfiykecuRo6d18_qIGmUs2rNy8xA_oiuFtIHyIDu0eGyPMHcT7Ym7zcT0DnHI7BZCTy8m9FaJHieJ3oA0y79RNiH9m9iL_WGVYt3WhDZEHoVcK2hMjKR3kpS63v-qtpLRgXkXOOwTsR3QJNejF/s1600/stepwgn-spada.webp"
+      }
+    ]
+  },
+  "accord": {
+    "name": "All New Honda Accord",
+    "price": 970900000,
+    "variants": [
+      "2.0 RS e:HEV E-CVT OTR : Rp970.900.000"
+    ],
+    "dp": "Rp. 190.000.000",
+    "angsuran": "Rp. 20.200.000",
+    "seats": "5-Seater",
+    "engine": "2.0L DOHC i-VTEC Engine + E-CVT",
+    "description": "<p>&nbsp;</p><p><b>Honda Sensing</b></p><p>&nbsp;</p><p>Honda Sensing mengedepankan kenyamanan dan didesain untuk membantu Anda sepanjang perjalanan.</p><p><br /><b>Powerful Hybrid Engine</b></p><p>Kinerja electric motor yang dominan, menghasilkan sensasi berkendara yang lebih bertenaga sekaligus hemat bahan bakar.</p><p><br /><b>Easier Connectivity</b></p><p>Akses berbagai informasi penting mengenai kendaraan Anda melalui aplikasi Honda CONNECT with Digital Key di smartphone.</p><p><br /><b>Complete Safety Features</b></p><p>Dilengkapi fitur keselamatan terdepan, termasuk Honda SENSING yang kini hadir lebih lengkap untuk memberikan rasa aman di perjalanan Anda.</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcbGeq2VdT3GpDvgVSNctuYsKJpbtyzf7GtJHqtJl23tvd4GeGLl8zZ6eYa9P2oq8Q71kiTDa24JgD7wQnTOGorIJ93lnZurNg2mTUz22SM7IQ_N95idHCE4fTWp26oHBiJOJA7qg4UjuaYysablcY0cdJtODt_Vjxc88X6TAIw0mPHhXRtuGJgQE7xcqe/s1600/accord-ehev.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcbGeq2VdT3GpDvgVSNctuYsKJpbtyzf7GtJHqtJl23tvd4GeGLl8zZ6eYa9P2oq8Q71kiTDa24JgD7wQnTOGorIJ93lnZurNg2mTUz22SM7IQ_N95idHCE4fTWp26oHBiJOJA7qg4UjuaYysablcY0cdJtODt_Vjxc88X6TAIw0mPHhXRtuGJgQE7xcqe/s1600/accord-ehev.webp"
+      }
+    ]
+  },
+  "civic-rs": {
+    "name": "New Honda Civic RS",
+    "price": 699000000,
+    "variants": [
+      "RS CVT OTR : Rp699.000.000"
+    ],
+    "dp": "Rp. 140.000.000",
+    "angsuran": "Rp. 14.600.000",
+    "seats": "5-Seater",
+    "engine": "2.0L DOHC i-VTEC Engine + DBW",
+    "description": "<p>&nbsp;</p><p><b>Seamless Connectivity</b></p><p>&nbsp;</p><p>Apple CarPlay&reg; and Android Auto&reg;.</p><p><br /><b>Advanced Safety</b></p><p>Honda Sensing.</p><p><br /><b>Techonolgy</b></p><p>Honda Smart Key Card.</p><p><br /><b>Max Power</b></p><p>178PS @6.000rpm</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgI6QgUkIWKCsC5j271KlsnDqsgJbbURwY-GKOzMTsE4mRGvSpetDh9SXc-K_qxu0hpI1BNuKZnNjK16mtYf2Y5yIqtAvC9P3zM-tldUBF5NkQopi7s3hPDpmCcEGXEab_4sKUsLj3hiw7801oPlrSx2bDiQgTgm95aTbPidHmDpb3x5K2mApCWf7q3df8a/s1600/civic-rs.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgI6QgUkIWKCsC5j271KlsnDqsgJbbURwY-GKOzMTsE4mRGvSpetDh9SXc-K_qxu0hpI1BNuKZnNjK16mtYf2Y5yIqtAvC9P3zM-tldUBF5NkQopi7s3hPDpmCcEGXEab_4sKUsLj3hiw7801oPlrSx2bDiQgTgm95aTbPidHmDpb3x5K2mApCWf7q3df8a/s1600/civic-rs.webp"
+      }
+    ]
+  },
+  "city-hatchback-rs": {
+    "name": "New Honda City Hatchback",
+    "price": 384500000,
+    "variants": [
+      "RS with Honda SENSING CVT OTR : 384.500.000"
+    ],
+    "dp": "Rp. 60.000.000",
+    "angsuran": "Rp. 8.200.000",
+    "seats": "5-Seater",
+    "engine": "1.5L DOHC i-VTEC Engine",
+    "description": "<p>&nbsp;</p><p><b>Elevate Your Style</b></p><p>&nbsp;</p><p>Tampil sporty dan maksimal, penuh dengan hasrat serta semangat yang menginspirasi kapanpun dan ke manapun Anda berkendara.</p><p><br /><b>Definition Of Sportiness</b></p><p>Nikmati pengalaman berkendara yang sporty dan premium di dalam kabin yang didesain untuk mendukung hasrat Anda dalam berinovasi.</p><p><br /><b>Next Level Comfort</b></p><p>Kabin yang luas berlapiskan material berkualitas untuk menghadirkan kenyamanan yang berkelas, semakin memantapkan Anda untuk terus melangkah ke depan.</p><p><br /><b>Suit Your Style</b></p><p>Maksimalkan area kabin secara optimal dengan konfigurasi yang cepat dan mudah untk memenuhi semua kebutuhan Anda.</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIdiFYWjptuBpJbB6pnh8j_d4hcEWz1wlLkIlNeO5YgIrfaUt5DlxlonZK-a4g81wymTi1fdY9XHWAT8IkvzYCHPO1fruBrWtNsEhAI9PgwEJc2o7U16t3Nkg7QF2lVP_4jOPrJcb9reim5dPGM0qD0q2Yebw3sWfr82_1KnR0W8RR_sRtBZ38WBQ0nZ-p/s1600/city-hatchback-rs.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIdiFYWjptuBpJbB6pnh8j_d4hcEWz1wlLkIlNeO5YgIrfaUt5DlxlonZK-a4g81wymTi1fdY9XHWAT8IkvzYCHPO1fruBrWtNsEhAI9PgwEJc2o7U16t3Nkg7QF2lVP_4jOPrJcb9reim5dPGM0qD0q2Yebw3sWfr82_1KnR0W8RR_sRtBZ38WBQ0nZ-p/s1600/city-hatchback-rs.webp"
+      }
+    ]
+  },
+  "cr-v": {
+    "name": "New Honda CR-V",
+    "price": 777000000,
+    "variants": [
+      "1.5 Turbo CVT OTR : Rp759.000.000",
+      "2.0 RS e:HEV E-CVT OTR : Rp825.800.000"
+    ],
+    "dp": "Rp. 150.000.000",
+    "angsuran": "Rp. 15.900.000",
+    "seats": "7-Seater",
+    "engine": "1.5L DOHC i-VTEC Engine",
+    "description": "<p>&nbsp;</p><p><b>POWERFUL HYBRID ENGINE</b></p><p>&nbsp;</p><p>Kinerja electric motor yang dominan, menghasilkan sensasi berkendara yang lebih bertenaga sekaligus hemat bahan bakar.</p><p><br /><b>EASIER CONNECTIVITY</b></p><p>Akses berbagai informasi penting mengenai kendaraan Anda dari mana saja melalui aplikasi Honda CONNECT di smartphone.</p><p><br /><b>COMPLETE SAFETY FEATURES</b></p><p>Dilengkapi fitur keselamatan terdepan, termasuk Honda SENSING yang kini hadir lebih lengkap untuk memberikan rasa aman di perjalanan Anda.</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjC5vQQUxf-6eA2Ka7uaLWAo85m32iwWpUX06oPr4SQoa2xNyejEYbE-EBlMHwAysRmJ0bGi5XwUuzpJSK96RZrFjy_bXdPvO6jHhYwFamr0nRNjpSlqyM8kchTv2pJRqBHqwLgDTg5pSO2ULjwASQ4dK0GX5o5YOzqStS4g_HqqX_5N3Vp3TPcZxYl3t7B/s1600/crv.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjC5vQQUxf-6eA2Ka7uaLWAo85m32iwWpUX06oPr4SQoa2xNyejEYbE-EBlMHwAysRmJ0bGi5XwUuzpJSK96RZrFjy_bXdPvO6jHhYwFamr0nRNjpSlqyM8kchTv2pJRqBHqwLgDTg5pSO2ULjwASQ4dK0GX5o5YOzqStS4g_HqqX_5N3Vp3TPcZxYl3t7B/s1600/crv.webp"
+      }
+    ]
+  },
+  "wr-v": {
+    "name": "New Honda WR-V",
+    "price": 290100000,
+    "variants": [
+      "1.5 E/MT OTR: Rp285.700.000",
+      "1.5 E/CVT OTR: Rp295.700.000",
+      "1.5 RS/CVT OTR: Rp315.700.000*",
+      "1.5 RS with SENSING/CVT OTR: Rp335.700.000*"
+    ],
+    "dp": "Rp. 20.000.000",
+    "angsuran": "Rp. 6.200.000",
+    "seats": "5-Seater",
+    "engine": "1.5L DOHC i-VTEC Engine",
+    "description": "<p>&nbsp;</p><p><b>Remote Engine Start</b></p><p>&nbsp;</p><p>Nyalakan mesin dari jarak jauh dan rasakan kabin yang sejuk sesaat setelah Anda memasuki mobil. Fitur ini tersedia untuk semua tipe Honda WR-V.</p><p><br /><b>Walk-Away Auto Lock</b></p><p>Pertama di kelasnya, fitur ini dapat mengunci pintu mobil secara otomatis setelah Anda pergi meninggalkan mobil.</p><p><br /><b>Honda SENSING&trade;</b></p><p>Dengan serangkaian teknologi keselamatan terkini, jadikan pengalaman berkendara lebih aman.</p><p><br /><b>WHEELS TO WIN</b></p><p>Melaju lebih percaya diri untuk raih impianmu bersama Honda WR-V!</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.<br /><br />*Tersedia dalam Two Tone color dengan penambahan 2,5jt dari harga normal.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvR4eyLwWhy6Zdjf9AaUycDfSrc_cPH8LDP7OA6BWuyA5pGv7qZ2EoB58Tky34kwYCw85bOjFy06l-hPAgNuMxrHlewgDry0KLRQlsI4yMoDKicIZTiXn6dRaSIjB_QXH1XXCDvTjpTlalJKUfSU6Hn2CrQwnLah8oQbKMUvo5yEYgVEc08NOK6smsIIwQ/s1600/wrv.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvR4eyLwWhy6Zdjf9AaUycDfSrc_cPH8LDP7OA6BWuyA5pGv7qZ2EoB58Tky34kwYCw85bOjFy06l-hPAgNuMxrHlewgDry0KLRQlsI4yMoDKicIZTiXn6dRaSIjB_QXH1XXCDvTjpTlalJKUfSU6Hn2CrQwnLah8oQbKMUvo5yEYgVEc08NOK6smsIIwQ/s1600/wrv.webp"
+      }
+    ]
+  },
+  "hr-v": {
+    "name": "New Honda HR-V",
+    "price": 389700000,
+    "variants": [
+      "1.5 E/CVT OTR: Rp401.000.000",
+      "1.5 E+/CVT OTR: Rp423.600.000",
+      "1.5L e:HEV/E-CVT OTR: Rp449.000.000",
+      "1.5T e:HEV/E-CVT Modulo OTR:Rp460.700.000",
+      "1.5T RS e:HEV/E-CVT OTR: Rp488.000.000"
+    ],
+    "dp": "Rp. 60.000.000",
+    "angsuran": "Rp. 8.500.000",
+    "seats": "5-Seater",
+    "engine": "1.5L DOHC i-VTEC Engine + DBW",
+    "description": "<p>&nbsp;</p><p><b>IMPRESSIVE PERFORMANCE</b></p><p>&nbsp;</p><p>Rasakan sensasi berkendara yang bertenaga dengan mesin 1.5L VTEC Turbo bertenaga 177 PS (Khusus tipe RS Turbo).</p><p><br /><b>HANDS-FREE ACCESS POWER TAILGATE</b></p><p>Kini membuka bagasi cukup dengan mengayunkan kaki atau menekan tombol remote, dan Anda dapat menutup pintu bagasi dengan berjalan menjauhi mobil.</p><p><br /><b>DRIVE SAFETY WITH HONDA SENSING&trade;</b></p><p>Dengan teknologi Honda Sensing&trade;, berkendara lebih percaya diri dengan fitur keselamatan berteknologi tinggi.</p><p><br /><b>SAFER ON THE DOWNHILL</b></p><p>Lebih percaya diri lewati jalan menurun dengan fitur Hill Descent Control (HDC) yang mengatur gas dan rem secara otomatis.</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgR3LJwk_4ZBQiEyjQ8WdSPl7TrdxOQk9CY3ncDSSEI2Q2SgYJRMTWppqWAB5KkUuub2F6V1u-XyvudLJ8it8R_-NeyLk3hiwWzEwwOE7pn669AlLZZA4ZHfgxVYysiLtPrMI-Hx0vIM2JyEPDty4OJ-rDgSqo12DlFqakrSSQ0qwHsvDZmkBkLOxa8pDVc/s1600/hrv.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgR3LJwk_4ZBQiEyjQ8WdSPl7TrdxOQk9CY3ncDSSEI2Q2SgYJRMTWppqWAB5KkUuub2F6V1u-XyvudLJ8it8R_-NeyLk3hiwWzEwwOE7pn669AlLZZA4ZHfgxVYysiLtPrMI-Hx0vIM2JyEPDty4OJ-rDgSqo12DlFqakrSSQ0qwHsvDZmkBkLOxa8pDVc/s1600/hrv.webp"
+      }
+    ]
+  },
+  "br-v": {
+    "name": "New Honda BR-V N7X",
+    "price": 308100000,
+    "variants": [
+      "E N7X Edition CVT OTR : Rp335.700.000",
+      "Prestige N7X Edition CVT OTR : Rp361.200.000",
+      "Prestige N7X Edition with Honda SENSING CVT OTR : Rp381.200.000"
+    ],
+    "dp": "Rp. 24.000.000",
+    "angsuran": "Rp. 4.700.000",
+    "seats": "7-Seater",
+    "engine": "1.5L DOHC i-VTEC Engine",
+    "description": "<p><b>The Biggest Power</b></p><p>Mesin 1.5L i-VTEC hasilkan tenaga 121 PS tertinggi dikelasnya.</p><p><br /><b>The Biggest Cabin</b></p><p>Dengan kabin dan bagasi terluas dikelasnya, dukung aktivitas Anda bersama keluarga.</p><p><br /><b>Advanced Safety</b></p><p>Teknologi keselamatan &ldquo;Honda Sensing&rdquo; menggunakan sensor canggih untuk melindungi Anda di perjalanan.</p><p><br /><b>Intuitive Technology</b></p><p>Dilengkapi dengan Remote Engine Start, Walk-Away Auto Lock dan LaneWatch&trade; untuk kepraktisan Anda.</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdrytNeDFSOAgYMjtwXDq4RVqXEzOXnupcKTQ6uuGjQR5FbVZtJBsH-Ke7tPrRDi9u7jQlFTqpCI1SVVyJORCCoKQIBPl9D7MUv0XEPjACnIYBvPhWsam8hrwwkuXELRzf0m2solaHkxj4CUujLNXl-Wm0pLTtpuA6BlpeUAjgayqSFr1LSYqO6ksFofVS/s1600/brv-n7x.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdrytNeDFSOAgYMjtwXDq4RVqXEzOXnupcKTQ6uuGjQR5FbVZtJBsH-Ke7tPrRDi9u7jQlFTqpCI1SVVyJORCCoKQIBPl9D7MUv0XEPjACnIYBvPhWsam8hrwwkuXELRzf0m2solaHkxj4CUujLNXl-Wm0pLTtpuA6BlpeUAjgayqSFr1LSYqO6ksFofVS/s1600/brv-n7x.webp"
+      }
+    ]
+  },
+  "brio": {
+    "name": "New Honda Brio",
+    "price": 184500000,
+    "variants": [
+      "Satya S CVT OTR : Rp183.500.000",
+      "Satya E CVT SE OTR : Rp221.700.000",
+      "RS MT SE OTR : Rp264.100.000",
+      "RS CVT SE OTR : Rp274.100.000"
+    ],
+    "dp": "Rp. 29.000.000",
+    "angsuran": "Rp. 3.500.000",
+    "seats": "5-Seater",
+    "engine": "1.2L DOHC i-VTEC Engine",
+    "description": "<p>&nbsp;</p><p><b>BIGGEST DIMENSION</b></p><p>&nbsp;</p><p>Dengan kabin dan bagasi terluas di kelasnya, jadikan perjalananmu semakin nyaman.</p><p><br /><b>FUEL EFFICIENT</b></p><p>Konsumsi bahan bakar yang efisien didukung mesin.</p><p><br /><b>SOPHISTICATED FEATURE</b></p><p>Kini dilengkapi Full LED Headlamp with LED DRL untuk tampilan lebih sporty dan One Push Ignition System untuk kemudahan berkendara.</p><p><br /><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEib1J396izrCcV9hPRDsQ7SVM2manWlqrZk5iH8Xe1T2LfaN9fzvU-KVgLiZGHGaXDoX67XW4DE1At8k5gccPKnKF8C4FftAtRHWyVU2NzLBW7welv6KGmblQYKFNlWohG5uG-bC87puPOM7irPjLfxcIGVrwvskhlTGR-RL4t_1IxFz9i56S4IUYMpCsqq/s1600/brio-rs.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEib1J396izrCcV9hPRDsQ7SVM2manWlqrZk5iH8Xe1T2LfaN9fzvU-KVgLiZGHGaXDoX67XW4DE1At8k5gccPKnKF8C4FftAtRHWyVU2NzLBW7welv6KGmblQYKFNlWohG5uG-bC87puPOM7irPjLfxcIGVrwvskhlTGR-RL4t_1IxFz9i56S4IUYMpCsqq/s1600/brio-rs.webp"
+      }
+    ]
+  },
+  "en1": {
+    "name": "e:N1",
+    "price": null,
+    "variants": [
+      "Hubungi Dealer"
+    ],
+    "dp": "0",
+    "angsuran": "0",
+    "seats": "5-Seater",
+    "engine": "AC Synchronous Motor",
+    "description": "<h2 data-end=\"190\" data-start=\"152\">Honda e:N1 &ndash; Electrify Your Journey</h2><p data-end=\"550\" data-start=\"192\">Honda e:N1 hadir sebagai SUV listrik pertama Honda yang menghadirkan pengalaman berkendara masa depan dengan teknologi elektrifikasi canggih. Dibangun dari perjalanan panjang Honda dalam mengembangkan ekosistem kendaraan listrik, e:N1 memberikan pengalaman berkendara yang lebih efisien, senyap, dan tetap menghadirkan karakter <strong data-end=\"536\" data-start=\"520\">fun to drive</strong> khas Honda.</p><p data-end=\"841\" data-start=\"552\">Sebagai bagian dari <strong data-end=\"604\" data-start=\"572\">Honda Electrified Experience</strong>, Honda tidak hanya menghadirkan kendaraan listrik, tetapi juga ekosistem yang mendukung kenyamanan pengguna dalam menikmati mobilitas ramah lingkungan. Perjalanan Anda kini menjadi lebih modern, lebih efisien, dan lebih berkelanjutan.</p><p data-end=\"1255\" data-start=\"843\">Honda e:N1 ditenagai motor listrik AC Synchronous Motor yang menghasilkan tenaga hingga sekitar <strong data-end=\"969\" data-start=\"939\">204 PS dengan torsi 310 Nm</strong>, memberikan akselerasi responsif serta performa yang halus dan senyap. Didukung baterai lithium-ion berkapasitas <strong data-end=\"1095\" data-start=\"1083\">68,8 kWh</strong>, SUV listrik ini mampu menempuh jarak hingga <strong data-end=\"1179\" data-start=\"1141\">500 km dalam sekali pengisian daya</strong> berdasarkan standar pengujian NEDC.</p><p data-end=\"1489\" data-start=\"1257\">Untuk menyesuaikan gaya berkendara Anda, Honda e:N1 dilengkapi <strong data-end=\"1369\" data-start=\"1320\">3-mode drive system (ECON, Normal, dan Sport)</strong> yang memberikan keseimbangan antara efisiensi energi, kenyamanan, dan performa.</p><p data-end=\"1831\" data-start=\"1491\">Di dalam kabin, Honda e:N1 menghadirkan nuansa futuristik dengan teknologi modern seperti <strong data-end=\"1669\" data-start=\"1581\">15.1 inci Display Audio dengan konektivitas smartphone, 10.25 inci TFT Meter Cluster</strong>, serta berbagai fitur keselamatan canggih Honda SENSING&trade; yang membantu menjaga keamanan dan kenyamanan selama perjalanan.</p><p data-end=\"2063\" data-start=\"1833\">Dengan desain SUV modern, teknologi elektrifikasi Honda yang inovatif, serta pengalaman berkendara yang lebih tenang dan efisien, <strong data-end=\"2063\" data-start=\"1963\">Honda e:N1 menjadi langkah baru menuju mobilitas masa depan yang lebih cerdas dan berkelanjutan.</strong></p><p data-end=\"2063\" data-start=\"1833\">&nbsp;</p><p data-end=\"2063\" data-start=\"1833\"><small><b>Informasi:</b>&nbsp;Pembelian unit Honda di Honda Bintaro sangatlah aman, karena pembayaran menggunakan virtual account dengan nomor unik disetiap customer. Pastikan nama virtual account yang muncul adalah atas nama Honda Bintaro.</small></p>",
+    "images": [
+      {
+        "thumb": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwGfy_71Hzf_skvfsZsiXQgrlWgfosIaPoAAM1hxeZ_WFTDNbFtF5xyqKkuduu5mXbyUEZFZc4sCaf8LrBrV9Jsw3vc6MrLQz-K3zIYK19Sg_uFBgxcx_Qk74bfSXG8NgtUT8zSfD8QDBsuOwINUpDwPgDKYVUitii2k_quWeQbgiJKGX3H6K1OjF1WsZ4/s1600/en1.webp",
+        "full": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwGfy_71Hzf_skvfsZsiXQgrlWgfosIaPoAAM1hxeZ_WFTDNbFtF5xyqKkuduu5mXbyUEZFZc4sCaf8LrBrV9Jsw3vc6MrLQz-K3zIYK19Sg_uFBgxcx_Qk74bfSXG8NgtUT8zSfD8QDBsuOwINUpDwPgDKYVUitii2k_quWeQbgiJKGX3H6K1OjF1WsZ4/s1600/en1.webp"
+      }
+    ]
+  }
+}

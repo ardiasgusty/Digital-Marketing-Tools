@@ -1,0 +1,380 @@
+[
+  {
+    "id": "exterior",
+    "label": "Exterior",
+    "items": [
+      {
+        "slug": "front-grille",
+        "title": "Front Grille",
+        "desc": "<p>Desain yang tegas memperkuat karakter SUV dari New Honda BR-V N7X, menghadirkan kesan tangguh dan siap menghadapi perjalanan apa pun sejak pandangan pertama.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/front_grille_d_8__1770275484093.png?w=1000&s=0d06d61cd31dee00eb9ff763a354344c"
+      },
+      {
+        "slug": "under-spoiler",
+        "title": "Under Spoiler",
+        "desc": "<p>Sentuhan under spoiler berwarna gelap menegaskan siluet mobil yang lebih kokoh dan stabil, memberi rasa percaya dan aman untuk dibawa ke perjalanan jauh.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/under_spoiler_d_8__1770275501743.png?w=1000&s=2ac4c8bd2e155bfc1e1eed9f76ce869d"
+      },
+      {
+        "slug": "led-fog-lights",
+        "title": "LED Fog Lights",
+        "desc": "<p>Pandangan tetap jelas saat menghadapi cuaca dan kondisi jalan yang menantang, mendukung perjalanan tetap terasa aman dan terkendali</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/led_fog_lights_d_8__1770275513359.png?w=1000&s=568a5fe119004c783ed83788b9aeb625"
+      },
+      {
+        "slug": "17-progressive-black-alloy-wheel",
+        "title": "17\" Progressive Black Alloy Wheel",
+        "desc": "<p>Velg 17 inci berwarna hitam dengan desain progresif mempertegas karakter SUV yang tangguh dan berani, siap dibawa menjelajah lebih jauh bersama orang tersayang Anda</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/17_progressive_black_alloy_wheel_d_8__1770281904968.png?w=1000&s=024003eca96e65586c9b93772baa6ebf"
+      }
+    ]
+  },
+  {
+    "id": "interior",
+    "label": "Interior",
+    "items": [
+      {
+        "slug": "spacious-interior-with-modern-dashboard-design",
+        "title": "Spacious Interior with Modern Dashboard Design",
+        "desc": "<p>Desain dashboard baru yang lega dan modern dengan visibilitas luas dan interior berwarna hitam yang elegan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_dash__1683687458236.jpg?w=1000&s=f76ebdcce60ce349754eeec57378c0c4"
+      },
+      {
+        "slug": "leather-wrapped-steering-wheel",
+        "title": "Leather-Wrapped Steering Wheel",
+        "desc": "<p>Bahan kulit memberi kesan premium dan rasa empuk yang membuat tak mudah lelah ketika berkendara lama.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_steer__1683687518901.jpg?w=1000&s=5f94b24926e9be9ec4bbc86be34f1658"
+      },
+      {
+        "slug": "42-tft-meter-display",
+        "title": "4.2\" TFT Meter Display",
+        "desc": "<p>Standar sistem informasi terkini dengan ukuran display besar 4.2&quot; untuk kejelasan tampilan data.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_meter__1683687435056.jpg?w=1000&s=586a86ae4f033681064216ed817d6013"
+      },
+      {
+        "slug": "auto-ac",
+        "title": "Auto A/C",
+        "desc": "<p>Selain bisa otomatis mengatur suhu pendingin sesuai temperatur kabin, fitur ini juga bisa menyalakan A/C otomatis ketika menghidupkan mesin denga Remote Engine Start.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_ac__1683687409020.jpg?w=1000&s=1caf5f1c706bb7d19287be18c580059f"
+      },
+      {
+        "slug": "map-light",
+        "title": "Map Light",
+        "desc": "<p>2 lampu baca di kabin dengan push switch di permukaan lampu.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_light__1705891405038.jpg?w=1000&s=e175158b865c3c2d85b9dd07dcee6ba7"
+      },
+      {
+        "slug": "daynight-rear-view-mirror",
+        "title": "Day/Night Rear View Mirror",
+        "desc": "<p>Kaca spion tengah bisa diatur pada 2 posisi, yaitu normal dan malam untuk meminimalisir pantulan menyilaukan dari kendaraan di belakang.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_mirror__1705891432810.jpg?w=1000&s=82076ba2cf31029cc6198a3c0c5e62ae"
+      },
+      {
+        "slug": "vanity-mirror-lamp",
+        "title": "Vanity Mirror & Lamp",
+        "desc": "<p>Cermin telah dilengkapi lampu pada kedua Sun Visor.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_sunvisor__1705891381957.jpg?w=1000&s=db656e5783047f98e0735410655a0b32"
+      },
+      {
+        "slug": "glove-box",
+        "title": "Glove Box",
+        "desc": "<p>Laci lipat di bawah dashboard dengan kapasitas penyimpanan lebar.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_glovebox__1705891449641.jpg?w=1000&s=b2529fefe5757899d2dbad3611895ac6"
+      },
+      {
+        "slug": "cup-holders",
+        "title": "Cup Holders",
+        "desc": "<p>Tempat botol atau gelas minum untuk membantu Anda tetap terhidrasi di sepanjang perjalanan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_center_cons__1705891662749.jpg?w=1000&s=67dc35bc1efb8b670a17d46d860610a2"
+      },
+      {
+        "slug": "leather-wrapped-shift-knob",
+        "title": "Leather-Wrapped Shift Knob",
+        "desc": "<p>Bahan kulit dengan aksen stitch memberi kesan premium dan sporty.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_knob__1683687547744.jpg?w=1000&s=86131aae015d4886307fd66df22a8e47"
+      },
+      {
+        "slug": "leather-wrapped-console-box-with-armrest",
+        "title": "Leather-Wrapped Console Box with Armrest",
+        "desc": "<p>Selain berfungsi sebagai penyimpan barang, lapisan soft touch kulit dan cushion di Console Box membuatnya berfungsi menjadi Armrest.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_centercons__1683687567617.jpg?w=1000&s=42b25d1415a4a0b4e4f55743df292e08"
+      },
+      {
+        "slug": "footrest",
+        "title": "Footrest",
+        "desc": "<p>Pijakan kaki untuk mengistirahatkan kaki kiri saat berkendara.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_footrest__1705891695600.jpg?w=1000&s=3b8ef1079b722182138e93699e360e60"
+      },
+      {
+        "slug": "leather-trimmed-seat",
+        "title": "Leather-Trimmed Seat",
+        "desc": "<p>Bahan kulit untuk seluruh kursi di tiap baris memberikan kesan premium bagi seluruh penumpang dan mudah dibersihkan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_int__1683687480903.jpg?w=1000&s=9fe8b02a95ed7c9dcdb313940df33c3d"
+      },
+      {
+        "slug": "leather-upholstery-for-door-armrest",
+        "title": "Leather Upholstery for Door Armrest",
+        "desc": "<p>Sandaran tangan di door trim telah dilapisi bahan kulit dan soft touch untuk perjalanan lebih nyaman dan kesan premium.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_handrest__1705891610662.jpg?w=1000&s=725daea4bb135aef4966a1263abddd24"
+      },
+      {
+        "slug": "door-pockets",
+        "title": "Door Pockets",
+        "desc": "<p>Penyimpanan pada sisi bagian dalam pintu untuk meletakkan barang bawaan Anda.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_sidepocket__1705891636331.jpg?w=1000&s=bd956acfa778c3c9401d45e060290ef0"
+      },
+      {
+        "slug": "seat-back-pocket",
+        "title": "Seat Back Pocket",
+        "desc": "<p>Kantong di bagian belakang kursi yang dilengkapi mini sleeve untuk perangkat mobile.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_backpocket__1705891724775.jpg?w=1000&s=a658ce67e9698faddef66219c43f5fa3"
+      },
+      {
+        "slug": "2nd-row-power-outlet",
+        "title": "2nd Row Power Outlet",
+        "desc": "<p>Power Outlet berdaya 12 volt untuk kebutuhan pengisian baterai perangkat elektronik penumpang baris kedua.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_lighter__1705891757948.jpg?w=1000&s=bd5ac1ee7825dd28e01799a3508018f1"
+      },
+      {
+        "slug": "2nd-row-armrest",
+        "title": "2nd Row Armrest",
+        "desc": "<p>Bagian tengah kursi baris kedua bisa dilipat dan menjadi sandaran tangan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/2_hands__1683687591340.jpg?w=1000&s=4d77bfd01554ab85f335baf53283f6e6"
+      },
+      {
+        "slug": "3rd-row-power-outlet",
+        "title": "3rd Row Power Outlet",
+        "desc": "<p>Power outlet berdaya 12 volt untuk kebutuhan pengisian daya perangkat elektronik bagi penumpang di baris ketiga. Tersedia di Honda BR-V N7X tipe Prestige with Honda SENSING.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_lighter_back__1705891789421.jpg?w=1000&s=b4b2a7fd5e1c3c2e3ec507b5594f2934"
+      }
+    ]
+  },
+  {
+    "id": "technology",
+    "label": "Technology",
+    "items": [
+      {
+        "slug": "9-advanced-capacitive-touchscreen-display-audio",
+        "title": "9” Advanced Capacitive Touchscreen Display Audio",
+        "desc": "<p>Layar sentuh berukuran 9 inch dengan desain imersif mempermudah Anda untuk mengakses berbagai fitur.</p>\n\n<p>*Khusus untuk tipe S M/T, E M/T, E CVT, Prestige CVT, N7X E CVT, N7X Prestige</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/n7x_prestige_9_inch_hu_res__1737347154255.jpg?w=1000&s=feb2e6bec747e4892ee43eaf2541c478"
+      },
+      {
+        "slug": "7-advanced-capacitive-touchscreen-display-audio",
+        "title": "7” Advanced Capacitive Touchscreen Display Audio",
+        "desc": "<p>Layar sentuh berukuran 7 inch dengan desain imersif permudah Anda untuk mengakses berbagai fitur.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_hu1__1706088495499.jpg?w=1000&s=3d70000076d2214de3671dad5a3a4b4c"
+      },
+      {
+        "slug": "usb-bluetooth-connectivity",
+        "title": "USB & Bluetooth Connectivity",
+        "desc": "<p>2 pilihan konektivitas dengan perangkat eksternal lewat USB 2.0 outlet maupun nirkabel menggunakan Bluetooth Connectivity.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_hu2__1706088558021.jpg?w=1000&s=b7a96dab43663172207dec405a421256"
+      },
+      {
+        "slug": "smartphone-connection",
+        "title": "Smartphone Connection",
+        "desc": "<p>Hubungkan beberapa aplikasi seluler Anda untuk menikmati tampilan yang lebih besar dan nyaman di layar.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_humap__1706088608262.jpg?w=1000&s=5fa1864c2ca4ec0f1b3f4c08998e5920"
+      },
+      {
+        "slug": "hands-free-telephone",
+        "title": "Hands-Free Telephone",
+        "desc": "<p>Hubungkan perangkat dan terima panggilan telepon dengan bantuan layar sentuh dan speaker. Sentuh tombol kembali ke perangkat bila ingin menerima panggilan secara personal.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_huphone__1706088667749.jpg?w=1000&s=e23e7541dd663d388fc5206d0555ee8a"
+      },
+      {
+        "slug": "honda-lanewatch-display",
+        "title": "Honda LaneWatch™ Display",
+        "desc": "<p>Tersedia di tipe Prestige with Honda SENSING, fitur ini memberikan tampilan di sisi kiri belakang kendaraan untuk mengurangi blind spot.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_hulanew__1683687874493.jpg?w=1000&s=7d6bde9670ac4b4376f218ab5dcfc4aa"
+      },
+      {
+        "slug": "rear-parking-camera",
+        "title": "Rear Parking Camera",
+        "desc": "<p>Saat transmisi ada pada posisi &ldquo;R&rdquo;, Rear Parking Camera akan aktif dan menampikan area belakang mobil pada layar.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_huparking__1683687894760.jpg?w=1000&s=8aa4923bb11b86ab97fb8236befe2a15"
+      },
+      {
+        "slug": "6-speaker-audio-system",
+        "title": "6-Speaker Audio System",
+        "desc": "<p>Nikmati kualitas suara jernih dari 6 speaker di 6 titik kabin.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/3_speaker__1683687917433.jpg?w=1000&s=cb390b67a37b095208be3f17522e6705"
+      },
+      {
+        "slug": "smart-entry-system",
+        "title": "Smart Entry System",
+        "desc": "<p>Cukup bawa kunci mobil bersama Anda, kunci akan terbuka saat tangan berada di Door Handle.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_smartentry__1707190140609.jpg?w=1000&s=8fce1c7bd866d5dd5e4a2b03119413d6"
+      },
+      {
+        "slug": "remote-engine-start",
+        "title": "Remote Engine Start",
+        "desc": "<p>Nyalakan mesin dari luar mobil dengan fitur ini. A/C juga akan secara otomatis menyala supaya kabin sejuk saat pengendara masuk.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_remoteenginestart__1707190275159.jpg?w=1000&s=dabc67732bfebd70b22cb03924898d6e"
+      }
+    ]
+  },
+  {
+    "id": "performance",
+    "label": "Performance",
+    "items": [
+      {
+        "slug": "15l-dohc-i-vtec-engine",
+        "title": "1.5L DOHC i-VTEC Engine",
+        "desc": "<p>Mesin i-VTEC generasi baru dengan konfigurasi DOHC yang menghasilkan tenaga paling optimal di kelasnya, 121 PS.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/4_engine__1683688005773.jpg?w=1000&s=b7f91a33005f9f924d18b14e35cc628f"
+      },
+      {
+        "slug": "cvt-continuously-variable-transmission",
+        "title": "CVT (Continuously Variable Transmission)",
+        "desc": "<p>Sistem transmisi dengan perpindahan gigi halus yang juga mengoptimalkan efisiensi bahan bakar. Tersedia pada New Honda BR-V N7X tipe E, tipe Prestige dan tipe Prestige with Honda SENSING.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/4_cvt__1683688089241.jpg?w=1000&s=423db33449b235d1f33d2e79c87e7207"
+      },
+      {
+        "slug": "6-speed-mt",
+        "title": "6-Speed M/T",
+        "desc": "<p>Rasakan performa responsif dan bertenaga dengan pilihan transmisi manual 6 percepatan untuk tipe E dan S.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/4_manual__1683688109777.jpg?w=1000&s=ee3c9da6fce1e312cc255ff11b3344f1"
+      },
+      {
+        "slug": "macpherson-strut-h-shape-torsion-beam-suspension",
+        "title": "MacPherson Strut & H-Shape Torsion Beam Suspension",
+        "desc": "<p>Kombinasi sistem suspensi yang disempurnakan untuk menghasilkan performa stabil, tanpa gejala limbung, dan handling yang optimal di berbagai lintasan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_mcpherson__1707830745240.jpg?w=1000&s=b58a54cac9e85168b24d42993e6704d4"
+      },
+      {
+        "slug": "euro-4-certified",
+        "title": "Euro 4 Certified",
+        "desc": "<p>New Honda BR-V N7X telah lolos uji standar emisi Euro 4 karena menghasilkan gas buang dengan kandungan karbon lebih rendah.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/4_euro4__1683688055931.jpg?w=1000&s=dedfab5fd6a74c2eaeeea1aefa404370"
+      }
+    ]
+  },
+  {
+    "id": "safety",
+    "label": "Safety",
+    "items": [
+      {
+        "slug": "auto-door-lock-by-speed",
+        "title": "Auto Door Lock by Speed",
+        "desc": "<p>Dalam kondisi mobil mulai berjalan, pintu akan mengunci otomatis ketika mencapai kecepatan tertentu.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_panel__1707185605067.jpg?w=1000&s=a1137cae0868d7906bb8e525e5c15dbb"
+      },
+      {
+        "slug": "vehicle-stability-assist-vsa",
+        "title": "Vehicle Stability Assist (VSA)",
+        "desc": "<p>Stabilkan manuver mobil ketika berada di tikungan agar tidak oversteer maupun understeer dalam kondisi jalan menikung.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/4_vsa__1707831034714.jpg?w=1000&s=d24e33c3eaa92742e3123b51ea853c36"
+      },
+      {
+        "slug": "hill-start-assist",
+        "title": "Hill Start Assist",
+        "desc": "<p>Teknologi yang membantu menahan sesaat posisi mobil saat berada di tanjakan supaya kaki sempat menginjak pedal gas tanpa posisi mobil terlebih dulu mundur.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_hsa__1707300781965.jpg?w=1000&s=77b504b513186c9deb6d55917566b21d"
+      },
+      {
+        "slug": "abs-ebd-ba",
+        "title": "ABS • EBD • BA",
+        "desc": "<p>Anti-Lock Breaking System (ABS) mencegah roda terkunci saat pengereman mendadak di permukaan licin, sedangkan Electronic Braking Distribution (EBD) membagi daya pengereman ke setiap roda sesuai beban kendaraan. Selain itu, Braking Assist (BA) turut menambah efektivitas pengereman.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_wheelp__1705891957760.jpg?w=1000&s=d23803d53c33deadc8df2bd62ed86047"
+      },
+      {
+        "slug": "walk-away-auto-lock",
+        "title": "Walk-Away Auto Lock",
+        "desc": "<p>Ketika mesin mati dan kunci mobil tidak terdeteksi maka sensor segera mengunci pintu secara otomatis saat pengemudi jalan sejauh 2 meter meninggalkan mobil.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/f_walkaway__1699598389334.jpg?w=1000&s=7627100b4942eefc39eb25ff830fe6f5"
+      },
+      {
+        "slug": "brake-override-system",
+        "title": "Brake Override System",
+        "desc": "<p>Teknologi pengereman pintar yang membantu memprioritaskan pengereman saat pedal gas dan rem terinjak secara bersamaan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/5_cvt_pedal__1683688317167.jpg?w=1000&s=2ced8d06e6c48219c82b0016d7d3f6e6"
+      },
+      {
+        "slug": "alarm-system",
+        "title": "Alarm System",
+        "desc": "<p>Tak hanya berbunyi, sistem alarm juga akan membuat mesin mobil tidak bisa dihidupkan tanpa keberadaan kunci di sekitar mobil.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/5_alarm__1683688344913.jpg?w=1000&s=a15f828fdd613fb521443a32135a69cd"
+      },
+      {
+        "slug": "immobilizer",
+        "title": "Immobilizer",
+        "desc": "<p>New Honda BR-V N7X telah dilengkapi dengan sepasang chip di dalam kunci dan mesin mobil yang tidak bisa dinyalakan secara paksa dan menggunakan kunci palsu.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/5_immobilizer__1683688360105.jpg?w=1000&s=22693f99b414dc88f7147920538a943e"
+      },
+      {
+        "slug": "isofix-tether",
+        "title": "ISOFIX & Tether",
+        "desc": "<p>Kursi baris kedua sudah dirancang untuk bisa mengikat Child Car Seat dengan erat.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/5_isofix__1683688303018.jpg?w=1000&s=6a078529f1316de3d414fe5b3b77a755"
+      },
+      {
+        "slug": "6-airbags",
+        "title": "6 Airbags",
+        "desc": "<p>Sistem keamanan dengan 6 Airbags dan pilihan Curtain Airbag pada tipe Prestige with Honda Sensing&trade;, dimana airbag sisi samping juga akan melindungi secara lebih menyeluruh dari berbagai sisi.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/5_airbag__1683688258911.jpg?w=1000&s=52954df0d80a898875f3255d0b0b7269"
+      },
+      {
+        "slug": "g-con-ace-with-side-impact-beam",
+        "title": "G-CON + ACE™ with Side Impact Beam",
+        "desc": "<p>Struktur rangka bodi G-Force Control dengan teknologi Advanced Compatibility Engineering (ACE&trade;) berfungsi menjaga keutuhan rangka bodi saat terjadi benturan, dengan cara menyerap dan menyalurkan energi benturan secara merata.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/5_gcon__1683688233307.jpg?w=1000&s=a5d3667773564a22764b3db5d48d1754"
+      }
+    ]
+  },
+  {
+    "id": "honda-sensing",
+    "label": "Honda SENSING",
+    "items": [
+      {
+        "slug": "road-departure-mitigation-system-rdm",
+        "title": "Road Departure Mitigation System (RDM)",
+        "desc": "<p>Road Departure Mitigation (RDM) menjaga dan membantu Anda ketika sistem mendeteksi kemungkinan kendaraan Anda keluar dari garis jalur dan/atau meninggalkan jalan.<br />\n&nbsp;</p>\n\n<p>Sistem RDM memiliki batas. Terlalu percaya pada sistem RDM mungkin akan berakibat pada tabrakan. Tetap menjadi kewajiban Anda untuk menjaga kendaraan tetap pada jalur berkendara Anda. Untuk keterangan lebih lanjut mengenai ketentuan dan batasan kondisi tertentu, dapat merujuk pada pedoman pemilik New Honda BR-V N7X Prestige with Honda SENSING.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/hs_rdms__1707455182991.jpg?w=1000&s=6674cfa9ee802d45aeaa1debb60c58e0"
+      },
+      {
+        "slug": "adaptive-cruise-control-acc",
+        "title": "Adaptive Cruise Control (ACC)",
+        "desc": "<p>Adaptive Cruise Control&nbsp; (ACC) membantu menjaga kestabilan&nbsp; kecepatan kendaraan dan mengatur jarak di belakang kendaraan&nbsp; yang terdeteksi di depan.</p>\n\n<p>Dengan sistem apa pun, ada batasan untuk ACC. Gunakan pedal rem kapan pun jika dibutuhkan dan selalu jaga jarak aman dengan kendaraan lain.</p>\n\n<p>Masih merupakan kewajiban Anda untuk menjalankan pedal rem dan roda kemudi secara benar sesuai kondisi berkendara. Untuk keterangan lebih lanjut mengenai ketentuan dan batasan kondisi tertentu, dapat merujuk pada buku pedoman New Honda BR-V N7X Prestige with Honda SENSING.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/hs_acc__1707455198664.jpg?w=1000&s=4939ca6c04d6662ba81e36f66353df1b"
+      },
+      {
+        "slug": "auto-high-beam-ahb",
+        "title": "Auto High-Beam (AHB)",
+        "desc": "<p>Auto High-Beam (AHB) dapat diaktifkan saat Anda berkendara di atas kecepatan 30 km/jam dengan posisi tuas lampu diputar dari OFF ke posisi AUTO.</p>\n\n<p>Sistem ini secara intuitif akan berganti antara lampu besar dan lampu normal tergantung pada situasi jalan.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/hs_ahb__1707455218233.jpg?w=1000&s=db134eca3ab0d76d172d108994184c82"
+      },
+      {
+        "slug": "collision-mitigation-braking-system-cmbs",
+        "title": "Collision Mitigation Braking System (CMBS™)",
+        "desc": "<p>Collision Mitigation Braking System (CMBS&trade;) membantu Anda ketika terdapat kemungkinan kendaraan berbenturan dengan kendaraan lain atau pejalan kaki yang terdeteksi di depan. CMBS&trade; didesain untuk dapat memberi tanda ketika potensi berbenturan dapat terjadi, yang membantu mengurangi kecepatan kendaraan untuk mengurangi dampak benturan yang tidak terhindarkan.</p>\n\n<p>&nbsp;</p>\n\n<p>CMBS&trade; dirancang untuk mengurangi tingkat kekerasan tabrakan yang tak terelakkan. Sistem ini tidak mencegah tabrakan atau menghentikan kendaraan secara otomatis. Masih merupakan kewajiban Anda untuk menjalankan pedal rem dan roda kemudi secara benar sesuai kondisi berkendara. Untuk keterangan lebih lanjut mengenai ketentuan dan batasan kondisi tertentu, dapat merujuk pada buku pedoman New Honda BR-V N7X Prestige with Honda SENSING.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/hs_cmbs__1707455236095.jpg?w=1000&s=a0a85c6748ddaf527a91a5272cbaa0ff"
+      },
+      {
+        "slug": "lane-keeping-assist-system-lkas",
+        "title": "Lane Keeping Assist System (LKAS)",
+        "desc": "<p>Lane Keeping Assist System (LKAS) membantu kemudi untuk menjaga kendaraan tetap berada pada jalur dengan mendeteksi marka jalan di kiri dan kanan mobil kemudian mengkoreksi setir jika mobil terdeteksi keluar dari jalur.</p>\n\n<p>&nbsp;</p>\n\n<p>Sistem ini bukanlah pengganti dari kontrol kendaraan. Masih merupakan kewajiban Anda untuk menjalankan pedal rem dan roda kemudi secara benar sesuai dengan kondisi berkendara. Untuk keterangan lebih lanjut mengenai ketentuan dan batas kondisi tertentu, dapat merujuk pada buku pedoman pemilik New Honda BR-V N7X Prestige with Honda SENSING.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/hs_lka__1707455252076.jpg?w=1000&s=9452bc0ad65ee3c598ab78f5ab171125"
+      },
+      {
+        "slug": "lead-car-departure-notification-lcdn",
+        "title": "Lead-Car Departure Notification (LCDN)",
+        "desc": "<p>Lead-Car Departure Notification (LCDN) adalah fitur terbaru Honda SENSING yang hadir pertama kali di New Honda BR-V N7X Prestige with Honda SENSING. Ketika dalam kondisi berhenti di jalan dan kendaraan di depan mulai berjalan, pada jarak tertentu bila Anda belum mulai berjalan, notifikasi ini akan membantu mengingatkan Anda.</p>\n",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/hs_lcdn__1707455267933.jpg?w=1000&s=5dad8701a99ed2d90493bf0ff7fe5f64"
+      }
+    ]
+  },
+  {
+    "id": "colors",
+    "label": "Colors",
+    "items": [
+      {
+        "slug": "colors",
+        "title": "Colors",
+        "desc": "",
+        "img": "https://www.honda-indonesia.com/glide/local/uploads/images/sections_items/br_v_color_d_8__1770282886852.png?w=1000&s=2480b775d1d71f7427b371d30c4cb8ba"
+      }
+    ]
+  }
+]
