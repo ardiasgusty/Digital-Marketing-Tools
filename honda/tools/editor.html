@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Training JSON Generator + GitHub Sync</title>
+
+<style>
+:root {
+    --primary: #cc0000;
+    --primary-hover: #a30000;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --border: #ddd;
+    --text: #333;
+    --github: #24292e;
+    --github-hover: #1a1e22;
+    --success: #2cbe4e;
+    --success-hover: #228b3a;
+}
+
+*{ box-sizing:border-box; font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; }
+
+body{ margin:0; background:var(--bg); display:flex; height:100vh; overflow:hidden; }
+
+.header{ background:#111; color:#fff; padding:15px 25px; font-size:20px; font-weight:bold; position:fixed; width:100%; z-index:10; display:flex; justify-content:space-between; }
+.container{ display:flex; width:100%; margin-top:60px; height:calc(100vh - 60px); }
+.editor-panel{ flex:6; padding:25px; overflow-y:auto; border-right:1px solid var(--border); }
+.output-panel{ flex:4; padding:25px; background:#fff; display:flex; flex-direction:column; border-left:1px solid var(--border); }
+
+.category-card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px 25px; margin-bottom:20px; transition:.2s; }
+.category-card:hover{ box-shadow:0 4px 12px rgba(0,0,0,.08); }
+.category-header{ display:flex; justify-content:space-between; border-bottom:2px solid var(--primary); padding-bottom:10px; margin-bottom:20px; }
+
+.item-card{ background:#fdfdfd; border:1px solid #eee; border-left:4px solid var(--primary); border-radius:6px; padding:18px; margin-bottom: 20px;}
+.nested-card{ background:#fff; border:1px solid #e1e1e1; border-left:3px solid var(--primary); border-radius:6px; padding:12px; margin-bottom:10px; }
+
+.form-group{ margin-bottom:12px; }
+.form-group label{ font-size:13px; font-weight:600; display:block; margin-bottom:6px; color:#555;}
+.form-control{ width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; outline:none; font-family: inherit;}
+.form-control:focus{ border-color:var(--primary); }
+textarea.form-control { resize: vertical; min-height: 80px; }
+select.form-control { cursor: pointer; }
+
+.image-preview{ margin-top:10px; position: relative; }
+.image-preview img{ width:100%; max-height:180px; object-fit:cover; border-radius:6px; border:1px solid #ddd; background:#f5f5f5; display:block; }
+
+.btn{ padding:8px 14px; border-radius:4px; cursor:pointer; border:none; font-weight:bold; transition:.2s; font-size: 13px; }
+.btn-primary{ background:var(--primary); color:white; }
+.btn-primary:hover{ background:var(--primary-hover); }
+.btn-secondary{ background:#555; color:white; }
+.btn-danger{ background:#dc3545; color:white; }
+.btn-outline{ border:1px solid #ccc; background:transparent; }
+.btn-github { background: var(--github); color: white; }
+.btn-github:hover { background: var(--github-hover); }
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { background: var(--success-hover); }
+
+.btn:hover:not(:disabled){ transform:translateY(-1px); }
+.btn:disabled{ opacity: 0.4; cursor: not-allowed; }
+
+#json-output{ flex:1; margin-top:10px; padding:15px; font-family:'Courier New', Courier, monospace; background:#282c34; color:#d1d9e1; border-radius:6px; border:none; resize:none; font-size: 13px; white-space: pre;}
+.flex-row{ display:flex; gap:10px; margin-top:10px; align-items: center; }
+.flex-1{ flex:1; }
+.section-title{ font-size:18px; margin-bottom:15px; border-bottom:2px solid #ccc; padding-bottom:5px; margin-top: 30px; font-weight:bold;}
+
+.upload-box { border: 2px dashed #ccc; padding: 15px; text-align: center; border-radius: 6px; background: #fafafa; margin-top: 5px; transition: 0.2s;}
+.upload-box:hover { border-color: var(--primary); background: #fff9f9;}
+.upload-box input[type="file"] { display: none; }
+.upload-box label { cursor: pointer; color: var(--primary); font-weight: bold; display: inline-block; padding: 5px 10px; }
+
+/* TABS for Sessions */
+.session-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;}
+.tab-btn { padding: 8px 15px; background: #e9ecef; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px;}
+.tab-btn.active { background: var(--primary); color: white; border-color: var(--primary-hover); }
+
+.mb-2 { margin-bottom: 8px; }
+
+/* MODAL FILE BROWSER */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 100; display: none; justify-content: center; align-items: center; }
+.modal-content { background: #fff; width: 500px; max-height: 80vh; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+.modal-header { padding: 15px 20px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.file-list { padding: 10px; overflow-y: auto; flex: 1; background: #fafafa; }
+.file-item { padding: 12px 15px; border-bottom: 1px solid #eaeaea; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 14px; transition: 0.1s; }
+.file-item:hover { background: #eef2f5; }
+.file-item.disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>Training JSON Generator</div>
+    <div style="font-size:14px; font-weight: normal;">Created for Argust</div>
+</div>
+
+<div class="container">
+
+    <!-- LEFT -->
+    <div class="editor-panel">
+
+        <!-- GITHUB INTEGRATION PANEL -->
+        <div class="category-card" style="border-left: 4px solid var(--github);">
+            <div class="category-header" style="border-bottom: 2px solid var(--github); margin-bottom: 15px;">
+                <h3 style="margin: 0; font-size: 16px;">🔗 GitHub Integration Sync</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>Personal Access Token (PAT)</label>
+                <input type="password" id="gh-token" class="form-control" placeholder="ghp_xxxxxxxxxxxx" oninput="saveConfig()">
+            </div>
+            
+            <div class="flex-row">
+                <div class="form-group flex-1">
+                    <label>Username / Owner</label>
+                    <input type="text" id="gh-owner" class="form-control" placeholder="Contoh: ardiasgusty" oninput="saveConfig()">
+                </div>
+                <div class="form-group flex-1">
+                    <label>Repository</label>
+                    <input type="text" id="gh-repo" class="form-control" placeholder="Contoh: elearning" oninput="saveConfig()">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>File Path JSON Utama (.json)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="gh-path" class="form-control" placeholder="Contoh: json/training.json" oninput="saveConfig()">
+                    <button class="btn btn-secondary" onclick="openFileBrowser('', 'file')" style="white-space: nowrap;">📁 Browse File</button>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Folder Upload Gambar (Tanpa slash di akhir)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="gh-img-folder" class="form-control" placeholder="Contoh: assets/images" oninput="saveConfig()">
+                    <button class="btn btn-secondary" onclick="openFileBrowser('', 'folder')" style="white-space: nowrap;">📁 Browse Folder</button>
+                </div>
+                <small style="color: #666; font-size: 11px;">*Gambar yang kamu upload akan disimpan otomatis ke folder ini.</small>
+            </div>
+            
+            <div class="flex-row" style="margin-top: 15px;">
+                <button class="btn btn-github flex-1" onclick="fetchFromGitHub()">↓ Tarik Data JSON</button>
+                <button class="btn btn-success flex-1" onclick="saveToGitHub()">↑ Simpan JSON Langsung</button>
+            </div>
+        </div>
+
+        <!-- WRAPPER EDITOR (HANYA MUNCUL JIKA ADA DATA) -->
+        <div id="editor-wrapper">
+            <div style="padding: 40px; text-align: center; color: #888; border: 2px dashed #ccc; border-radius: 8px;">
+                Tampilan Editor masih kosong.<br>Silakan <b>Tarik Data JSON</b> dari GitHub atau klik <b>Load Data</b> di kotak kanan.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="output-panel">
+        <h3 style="margin-top: 0; margin-bottom: 5px;">Output JSON</h3>
+        <p style="font-size: 12px; color: #666; margin-top: 0;">Kamu bisa paste script JSON di sini, lalu klik Load untuk mengedit.</p>
+        <textarea id="json-output"></textarea>
+        <div class="flex-row">
+            <button class="btn btn-primary flex-1" onclick="copyJSON()">📋 Copy JSON</button>
+            <button class="btn btn-secondary flex-1" onclick="loadFromOutput()">🔄 Load Data</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- MODAL BROWSER FILE & FOLDER -->
+<div id="fileBrowserModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-title" style="margin:0; font-size: 16px;">📂 Pilih File JSON</h3>
+            <div style="display: flex; gap: 10px;">
+                <button id="btn-select-folder" class="btn btn-success" onclick="confirmFolderSelection()" style="display: none; padding:4px 8px;">Pilih Folder Ini</button>
+                <button class="btn btn-danger" onclick="closeFileBrowser()" style="padding:4px 8px;">X</button>
+            </div>
+        </div>
+        <div id="file-list" class="file-list"></div>
+    </div>
+</div>
+
+<script>
+
+/* =======================================================
+   1. DATA STATE (DIKOSONGKAN DI AWAL)
+   ======================================================= */
+let data = null;
+let activeSessionKey = "";
+let currentFileSha = "";
+let currentBrowserMode = 'file'; 
+let currentBrowsePath = '';
+
+/* =======================================================
+   2. HELPER & RENDER LOGIC UTAMA
+   ======================================================= */
+function arrToStr(arr) { return arr ? arr.join('\n') : ''; }
+function strToArr(str) { return str.split('\n').map(s => s.trim()).filter(s => s !== ''); }
+
+function updateOutput() {
+    if(data) {
+        document.getElementById('json-output').value = JSON.stringify(data, null, 2);
+    }
+}
+
+function renderEditor() {
+    const wrapper = document.getElementById('editor-wrapper');
+    
+    if (!data) {
+        wrapper.innerHTML = `
+            <div style="padding: 40px; text-align: center; color: #888; border: 2px dashed #ccc; border-radius: 8px;">
+                Tampilan Editor masih kosong.<br>Silakan <b>Tarik Data JSON</b> dari GitHub atau klik <b>Load Data</b> di kotak kanan.
+            </div>
+        `;
+        return;
+    }
+
+    wrapper.innerHTML = `
+        <div class="section-title">🌍 Global Settings</div>
+        <div class="category-card" id="global-container"></div>
+
+        <div class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>📚 Class Sessions</span>
+            <button class="btn btn-primary" onclick="addNewSession()">+ Tambah Sesi Baru</button>
+        </div>
+        
+        <div class="session-tabs" id="session-tabs"></div>
+        <div id="session-editor-container"></div>
+    `;
+
+    renderGlobal();
+    renderSessionTabs();
+    renderActiveSession();
+    updateOutput();
+}
+
+/* =======================================================
+   3. RENDER GLOBAL SETTINGS & IMPORTANT BLOCKS
+   ======================================================= */
+function renderGlobal() {
+    const g = data.global;
+    const container = document.getElementById('global-container');
+    
+    container.innerHTML = `
+        <div class="flex-row">
+            <div class="form-group flex-1">
+                <label>Page Title</label>
+                <input type="text" class="form-control" value="${g.pageTitle || ''}" oninput="data.global.pageTitle = this.value; updateOutput();">
+            </div>
+            <div class="form-group flex-1">
+                <label>Contact Info (WhatsApp text)</label>
+                <input type="text" class="form-control" value="${g.contactInfo || ''}" oninput="data.global.contactInfo = this.value; updateOutput();">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Welcome Text</label>
+            <textarea class="form-control" style="min-height:60px;" oninput="data.global.welcomeText = this.value; updateOutput();">${g.welcomeText || ''}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Learning Journey Image URL</label>
+            <input type="text" class="form-control" value="${g.learningJourneyImg || ''}" oninput="data.global.learningJourneyImg = this.value; updateOutput();">
+            
+            <div class="upload-box" id="upload-box-global">
+                <label for="file-global">📸 Pilih & Upload Gambar Journey ke GitHub</label>
+                <input type="file" id="file-global" accept="image/*" onchange="uploadImageToGitHub('globalJourney', this)">
+                <div id="upload-status-global" style="font-size: 12px; color: var(--success); margin-top: 5px; font-weight: bold;"></div>
+            </div>
+
+            ${g.learningJourneyImg ? `
+            <div class="image-preview">
+                <img src="${g.learningJourneyImg}" alt="preview" onerror="this.style.display='none'">
+            </div>
+            ` : ''}
+        </div>
+
+        <div class="flex-row">
+            <div class="form-group flex-1">
+                <label>Objectives (Pisahkan dengan Enter)</label>
+                <textarea class="form-control" oninput="data.global.objectives = strToArr(this.value); updateOutput();">${arrToStr(g.objectives)}</textarea>
+            </div>
+            <div class="form-group flex-1">
+                <label>Ground Rules (Pisahkan dengan Enter)</label>
+                <textarea class="form-control" oninput="data.global.groundRules = strToArr(this.value); updateOutput();">${arrToStr(g.groundRules)}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                <label style="margin:0; font-size:14px;">Important Links & Blocks</label>
+                <button class="btn btn-outline" style="padding:4px 8px; font-size:11px;" onclick="addImportantBlock()">+ Tambah Blok</button>
+            </div>
+            <div id="important-blocks-container"></div>
+        </div>
+    `;
+
+    renderImportantBlocks();
+}
+
+function renderImportantBlocks() {
+    const container = document.getElementById('important-blocks-container');
+    container.innerHTML = '';
+    
+    if(!data.global.importantBlocks) data.global.importantBlocks = [];
+
+    data.global.importantBlocks.forEach((b, i) => {
+        let inputHtml = '';
+        if (b.type === 'heading' || b.type === 'heading-sub') {
+            inputHtml = `<input type="text" class="form-control" value="${b.text || ''}" oninput="updateImportantBlock(${i}, 'text', this.value)" placeholder="Teks heading...">`;
+        } else if (b.type === 'card') {
+            inputHtml = `
+                <input type="text" class="form-control mb-2" value="${b.title || ''}" oninput="updateImportantBlock(${i}, 'title', this.value)" placeholder="Nama Form/Link (Contoh: Feedback-CT)">
+                <input type="text" class="form-control mb-2" value="${b.urlText || ''}" oninput="updateImportantBlock(${i}, 'urlText', this.value)" placeholder="Teks URL Penjelasan">
+                <input type="text" class="form-control" value="${b.url || ''}" oninput="updateImportantBlock(${i}, 'url', this.value)" placeholder="URL Link Tujuan">
+            `;
+        } else if (b.type === 'list') {
+            let val = b.items ? b.items.join('\n') : '';
+            inputHtml = `<textarea class="form-control" oninput="updateImportantBlockList(${i}, this.value)" placeholder="Daftar info (pisahkan dengan Enter)">${val}</textarea>`;
+        }
+
+        const div = document.createElement('div');
+        div.className = 'nested-card';
+        div.innerHTML = `
+            <div style="display:flex; gap:10px; margin-bottom:10px;">
+                <select class="form-control" style="width: auto; flex:1;" onchange="changeImportantBlockType(${i}, this.value)">
+                    <option value="heading" ${b.type==='heading'?'selected':''}>Heading (Judul Emoji)</option>
+                    <option value="heading-sub" ${b.type==='heading-sub'?'selected':''}>Sub Heading</option>
+                    <option value="card" ${b.type==='card'?'selected':''}>Card (Tombol Link)</option>
+                    <option value="list" ${b.type==='list'?'selected':''}>List (Informasi Pelengkap)</option>
+                </select>
+                <div style="display:flex; gap:5px;">
+                    <button class="btn btn-secondary" onclick="moveImportantBlock(${i}, -1)" ${i===0?'disabled':''} style="padding:4px 8px;">↑</button>
+                    <button class="btn btn-secondary" onclick="moveImportantBlock(${i}, 1)" ${i===data.global.importantBlocks.length-1?'disabled':''} style="padding:4px 8px;">↓</button>
+                    <button class="btn btn-danger" onclick="removeImportantBlock(${i})" style="padding:4px 8px;">X</button>
+                </div>
+            </div>
+            ${inputHtml}
+        `;
+        container.appendChild(div);
+    });
+}
+
+function updateImportantBlock(idx, key, val) {
+    data.global.importantBlocks[idx][key] = val;
+    updateOutput();
+}
+function updateImportantBlockList(idx, val) {
+    data.global.importantBlocks[idx].items = strToArr(val);
+    updateOutput();
+}
+function changeImportantBlockType(idx, newType) {
+    data.global.importantBlocks[idx] = { type: newType };
+    renderGlobal(); updateOutput();
+}
+function addImportantBlock() {
+    data.global.importantBlocks.push({ type: 'heading', text: 'Judul Baru' });
+    renderGlobal(); updateOutput();
+}
+function removeImportantBlock(idx) {
+    data.global.importantBlocks.splice(idx, 1);
+    renderGlobal(); updateOutput();
+}
+function moveImportantBlock(idx, direction) {
+    let arr = data.global.importantBlocks;
+    if (idx + direction >= 0 && idx + direction < arr.length) {
+        let temp = arr[idx];
+        arr[idx] = arr[idx + direction];
+        arr[idx + direction] = temp;
+        renderGlobal(); updateOutput();
+    }
+}
+
+
+/* =======================================================
+   4. RENDER SESSIONS & MATERIALS
+   ======================================================= */
+function renderSessionTabs() {
+    const tabsContainer = document.getElementById('session-tabs');
+    tabsContainer.innerHTML = '';
+    
+    if(!data.sessions) data.sessions = {};
+    const keys = Object.keys(data.sessions);
+    
+    if(keys.length === 0) {
+        document.getElementById('session-editor-container').innerHTML = '<p style="color:#888;">Belum ada sesi. Silakan tambah.</p>';
+        return;
+    }
+
+    if(!data.sessions[activeSessionKey]) activeSessionKey = keys[0];
+
+    keys.forEach(key => {
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${key === activeSessionKey ? 'active' : ''}`;
+        btn.innerText = key.toUpperCase();
+        btn.onclick = () => {
+            activeSessionKey = key;
+            renderSessionTabs();
+            renderActiveSession();
+        };
+        tabsContainer.appendChild(btn);
+    });
+}
+
+function renderActiveSession() {
+    if(!activeSessionKey || !data.sessions[activeSessionKey]) return;
+    
+    const s = data.sessions[activeSessionKey];
+    const container = document.getElementById('session-editor-container');
+
+    container.innerHTML = `
+        <div class="item-card">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+                <h3 style="margin:0;">Edit Data: ${activeSessionKey.toUpperCase()}</h3>
+                <button class="btn btn-danger" onclick="deleteSession('${activeSessionKey}')">X Hapus Sesi Ini</button>
+            </div>
+
+            <div class="flex-row">
+                <div class="form-group flex-1">
+                    <label>Session Title</label>
+                    <input type="text" class="form-control" value="${s.title || ''}" oninput="data.sessions['${activeSessionKey}'].title = this.value; updateOutput();">
+                </div>
+                <div class="form-group flex-1">
+                    <label>YouTube Video ID</label>
+                    <input type="text" class="form-control" value="${s.materials.youtubeId || ''}" oninput="data.sessions['${activeSessionKey}'].materials.youtubeId = this.value; updateOutput();" placeholder="Contoh: y1RzB_7qYvE">
+                </div>
+            </div>
+
+            <div class="flex-row">
+                <div class="form-group flex-1"><label>Category</label><input type="text" class="form-control" value="${s.category || ''}" oninput="data.sessions['${activeSessionKey}'].category = this.value; updateOutput();"></div>
+                <div class="form-group flex-1"><label>Date</label><input type="text" class="form-control" value="${s.date || ''}" oninput="data.sessions['${activeSessionKey}'].date = this.value; updateOutput();"></div>
+                <div class="form-group flex-1"><label>Participant</label><input type="text" class="form-control" value="${s.participant || ''}" oninput="data.sessions['${activeSessionKey}'].participant = this.value; updateOutput();"></div>
+            </div>
+
+            <div style="background: #fdfdfd; padding: 15px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 15px;">
+                <h4 style="margin-top:0; margin-bottom: 15px; color:#555;">🧑‍🏫 Speaker Profile</h4>
+                <div class="flex-row">
+                    <div class="form-group flex-1"><label>Name</label><input type="text" class="form-control" value="${s.speaker.name || ''}" oninput="data.sessions['${activeSessionKey}'].speaker.name = this.value; updateOutput();"></div>
+                    <div class="form-group flex-1">
+                        <label>Image URL</label>
+                        <input type="text" class="form-control" value="${s.speaker.image || ''}" oninput="data.sessions['${activeSessionKey}'].speaker.image = this.value; updateOutput();">
+                    </div>
+                </div>
+
+                <div class="upload-box" id="upload-box-speaker">
+                    <label for="file-speaker">📸 Pilih & Upload Foto Speaker ke GitHub</label>
+                    <input type="file" id="file-speaker" accept="image/*" onchange="uploadImageToGitHub('speaker', this)">
+                    <div id="upload-status-speaker" style="font-size: 12px; color: var(--success); margin-top: 5px; font-weight: bold;"></div>
+                </div>
+
+                ${s.speaker.image ? `
+                <div class="image-preview" style="max-width: 150px; margin-top:10px;">
+                    <img src="${s.speaker.image}" alt="preview" style="border-radius: 50%; height:150px; width:150px; border: 3px solid #eee;">
+                </div>
+                ` : ''}
+
+                <div class="form-group" style="margin-top:10px;"><label>Description</label><textarea class="form-control" oninput="data.sessions['${activeSessionKey}'].speaker.desc = this.value; updateOutput();">${s.speaker.desc || ''}</textarea></div>
+            </div>
+
+            <div class="form-group">
+                <label>What You'll Learn (Pisahkan dengan Enter)</label>
+                <textarea class="form-control" oninput="data.sessions['${activeSessionKey}'].learnings = strToArr(this.value); updateOutput();">${arrToStr(s.learnings)}</textarea>
+            </div>
+
+            <div class="flex-row" style="align-items:flex-start;">
+                <div class="form-group flex-1">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <label style="margin:0;">Materials: DURING Session</label>
+                        <button class="btn btn-outline" style="padding:4px 8px; font-size:11px;" onclick="addMaterial('during')">+ Tambah</button>
+                    </div>
+                    <div id="mat-during-container"></div>
+                </div>
+                <div class="form-group flex-1">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <label style="margin:0;">Materials: AFTER Session</label>
+                        <button class="btn btn-outline" style="padding:4px 8px; font-size:11px;" onclick="addMaterial('after')">+ Tambah</button>
+                    </div>
+                    <div id="mat-after-container"></div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    renderMaterials('during');
+    renderMaterials('after');
+}
+
+function renderMaterials(type) {
+    const container = document.getElementById(`mat-${type}-container`);
+    container.innerHTML = '';
+    
+    let arr = data.sessions[activeSessionKey].materials[type] || [];
+    
+    arr.forEach((m, i) => {
+        const div = document.createElement('div');
+        div.className = 'nested-card';
+        div.innerHTML = `
+            <div class="flex-row mb-2">
+                <input type="text" class="form-control" value="${m.icon || ''}" placeholder="Icon (ex: 📊)" style="width:60px;" oninput="updateMaterial('${type}', ${i}, 'icon', this.value)">
+                <input type="text" class="form-control flex-1" value="${m.title || ''}" placeholder="Judul Link" oninput="updateMaterial('${type}', ${i}, 'title', this.value)">
+                <button class="btn btn-danger" onclick="removeMaterial('${type}', ${i})" style="padding:6px 10px;">X</button>
+            </div>
+            <input type="text" class="form-control mb-2" value="${m.desc || ''}" placeholder="Deskripsi Singkat" oninput="updateMaterial('${type}', ${i}, 'desc', this.value)">
+            <input type="text" class="form-control" value="${m.url || ''}" placeholder="URL Tujuan" oninput="updateMaterial('${type}', ${i}, 'url', this.value)">
+        `;
+        container.appendChild(div);
+    });
+}
+
+function updateMaterial(type, idx, key, val) {
+    data.sessions[activeSessionKey].materials[type][idx][key] = val;
+    updateOutput();
+}
+function addMaterial(type) {
+    if(!data.sessions[activeSessionKey].materials[type]) data.sessions[activeSessionKey].materials[type] = [];
+    data.sessions[activeSessionKey].materials[type].push({ icon: '🔗', title: 'Link Baru', desc: '', url: '#' });
+    renderActiveSession(); updateOutput();
+}
+function removeMaterial(type, idx) {
+    data.sessions[activeSessionKey].materials[type].splice(idx, 1);
+    renderActiveSession(); updateOutput();
+}
+
+function addNewSession() {
+    const count = Object.keys(data.sessions).length + 1;
+    const newKey = `sesi-${count}`;
+    
+    data.sessions[newKey] = {
+        "title": "Sesi Baru", "category": "Class Session", "date": "TBD", "participant": "All",
+        "speaker": { "name": "", "image": "", "desc": "" },
+        "learnings": ["Materi 1"],
+        "materials": {
+            "youtubeId": "",
+            "during": [ { "icon": "📊", "title": "Deck Material", "desc": "", "url": "#" } ],
+            "after": [ { "icon": "✅", "title": "Feedback", "desc": "", "url": "#" } ]
+        }
+    };
+    
+    activeSessionKey = newKey;
+    renderEditor();
+}
+
+function deleteSession(key) {
+    if(confirm(`Yakin ingin menghapus ${key}?`)) {
+        let img = data.sessions[key].speaker.image;
+        if (img && img.includes('github.io')) {
+            if(confirm('Hapus juga gambar speaker ini dari repository GitHub?')) {
+                let imgFolder = document.getElementById('gh-img-folder').value.trim();
+                if(imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
+                deleteOldImageByUrl(img, imgFolder);
+            }
+        }
+        delete data.sessions[key];
+        renderEditor();
+    }
+}
+
+
+/* =======================================================
+   5. GITHUB INTEGRATION & AUTO CLEANUP IMAGES
+   ======================================================= */
+async function deleteOldImageByUrl(imageUrl, imgFolder) {
+    if (!imageUrl || !imageUrl.includes('github.io')) return;
+
+    const token = document.getElementById('gh-token').value.trim();
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+
+    if (!token || !owner || !repo || !imgFolder) return;
+
+    const fileName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+    if (!fileName) return;
+
+    try {
+        const listUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imgFolder}`;
+        const listRes = await fetch(listUrl, { headers: { 'Authorization': `token ${token}` }});
+        if (!listRes.ok) return;
+        
+        const files = await listRes.json();
+        const targetFile = files.find(f => f.name === fileName);
+        
+        if (targetFile) {
+            const delUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${targetFile.path}`;
+            await fetch(delUrl, {
+                method: 'DELETE',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: `🗑️ Auto-delete removed image: ${fileName}`, sha: targetFile.sha })
+            });
+            console.log(`Gambar lama ${fileName} berhasil dihapus!`);
+        }
+    } catch (e) {
+        console.error("Gagal auto-cleanup", e);
+    }
+}
+
+async function uploadImageToGitHub(targetType, inputEl) {
+    const file = inputEl.files[0];
+    if (!file) return;
+
+    const token = document.getElementById('gh-token').value.trim();
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    let imgFolder = document.getElementById('gh-img-folder').value.trim();
+
+    if (!token || !owner || !repo) {
+        alert("Harap lengkapi konfigurasi GitHub Token, Username, dan Repo!");
+        inputEl.value = ""; return;
+    }
+    if(imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
+
+    const statusEl = document.getElementById(`upload-status-${targetType}`);
+    statusEl.innerHTML = "⏳ Sedang memproses... Harap tunggu.";
+    
+    let oldUrl = "";
+    let slug = "";
+    
+    if (targetType === 'globalJourney') {
+        oldUrl = data.global.learningJourneyImg;
+        slug = "journey";
+    } else if (targetType === 'speaker') {
+        oldUrl = data.sessions[activeSessionKey].speaker.image;
+        let speakerName = data.sessions[activeSessionKey].speaker.name;
+        slug = speakerName ? speakerName.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase() : 'speaker';
+    }
+
+    if (oldUrl && oldUrl.includes('github.io')) {
+        statusEl.innerHTML = "🗑️ Membersihkan gambar lama dari repository...";
+        await deleteOldImageByUrl(oldUrl, imgFolder);
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const base64Data = e.target.result.split(',')[1];
+        const ext = file.name.split('.').pop();
+        
+        const uniqueFileName = `${slug}_${Date.now()}.${ext}`;
+        const fullPath = imgFolder ? `${imgFolder}/${uniqueFileName}` : uniqueFileName;
+
+        statusEl.innerHTML = "🚀 Mengirim gambar baru ke GitHub...";
+
+        try {
+            const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fullPath}`;
+            const res = await fetch(putUrl, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: `📸 Upload image: ${uniqueFileName}`, content: base64Data })
+            });
+
+            if (!res.ok) throw new Error("Gagal upload. Cek permission token.");
+            const resData = await res.json();
+            
+            let publicUrl = repo.includes('.github.io') 
+                ? `https://${repo}/${resData.content.path}` 
+                : `https://${owner}.github.io/${repo}/${resData.content.path}`;
+
+            if (targetType === 'globalJourney') {
+                data.global.learningJourneyImg = publicUrl;
+                renderGlobal();
+            } else if (targetType === 'speaker') {
+                data.sessions[activeSessionKey].speaker.image = publicUrl;
+                renderActiveSession();
+            }
+            
+            updateOutput(); 
+            const finalStatus = document.getElementById(`upload-status-${targetType}`);
+            if(finalStatus) finalStatus.innerHTML = "✅ Upload Berhasil!";
+        } catch (err) {
+            statusEl.innerHTML = `❌ Error: ${err.message}`;
+            statusEl.style.color = "red";
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
+
+/* =======================================================
+   6. FILE BROWSER & LOAD/SAVE GITHUB
+   ======================================================= */
+function saveConfig() {
+    localStorage.setItem('gh_token', document.getElementById('gh-token').value.trim());
+    localStorage.setItem('gh_owner', document.getElementById('gh-owner').value.trim());
+    localStorage.setItem('gh_repo', document.getElementById('gh-repo').value.trim());
+    localStorage.setItem('gh_path', document.getElementById('gh-path').value.trim());
+    localStorage.setItem('gh_img_folder', document.getElementById('gh-img-folder').value.trim());
+}
+
+function loadConfig() {
+    document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+    document.getElementById('gh-owner').value = localStorage.getItem('gh_owner') || '';
+    document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
+    document.getElementById('gh-path').value = localStorage.getItem('gh_path') || '';
+    document.getElementById('gh-img-folder').value = localStorage.getItem('gh_img_folder') || '';
+}
+
+async function openFileBrowser(path = '', mode = currentBrowserMode) {
+    const token = document.getElementById('gh-token').value.trim();
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+
+    if (!token || !owner || !repo) {
+        alert("Harap isi Token PAT, Username, dan Repository terlebih dahulu!");
+        return;
+    }
+
+    currentBrowserMode = mode;
+    currentBrowsePath = path;
+
+    const modalTitle = document.getElementById('modal-title');
+    const btnSelectFolder = document.getElementById('btn-select-folder');
+    
+    if (mode === 'folder') {
+        modalTitle.innerText = "📂 Pilih Folder Gambar";
+        btnSelectFolder.style.display = "block";
+    } else {
+        modalTitle.innerText = "📂 Pilih File JSON";
+        btnSelectFolder.style.display = "none";
+    }
+
+    const modal = document.getElementById('fileBrowserModal');
+    const fileListEl = document.getElementById('file-list');
+    modal.style.display = 'flex';
+    fileListEl.innerHTML = '<div style="padding: 20px; text-align: center;">⏳ Loading folder contents...</div>';
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    try {
+        const response = await fetch(url, { headers: { 'Authorization': `token ${token}` }});
+        if (!response.ok) throw new Error(`Folder tidak ditemukan/Token salah (${response.status})`);
+
+        const listData = await response.json();
+        renderFileList(listData, path);
+    } catch (error) {
+        fileListEl.innerHTML = `<div style="padding: 20px; color: red;">❌ Error: ${error.message}</div>`;
+    }
+}
+
+function renderFileList(items, currentPath) {
+    currentBrowsePath = currentPath;
+    const fileListEl = document.getElementById('file-list');
+    let html = '';
+
+    if (currentPath !== '') {
+        const parentPath = currentPath.split('/').slice(0, -1).join('/');
+        html += `<div class="file-item" onclick="openFileBrowser('${parentPath}', '${currentBrowserMode}')" style="background:#e8f4fd;">🔙 <strong>.. (Kembali)</strong></div>`;
+    }
+
+    items.sort((a, b) => {
+        if (a.type === b.type) return a.name.localeCompare(b.name);
+        return a.type === 'dir' ? -1 : 1;
+    });
+
+    items.forEach(item => {
+        if (item.type === 'dir') {
+            html += `<div class="file-item" onclick="openFileBrowser('${item.path}', '${currentBrowserMode}')">📁 <strong>${item.name}</strong></div>`;
+        } else if (item.name.endsWith('.json') && currentBrowserMode === 'file') {
+            html += `<div class="file-item" onclick="selectFilePath('${item.path}')">📄 <span style="color:var(--primary); font-weight:bold;">${item.name}</span></div>`;
+        } else {
+            html += `<div class="file-item disabled">📄 ${item.name}</div>`;
+        }
+    });
+
+    fileListEl.innerHTML = html || '<div style="padding: 20px; text-align: center;">Folder kosong</div>';
+}
+
+function selectFilePath(path) { document.getElementById('gh-path').value = path; saveConfig(); closeFileBrowser(); }
+function confirmFolderSelection() { document.getElementById('gh-img-folder').value = currentBrowsePath; saveConfig(); closeFileBrowser(); }
+function closeFileBrowser() { document.getElementById('fileBrowserModal').style.display = 'none'; }
+
+
+async function fetchFromGitHub() {
+    const token = document.getElementById('gh-token').value.trim();
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    const path = document.getElementById('gh-path').value.trim();
+
+    if (!token || !owner || !repo || !path) { alert('Harap isi semua konfigurasi GitHub!'); return; }
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    try {
+        const response = await fetch(url, { headers: { 'Authorization': `token ${token}` }});
+        if (!response.ok) throw new Error(`Gagal menarik data (${response.status}). Periksa Token/Path.`);
+
+        const resData = await response.json();
+        currentFileSha = resData.sha; 
+        const decodedContent = decodeURIComponent(escape(atob(resData.content)));
+        const json = JSON.parse(decodedContent);
+
+        if (json.global && json.sessions) {
+            data = json;
+            document.getElementById('json-output').value = JSON.stringify(data, null, 2);
+            renderEditor();
+            alert('✅ Data JSON Berhasil ditarik dari GitHub!');
+        } else {
+            alert('❌ Format JSON yang ditarik tidak sesuai dengan sistem Training ini.');
+        }
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+async function saveToGitHub() {
+    if(!data) { alert("Tidak ada data untuk disimpan."); return; }
+
+    const token = document.getElementById('gh-token').value.trim();
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    const path = document.getElementById('gh-path').value.trim();
+
+    if (!token || !owner || !repo || !path) { alert('Harap isi semua konfigurasi GitHub!'); return; }
+
+    const stringContent = JSON.stringify(data, null, 2);
+    const encodedContent = btoa(unescape(encodeURIComponent(stringContent)));
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    if (!currentFileSha) {
+        try {
+            const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+            if (checkRes.ok) currentFileSha = (await checkRes.json()).sha;
+        } catch (e) {}
+    }
+
+    const bodyData = { message: "⚡ Update Training JSON via Generator", content: encodedContent };
+    if (currentFileSha) bodyData.sha = currentFileSha;
+
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyData)
+        });
+
+        if (!response.ok) throw new Error(`Gagal menyimpan file JSON ke repositori.`);
+
+        currentFileSha = (await response.json()).content.sha; 
+        alert('🎉 Berhasil! File JSON sudah tersimpan dan live di GitHub!');
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+function loadFromOutput() {
+    try{
+        const val = document.getElementById('json-output').value;
+        if(!val.trim()) { alert("Kotak JSON kosong!"); return; }
+        const parsed = JSON.parse(val);
+        if(parsed.global && parsed.sessions){ 
+            data = parsed; 
+            renderEditor(); 
+            alert('Berhasil di-load!'); 
+        } else {
+            alert('Format JSON salah. Harus ada objek "global" & "sessions".');
+        }
+    }catch(e){ alert('JSON error. Pastikan format syntax benar.'); }
+}
+
+function copyJSON(){
+    const el = document.getElementById('json-output');
+    if(!el.value.trim()) return;
+    el.select(); document.execCommand('copy'); alert('Tersalin ke Clipboard!');
+}
+
+/* INIT */
+window.onload = function() {
+    loadConfig();
+    document.getElementById('json-output').value = ""; // Pastikan kosong di awal
+    renderEditor();
+};
+
+</script>
+</body>
+</html>
