@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "title": "Honda Bintaro",
+    "platform": "Instagram",
+    "dateStart": "2026-07-01",
+    "dateEnd": "2026-07-31",
+    "month": "Juli",
+    "foll": 15381,
+    "postCount": 15,
+    "reach": 500,
+    "interaksi": 1000,
+    "erByReach": 200,
+    "avgReachPerPost": 33.333333333333336,
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>ER by Reach:</b> 200,0% <span class=\"badge bg-green\">On Track</span></div><div><b>Avg Reach/Post:</b> 33 <span class=\"badge bg-red\">Off Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Periode: 2026-07-01 s/d 2026-07-31 (15 post). ER by Reach: <b>200.00%</b>. Avg Reach/Post: <b>33</b>. Target -> ER >3.5% | Avg Reach >1.000.",
+    "soWhat": "Meskipun keterikatan konten sangat tinggi (ER 200%), distribusi organik akun ini sangat terbatas karena rata-rata jangkauan hanya mencapai 33 audiens per postingan dari total 15.381 pengikut. Hal ini mengindikasikan konten hanya berputar di lingkaran kecil audiens yang sangat aktif, sementara algoritma Instagram membatasi penyebaran konten ke mayoritas pengikut lainnya.",
+    "nowWhat": "Untuk mendongkrak jangkauan, segera alihkan fokus ke format Reels dengan CTA yang mendorong audiens untuk melakukan share dan save guna memicu algoritma penyebaran. Selain itu, gunakan fitur Collab Post atau optimasi Meta Ads guna mengaktifkan kembali sisa pengikut pasif yang belum terjangkau."
+  },
+  {
+    "title": "Honda Bintaro",
+    "platform": "TikTok",
+    "dateStart": "2026-07-01",
+    "dateEnd": "2026-07-31",
+    "month": "Juli",
+    "foll": 15381,
+    "postCount": 30,
+    "reach": 200,
+    "interaksi": 1000,
+    "erByReach": 500,
+    "avgReachPerPost": 6.666666666666667,
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>ER by Reach:</b> 500,0% <span class=\"badge bg-green\">On Track</span></div><div><b>Avg Reach/Post:</b> 7 <span class=\"badge bg-red\">Off Track</span></div>",
+    "what": "Platform: <b>TikTok</b>. Periode: 2026-07-01 s/d 2026-07-31 (30 post). ER by Reach: <b>500.00%</b>. Avg Reach/Post: <b>7</b>. Target -> ER >5% | Avg Reach >5.000.",
+    "soWhat": "Meskipun tingkat interaksi sangat tinggi hingga mencapai ER 500%, distribusi konten secara organik sangat tidak sehat karena rata-rata reach hanya menyentuh 7 per post dari total 15.381 followers. Angka ekstrem ini menunjukkan adanya pembatasan distribusi oleh algoritma TikTok (indikasi shadowban atau kualitas konten dianggap rendah), sehingga interaksi bagus tersebut hanya berputar di lingkaran yang sangat sempit.",
+    "nowWhat": "Segera lakukan audit kesehatan akun untuk memeriksa indikasi pelanggaran pedoman komunitas, serta evaluasi ulang kualitas visual dan orisinalitas video pada 30 postingan terakhir. Selanjutnya, buat strategi konten baru dengan fokus pada 3 detik pertama (hook) yang kuat, optimasi SEO TikTok, serta pemanfaatan audio tren guna memicu algoritma meloloskan konten ke For You Page (FYP)."
+  }
+]
