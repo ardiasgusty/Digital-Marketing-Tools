@@ -427,23 +427,9 @@ align-items: center; justify-content: center;
 <button class="btn btn-accent" onclick="calculateDistribution()">Hitung Distribusi Konten 🥧</button>
 
 <div id="dist-result-box" class="result-box" style="display:none; background:var(--card-bg); border-left:4px solid var(--warning);">
-<h4 style="margin-top:0; color:var(--primary);">Hasil Distribusi Pilar</h4>
-<div class="two-col-layout" style="grid-template-columns: 1fr 1fr;">
-<div>
-<p style="font-size:14px; font-weight:bold;">Total Konten Bulan Ini: <span id="dist-total" style="color:var(--accent); font-size:18px;">0</span></p>
-<div class="table-responsive" style="max-height: none;">
-<table class="data-table">
-<thead><tr><th>Pilar Konten</th><th>Aktual (%)</th><th>Standar Ideal (%)</th></tr></thead>
-<tbody id="dist-table-body"></tbody>
-</table>
-</div>
+<h4 style="margin-top:0; color:var(--primary); margin-bottom: 20px;">Hasil Distribusi Pilar</h4>
+<div id="dist-platforms-container"></div>
 <p id="dist-analysis" style="font-size:13px; margin-top:15px; color:var(--text-muted); line-height:1.5;"></p>
-</div>
-<div class="chart-container">
-<div id="css-pie-chart" style="width:150px; height:150px; border-radius:50%; background: #eee;"></div>
-<div class="dist-legend" id="dist-legend-container"></div>
-</div>
-</div>
 </div>
 </div>
 
@@ -1557,20 +1543,43 @@ function calculateDistribution() {
 const month = document.getElementById('dist-month').value;
 const platform = document.getElementById('dist-platform').value;
 
+const filtered = contentDB.filter(item => item.month === month && (platform === "All" || item.platform === platform));
+const container = document.getElementById('dist-platforms-container');
+container.innerHTML = "";
+
+if (filtered.length === 0) {
+container.innerHTML = `<div class="empty-state">Belum ada data konten di bulan ${month} ${platform !== 'All' ? 'untuk platform '+platform : ''}</div>`;
+document.getElementById('dist-analysis').innerText = "";
+document.getElementById('dist-result-box').style.display = 'block';
+return;
+}
+
+const platformsToCalculate = platform === "All"
+? Array.from(new Set(filtered.map(item => item.platform))).filter(Boolean).sort()
+: [platform];
+
+platformsToCalculate.forEach(plat => {
+const platData = filtered.filter(item => item.platform === plat);
+if (platData.length === 0) return;
+
 let counts = { "Product Value & Info": 0, "Promo Activation": 0, "Dealer Credibility": 0, "Customer Story": 0 };
 let total = 0;
 
-contentDB.forEach(item => {
-if(item.month === month && (platform === "All" || item.platform === platform)) {
+platData.forEach(item => {
 let p = item.pilar;
 if (p === "Product Education") p = "Product Value & Info"; // Backward logic
 if(counts[p] !== undefined) counts[p]++;
 total++;
-}
 });
 
-document.getElementById('dist-total').innerText = total;
-const tbody = document.getElementById('dist-table-body'); tbody.innerHTML = "";
+// Calculate category breakdown
+const catCounts = {};
+platData.forEach(item => {
+if(item.category) {
+catCounts[item.category] = (catCounts[item.category] || 0) + 1;
+}
+});
+const catStr = Object.entries(catCounts).map(([cat, count]) => `${cat}: ${count}`).join(', ');
 
 const ideal = {
 "Product Value & Info": parseFloat(document.getElementById('dist-tgt-prod').value) || 35,
@@ -1580,20 +1589,17 @@ const ideal = {
 };
 const colors = { "Product Value & Info": "#3498db", "Promo Activation": "#e74c3c", "Dealer Credibility": "#2ecc71", "Customer Story": "#f1c40f" };
 
-let gradientStr = ""; let currentPercent = 0; let legendHTML = "";
+let tbodyRows = "";
+let gradientStr = "";
+let currentPercent = 0;
+let legendHTML = "";
 
-if(total === 0) {
-tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Belum ada data konten di bulan ${month} ${platform !== 'All' ? 'untuk platform '+platform : ''}</td></tr>`;
-document.getElementById('css-pie-chart').style.background = "#eee";
-document.getElementById('dist-legend-container').innerHTML = "";
-document.getElementById('dist-analysis').innerText = "";
-} else {
-Object.keys(counts).forEach((pilar, idx) => {
-const actualPct = ((counts[pilar] / total) * 100).toFixed(1);
+Object.keys(counts).forEach(pilar => {
+const actualPct = total === 0 ? 0 : ((counts[pilar] / total) * 100).toFixed(1);
 const diff = (actualPct - ideal[pilar]).toFixed(1);
 let diffBadge = diff > 5 ? `<span style="color:var(--accent);"> (+${diff}%)</span>` : diff < -5 ? `<span style="color:var(--warning);"> (${diff}%)</span>` : `<span style="color:var(--success);"> (Sesuai)</span>`;
 
-tbody.innerHTML += `<tr>
+tbodyRows += `<tr>
 <td><b>${pilar}</b></td>
 <td>${actualPct}% ${diffBadge}</td>
 <td>${ideal[pilar]}%</td>
@@ -1601,13 +1607,42 @@ tbody.innerHTML += `<tr>
 
 gradientStr += `${colors[pilar]} ${currentPercent}% ${currentPercent + parseFloat(actualPct)}%, `;
 currentPercent += parseFloat(actualPct);
-legendHTML += `<div class="dist-legend-item"><div class="color-box" style="background:${colors[pilar]};"></div><span>${pilar}</span></div>`;
+legendHTML += `<div class="dist-legend-item" style="display:flex; align-items:center; gap:8px; font-size:11px; margin-bottom:4px;">
+<div class="color-box" style="width:12px; height:12px; border-radius:3px; background:${colors[pilar]};"></div>
+<span>${pilar}</span>
+</div>`;
 });
 gradientStr = gradientStr.slice(0, -2);
-document.getElementById('css-pie-chart').style.background = `conic-gradient(${gradientStr})`;
-document.getElementById('dist-legend-container').innerHTML = legendHTML;
+const pieBackground = total === 0 ? "#eee" : `conic-gradient(${gradientStr})`;
+
+container.innerHTML += `
+<div class="platform-dist-block" style="margin-bottom: 30px; border-bottom: 1px dashed var(--border); padding-bottom: 25px;">
+<h3 style="color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+<span>📱</span> Platform: ${plat}
+</h3>
+<div class="two-col-layout" style="grid-template-columns: 1.2fr 0.8fr; gap: 20px;">
+<div>
+<p style="font-size:14px; font-weight:bold; margin-bottom: 10px;">
+Total Konten: <span style="color:var(--accent); font-size:18px;">${total}</span>
+${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text-muted); margin-left: 10px;">(${catStr})</span>` : ''}
+</p>
+<div class="table-responsive" style="max-height: none;">
+<table class="data-table">
+<thead><tr><th>Pilar Konten</th><th>Aktual (%)</th><th>Standar Ideal (%)</th></tr></thead>
+<tbody>${tbodyRows}</tbody>
+</table>
+</div>
+</div>
+<div class="chart-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;">
+<div style="width:130px; height:130px; border-radius:50%; background: ${pieBackground}; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></div>
+<div class="dist-legend" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">${legendHTML}</div>
+</div>
+</div>
+</div>
+`;
+});
+
 document.getElementById('dist-analysis').innerText = `Analisa: Jika pilar tertentu melebihi batas toleransi (+/- 5%) dari standar persentase target Anda, berarti distribusi konten tidak seimbang dan berpotensi membuat audiens bosan. Sesuaikan plan konten minggu berikutnya.`;
-}
 document.getElementById('dist-result-box').style.display = 'block';
 }
 
@@ -2229,7 +2264,11 @@ return html;
 function renderStatCards(cards) {
 let html = `<div class="report-cards">`;
 cards.forEach(c => {
-html += `<div class="report-stat-card"><div class="val" style="color:${c.color || 'var(--primary)'}">${c.val}</div><div class="lbl">${c.lbl}</div></div>`;
+html += `<div class="report-stat-card">
+  <div class="val" style="color:${c.color || 'var(--primary)'}">${c.val}</div>
+  <div class="lbl">${c.lbl}</div>
+  ${c.sub ? `<div class="sub-lbl" style="font-size:11px; color:var(--text-muted); margin-top:6px; font-weight:normal; line-height:1.3;">${c.sub}</div>` : ''}
+</div>`;
 });
 html += `</div>`;
 return html;
@@ -2250,15 +2289,33 @@ container.innerHTML = `<div class="empty-state">Belum ada data Content Performan
 return;
 }
 
-const totalKonten = filtered.length;
-const avgRR = filtered.reduce((s,i) => s + ((i.reach / (i.foll||1)) * 100), 0) / totalKonten;
-const avgER = filtered.reduce((s,i) => s + ((i.interaksi / (i.foll||1)) * 100), 0) / totalKonten;
-const avgERR = filtered.reduce((s,i) => s + (i.reach > 0 ? (i.interaksi / i.reach) * 100 : 0), 0) / totalKonten;
-const totalReach = filtered.reduce((s,i) => s + (i.reach||0), 0);
-const totalInt = filtered.reduce((s,i) => s + (i.interaksi||0), 0);
+const platformsToRender = fPlatform === "All"
+? Array.from(new Set(filtered.map(i => i.platform))).filter(Boolean).sort()
+: [fPlatform];
 
-let html = renderStatCards([
-{ val: totalKonten.toLocaleString('id-ID'), lbl: 'Total Konten' },
+let html = "";
+platformsToRender.forEach(plat => {
+const platData = filtered.filter(i => i.platform === plat);
+if(platData.length === 0) return;
+
+const totalKonten = platData.length;
+const avgRR = platData.reduce((s,i) => s + ((i.reach / (i.foll||1)) * 100), 0) / totalKonten;
+const avgER = platData.reduce((s,i) => s + ((i.interaksi / (i.foll||1)) * 100), 0) / totalKonten;
+const avgERR = platData.reduce((s,i) => s + (i.reach > 0 ? (i.interaksi / i.reach) * 100 : 0), 0) / totalKonten;
+const totalReach = platData.reduce((s,i) => s + (i.reach||0), 0);
+const totalInt = platData.reduce((s,i) => s + (i.interaksi||0), 0);
+
+// Compute category breakdown
+const catCounts = {};
+platData.forEach(item => {
+if(item.category) {
+catCounts[item.category] = (catCounts[item.category] || 0) + 1;
+}
+});
+const catStr = Object.entries(catCounts).map(([cat, count]) => `${cat}: ${count}`).join(', ');
+
+let platHtml = renderStatCards([
+{ val: totalKonten.toLocaleString('id-ID'), lbl: 'Total Konten', sub: catStr },
 { val: avgRR.toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})+'%', lbl: 'Rata-rata Reach Rate' },
 { val: avgER.toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})+'%', lbl: 'Rata-rata ER' },
 { val: avgERR.toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})+'%', lbl: 'Rata-rata ERR' },
@@ -2266,20 +2323,28 @@ let html = renderStatCards([
 { val: totalInt.toLocaleString('id-ID'), lbl: 'Total Interaksi' },
 ]);
 
-const sorted = [...filtered].sort((a,b) => (a.evalDateRaw||'').localeCompare(b.evalDateRaw||''));
+const sorted = [...platData].sort((a,b) => (a.evalDateRaw||'').localeCompare(b.evalDateRaw||''));
 const erItems = sorted.map(i => ({ label: i.title.length > 12 ? i.title.slice(0,12)+'…' : i.title, value: (i.interaksi/(i.foll||1))*100, suffix: '%' }));
 const rrItems = sorted.map(i => ({ label: i.title.length > 12 ? i.title.slice(0,12)+'…' : i.title, value: (i.reach/(i.foll||1))*100, suffix: '%' }));
 
-html += `<div class="chart-box"><h4>📊 Engagement Rate per Konten</h4>${renderBarChart(erItems, (it) => it.value >= 1 ? 'var(--success)' : 'var(--accent)')}</div>`;
-html += `<div class="chart-box"><h4>📈 Reach Rate per Konten</h4>${renderBarChart(rrItems, () => 'var(--info)')}</div>`;
+platHtml += `<div class="chart-box"><h4>📊 Engagement Rate per Konten</h4>${renderBarChart(erItems, (it) => it.value >= 1 ? 'var(--success)' : 'var(--accent)')}</div>`;
+platHtml += `<div class="chart-box"><h4>📈 Reach Rate per Konten</h4>${renderBarChart(rrItems, () => 'var(--info)')}</div>`;
 
 let pilarCounts = {};
-filtered.forEach(i => {
+platData.forEach(i => {
 let p = i.pilar === "Product Education" ? "Product Value & Info" : i.pilar;
 pilarCounts[p] = (pilarCounts[p]||0) + 1;
 });
 const pilarItems = Object.keys(pilarCounts).map(p => ({ label: p, value: pilarCounts[p], suffix: 'Konten' }));
-html += `<div class="chart-box"><h4>🥧 Jumlah Konten per Pilar</h4>${renderBarChart(pilarItems, () => 'var(--warning)')}</div>`;
+platHtml += `<div class="chart-box"><h4>🥧 Jumlah Konten per Pilar</h4>${renderBarChart(pilarItems, () => 'var(--warning)')}</div>`;
+
+html += `<div class="platform-report-block" style="margin-bottom: 40px; border-bottom: 2px dashed var(--border); padding-bottom: 30px;">
+<h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-size: 18px;">
+<span>📱</span> Platform: ${plat}
+</h3>
+${platHtml}
+</div>`;
+});
 
 container.innerHTML = html;
 }
@@ -2295,15 +2360,24 @@ container.innerHTML = `<div class="empty-state">Belum ada data Content Performan
 return;
 }
 
-const sorted = [...filtered].sort((a,b) => (a.dateEnd||'').localeCompare(b.dateEnd||''));
-const totalPost = filtered.reduce((s,i) => s + (i.postCount||0), 0);
-const avgER = filtered.reduce((s,i) => s + (i.erByReach||0), 0) / filtered.length;
-const avgReachPost = filtered.reduce((s,i) => s + (i.avgReachPerPost||0), 0) / filtered.length;
-const totalReach = filtered.reduce((s,i) => s + (i.reach||0), 0);
-const totalInt = filtered.reduce((s,i) => s + (i.interaksi||0), 0);
+const platformsToRender = fPlatform === "All"
+? Array.from(new Set(filtered.map(i => i.platform))).filter(Boolean).sort()
+: [fPlatform];
 
-let html = renderStatCards([
-{ val: filtered.length.toLocaleString('id-ID'), lbl: 'Periode Tercatat' },
+let html = "";
+platformsToRender.forEach(plat => {
+const platData = filtered.filter(i => i.platform === plat);
+if(platData.length === 0) return;
+
+const totalPeriod = platData.length;
+const totalPost = platData.reduce((s,i) => s + (i.postCount||0), 0);
+const avgER = platData.reduce((s,i) => s + (i.erByReach||0), 0) / totalPeriod;
+const avgReachPost = platData.reduce((s,i) => s + (i.avgReachPerPost||0), 0) / totalPeriod;
+const totalReach = platData.reduce((s,i) => s + (i.reach||0), 0);
+const totalInt = platData.reduce((s,i) => s + (i.interaksi||0), 0);
+
+let platHtml = renderStatCards([
+{ val: totalPeriod.toLocaleString('id-ID'), lbl: 'Periode Tercatat' },
 { val: totalPost.toLocaleString('id-ID'), lbl: 'Total Post (Semua Periode)' },
 { val: avgER.toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})+'%', lbl: 'Rata-rata ER by Reach' },
 { val: avgReachPost.toLocaleString('id-ID', {maximumFractionDigits:0}), lbl: 'Rata-rata Reach/Post' },
@@ -2311,11 +2385,20 @@ let html = renderStatCards([
 { val: totalInt.toLocaleString('id-ID'), lbl: 'Total Interaksi' },
 ]);
 
-const erItems = sorted.map(i => ({ label: i.month + (i.platform ? ' ('+i.platform.slice(0,2)+')' : ''), value: i.erByReach, suffix: '%' }));
-const reachItems = sorted.map(i => ({ label: i.month + (i.platform ? ' ('+i.platform.slice(0,2)+')' : ''), value: i.avgReachPerPost }));
+const sorted = [...platData].sort((a,b) => (a.dateEnd||'').localeCompare(b.dateEnd||''));
+const erItems = sorted.map(i => ({ label: i.month, value: i.erByReach, suffix: '%' }));
+const reachItems = sorted.map(i => ({ label: i.month, value: i.avgReachPerPost }));
 
-html += `<div class="chart-box"><h4>📊 ER by Reach per Periode (Rumus RevoU)</h4>${renderBarChart(erItems, (it) => it.value >= 3.5 ? 'var(--success)' : 'var(--accent)')}</div>`;
-html += `<div class="chart-box"><h4>📈 Rata-rata Reach per Post</h4>${renderBarChart(reachItems, () => 'var(--info)')}</div>`;
+platHtml += `<div class="chart-box"><h4>📊 ER by Reach per Periode (Rumus RevoU)</h4>${renderBarChart(erItems, (it) => it.value >= 3.5 ? 'var(--success)' : 'var(--accent)')}</div>`;
+platHtml += `<div class="chart-box"><h4>📈 Rata-rata Reach per Post</h4>${renderBarChart(reachItems, () => 'var(--info)')}</div>`;
+
+html += `<div class="platform-report-block" style="margin-bottom: 40px; border-bottom: 2px dashed var(--border); padding-bottom: 30px;">
+<h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-size: 18px;">
+<span>📱</span> Platform: ${plat}
+</h3>
+${platHtml}
+</div>`;
+});
 
 container.innerHTML = html;
 }
