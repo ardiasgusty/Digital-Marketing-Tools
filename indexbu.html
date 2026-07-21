@@ -2587,6 +2587,17 @@
             return `${THUMB_PROXY_PREFIX}${encodeURIComponent(target)}`;
         }
 
+        function generateThumbnailPreview(url, containerId) {
+            const container = document.getElementById(containerId);
+            const match = url.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                const imgUrl = buildIGThumbUrl(match[1]);
+                container.innerHTML = `<img src="${imgUrl}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\' title=\\'Instagram Blocked Preview\\'>📸</div>'">`;
+            } else {
+                container.innerHTML = "📸";
+            }
+        }
+
         // ================= PAGINATION LOGIC =================
         function changeLimit(type, val) {
             tableState[type].limit = parseInt(val);
@@ -2648,10 +2659,18 @@
         }
 
         function resetForm(prefix) {
-            document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
-                if ((el.tagName === 'INPUT' && el.type !== 'date') || el.tagName === 'TEXTAREA') {
-                    if (el.id !== `${prefix}-foll` && el.id.indexOf('target') === -1) {
+            document.querySelectorAll(`[id^="${prefix}-"]`).forEach(el => {
+                if (el.tagName === 'INPUT') {
+                    if (el.id === `${prefix}-foll`) {
+                        el.value = (prefix === 'todo' || prefix === 'kpi') ? "" : "15381";
+                    } else if (el.id.indexOf('target') === -1) {
                         el.value = "";
+                    }
+                } else if (el.tagName === 'TEXTAREA') {
+                    el.value = "";
+                } else if (el.tagName === 'SELECT') {
+                    if (el.options.length > 0) {
+                        el.selectedIndex = 0;
                     }
                 }
             });
@@ -2659,15 +2678,18 @@
                 document.getElementById('thumb-mon').innerHTML = "📸";
                 editIdx.content = -1;
                 document.getElementById('btn-eval-mon').innerText = "Evaluasi & Tambah ke Tabel 👇";
+                adjustTargetsByPlatform('mon');
             } else if (prefix === 'kpi') {
                 editIdx.kpi = -1;
                 document.getElementById('btn-eval-kpi').innerText = "Hitung & Tambah ke Tabel 👇";
+                adjustTargetsByPlatform('kpi');
             } else if (prefix === 'todo') {
                 editIdx.todo = -1;
                 document.getElementById('btn-save-todo').innerText = "Simpan Tugas ➕";
             } else if (prefix === 'conm') {
                 editIdx.contentMonthly = -1;
                 document.getElementById('btn-eval-conm').innerText = "Evaluasi & Tambah ke Tabel 👇";
+                adjustTargetsByPlatform('conm');
             }
         }
 
@@ -2720,11 +2742,13 @@
 
             syncGHFields(null, null);
 
-            pullDBFromGithub('content');
-            pullDBFromGithub('content-monthly');
-            pullDBFromGithub('kpi');
-            pullDBFromGithub('links');
-            pullDBFromGithub('todo');
+            loadDBs();
+
+            pullDBFromGithub('content', true);
+            pullDBFromGithub('content-monthly', true);
+            pullDBFromGithub('kpi', true);
+            pullDBFromGithub('links', true);
+            pullDBFromGithub('todo', true);
 
             renderGenHistory(); renderCareHistory();
         });
@@ -2810,6 +2834,7 @@
 
             editIdx.todo = idx;
             document.getElementById('btn-save-todo').innerText = "Simpan Perubahan 💾";
+            window.scrollTo({ top: document.getElementById('todo-section').offsetTop, behavior: 'smooth' });
         }
 
         function delTodo(idx) {
