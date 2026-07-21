@@ -532,7 +532,8 @@
 
         .table-responsive {
             width: 100%;
-            /*overflow-x: auto;*/
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--card-bg);
@@ -544,6 +545,7 @@
             border-collapse: collapse;
             font-size: 13px;
             background: var(--card-bg);
+            min-width: 800px;
         }
 
         .data-table th,
@@ -575,6 +577,65 @@
             padding: 10px;
             border-radius: 8px;
             border: 1px solid var(--border);
+        }
+
+        .pagination-nav {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .btn-pg {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 32px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .btn-pg:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-pg.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            font-weight: bold;
+        }
+
+        .btn-pg:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--bg);
+            color: var(--text-muted);
+            border-color: var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .pagination-controls {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+            .pagination-nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .btn-pg {
+                padding: 5px 10px;
+                font-size: 11px;
+                min-width: 28px;
+            }
         }
 
         .btn-sm {
@@ -1352,9 +1413,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('todo', -1)">⬅ Prev</button> <span
-                            id="page-info-todo" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('todo', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-todo" class="pagination-nav"></div>
                 </div>
             </div>
             <!-- ================= END TO DO LIST SECTION ================= -->
@@ -1523,9 +1582,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('links', -1)">⬅ Prev</button> <span
-                            id="page-info-links" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('links', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-links" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -1964,9 +2021,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('content', -1)">⬅ Prev</button> <span
-                            id="page-info-content" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('content', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-content" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -2136,9 +2191,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('conm', -1)">⬅ Prev</button> <span
-                            id="page-info-conm" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('conm', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-conm" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -2284,9 +2337,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('kpi', -1)">⬅ Prev</button> <span
-                            id="page-info-kpi" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('kpi', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-kpi" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -2968,12 +3019,49 @@
             tableState[type].page += dir;
             renderTableRouter(type);
         }
+        function gotoPage(type, pageNum) {
+            tableState[type].page = pageNum;
+            renderTableRouter(type);
+        }
         function renderTableRouter(type) {
             if (type === 'content') renderContentDatabase();
             if (type === 'conm') renderContentMonthlyDatabase();
             if (type === 'kpi') renderKPIDatabase();
             if (type === 'todo') renderTodoDatabase();
             if (type === 'links') renderLinksDatabase();
+        }
+        function renderPaginationControls(type, totalPages) {
+            const container = document.getElementById(`pagination-nav-${type}`);
+            if (!container) return;
+            
+            const currentPage = tableState[type].page;
+            let html = "";
+            
+            // First page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', 1)" ${currentPage === 1 ? 'disabled' : ''} title="Halaman Pertama">&laquo;</button>`;
+            
+            // Prev page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} title="Sebelumnya">&lsaquo;</button>`;
+            
+            // Calculate page range to show (max 5 pages)
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
+            }
+            
+            // Render page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="btn-pg ${i === currentPage ? 'active' : ''}" onclick="gotoPage('${type}', ${i})">${i}</button>`;
+            }
+            
+            // Next page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', ${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} title="Berikutnya">&rsaquo;</button>`;
+            
+            // Last page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', ${totalPages})" ${currentPage === totalPages ? 'disabled' : ''} title="Halaman Terakhir">&raquo;</button>`;
+            
+            container.innerHTML = html;
         }
         function paginateData(dataArray, type) {
             const limit = tableState[type].limit;
@@ -2982,7 +3070,7 @@
             if (tableState[type].page > totalPages) tableState[type].page = totalPages;
             if (tableState[type].page < 1) tableState[type].page = 1;
 
-            document.getElementById(`page-info-${type}`).innerText = `${tableState[type].page} / ${totalPages}`;
+            renderPaginationControls(type, totalPages);
 
             const start = (tableState[type].page - 1) * limit;
             return dataArray.slice(start, start + limit);
@@ -3310,7 +3398,7 @@
             const tbody = document.getElementById('db-body-todo'); tbody.innerHTML = "";
             if (!todoDB || todoDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada tugas yang tersimpan.</td></tr>`;
-                document.getElementById('page-info-todo').innerText = "1 / 1";
+                renderPaginationControls('todo', 1);
                 return;
             }
 
@@ -3372,7 +3460,7 @@
             const tbody = document.getElementById('db-body-links'); tbody.innerHTML = "";
             if (!linksDB || linksDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Belum ada link yang tersimpan.</td></tr>`;
-                document.getElementById('page-info-links').innerText = "1 / 1";
+                renderPaginationControls('links', 1);
                 return;
             }
 
@@ -3934,7 +4022,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
 
             if (!contentDB || contentDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada data evaluasi konten.</td></tr>`;
-                document.getElementById('page-info-content').innerText = "1 / 1";
+                renderPaginationControls('content', 1);
                 return;
             }
 
@@ -3948,7 +4036,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Data tidak ditemukan untuk filter ini.</td></tr>`;
-                document.getElementById('page-info-content').innerText = "1 / 1";
+                renderPaginationControls('content', 1);
                 return;
             }
 
@@ -4093,7 +4181,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (!contentMonthlyDB || contentMonthlyDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada data performa bulanan.</td></tr>`;
-                document.getElementById('page-info-conm').innerText = "1 / 1";
+                renderPaginationControls('conm', 1);
                 return;
             }
 
@@ -4102,7 +4190,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Data tidak ditemukan untuk filter ini.</td></tr>`;
-                document.getElementById('page-info-conm').innerText = "1 / 1";
+                renderPaginationControls('conm', 1);
                 return;
             }
 
@@ -4196,7 +4284,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (!kpiDB || kpiDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">Belum ada data evaluasi channel.</td></tr>`;
-                document.getElementById('page-info-kpi').innerText = "1 / 1";
+                renderPaginationControls('kpi', 1);
                 return;
             }
 
@@ -4209,7 +4297,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">Data tidak ditemukan untuk filter ini.</td></tr>`;
-                document.getElementById('page-info-kpi').innerText = "1 / 1";
+                renderPaginationControls('kpi', 1);
                 return;
             }
 
