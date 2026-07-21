@@ -20,5 +20,27 @@
     "int": 359,
     "er": "2.33",
     "status": "<span class=\"badge bg-blue\">Ideal</span>"
+  },
+  {
+    "month": "Juli",
+    "week": "1",
+    "evalDateRaw": "2026-07-07",
+    "period": "Weekly",
+    "platform": "TikTok",
+    "foll": 55317,
+    "int": 447,
+    "er": "0.81",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
+  },
+  {
+    "month": "Juli",
+    "week": "2",
+    "evalDateRaw": "2026-07-14",
+    "period": "Weekly",
+    "platform": "TikTok",
+    "foll": 55317,
+    "int": 365,
+    "er": "0.66",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
   }
 ]
