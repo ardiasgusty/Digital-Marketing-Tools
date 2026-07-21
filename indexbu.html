@@ -1281,13 +1281,16 @@ document.getElementById('main-sheet-frame').src = url;
 
 // ================= TO DO LIST LOGIC =================
 function saveTodoLocal() {
-const title = document.getElementById('todo-title').value;
+const title = document.getElementById('todo-title').value.trim();
 const platform = document.getElementById('todo-platform').value;
 const pilar = document.getElementById('todo-pilar').value;
 const date = document.getElementById('todo-date').value;
 const status = document.getElementById('todo-status').value;
 
-if(!title || !date) return alert("Harap lengkapi judul dan deadline tugas!");
+if(title === "" || date === "") {
+alert("⚠️ Mohon lengkapi semua data input form To Do List (Judul dan Deadline) terlebih dahulu!");
+return;
+}
 
 const newItem = { title, platform, pilar, date, status };
 
@@ -1748,25 +1751,29 @@ document.getElementById('audit-summary-box').style.display = 'block';
 // ================= UNIFIED CONTENT PERFORMANCE MONITOR =================
 async function evaluateCPMUnified() {
 try {
-const title = document.getElementById('mon-title').value || "Konten Tanpa Judul";
-const link = document.getElementById('mon-link').value || "#";
-const datePub = document.getElementById('mon-date').value || "Belum Set";
+const title = document.getElementById('mon-title').value.trim();
+const link = document.getElementById('mon-link').value.trim();
+const datePub = document.getElementById('mon-date').value;
 const evalDateRaw = document.getElementById('mon-eval-date').value;
-
-if(!evalDateRaw) { alert("Pilih Tanggal Evaluasi!"); return; }
-if(!datePub || datePub === "Belum Set") { alert("Pilih Tanggal Publish untuk menghitung Minggu Ke- !"); return; }
-
-const month = getMonthFromDate(evalDateRaw);
-const week = document.getElementById('mon-week').value || calculateWeek(datePub);
-
+const week = document.getElementById('mon-week').value.trim();
 const platform = document.getElementById('mon-platform').value;
 const category = document.getElementById('mon-category').value;
 const pilar = document.getElementById('mon-pilar').value;
+const follRaw = document.getElementById('mon-foll').value.trim();
+const reachRaw = document.getElementById('mon-reach').value.trim();
+const interaksiRaw = document.getElementById('mon-int').value.trim();
+const dmCountRaw = document.getElementById('mon-dm').value.trim();
 
-const foll = parseFloat(document.getElementById('mon-foll').value) || 1;
-const reach = parseFloat(document.getElementById('mon-reach').value) || 0;
-const interaksi = parseFloat(document.getElementById('mon-int').value) || 0;
-const dmCount = document.getElementById('mon-dm').value || "0";
+if (title === "" || link === "" || datePub === "" || evalDateRaw === "" || week === "" || follRaw === "" || reachRaw === "" || interaksiRaw === "" || dmCountRaw === "") {
+alert("⚠️ Mohon lengkapi semua data input form Content Performance Monitor (Weekly) terlebih dahulu!");
+return;
+}
+
+const month = getMonthFromDate(evalDateRaw);
+const foll = parseFloat(follRaw) || 1;
+const reach = parseFloat(reachRaw) || 0;
+const interaksi = parseFloat(interaksiRaw) || 0;
+const dmCount = dmCountRaw;
 
 // Targets
 const targetReachRate = parseFloat(document.getElementById('cpm-target-reach').value) || 15;
@@ -1926,15 +1933,23 @@ async function evaluateCPMMonthly() {
 try {
 const title = "Honda Bintaro"; 
 const platform = document.getElementById('conm-platform').value;
-const dateStart = document.getElementById('conm-date-start').value || "-";
-const dateEnd = document.getElementById('conm-date-end').value || "-";
-let month = document.getElementById('conm-month').value;
-if(dateEnd !== "-") month = getMonthFromDate(dateEnd);
+const dateStart = document.getElementById('conm-date-start').value;
+const dateEnd = document.getElementById('conm-date-end').value;
+const month = document.getElementById('conm-month').value;
+const follRaw = document.getElementById('conm-foll').value.trim();
+const postCountRaw = document.getElementById('conm-postcount').value.trim();
+const reachRaw = document.getElementById('conm-reach').value.trim();
+const interaksiRaw = document.getElementById('conm-int').value.trim();
 
-const foll = parseFloat(document.getElementById('conm-foll').value) || 1;
-const postCount = parseFloat(document.getElementById('conm-postcount').value) || 0;
-const reach = parseFloat(document.getElementById('conm-reach').value) || 0;
-const interaksi = parseFloat(document.getElementById('conm-int').value) || 0;
+if (dateStart === "" || dateEnd === "" || month === "" || follRaw === "" || postCountRaw === "" || reachRaw === "" || interaksiRaw === "") {
+alert("⚠️ Mohon lengkapi semua data input form Content Performance Monthly terlebih dahulu!");
+return;
+}
+
+const foll = parseFloat(follRaw) || 1;
+const postCount = parseFloat(postCountRaw) || 0;
+const reach = parseFloat(reachRaw) || 0;
+const interaksi = parseFloat(interaksiRaw) || 0;
 
 if(postCount <= 0) { alert("Isi Jumlah Post (30 Hari) terlebih dahulu, minimal 1!"); return; }
 
@@ -2074,15 +2089,20 @@ document.getElementById('kpi-week-group').style.display = period === 'Weekly' ? 
 function calculateKPILocal() {
 try {
 const evalDateRaw = document.getElementById('kpi-eval-date').value;
-if(!evalDateRaw) { alert("Pilih Tanggal Evaluasi!"); return; }
+const period = document.getElementById('kpi-period').value;
+const week = period === 'Weekly' ? document.getElementById('kpi-week').value.trim() : "-";
+const platform = document.getElementById('kpi-platform').value;
+const follRaw = document.getElementById('kpi-foll').value.trim();
+const intRaw = document.getElementById('kpi-int').value.trim();
+
+if (evalDateRaw === "" || follRaw === "" || intRaw === "" || (period === "Weekly" && week === "")) {
+alert("⚠️ Mohon lengkapi semua data input form Channel Evaluator terlebih dahulu!");
+return;
+}
 
 const month = getMonthFromDate(evalDateRaw);
-const period = document.getElementById('kpi-period').value;
-const week = period === 'Weekly' ? (document.getElementById('kpi-week').value || calculateWeek(evalDateRaw)) : "-";
-const platform = document.getElementById('kpi-platform').value;
-
-const foll = parseFloat(document.getElementById('kpi-foll').value)||1;
-const int = parseFloat(document.getElementById('kpi-int').value)||0;
+const foll = parseFloat(follRaw) || 1;
+const int = parseFloat(intRaw) || 0;
 const targetER = parseFloat(document.getElementById('kpi-target-er').value)||1.0;
 const targetERHigh = parseFloat(document.getElementById('kpi-target-er-high').value)||3.5;
 
@@ -2418,13 +2438,22 @@ container.innerHTML = `<div class="empty-state">Belum ada data Channel Evaluator
 return;
 }
 
-const sorted = [...filtered].sort((a,b) => (a.evalDateRaw||'').localeCompare(b.evalDateRaw||''));
-const avgER = filtered.reduce((s,i) => s + parseFloat(i.er||0), 0) / filtered.length;
-const lastFoll = sorted[sorted.length-1].foll;
-const totalInt = filtered.reduce((s,i) => s + (i.int||0), 0);
+const platformsToRender = fPlatform === "All"
+? Array.from(new Set(filtered.map(i => i.platform))).filter(Boolean).sort()
+: [fPlatform];
 
-let html = renderStatCards([
-{ val: filtered.length.toLocaleString('id-ID'), lbl: 'Total Evaluasi' },
+let html = "";
+platformsToRender.forEach(plat => {
+const platData = filtered.filter(i => i.platform === plat);
+if(platData.length === 0) return;
+
+const sorted = [...platData].sort((a,b) => (a.evalDateRaw||'').localeCompare(b.evalDateRaw||''));
+const avgER = platData.reduce((s,i) => s + parseFloat(i.er||0), 0) / platData.length;
+const lastFoll = sorted[sorted.length-1].foll;
+const totalInt = platData.reduce((s,i) => s + (i.int||0), 0);
+
+let platHtml = renderStatCards([
+{ val: platData.length.toLocaleString('id-ID'), lbl: 'Total Evaluasi' },
 { val: avgER.toLocaleString('id-ID', {minimumFractionDigits:1, maximumFractionDigits:2})+'%', lbl: 'Rata-rata ER' },
 { val: parseFloat(lastFoll).toLocaleString('id-ID'), lbl: 'Followers Terakhir' },
 { val: parseFloat(totalInt).toLocaleString('id-ID'), lbl: 'Total Interaksi Terkumpul' },
@@ -2434,22 +2463,30 @@ const weeklyData = sorted.filter(i => i.period === 'Weekly');
 const monthlyData = sorted.filter(i => i.period === 'Monthly');
 
 if(weeklyData.length > 0) {
-html += `<h3 style="margin-top: 30px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--primary);">📊 Data Mingguan (Weekly)</h3>`;
+platHtml += `<h4 style="margin-top: 20px; margin-bottom: 10px; color: var(--primary);">📊 Data Mingguan (Weekly)</h4>`;
 const erItemsW = weeklyData.map(i => ({ label: `${i.month} W${i.week}`, value: parseFloat(i.er), suffix: '%' }));
-html += `<div class="chart-box"><h4>📈 Tren Engagement Rate (Mingguan)</h4>${renderBarChart(erItemsW, (it) => it.value >= 3.5 ? 'var(--success)' : it.value >= 1 ? 'var(--info)' : 'var(--accent)')}</div>`;
+platHtml += `<div class="chart-box"><h4>📈 Tren Engagement Rate (Mingguan)</h4>${renderBarChart(erItemsW, (it) => it.value >= 3.5 ? 'var(--success)' : it.value >= 1 ? 'var(--info)' : 'var(--accent)')}</div>`;
 
 const follItemsW = weeklyData.map(i => ({ label: `${i.month} W${i.week}`, value: parseFloat(i.foll) }));
-html += `<div class="chart-box"><h4>👥 Pertumbuhan Followers (Mingguan)</h4>${renderBarChart(follItemsW, () => 'var(--primary)')}</div>`;
+platHtml += `<div class="chart-box"><h4>👥 Pertumbuhan Followers (Mingguan)</h4>${renderBarChart(follItemsW, () => 'var(--primary)')}</div>`;
 }
 
 if(monthlyData.length > 0) {
-html += `<h3 style="margin-top: 30px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--primary);">📅 Data Bulanan (Monthly)</h3>`;
+platHtml += `<h4 style="margin-top: 20px; margin-bottom: 10px; color: var(--primary);">📅 Data Bulanan (Monthly)</h4>`;
 const erItemsM = monthlyData.map(i => ({ label: `${i.month}`, value: parseFloat(i.er), suffix: '%' }));
-html += `<div class="chart-box"><h4>📈 Tren Engagement Rate (Bulanan)</h4>${renderBarChart(erItemsM, (it) => it.value >= 3.5 ? 'var(--success)' : it.value >= 1 ? 'var(--info)' : 'var(--accent)')}</div>`;
+platHtml += `<div class="chart-box"><h4>📈 Tren Engagement Rate (Bulanan)</h4>${renderBarChart(erItemsM, (it) => it.value >= 3.5 ? 'var(--success)' : it.value >= 1 ? 'var(--info)' : 'var(--accent)')}</div>`;
 
 const follItemsM = monthlyData.map(i => ({ label: `${i.month}`, value: parseFloat(i.foll) }));
-html += `<div class="chart-box"><h4>👥 Pertumbuhan Followers (Bulanan)</h4>${renderBarChart(follItemsM, () => 'var(--primary)')}</div>`;
+platHtml += `<div class="chart-box"><h4>👥 Pertumbuhan Followers (Bulanan)</h4>${renderBarChart(follItemsM, () => 'var(--primary)')}</div>`;
 }
+
+html += `<div class="platform-report-block" style="margin-bottom: 40px; border-bottom: 2px dashed var(--border); padding-bottom: 30px;">
+<h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-size: 18px;">
+<span>📱</span> Platform: ${plat}
+</h3>
+${platHtml}
+</div>`;
+});
 
 container.innerHTML = html;
 }
