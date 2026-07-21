@@ -1212,6 +1212,11 @@
                     <h3>E-Learning Hub</h3>
                     <p>Pusat modul pembelajaran dan materi training tim digital.</p>
                 </div>
+                <div class="tool-card" onclick="openTool('setting')">
+                    <div class="tool-icon" style="background: #eceff1; color: #607d8b;">⚙️</div>
+                    <h3>Pengaturan Global</h3>
+                    <p>Konfigurasi Token PAT GitHub, Username, dan API Key Gemini untuk seluruh menu.</p>
+                </div>
             </div>
 
             <div id="analytics-hub-section" class="tool-section"
@@ -1260,15 +1265,9 @@
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan GitHub Sync (To Do DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text"
                                     class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (To Do DB)</label>
                                 <div class="input-group">
@@ -1459,15 +1458,9 @@
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan GitHub Sync (Link DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text"
                                     class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Links DB)</label>
                                 <div class="input-group">
@@ -1530,11 +1523,7 @@
                 <div class="section-header">
                     <h2>✨ AI Caption & Brief Generator</h2>
                 </div>
-                <details class="config-accordion">
-                    <summary>🔑 Google Gemini API Configuration</summary>
-                    <div style="padding:10px;"><input type="password" class="form-control api-key-input"
-                            placeholder="Paste API Key Gemini di sini..." oninput="syncApiKey(this.value)"></div>
-                </details>
+
 
                 <div class="form-row">
                     <div class="form-group"><label>Tipe Output</label><select id="gen-type" class="form-control"
@@ -1803,15 +1792,9 @@
                             <p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah
                                 untuk melihat rekomendasi target yang otomatis berubah.</p>
                         </div>
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text"
                                     class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON Utama (.json)</label>
                                 <div class="input-group">
@@ -1823,9 +1806,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input
-                                type="password" class="form-control api-key-input"
-                                placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -1998,15 +1978,9 @@
                             <p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah
                                 untuk penyesuaian target otomatis.</p>
                         </div>
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text"
                                     class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON Monthly (.json)</label>
                                 <div class="input-group">
@@ -2018,9 +1992,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input
-                                type="password" class="form-control api-key-input"
-                                placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -2171,15 +2142,9 @@
                                         step="0.1"></div>
                             </div>
                         </div>
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
                             <div class="form-group"><label>Repository</label><input type="text"
                                     class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON KPI Mingguan/Bulanan (.json)</label>
                                 <div class="input-group">
@@ -2400,13 +2365,7 @@
                     <h2>💬 AI CARE Response Assistant</h2>
                 </div>
 
-                <details class="config-accordion">
-                    <summary>🔑 Google Gemini API Configuration</summary>
-                    <div style="padding:10px;">
-                        <input type="password" class="form-control api-key-input"
-                            placeholder="Paste API Key Gemini kamu di sini..." oninput="syncApiKey(this.value)">
-                    </div>
-                </details>
+
 
                 <div class="form-row">
                     <div class="form-group"><label>Sapaan Pelanggan</label><select id="care-salutation"
@@ -2512,21 +2471,11 @@
                 <details class="config-accordion" style="margin-bottom: 25px;">
                     <summary>⚙️ Pengaturan GitHub Sync (Blogger Products DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group">
-                            <label>Personal Access Token (PAT)</label>
-                            <input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')">
-                        </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label>Username / Owner</label>
-                                <input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')">
-                            </div>
                             <div class="form-group">
                                 <label>Repository</label>
                                 <input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Products DB)</label>
                                 <div class="input-group">
@@ -2579,21 +2528,11 @@
                 <details class="config-accordion" style="margin-bottom: 25px;">
                     <summary>⚙️ Pengaturan GitHub Sync (Pricelist DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group">
-                            <label>Personal Access Token (PAT)</label>
-                            <input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')">
-                        </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label>Username / Owner</label>
-                                <input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')">
-                            </div>
                             <div class="form-group">
                                 <label>Repository</label>
                                 <input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Pricelist DB)</label>
                                 <div class="input-group">
@@ -2648,21 +2587,11 @@
                 <details class="config-accordion" style="margin-bottom: 25px;">
                     <summary>⚙️ Pengaturan GitHub Sync (Features DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group">
-                            <label>Personal Access Token (PAT)</label>
-                            <input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')">
-                        </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label>Username / Owner</label>
-                                <input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')">
-                            </div>
                             <div class="form-group">
                                 <label>Repository</label>
                                 <input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Features DB)</label>
                                 <div class="input-group">
@@ -2715,21 +2644,11 @@
                 <details class="config-accordion" style="margin-bottom: 25px;">
                     <summary>⚙️ Pengaturan GitHub Sync (Banner DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group">
-                            <label>Personal Access Token (PAT)</label>
-                            <input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')">
-                        </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label>Username / Owner</label>
-                                <input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')">
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group" style="flex: 1;">
                                 <label>Repository</label>
                                 <input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 1.5;">
                                 <label>File Path JSON Utama (.json)</label>
                                 <div class="input-group">
@@ -2783,21 +2702,11 @@
                 <details class="config-accordion" style="margin-bottom: 25px;">
                     <summary>⚙️ Pengaturan GitHub Sync (Training DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group">
-                            <label>Personal Access Token (PAT)</label>
-                            <input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')">
-                        </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label>Username / Owner</label>
-                                <input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')">
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group" style="flex: 1;">
                                 <label>Repository</label>
                                 <input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group" style="flex: 1.5;">
                                 <label>File Path JSON Utama (.json)</label>
                                 <div class="input-group">
@@ -2845,6 +2754,43 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ================= SETTING SECTION ================= -->
+            <div id="setting-section" class="tool-section">
+                <div class="section-header">
+                    <h2>⚙️ Pengaturan Global (Settings)</h2>
+                    <p>Konfigurasi kredensial GitHub dan API Key Google Gemini untuk seluruh sistem.</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>GitHub Personal Access Token (PAT)</label>
+                        <input type="password" class="form-control gh-sync-token" placeholder="Masukkan GitHub PAT..." onchange="syncGHFields(this.value, 'token')">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>GitHub Username / Owner</label>
+                        <input type="text" class="form-control gh-sync-user" placeholder="Masukkan Username GitHub..." onchange="syncGHFields(this.value, 'user')">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Google Gemini API Key</label>
+                        <input type="password" class="form-control api-key-input" placeholder="Masukkan Gemini API Key..." oninput="syncApiKey(this.value)">
+                    </div>
+                </div>
+
+                <div style="background: var(--bg); padding: 15px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--info); margin-top: 20px;">
+                    <strong>ℹ️ Panduan Pengaturan:</strong>
+                    <p style="margin: 5px 0 0 0; line-height: 1.4; color: var(--text-muted);">
+                        Isi data di atas terlebih dahulu sebelum menggunakan menu lainnya. Kredensial ini digunakan untuk sinkronisasi data dengan GitHub dan fitur AI Content Generator. Pengaturan disimpan secara lokal di browser Anda.
+                    </p>
+                </div>
+            </div>
+            <!-- ================= END SETTING SECTION ================= -->
 
             <div id="elearning-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
@@ -3022,6 +2968,16 @@
         function syncGHFields(val, keyType) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             if (keyType) config[keyType] = val;
+
+            if (keyType === 'token' && val !== null) {
+                document.querySelectorAll('.gh-sync-token').forEach(el => { if (el.value !== val) el.value = val; });
+            }
+            if (keyType === 'user' && val !== null) {
+                document.querySelectorAll('.gh-sync-user').forEach(el => { if (el.value !== val) el.value = val; });
+            }
+            if (keyType === 'repo' && val !== null) {
+                document.querySelectorAll('.gh-sync-repo').forEach(el => { if (el.value !== val) el.value = val; });
+            }
 
             if (document.getElementById('gh-path-cpm')) document.getElementById('gh-path-cpm').value = config.pathContent || '';
             if (document.getElementById('gh-path-kpi')) document.getElementById('gh-path-kpi').value = config.pathKPI || '';
