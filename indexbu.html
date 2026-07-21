@@ -1102,7 +1102,38 @@
             color: var(--text-muted);
             font-size: 13px;
         }
+
+        /* BLOGGER EDITOR CSS */
+        .blogger-editor-wrap {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        @media (max-width: 992px) {
+            .blogger-editor-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+        .blogger-car-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .blogger-car-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
     </style>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 </head>
 
 <body>
@@ -2439,7 +2470,7 @@
                     eksternal untuk manipulasi konfigurasi digital secara terpisah.</p>
 
                 <div class="tools-grid">
-                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                    <div class="tool-card" onclick="openTool('blogger-editor')">
                         <div class="tool-icon" style="background: #ffeaa7; color: #d63031;">01</div>
                         <h3>Blogger Editor</h3>
                         <p>Update script postingan Blogger secara instan.</p>
@@ -2468,6 +2499,73 @@
                         <div class="tool-icon" style="background: #f1f2f6; color: #2d3436;">06</div>
                         <h3>System JSON</h3>
                         <p>Mengonfigurasi data dasar layout global dashboard ini.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blogger-editor-section" class="tool-section">
+                <div class="section-header">
+                    <h2>🛠️ Blogger Editor (Honda Products JSON)</h2>
+                    <p>Sunting dan simpan database mobil/produk secara visual langsung ke repositori GitHub.</p>
+                </div>
+
+                <details class="config-accordion" style="margin-bottom: 25px;">
+                    <summary>⚙️ Pengaturan GitHub Sync (Blogger Products DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-group">
+                            <label>Personal Access Token (PAT)</label>
+                            <input type="password" class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Username / Owner</label>
+                                <input type="text" class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')">
+                            </div>
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <input type="text" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON (Products DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-blogger" class="form-control gh-sync-path-blogger"
+                                        placeholder="Contoh: data/products.json"
+                                        onchange="syncGHFields(this.value, 'pathBlogger')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-blogger')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-github" onclick="fetchBloggerFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBloggerToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                        </div>
+                        <div id="github-status-blogger" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                    </div>
+                </details>
+
+                <div class="blogger-editor-wrap">
+                    <div class="editor-panel">
+                        <div style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
+                            <strong>💡 Info:</strong> Varian dipisahkan dengan baris baru (Enter). Untuk URL gambar, gunakan tautan langsung dari Blogger/GitHub CDN kamu.
+                        </div>
+                        
+                        <div id="blogger-cars-container"></div>
+                        
+                        <button class="btn btn-primary" onclick="addBloggerCar()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+                            + Tambah Mobil Baru
+                        </button>
+                    </div>
+
+                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Produk JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="blogger-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="copyBloggerJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBloggerJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2654,6 +2752,7 @@
             if (document.getElementById('gh-path-links')) document.getElementById('gh-path-links').value = config.pathLinks || '';
             if (document.getElementById('gh-path-cpmm')) document.getElementById('gh-path-cpmm').value = config.pathContentMonthly || '';
             if (document.getElementById('gh-path-todo')) document.getElementById('gh-path-todo').value = config.pathTodo || '';
+            if (document.getElementById('gh-path-blogger')) document.getElementById('gh-path-blogger').value = config.pathBlogger || '';
 
             localStorage.setItem('gh_config', JSON.stringify(config));
         }
@@ -2765,6 +2864,24 @@
                 document.getElementById(toolId + '-section').style.display = 'block';
                 if (toolId === 'report') { renderReportWeekly(); renderReportMonthly(); renderReportChannel(); }
             }
+
+            if (toolId === 'blogger-editor') {
+                if (bloggerUIData.length === 0) {
+                    const cached = localStorage.getItem('honda_blogger_db');
+                    if (cached) {
+                        try { bloggerUIData = JSON.parse(cached); } catch(e) {}
+                    }
+                    if (bloggerUIData.length === 0) {
+                        addBloggerCar();
+                    } else {
+                        renderBloggerEditor();
+                    }
+                    fetchBloggerFromGitHub();
+                } else {
+                    renderBloggerEditor();
+                }
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         function backAction() {
@@ -2774,6 +2891,8 @@
 
             if (['monitor-section', 'monitor-monthly-section', 'kpi-channel-section', 'report-section', 'distribution-section'].includes(currentId)) {
                 openTool('analytics-hub');
+            } else if (currentId === 'blogger-editor-section') {
+                openTool('jsoneditor');
             } else {
                 showHome();
             }
@@ -3045,6 +3164,7 @@
                             else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
                             else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
                             else if (currentGHTargetInput === 'gh-path-todo') pType = 'pathTodo';
+                            else if (currentGHTargetInput === 'gh-path-blogger') pType = 'pathBlogger';
 
                             syncGHFields(item.path, pType);
                             closeGHModal();
@@ -4006,6 +4126,335 @@ ${platHtml}
             });
 
             container.innerHTML = html;
+        }
+
+        // ================= 8. BLOGGER EDITOR LOGIC =================
+        let bloggerUIData = [];
+        let bloggerFileSha = "";
+
+        function renderBloggerEditor() {
+            // Destroy old CKEditor instances
+            for (let name in CKEDITOR.instances) {
+                if (name.startsWith('blogger-editor-')) {
+                    CKEDITOR.instances[name].destroy(true);
+                }
+            }
+
+            const container = document.getElementById('blogger-cars-container');
+            container.innerHTML = '';
+
+            bloggerUIData.forEach((car, index) => {
+                const card = document.createElement('div');
+                card.className = 'blogger-car-card';
+                
+                let cardTitle = car.name ? car.name : (car.carId ? car.carId.toUpperCase() : 'MOBIL BARU');
+
+                card.innerHTML = `
+                    <div class="blogger-car-header">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 15px; font-weight: bold;">${cardTitle}</h3>
+                        <button class="btn-sm bg-red" onclick="removeBloggerCar(${index})">Hapus Mobil</button>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ID Mobil / Slug (Tanpa spasi)</label>
+                            <input type="text" class="form-control" value="${car.carId || ''}" oninput="updateBloggerCar(${index}, 'carId', this.value)" placeholder="contoh: stepwgn, brio, civic">
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Lengkap Mobil</label>
+                            <input type="text" class="form-control" value="${car.name || ''}" oninput="updateBloggerCar(${index}, 'name', this.value)" placeholder="contoh: Honda Civic RS">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Harga Mulai Dari (Angka Saja)</label>
+                            <input type="number" class="form-control" value="${car.price || ''}" oninput="updateBloggerCar(${index}, 'price', this.value)" placeholder="contoh: 637800000">
+                        </div>
+                        <div class="form-group">
+                            <label>DP (Down Payment)</label>
+                            <input type="text" class="form-control" value="${car.dp || ''}" oninput="updateBloggerCar(${index}, 'dp', this.value)" placeholder="contoh: Rp. 20.000.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Angsuran</label>
+                            <input type="text" class="form-control" value="${car.angsuran || ''}" oninput="updateBloggerCar(${index}, 'angsuran', this.value)" placeholder="contoh: Rp. 4.500.000">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Seats (Kapasitas)</label>
+                            <input type="text" class="form-control" value="${car.seats || ''}" oninput="updateBloggerCar(${index}, 'seats', this.value)" placeholder="contoh: 7-Seater">
+                        </div>
+                        <div class="form-group">
+                            <label>Mesin (Engine)</label>
+                            <input type="text" class="form-control" value="${car.engine || ''}" oninput="updateBloggerCar(${index}, 'engine', this.value)" placeholder="contoh: 1.5L DOHC i-VTEC">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Varian Harga (Pisahkan dengan Enter)</label>
+                        <textarea class="form-control" oninput="updateBloggerCar(${index}, 'variants', this.value)" placeholder="1.5 E/MT OTR: Rp285.700.000&#10;1.5 RS/CVT OTR: Rp315.700.000">${car.variants || ''}</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>URL Gambar Thumbnail</label>
+                            <input type="text" class="form-control" value="${car.imgThumb || ''}" oninput="updateBloggerCar(${index}, 'imgThumb', this.value)" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>URL Gambar Full (Besar)</label>
+                            <input type="text" class="form-control" value="${car.imgFull || ''}" oninput="updateBloggerCar(${index}, 'imgFull', this.value)" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deskripsi Konten (Rich Text)</label>
+                        <textarea id="blogger-editor-${index}" class="form-control blogger-desc-editor">${car.description || ''}</textarea>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            initBloggerCKEditors();
+            updateBloggerOutput();
+        }
+
+        function initBloggerCKEditors() {
+            const textareas = document.querySelectorAll('.blogger-desc-editor');
+            textareas.forEach(ta => {
+                const editor = CKEDITOR.replace(ta.id, {
+                    allowedContent: true,
+                    height: 150,
+                    versionCheck: false,
+                    toolbar: [
+                        ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
+                        ['NumberedList', 'BulletedList'],
+                        ['Link', 'Unlink'],
+                        ['Source']
+                    ]
+                });
+
+                editor.on('change', function() {
+                    const idx = parseInt(ta.id.split('-')[2]);
+                    updateBloggerCar(idx, 'description', this.getData());
+                });
+            });
+        }
+
+        function addBloggerCar() {
+            bloggerUIData.push({ 
+                carId: "", name: "", price: "", variants: "", dp: "", angsuran: "", 
+                seats: "", engine: "", description: "", imgThumb: "", imgFull: "" 
+            });
+            renderBloggerEditor();
+        }
+
+        function removeBloggerCar(index) {
+            if(confirm('Yakin ingin menghapus data mobil ini?')) {
+                bloggerUIData.splice(index, 1);
+                renderBloggerEditor();
+            }
+        }
+
+        function updateBloggerCar(index, field, value) {
+            bloggerUIData[index][field] = value;
+            updateBloggerOutput();
+        }
+
+        function buildBloggerFinalJSON() {
+            let finalData = {};
+            bloggerUIData.forEach(car => {
+                if(!car.carId || car.carId.trim() === '') return;
+                
+                let variantArray = (car.variants || "").split('\n').map(v => v.trim()).filter(v => v !== '');
+
+                let carObj = {
+                    name: car.name || "",
+                    price: Number(car.price) || 0,
+                    variants: variantArray,
+                    dp: car.dp || "",
+                    angsuran: car.angsuran || "",
+                    seats: car.seats || "",
+                    engine: car.engine || ""
+                };
+
+                if (car.description && car.description.trim() !== '') {
+                    carObj.description = car.description.replace(/(\r\n|\n|\r)/gm, "");
+                }
+
+                if (car.imgThumb || car.imgFull) {
+                    carObj.images = [{
+                        thumb: car.imgThumb || "",
+                        full: car.imgFull || ""
+                    }];
+                }
+
+                finalData[car.carId] = carObj;
+            });
+            return finalData;
+        }
+
+        function updateBloggerOutput() {
+            const outputArea = document.getElementById('blogger-json-output');
+            const finalJSON = buildBloggerFinalJSON();
+            outputArea.value = JSON.stringify(finalJSON, null, 2);
+            localStorage.setItem('honda_blogger_db', JSON.stringify(bloggerUIData));
+        }
+
+        function loadBloggerJSON() {
+            const outputArea = document.getElementById('blogger-json-output');
+            try {
+                const parsed = JSON.parse(outputArea.value);
+                if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                    let newUiData = [];
+                    for (let key in parsed) {
+                        let car = parsed[key];
+                        newUiData.push({
+                            carId: key,
+                            name: car.name || "",
+                            price: car.price || "",
+                            variants: Array.isArray(car.variants) ? car.variants.join('\n') : "",
+                            dp: car.dp || "",
+                            angsuran: car.angsuran || "",
+                            seats: car.seats || "",
+                            engine: car.engine || "",
+                            description: car.description || "",
+                            imgThumb: (car.images && car.images.length > 0) ? car.images[0].thumb : "",
+                            imgFull: (car.images && car.images.length > 0) ? car.images[0].full : ""
+                        });
+                    }
+                    bloggerUIData = newUiData;
+                    renderBloggerEditor();
+                    alert('Data JSON berhasil di-load! Silakan mulai edit.');
+                } else {
+                    alert('Format JSON tidak valid! Pastikan formatnya adalah Object yang diawali dengan {');
+                }
+            } catch (e) {
+                alert('Gagal membaca JSON. Pastikan formatnya benar tanpa ada koma yang berlebih.');
+            }
+        }
+
+        function copyBloggerJSON() {
+            const outputArea = document.getElementById('blogger-json-output');
+            outputArea.select();
+            document.execCommand('copy');
+            alert('JSON berhasil di-copy!');
+        }
+
+        async function fetchBloggerFromGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathBlogger;
+
+            if (!token || !owner || !repo || !path) {
+                return; // Gracefully do nothing silently on tab load if config is empty
+            }
+
+            const statusEl = document.getElementById('github-status-blogger');
+            if (statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                if (!response.ok) throw new Error(`Gagal menarik data (${response.status}). Periksa Token/Path.`);
+
+                const data = await response.json();
+                bloggerFileSha = data.sha; 
+                
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                const parsed = JSON.parse(decodedContent);
+
+                if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                    let newUiData = [];
+                    for (let key in parsed) {
+                        let car = parsed[key];
+                        newUiData.push({
+                            carId: key,
+                            name: car.name || "",
+                            price: car.price || "",
+                            variants: Array.isArray(car.variants) ? car.variants.join('\n') : "",
+                            dp: car.dp || "",
+                            angsuran: car.angsuran || "",
+                            seats: car.seats || "",
+                            engine: car.engine || "",
+                            description: car.description || "",
+                            imgThumb: (car.images && car.images.length > 0) ? car.images[0].thumb : "",
+                            imgFull: (car.images && car.images.length > 0) ? car.images[0].full : ""
+                        });
+                    }
+                    bloggerUIData = newUiData;
+                    renderBloggerEditor();
+                    if (statusEl) {
+                        statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+                        setTimeout(() => statusEl.innerHTML = "", 5000);
+                    }
+                } else {
+                    throw new Error("Format JSON di GitHub tidak sesuai dengan skema Produk.");
+                }
+
+            } catch (error) {
+                console.error(error);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file / Kosong.</span>`;
+            }
+        }
+
+        async function saveBloggerToGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathBlogger;
+
+            if (!token || !owner || !repo || !path) {
+                alert('Harap isi semua konfigurasi GitHub Integration di panel pengaturan!');
+                return;
+            }
+
+            const statusEl = document.getElementById('github-status-blogger');
+            if (statusEl) statusEl.innerHTML = "<i>Menyimpan data... ⏳</i>";
+
+            const jsonContent = buildBloggerFinalJSON();
+            const stringContent = JSON.stringify(jsonContent, null, 2);
+            const encodedContent = btoa(unescape(encodeURIComponent(stringContent)));
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            if (!bloggerFileSha) {
+                try {
+                    const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                    if (checkRes.ok) bloggerFileSha = (await checkRes.json()).sha;
+                } catch (e) {}
+            }
+
+            const bodyData = { message: "⚡ Update Products Data via Blogger Editor", content: encodedContent };
+            if (bloggerFileSha) bodyData.sha = bloggerFileSha;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyData)
+                });
+
+                if (!response.ok) throw new Error(`Gagal menyimpan file.`);
+
+                bloggerFileSha = (await response.json()).content.sha; 
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan ke GitHub!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+                alert('🎉 Data produk berhasil disimpan/dikomit ke GitHub!');
+            } catch (error) {
+                alert(error.message);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menyimpan.</span>`;
+            }
         }
     </script>
 </body>
