@@ -532,7 +532,8 @@
 
         .table-responsive {
             width: 100%;
-            /*overflow-x: auto;*/
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--card-bg);
@@ -544,6 +545,7 @@
             border-collapse: collapse;
             font-size: 13px;
             background: var(--card-bg);
+            min-width: 800px;
         }
 
         .data-table th,
@@ -575,6 +577,65 @@
             padding: 10px;
             border-radius: 8px;
             border: 1px solid var(--border);
+        }
+
+        .pagination-nav {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .btn-pg {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 32px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .btn-pg:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-pg.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            font-weight: bold;
+        }
+
+        .btn-pg:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--bg);
+            color: var(--text-muted);
+            border-color: var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .pagination-controls {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+            .pagination-nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .btn-pg {
+                padding: 5px 10px;
+                font-size: 11px;
+                min-width: 28px;
+            }
         }
 
         .btn-sm {
@@ -1102,7 +1163,38 @@
             color: var(--text-muted);
             font-size: 13px;
         }
+
+        /* BLOGGER EDITOR CSS */
+        .blogger-editor-wrap {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        @media (max-width: 992px) {
+            .blogger-editor-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+        .blogger-car-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .blogger-car-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
     </style>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 </head>
 
 <body>
@@ -1141,6 +1233,11 @@
             <div id="btn-back" class="back-nav" onclick="backAction()">← Kembali</div>
 
             <div class="tools-grid" id="menu-grid">
+                <div class="tool-card" onclick="openTool('ads')">
+                    <div class="tool-icon" style="background: #ffeaa7; color: #e67e22;">📢</div>
+                    <h3>Ads Manager Dashboard</h3>
+                    <p>Akses cepat ke Meta Ads, Google Ads, dan TikTok Ads beserta halaman billing.</p>
+                </div>
                 <div class="tool-card" onclick="openTool('spreadsheet')">
                     <div class="tool-icon" style="background: #dfe6e9; color: #0984e3;">📊</div>
                     <h3>Database & Content Plan</h3>
@@ -1180,6 +1277,11 @@
                     <div class="tool-icon" style="background: #c8d6e5; color: #222f3e;">🎓</div>
                     <h3>E-Learning Hub</h3>
                     <p>Pusat modul pembelajaran dan materi training tim digital.</p>
+                </div>
+                <div class="tool-card" onclick="openTool('setting')">
+                    <div class="tool-icon" style="background: #eceff1; color: #607d8b;">⚙️</div>
+                    <h3>Pengaturan Global</h3>
+                    <p>Konfigurasi Token PAT GitHub, Username, dan API Key Gemini untuk seluruh menu.</p>
                 </div>
             </div>
 
@@ -1229,15 +1331,14 @@
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan GitHub Sync (To Do DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-                            <div class="form-group"><label>Repository</label><input type="text"
-                                    class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-todo" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-todo')">📂 Browse Repo</button>
+                                </div>
+                            </div>
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (To Do DB)</label>
                                 <div class="input-group">
@@ -1317,9 +1418,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('todo', -1)">⬅ Prev</button> <span
-                            id="page-info-todo" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('todo', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-todo" class="pagination-nav"></div>
                 </div>
             </div>
             <!-- ================= END TO DO LIST SECTION ================= -->
@@ -1389,6 +1488,62 @@
                 </div>
             </div>
 
+            <div id="ads-section" class="tool-section">
+                <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2>📢 Ads Manager Dashboard</h2>
+                    </div>
+                    <button class="btn btn-accent" style="width:auto; padding:8px 15px; margin-bottom:0;"
+                        onclick="toggleFullScreen('ads-wrap', 'btn-exit-ads-fs')">Layar Penuh ⛶</button>
+                </div>
+
+                <!-- Info Banner / Panduan Bypass Iframe -->
+                <div class="blogger-car-card" style="border-left: 4px solid var(--accent); padding: 15px; margin-bottom: 20px; background: var(--bg);">
+                    <h4 style="margin: 0 0 8px 0; color: var(--accent); display: flex; align-items: center; gap: 8px;">
+                        <span>💡</span> Petunjuk Penggunaan Dashboard Iklan
+                    </h4>
+                    <p style="font-size: 13px; margin: 0; line-height: 1.5; color: var(--text-main);">
+                        Halaman iklan ini diatur agar terbuka langsung di dalam dashboard. Jika tampilan di bawah muncul <b>kosong / blank</b>, hal tersebut dikarenakan kebijakan keamanan dari penyedia platform iklan (Google/Meta/TikTok).
+                    </p>
+                    <p style="font-size: 13px; margin: 8px 0 0 0; line-height: 1.5; color: var(--text-main);">
+                        <b>Solusi Terbaik:</b> Pasang ekstensi gratis di Google Chrome / Microsoft Edge seperti 
+                        <a href="https://chromewebstore.google.com/detail/ignore-x-frame-options/ammjpmhgckbejfgffomddpbhbggmelid" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: underline;">Ignore X-Frame-Options ↗</a> 
+                        lalu refresh halaman ini. Halaman iklan akan terbuka sempurna di bawah.
+                    </p>
+                </div>
+
+                <div class="sheet-tabs" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="tab-btn active"
+                            onclick="changeAdsTab(this, 'https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503')">Meta Ads</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://business.facebook.com/billing_hub/accounts/details/?business_id=1971446882930169&amp;asset_id=1085536315731503&amp;payment_account_id=1085536315731503&amp;placement=ads_manager&amp;entrypoint=ads_ecosystem_navigation_ads_billing_tool_plugin&amp;payment_account_id_from_jsmodule=1085536315731503')">Meta Billing</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.google.com/aw/overview?ocid=344233617&amp;euid=289823264&amp;__u=3523471136&amp;uscid=344233617&amp;__c=5261525833&amp;authuser=0')">Google Ads</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.google.com/aw/billing/summary?ocid=344233617&amp;euid=289823264&amp;__u=3523471136&amp;uscid=344233617&amp;__c=5261525833&amp;authuser=0&amp;subid=all-en-awhp-g-aw-c-home-signin-bgc!o2-s500g500%7Cib:6653296821%7Cib:9279461727%7Cib:7966379274%7C-ahpm-0000000179-0000000001')">Google Billing</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.tiktok.com/i18n/dashboard?aadvid=7194279338676682753&amp;isTTOauth=true&amp;is_from_login=1')">TikTok Ads</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.tiktok.com/i18n/account/payment?aadvid=7194279338676682753')">TikTok Billing</button>
+                    </div>
+                    
+                    <button class="btn btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; display: flex; align-items: center; gap: 5px;" onclick="openActiveAdsTabInNewTab()">
+                        <span>Buka di Tab Baru</span> ↗
+                    </button>
+                </div>
+
+                <div id="ads-wrap"
+                    style="width: 100%; height: 650px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:white; position:relative; margin-bottom:40px;">
+                    <button id="btn-exit-ads-fs" onclick="toggleFullScreen('ads-wrap', 'btn-exit-ads-fs')"
+                        style="display:none; position:absolute; top:10px; right:40px; z-index:10000; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Tutup
+                        Layar Penuh ✖</button>
+                    <iframe id="main-ads-frame"
+                        src="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503"
+                        style="width: 100%; height: 100%; border: none; background: white;"></iframe>
+                </div>
+            </div>
+
             <div id="spreadsheet-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
@@ -1428,15 +1583,14 @@
                 <details class="config-accordion">
                     <summary>🔗 Pengaturan GitHub Sync (Link DB)</summary>
                     <div style="padding:10px;">
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-                            <div class="form-group"><label>Repository</label><input type="text"
-                                    class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-links" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-links')">📂 Browse Repo</button>
+                                </div>
+                            </div>
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Links DB)</label>
                                 <div class="input-group">
@@ -1489,9 +1643,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('links', -1)">⬅ Prev</button> <span
-                            id="page-info-links" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('links', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-links" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -1499,11 +1651,7 @@
                 <div class="section-header">
                     <h2>✨ AI Caption & Brief Generator</h2>
                 </div>
-                <details class="config-accordion">
-                    <summary>🔑 Google Gemini API Configuration</summary>
-                    <div style="padding:10px;"><input type="password" class="form-control api-key-input"
-                            placeholder="Paste API Key Gemini di sini..." oninput="syncApiKey(this.value)"></div>
-                </details>
+
 
                 <div class="form-row">
                     <div class="form-group"><label>Tipe Output</label><select id="gen-type" class="form-control"
@@ -1772,15 +1920,14 @@
                             <p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah
                                 untuk melihat rekomendasi target yang otomatis berubah.</p>
                         </div>
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-                            <div class="form-group"><label>Repository</label><input type="text"
-                                    class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-cpm" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-cpm')">📂 Browse Repo</button>
+                                </div>
+                            </div>
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON Utama (.json)</label>
                                 <div class="input-group">
@@ -1792,9 +1939,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input
-                                type="password" class="form-control api-key-input"
-                                placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -1938,9 +2082,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('content', -1)">⬅ Prev</button> <span
-                            id="page-info-content" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('content', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-content" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -1967,15 +2109,14 @@
                             <p style="font-size:11px; color:var(--text-muted); margin:0;">*Pilih Platform Media di bawah
                                 untuk penyesuaian target otomatis.</p>
                         </div>
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-                            <div class="form-group"><label>Repository</label><input type="text"
-                                    class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-cpmm" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-cpmm')">📂 Browse Repo</button>
+                                </div>
+                            </div>
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON Monthly (.json)</label>
                                 <div class="input-group">
@@ -1987,9 +2128,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"><label>API Key Gemini (Untuk Generate WSN AI otomatis)</label><input
-                                type="password" class="form-control api-key-input"
-                                placeholder="Wajib diisi agar AI WSN menyala" oninput="syncApiKey(this.value)"></div>
                     </div>
                 </details>
 
@@ -2114,9 +2252,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('conm', -1)">⬅ Prev</button> <span
-                            id="page-info-conm" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('conm', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-conm" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -2140,15 +2276,14 @@
                                         step="0.1"></div>
                             </div>
                         </div>
-                        <div class="form-group"><label>Personal Access Token (PAT)</label><input type="password"
-                                class="form-control gh-sync-token" onchange="syncGHFields(this.value, 'token')"></div>
                         <div class="form-row">
-                            <div class="form-group"><label>Username / Owner</label><input type="text"
-                                    class="form-control gh-sync-user" onchange="syncGHFields(this.value, 'user')"></div>
-                            <div class="form-group"><label>Repository</label><input type="text"
-                                    class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')"></div>
-                        </div>
-                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-kpi" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-kpi')">📂 Browse Repo</button>
+                                </div>
+                            </div>
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON KPI Mingguan/Bulanan (.json)</label>
                                 <div class="input-group">
@@ -2263,9 +2398,7 @@
                             <option value="50">50</option>
                             <option value="99999">Semua</option>
                         </select></div>
-                    <div><button class="btn-sm bg-gray" onclick="changePage('kpi', -1)">⬅ Prev</button> <span
-                            id="page-info-kpi" style="margin:0 10px; font-weight:bold;">1 / 1</span> <button
-                            class="btn-sm bg-gray" onclick="changePage('kpi', 1)">Next ➡</button></div>
+                    <div id="pagination-nav-kpi" class="pagination-nav"></div>
                 </div>
             </div>
 
@@ -2369,13 +2502,7 @@
                     <h2>💬 AI CARE Response Assistant</h2>
                 </div>
 
-                <details class="config-accordion">
-                    <summary>🔑 Google Gemini API Configuration</summary>
-                    <div style="padding:10px;">
-                        <input type="password" class="form-control api-key-input"
-                            placeholder="Paste API Key Gemini kamu di sini..." oninput="syncApiKey(this.value)">
-                    </div>
-                </details>
+
 
                 <div class="form-row">
                     <div class="form-group"><label>Sapaan Pelanggan</label><select id="care-salutation"
@@ -2439,27 +2566,27 @@
                     eksternal untuk manipulasi konfigurasi digital secara terpisah.</p>
 
                 <div class="tools-grid">
-                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                    <div class="tool-card" onclick="openTool('blogger-editor')">
                         <div class="tool-icon" style="background: #ffeaa7; color: #d63031;">01</div>
                         <h3>Blogger Editor</h3>
                         <p>Update script postingan Blogger secara instan.</p>
                     </div>
-                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                    <div class="tool-card" onclick="openTool('pricelist-editor')">
                         <div class="tool-icon" style="background: #dff9fb; color: #22a6b3;">02</div>
                         <h3>Pricelist Editor</h3>
                         <p>Ubah skema simulasi kredit tanpa menyentuh source code.</p>
                     </div>
-                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                    <div class="tool-card" onclick="openTool('byd-editor')">
                         <div class="tool-icon" style="background: #e8dbff; color: #8e44ad;">03</div>
                         <h3>Build Your Dreams</h3>
                         <p>Konfigurator atau fitur kampanye marketing digital.</p>
                     </div>
-                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                    <div class="tool-card" onclick="openTool('banner-editor')">
                         <div class="tool-icon" style="background: #e8f4fd; color: #0984e3;">04</div>
                         <h3>Website Banner</h3>
                         <p>Mengubah susunan galeri banner homepage.</p>
                     </div>
-                    <div class="tool-card" onclick="window.open('#', '_blank')">
+                    <div class="tool-card" onclick="openTool('elearning-editor')">
                         <div class="tool-icon" style="background: #c8d6e5; color: #222f3e;">05</div>
                         <h3>E-Learning JSON</h3>
                         <p>Edit modul materi, video bimbingan, dan bank soal internal.</p>
@@ -2471,6 +2598,351 @@
                     </div>
                 </div>
             </div>
+
+            <div id="blogger-editor-section" class="tool-section">
+                <div class="section-header">
+                    <h2>🛠️ Blogger Editor (Honda Products JSON)</h2>
+                    <p>Sunting dan simpan database mobil/produk secara visual langsung ke repositori GitHub.</p>
+                </div>
+
+                <details class="config-accordion" style="margin-bottom: 25px;">
+                    <summary>⚙️ Pengaturan GitHub Sync (Blogger Products DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-blogger" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-blogger')">📂 Browse Repo</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON (Products DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-blogger" class="form-control gh-sync-path-blogger"
+                                        placeholder="Contoh: data/products.json"
+                                        onchange="syncGHFields(this.value, 'pathBlogger')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-blogger')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-github" onclick="fetchBloggerFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBloggerToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                        </div>
+                        <div id="github-status-blogger" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                    </div>
+                </details>
+
+                <div class="blogger-editor-wrap">
+                    <div class="editor-panel">
+                        <div style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
+                            <strong>💡 Info:</strong> Varian dipisahkan dengan baris baru (Enter). Untuk URL gambar, gunakan tautan langsung dari Blogger/GitHub CDN kamu.
+                        </div>
+                        
+                        <div id="blogger-cars-container"></div>
+                        
+                        <button class="btn btn-primary" onclick="addBloggerCar()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+                            + Tambah Mobil Baru
+                        </button>
+                    </div>
+
+                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Produk JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="blogger-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="copyBloggerJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBloggerJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pricelist-editor-section" class="tool-section">
+                <div class="section-header">
+                    <h2>🛠️ Pricelist Editor</h2>
+                    <p>Ubah skema simulasi kredit dan tipe/varian harga mobil secara visual langsung ke GitHub.</p>
+                </div>
+
+                <details class="config-accordion" style="margin-bottom: 25px;">
+                    <summary>⚙️ Pengaturan GitHub Sync (Pricelist DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-pricelist" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-pricelist')">📂 Browse Repo</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON (Pricelist DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-pricelist" class="form-control gh-sync-path-pricelist"
+                                        placeholder="Contoh: data/honda-pricelist.json"
+                                        onchange="syncGHFields(this.value, 'pathPricelist')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-pricelist')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-github" onclick="fetchPricelistFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="savePricelistToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                        </div>
+                        <div id="github-status-pricelist" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                    </div>
+                </details>
+
+                <div class="blogger-editor-wrap">
+                    <div class="editor-panel">
+                        <div style="font-size: 15px; font-weight: bold; margin-bottom: 15px; color: var(--primary);">1. Data Tabel Mobil (Models)</div>
+                        <div id="pricelist-models-container"></div>
+                        <button class="btn btn-primary" onclick="addPricelistModel()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+                            + Tambah Grup Model Mobil
+                        </button>
+
+                        <div style="font-size: 15px; font-weight: bold; margin-top: 30px; margin-bottom: 15px; color: var(--primary);">2. Syarat & Ketentuan (Notes)</div>
+                        <div id="pricelist-notes-container"></div>
+                        <button class="btn btn-secondary" onclick="addPricelistNote()" style="margin-top: 10px; width: 100%; padding: 10px; font-size: 14px; background: var(--bg); color: var(--text-main); border: 1px dashed var(--border);">
+                            + Tambah Keterangan / S&K Baru
+                        </button>
+                    </div>
+
+                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Pricelist JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="pricelist-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="copyPricelistJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadPricelistJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="byd-editor-section" class="tool-section">
+                <div class="section-header">
+                    <h2>🛠️ Build Your Dreams Editor (Features JSON)</h2>
+                    <p>Sunting data fitur detail mobil Honda secara visual dan simpan langsung ke repositori GitHub.</p>
+                </div>
+
+                <details class="config-accordion" style="margin-bottom: 25px;">
+                    <summary>⚙️ Pengaturan GitHub Sync (Features DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-byd" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-byd')">📂 Browse Repo</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON (Features DB)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-byd" class="form-control gh-sync-path-byd"
+                                        placeholder="Contoh: data/product_features/brio.json"
+                                        onchange="syncGHFields(this.value, 'pathByd')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-byd')">📂 Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-github" onclick="fetchBydFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBydToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                        </div>
+                        <div id="github-status-byd" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                    </div>
+                </details>
+
+                <div class="blogger-editor-wrap">
+                    <div class="editor-panel">
+                        <div style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
+                            <strong>💡 Info:</strong> Untuk memasukkan kode HTML Tabel Spesifikasi, klik tombol <strong>"Source"</strong> di ujung kanan kotak deskripsi CKEditor, lalu <i>paste</i> kodenya.
+                        </div>
+                        
+                        <div id="byd-categories-container"></div>
+                        
+                        <button class="btn btn-primary" onclick="addBydCategory()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+                            + Tambah Kategori Baru (Menu Utama)
+                        </button>
+                    </div>
+
+                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Features JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="byd-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="copyBydJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBydJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="banner-editor-section" class="tool-section">
+                <div class="section-header">
+                    <h2>🛠️ Website Banner Editor</h2>
+                    <p>Sunting susunan galeri banner desktop & mobile homepage Honda Bintaro.</p>
+                </div>
+
+                <details class="config-accordion" style="margin-bottom: 25px;">
+                    <summary>⚙️ Pengaturan GitHub Sync (Banner DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1.2;">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-banner" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-banner')">📂 Browse</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 1.5;">
+                                <label>File Path JSON Utama (.json)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-banner" class="form-control gh-sync-path-banner"
+                                        placeholder="Contoh: honda/data/banners.json"
+                                        onchange="syncGHFields(this.value, 'pathBanner')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-banner')">📂 Browse File</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 1.5;">
+                                <label>Folder Upload Gambar</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-banner-img" class="form-control gh-sync-path-banner-img"
+                                        placeholder="Contoh: honda/assets/images/banner"
+                                        onchange="syncGHFields(this.value, 'pathBannerImg')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('folder', 'gh-path-banner-img')">📂 Browse Folder</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-github" onclick="fetchBannerFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBannerToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                        </div>
+                        <div id="github-status-banner" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                    </div>
+                </details>
+
+                <div class="blogger-editor-wrap">
+                    <div class="editor-panel">
+                        <div id="banner-models-container"></div>
+                    </div>
+
+                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Banner JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="banner-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="copyBannerJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBannerJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="elearning-editor-section" class="tool-section">
+                <div class="section-header">
+                    <h2>🛠️ E-Learning Editor (Training JSON)</h2>
+                    <p>Sunting dan konfigurasikan program pembelajaran training secara visual lengkap dengan upload modul & speaker.</p>
+                </div>
+
+                <details class="config-accordion" style="margin-bottom: 25px;">
+                    <summary>⚙️ Pengaturan GitHub Sync (Training DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1.2;">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-elearning" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-elearning')">📂 Browse</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 1.5;">
+                                <label>File Path JSON Utama (.json)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-elearning" class="form-control gh-sync-path-elearning"
+                                        placeholder="Contoh: json/training.json"
+                                        onchange="syncGHFields(this.value, 'pathElearning')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-elearning')">📂 Browse File</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 1.5;">
+                                <label>Folder Upload Gambar</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-elearning-img" class="form-control gh-sync-path-elearning-img"
+                                        placeholder="Contoh: assets/images"
+                                        onchange="syncGHFields(this.value, 'pathElearningImg')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('folder', 'gh-path-elearning-img')">📂 Browse Folder</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-github" onclick="fetchElearningFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveElearningToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                        </div>
+                        <div id="github-status-elearning" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                    </div>
+                </details>
+
+                <div class="blogger-editor-wrap">
+                    <div class="editor-panel">
+                        <div id="elearning-wrapper">
+                            <div style="padding: 40px; text-align: center; color: var(--text-muted); border: 2px dashed var(--border); border-radius: 8px;">
+                                Tampilan Editor masih kosong.<br>Silakan <b>Tarik Data JSON</b> dari GitHub atau klik <b>Load Data</b> di kotak preview kanan.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                        <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Training JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="elearning-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="copyElearningJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadElearningJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SETTING SECTION ================= -->
+            <div id="setting-section" class="tool-section">
+                <div class="section-header">
+                    <h2>⚙️ Pengaturan Global (Settings)</h2>
+                    <p>Konfigurasi kredensial GitHub dan API Key Google Gemini untuk seluruh sistem.</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>GitHub Personal Access Token (PAT)</label>
+                        <input type="password" class="form-control gh-sync-token" placeholder="Masukkan GitHub PAT..." onchange="syncGHFields(this.value, 'token')">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>GitHub Username / Owner</label>
+                        <input type="text" class="form-control gh-sync-user" placeholder="Masukkan Username GitHub..." onchange="syncGHFields(this.value, 'user')">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Google Gemini API Key</label>
+                        <input type="password" class="form-control api-key-input" placeholder="Masukkan Gemini API Key..." oninput="syncApiKey(this.value)">
+                    </div>
+                </div>
+
+                <div style="background: var(--bg); padding: 15px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--info); margin-top: 20px;">
+                    <strong>ℹ️ Panduan Pengaturan:</strong>
+                    <p style="margin: 5px 0 0 0; line-height: 1.4; color: var(--text-muted);">
+                        Isi data di atas terlebih dahulu sebelum menggunakan menu lainnya. Kredensial ini digunakan untuk sinkronisasi data dengan GitHub dan fitur AI Content Generator. Pengaturan disimpan secara lokal di browser Anda.
+                    </p>
+                </div>
+            </div>
+            <!-- ================= END SETTING SECTION ================= -->
 
             <div id="elearning-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
@@ -2608,12 +3080,49 @@
             tableState[type].page += dir;
             renderTableRouter(type);
         }
+        function gotoPage(type, pageNum) {
+            tableState[type].page = pageNum;
+            renderTableRouter(type);
+        }
         function renderTableRouter(type) {
             if (type === 'content') renderContentDatabase();
             if (type === 'conm') renderContentMonthlyDatabase();
             if (type === 'kpi') renderKPIDatabase();
             if (type === 'todo') renderTodoDatabase();
             if (type === 'links') renderLinksDatabase();
+        }
+        function renderPaginationControls(type, totalPages) {
+            const container = document.getElementById(`pagination-nav-${type}`);
+            if (!container) return;
+            
+            const currentPage = tableState[type].page;
+            let html = "";
+            
+            // First page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', 1)" ${currentPage === 1 ? 'disabled' : ''} title="Halaman Pertama">&laquo;</button>`;
+            
+            // Prev page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} title="Sebelumnya">&lsaquo;</button>`;
+            
+            // Calculate page range to show (max 5 pages)
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
+            }
+            
+            // Render page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="btn-pg ${i === currentPage ? 'active' : ''}" onclick="gotoPage('${type}', ${i})">${i}</button>`;
+            }
+            
+            // Next page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', ${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} title="Berikutnya">&rsaquo;</button>`;
+            
+            // Last page button
+            html += `<button class="btn-pg" onclick="gotoPage('${type}', ${totalPages})" ${currentPage === totalPages ? 'disabled' : ''} title="Halaman Terakhir">&raquo;</button>`;
+            
+            container.innerHTML = html;
         }
         function paginateData(dataArray, type) {
             const limit = tableState[type].limit;
@@ -2622,7 +3131,7 @@
             if (tableState[type].page > totalPages) tableState[type].page = totalPages;
             if (tableState[type].page < 1) tableState[type].page = 1;
 
-            document.getElementById(`page-info-${type}`).innerText = `${tableState[type].page} / ${totalPages}`;
+            renderPaginationControls(type, totalPages);
 
             const start = (tableState[type].page - 1) * limit;
             return dataArray.slice(start, start + limit);
@@ -2649,11 +3158,28 @@
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             if (keyType) config[keyType] = val;
 
+            if (keyType === 'token' && val !== null) {
+                document.querySelectorAll('.gh-sync-token').forEach(el => { if (el.value !== val) el.value = val; });
+            }
+            if (keyType === 'user' && val !== null) {
+                document.querySelectorAll('.gh-sync-user').forEach(el => { if (el.value !== val) el.value = val; });
+            }
+            if (keyType === 'repo' && val !== null) {
+                document.querySelectorAll('.gh-sync-repo').forEach(el => { if (el.value !== val) el.value = val; });
+            }
+
             if (document.getElementById('gh-path-cpm')) document.getElementById('gh-path-cpm').value = config.pathContent || '';
             if (document.getElementById('gh-path-kpi')) document.getElementById('gh-path-kpi').value = config.pathKPI || '';
             if (document.getElementById('gh-path-links')) document.getElementById('gh-path-links').value = config.pathLinks || '';
             if (document.getElementById('gh-path-cpmm')) document.getElementById('gh-path-cpmm').value = config.pathContentMonthly || '';
             if (document.getElementById('gh-path-todo')) document.getElementById('gh-path-todo').value = config.pathTodo || '';
+            if (document.getElementById('gh-path-blogger')) document.getElementById('gh-path-blogger').value = config.pathBlogger || '';
+            if (document.getElementById('gh-path-pricelist')) document.getElementById('gh-path-pricelist').value = config.pathPricelist || '';
+            if (document.getElementById('gh-path-byd')) document.getElementById('gh-path-byd').value = config.pathByd || '';
+            if (document.getElementById('gh-path-banner')) document.getElementById('gh-path-banner').value = config.pathBanner || '';
+            if (document.getElementById('gh-path-banner-img')) document.getElementById('gh-path-banner-img').value = config.pathBannerImg || '';
+            if (document.getElementById('gh-path-elearning')) document.getElementById('gh-path-elearning').value = config.pathElearning || '';
+            if (document.getElementById('gh-path-elearning-img')) document.getElementById('gh-path-elearning-img').value = config.pathElearningImg || '';
 
             localStorage.setItem('gh_config', JSON.stringify(config));
         }
@@ -2765,6 +3291,95 @@
                 document.getElementById(toolId + '-section').style.display = 'block';
                 if (toolId === 'report') { renderReportWeekly(); renderReportMonthly(); renderReportChannel(); }
             }
+
+            if (toolId === 'blogger-editor') {
+                if (bloggerUIData.length === 0) {
+                    const cached = localStorage.getItem('honda_blogger_db');
+                    if (cached) {
+                        try { bloggerUIData = JSON.parse(cached); } catch(e) {}
+                    }
+                    if (bloggerUIData.length === 0) {
+                        addBloggerCar();
+                    } else {
+                        renderBloggerEditor();
+                    }
+                    fetchBloggerFromGitHub();
+                } else {
+                    renderBloggerEditor();
+                }
+            }
+
+            if (toolId === 'pricelist-editor') {
+                if (pricelistUIData.models.length === 0) {
+                    const cached = localStorage.getItem('honda_pricelist_db');
+                    if (cached) {
+                        try { pricelistUIData = JSON.parse(cached); } catch(e) {}
+                    }
+                    if (pricelistUIData.models.length === 0) {
+                        addPricelistModel();
+                    } else {
+                        renderPricelistEditor();
+                    }
+                    fetchPricelistFromGitHub();
+                } else {
+                    renderPricelistEditor();
+                }
+            }
+
+            if (toolId === 'byd-editor') {
+                if (bydUIData.length === 0) {
+                    const cached = localStorage.getItem('honda_byd_db');
+                    if (cached) {
+                        try { bydUIData = JSON.parse(cached); } catch(e) {}
+                    }
+                    if (bydUIData.length === 0) {
+                        addBydCategory();
+                    } else {
+                        renderBydEditor();
+                    }
+                    fetchBydFromGitHub();
+                } else {
+                    renderBydEditor();
+                }
+            }
+
+            if (toolId === 'banner-editor') {
+                if (bannerUIData.models[0].items.length === 0 && bannerUIData.models[1].items.length === 0) {
+                    const cached = localStorage.getItem('honda_banner_db');
+                    if (cached) {
+                        try { bannerUIData = JSON.parse(cached); } catch(e) {}
+                    }
+                    renderBannerEditor();
+                    fetchBannerFromGitHub();
+                } else {
+                    renderBannerEditor();
+                }
+            }
+
+            if (toolId === 'elearning-editor') {
+                if (!elearningUIData) {
+                    const cached = localStorage.getItem('honda_elearning_db');
+                    if (cached) {
+                        try { elearningUIData = JSON.parse(cached); } catch(e) {}
+                    }
+                    renderElearningEditor();
+                    fetchElearningFromGitHub();
+                } else {
+                    renderElearningEditor();
+                }
+            }
+
+            if (toolId === 'ads') {
+                const defaultUrl = 'https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503';
+                document.getElementById('main-ads-frame').src = defaultUrl;
+                currentAdsUrl = defaultUrl;
+                const tabs = document.querySelectorAll('#ads-section .tab-btn');
+                tabs.forEach((tab, idx) => {
+                    if (idx === 0) tab.classList.add('active');
+                    else tab.classList.remove('active');
+                });
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         function backAction() {
@@ -2774,6 +3389,8 @@
 
             if (['monitor-section', 'monitor-monthly-section', 'kpi-channel-section', 'report-section', 'distribution-section'].includes(currentId)) {
                 openTool('analytics-hub');
+            } else if (['blogger-editor-section', 'pricelist-editor-section', 'byd-editor-section', 'banner-editor-section', 'elearning-editor-section'].includes(currentId)) {
+                openTool('jsoneditor');
             } else {
                 showHome();
             }
@@ -2793,6 +3410,17 @@
         function changeSheet(btn, url) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
             document.getElementById('main-sheet-frame').src = url;
+        }
+
+        let currentAdsUrl = "https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503";
+        function changeAdsTab(btn, url) {
+            document.querySelectorAll('#ads-section .tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentAdsUrl = url;
+            document.getElementById('main-ads-frame').src = url;
+        }
+        function openActiveAdsTabInNewTab() {
+            window.open(currentAdsUrl, '_blank');
         }
 
         // ================= TO DO LIST LOGIC =================
@@ -2853,7 +3481,7 @@
             const tbody = document.getElementById('db-body-todo'); tbody.innerHTML = "";
             if (!todoDB || todoDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada tugas yang tersimpan.</td></tr>`;
-                document.getElementById('page-info-todo').innerText = "1 / 1";
+                renderPaginationControls('todo', 1);
                 return;
             }
 
@@ -2915,7 +3543,7 @@
             const tbody = document.getElementById('db-body-links'); tbody.innerHTML = "";
             if (!linksDB || linksDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Belum ada link yang tersimpan.</td></tr>`;
-                document.getElementById('page-info-links').innerText = "1 / 1";
+                renderPaginationControls('links', 1);
                 return;
             }
 
@@ -3019,9 +3647,17 @@
         function openGHModal(mode, inputId) {
             currentGHMode = mode; currentGHTargetInput = inputId; currentGHPath = "";
             document.getElementById('gh-modal').style.display = 'flex';
-            document.getElementById('gh-modal-title').innerText = mode === 'file' ? 'Pilih File JSON' : 'Pilih Folder Gambar';
-            document.getElementById('gh-btn-select-folder').style.display = mode === 'folder' ? 'block' : 'none';
-            renderGHModalContents();
+            if (mode === 'repo') {
+                document.getElementById('gh-modal-title').innerText = 'Pilih Repository GitHub';
+                document.getElementById('gh-btn-select-folder').style.display = 'none';
+                document.getElementById('gh-modal-up').style.display = 'none';
+                document.getElementById('gh-modal-path').innerText = 'Daftar Repository';
+                renderGHReposList();
+            } else {
+                document.getElementById('gh-modal-title').innerText = mode === 'file' ? 'Pilih File JSON' : 'Pilih Folder Gambar';
+                document.getElementById('gh-btn-select-folder').style.display = mode === 'folder' ? 'block' : 'none';
+                renderGHModalContents();
+            }
         }
         function closeGHModal() { document.getElementById('gh-modal').style.display = 'none'; }
         async function renderGHModalContents() {
@@ -3045,6 +3681,11 @@
                             else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
                             else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
                             else if (currentGHTargetInput === 'gh-path-todo') pType = 'pathTodo';
+                            else if (currentGHTargetInput === 'gh-path-blogger') pType = 'pathBlogger';
+                            else if (currentGHTargetInput === 'gh-path-pricelist') pType = 'pathPricelist';
+                            else if (currentGHTargetInput === 'gh-path-byd') pType = 'pathByd';
+                            else if (currentGHTargetInput === 'gh-path-banner') pType = 'pathBanner';
+                            else if (currentGHTargetInput === 'gh-path-elearning') pType = 'pathElearning';
 
                             syncGHFields(item.path, pType);
                             closeGHModal();
@@ -3055,7 +3696,64 @@
             } catch (e) { listEl.innerHTML = `<div style="padding:20px; color:red; text-align:center;">Gagal memuat.</div>`; }
         }
         function navigateGHUp() { let parts = currentGHPath.split('/'); parts.pop(); currentGHPath = parts.join('/'); renderGHModalContents(); }
-        function selectGHFolder() { document.getElementById(currentGHTargetInput).value = currentGHPath; syncGHFields(currentGHPath, 'pathImg'); closeGHModal(); }
+        function selectGHFolder() {
+            document.getElementById(currentGHTargetInput).value = currentGHPath;
+            let pType = 'pathImg';
+            if (currentGHTargetInput === 'gh-path-banner-img') pType = 'pathBannerImg';
+            else if (currentGHTargetInput === 'gh-path-elearning-img') pType = 'pathElearningImg';
+            
+            syncGHFields(currentGHPath, pType);
+            closeGHModal();
+        }
+
+        async function fetchGHRepos() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            if (!config.token) throw new Error("Token GitHub (PAT) kosong. Silakan isi di menu Setting terlebih dahulu.");
+            const res = await fetch(`https://api.github.com/user/repos?per_page=100&sort=updated`, {
+                headers: { "Authorization": `token ${config.token}`, "Accept": "application/vnd.github.v3+json" }
+            });
+            if (!res.ok) {
+                if (config.user) {
+                    const fallbackRes = await fetch(`https://api.github.com/users/${config.user}/repos?per_page=100&sort=updated`, {
+                        headers: { "Authorization": `token ${config.token}`, "Accept": "application/vnd.github.v3+json" }
+                    });
+                    if (!fallbackRes.ok) throw new Error(`Gagal mengambil repository (${fallbackRes.status}).`);
+                    return await fallbackRes.json();
+                }
+                throw new Error(`Gagal mengambil repository (${res.status}).`);
+            }
+            return await res.json();
+        }
+
+        async function renderGHReposList() {
+            const listEl = document.getElementById('gh-modal-list');
+            listEl.innerHTML = `<div style="padding:20px; text-align:center;">Memuat repository... ⏳</div>`;
+            try {
+                const repos = await fetchGHRepos();
+                listEl.innerHTML = "";
+                if (repos.length === 0) {
+                    listEl.innerHTML = `<div style="padding:20px; text-align:center; color:var(--text-muted);">Tidak ada repository ditemukan.</div>`;
+                    return;
+                }
+                repos.forEach(repo => {
+                    const div = document.createElement('div');
+                    div.className = 'gh-list-item';
+                    const isPrivate = repo.private ? '🔒' : '🌐';
+                    div.innerHTML = `<span class="gh-icon">📦</span> <span>${repo.name}</span> <small style="margin-left:auto; color:var(--text-muted);">${isPrivate} ${repo.owner.login}</small>`;
+                    div.onclick = () => {
+                        const inputEl = document.getElementById(currentGHTargetInput);
+                        if (inputEl) {
+                            inputEl.value = repo.name;
+                            syncGHFields(repo.name, 'repo');
+                        }
+                        closeGHModal();
+                    };
+                    listEl.appendChild(div);
+                });
+            } catch (e) {
+                listEl.innerHTML = `<div style="padding:20px; color:red; text-align:center; font-weight:bold;">Gagal memuat. <br><span style="font-size:12px; font-weight:normal;">${e.message}</span></div>`;
+            }
+        }
 
 
         // ================= CONTENT DISTRIBUTION PLANNER =================
@@ -3407,7 +4105,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
 
             if (!contentDB || contentDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada data evaluasi konten.</td></tr>`;
-                document.getElementById('page-info-content').innerText = "1 / 1";
+                renderPaginationControls('content', 1);
                 return;
             }
 
@@ -3421,7 +4119,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Data tidak ditemukan untuk filter ini.</td></tr>`;
-                document.getElementById('page-info-content').innerText = "1 / 1";
+                renderPaginationControls('content', 1);
                 return;
             }
 
@@ -3566,7 +4264,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (!contentMonthlyDB || contentMonthlyDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Belum ada data performa bulanan.</td></tr>`;
-                document.getElementById('page-info-conm').innerText = "1 / 1";
+                renderPaginationControls('conm', 1);
                 return;
             }
 
@@ -3575,7 +4273,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Data tidak ditemukan untuk filter ini.</td></tr>`;
-                document.getElementById('page-info-conm').innerText = "1 / 1";
+                renderPaginationControls('conm', 1);
                 return;
             }
 
@@ -3669,7 +4367,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (!kpiDB || kpiDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">Belum ada data evaluasi channel.</td></tr>`;
-                document.getElementById('page-info-kpi').innerText = "1 / 1";
+                renderPaginationControls('kpi', 1);
                 return;
             }
 
@@ -3682,7 +4380,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">Data tidak ditemukan untuk filter ini.</td></tr>`;
-                document.getElementById('page-info-kpi').innerText = "1 / 1";
+                renderPaginationControls('kpi', 1);
                 return;
             }
 
@@ -4006,6 +4704,1705 @@ ${platHtml}
             });
 
             container.innerHTML = html;
+        }
+
+        // ================= 8. BLOGGER EDITOR LOGIC =================
+        let bloggerUIData = [];
+        let bloggerFileSha = "";
+
+        function renderBloggerEditor() {
+            // Destroy old CKEditor instances
+            for (let name in CKEDITOR.instances) {
+                if (name.startsWith('blogger-editor-')) {
+                    CKEDITOR.instances[name].destroy(true);
+                }
+            }
+
+            const container = document.getElementById('blogger-cars-container');
+            container.innerHTML = '';
+
+            bloggerUIData.forEach((car, index) => {
+                const card = document.createElement('div');
+                card.className = 'blogger-car-card';
+                
+                let cardTitle = car.name ? car.name : (car.carId ? car.carId.toUpperCase() : 'MOBIL BARU');
+
+                card.innerHTML = `
+                    <div class="blogger-car-header">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 15px; font-weight: bold;">${cardTitle}</h3>
+                        <button class="btn-sm bg-red" onclick="removeBloggerCar(${index})">Hapus Mobil</button>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ID Mobil / Slug (Tanpa spasi)</label>
+                            <input type="text" class="form-control" value="${car.carId || ''}" oninput="updateBloggerCar(${index}, 'carId', this.value)" placeholder="contoh: stepwgn, brio, civic">
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Lengkap Mobil</label>
+                            <input type="text" class="form-control" value="${car.name || ''}" oninput="updateBloggerCar(${index}, 'name', this.value)" placeholder="contoh: Honda Civic RS">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Harga Mulai Dari (Angka Saja)</label>
+                            <input type="number" class="form-control" value="${car.price || ''}" oninput="updateBloggerCar(${index}, 'price', this.value)" placeholder="contoh: 637800000">
+                        </div>
+                        <div class="form-group">
+                            <label>DP (Down Payment)</label>
+                            <input type="text" class="form-control" value="${car.dp || ''}" oninput="updateBloggerCar(${index}, 'dp', this.value)" placeholder="contoh: Rp. 20.000.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Angsuran</label>
+                            <input type="text" class="form-control" value="${car.angsuran || ''}" oninput="updateBloggerCar(${index}, 'angsuran', this.value)" placeholder="contoh: Rp. 4.500.000">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Seats (Kapasitas)</label>
+                            <input type="text" class="form-control" value="${car.seats || ''}" oninput="updateBloggerCar(${index}, 'seats', this.value)" placeholder="contoh: 7-Seater">
+                        </div>
+                        <div class="form-group">
+                            <label>Mesin (Engine)</label>
+                            <input type="text" class="form-control" value="${car.engine || ''}" oninput="updateBloggerCar(${index}, 'engine', this.value)" placeholder="contoh: 1.5L DOHC i-VTEC">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Varian Harga (Pisahkan dengan Enter)</label>
+                        <textarea class="form-control" oninput="updateBloggerCar(${index}, 'variants', this.value)" placeholder="1.5 E/MT OTR: Rp285.700.000&#10;1.5 RS/CVT OTR: Rp315.700.000">${car.variants || ''}</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>URL Gambar Thumbnail</label>
+                            <input type="text" class="form-control" value="${car.imgThumb || ''}" oninput="updateBloggerCar(${index}, 'imgThumb', this.value)" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>URL Gambar Full (Besar)</label>
+                            <input type="text" class="form-control" value="${car.imgFull || ''}" oninput="updateBloggerCar(${index}, 'imgFull', this.value)" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deskripsi Konten (Rich Text)</label>
+                        <textarea id="blogger-editor-${index}" class="form-control blogger-desc-editor">${car.description || ''}</textarea>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            initBloggerCKEditors();
+            updateBloggerOutput();
+        }
+
+        function initBloggerCKEditors() {
+            const textareas = document.querySelectorAll('.blogger-desc-editor');
+            textareas.forEach(ta => {
+                const editor = CKEDITOR.replace(ta.id, {
+                    allowedContent: true,
+                    height: 150,
+                    versionCheck: false,
+                    toolbar: [
+                        ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
+                        ['NumberedList', 'BulletedList'],
+                        ['Link', 'Unlink'],
+                        ['Source']
+                    ]
+                });
+
+                editor.on('change', function() {
+                    const idx = parseInt(ta.id.split('-')[2]);
+                    updateBloggerCar(idx, 'description', this.getData());
+                });
+            });
+        }
+
+        function addBloggerCar() {
+            bloggerUIData.push({ 
+                carId: "", name: "", price: "", variants: "", dp: "", angsuran: "", 
+                seats: "", engine: "", description: "", imgThumb: "", imgFull: "" 
+            });
+            renderBloggerEditor();
+        }
+
+        function removeBloggerCar(index) {
+            if(confirm('Yakin ingin menghapus data mobil ini?')) {
+                bloggerUIData.splice(index, 1);
+                renderBloggerEditor();
+            }
+        }
+
+        function updateBloggerCar(index, field, value) {
+            bloggerUIData[index][field] = value;
+            updateBloggerOutput();
+        }
+
+        function buildBloggerFinalJSON() {
+            let finalData = {};
+            bloggerUIData.forEach(car => {
+                if(!car.carId || car.carId.trim() === '') return;
+                
+                let variantArray = (car.variants || "").split('\n').map(v => v.trim()).filter(v => v !== '');
+
+                let carObj = {
+                    name: car.name || "",
+                    price: Number(car.price) || 0,
+                    variants: variantArray,
+                    dp: car.dp || "",
+                    angsuran: car.angsuran || "",
+                    seats: car.seats || "",
+                    engine: car.engine || ""
+                };
+
+                if (car.description && car.description.trim() !== '') {
+                    carObj.description = car.description.replace(/(\r\n|\n|\r)/gm, "");
+                }
+
+                if (car.imgThumb || car.imgFull) {
+                    carObj.images = [{
+                        thumb: car.imgThumb || "",
+                        full: car.imgFull || ""
+                    }];
+                }
+
+                finalData[car.carId] = carObj;
+            });
+            return finalData;
+        }
+
+        function updateBloggerOutput() {
+            const outputArea = document.getElementById('blogger-json-output');
+            const finalJSON = buildBloggerFinalJSON();
+            outputArea.value = JSON.stringify(finalJSON, null, 2);
+            localStorage.setItem('honda_blogger_db', JSON.stringify(bloggerUIData));
+        }
+
+        function loadBloggerJSON() {
+            const outputArea = document.getElementById('blogger-json-output');
+            try {
+                const parsed = JSON.parse(outputArea.value);
+                if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                    let newUiData = [];
+                    for (let key in parsed) {
+                        let car = parsed[key];
+                        newUiData.push({
+                            carId: key,
+                            name: car.name || "",
+                            price: car.price || "",
+                            variants: Array.isArray(car.variants) ? car.variants.join('\n') : "",
+                            dp: car.dp || "",
+                            angsuran: car.angsuran || "",
+                            seats: car.seats || "",
+                            engine: car.engine || "",
+                            description: car.description || "",
+                            imgThumb: (car.images && car.images.length > 0) ? car.images[0].thumb : "",
+                            imgFull: (car.images && car.images.length > 0) ? car.images[0].full : ""
+                        });
+                    }
+                    bloggerUIData = newUiData;
+                    renderBloggerEditor();
+                    alert('Data JSON berhasil di-load! Silakan mulai edit.');
+                } else {
+                    alert('Format JSON tidak valid! Pastikan formatnya adalah Object yang diawali dengan {');
+                }
+            } catch (e) {
+                alert('Gagal membaca JSON. Pastikan formatnya benar tanpa ada koma yang berlebih.');
+            }
+        }
+
+        function copyBloggerJSON() {
+            const outputArea = document.getElementById('blogger-json-output');
+            outputArea.select();
+            document.execCommand('copy');
+            alert('JSON berhasil di-copy!');
+        }
+
+        async function fetchBloggerFromGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathBlogger;
+
+            if (!token || !owner || !repo || !path) {
+                return; // Gracefully do nothing silently on tab load if config is empty
+            }
+
+            const statusEl = document.getElementById('github-status-blogger');
+            if (statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                if (!response.ok) throw new Error(`Gagal menarik data (${response.status}). Periksa Token/Path.`);
+
+                const data = await response.json();
+                bloggerFileSha = data.sha; 
+                
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                const parsed = JSON.parse(decodedContent);
+
+                if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                    let newUiData = [];
+                    for (let key in parsed) {
+                        let car = parsed[key];
+                        newUiData.push({
+                            carId: key,
+                            name: car.name || "",
+                            price: car.price || "",
+                            variants: Array.isArray(car.variants) ? car.variants.join('\n') : "",
+                            dp: car.dp || "",
+                            angsuran: car.angsuran || "",
+                            seats: car.seats || "",
+                            engine: car.engine || "",
+                            description: car.description || "",
+                            imgThumb: (car.images && car.images.length > 0) ? car.images[0].thumb : "",
+                            imgFull: (car.images && car.images.length > 0) ? car.images[0].full : ""
+                        });
+                    }
+                    bloggerUIData = newUiData;
+                    renderBloggerEditor();
+                    if (statusEl) {
+                        statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+                        setTimeout(() => statusEl.innerHTML = "", 5000);
+                    }
+                } else {
+                    throw new Error("Format JSON di GitHub tidak sesuai dengan skema Produk.");
+                }
+
+            } catch (error) {
+                console.error(error);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file / Kosong.</span>`;
+            }
+        }
+
+        // ================= 9. PRICELIST EDITOR LOGIC =================
+        let pricelistUIData = { models: [], notes: [] };
+        let pricelistFileSha = "";
+
+        function renderPricelistEditor() {
+            const container = document.getElementById('pricelist-models-container');
+            container.innerHTML = '';
+
+            pricelistUIData.models.forEach((modelGroup, mIndex) => {
+                const card = document.createElement('div');
+                card.className = 'blogger-car-card';
+                card.innerHTML = `
+                    <div class="blogger-car-header">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 15px; font-weight: bold;">Model: ${modelGroup.label || 'Nama Mobil Baru'}</h3>
+                        <button class="btn-sm bg-red" onclick="removePricelistModel(${mIndex})">Hapus Model</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Model (Otomatis bold & merge)</label>
+                            <input type="text" class="form-control" value="${modelGroup.label || ''}" oninput="updatePricelistModel(${mIndex}, 'label', this.value)" placeholder="Contoh: New Honda BRIO SATYA">
+                        </div>
+                        <div class="form-group">
+                            <label>ID / Slug (Otomatis)</label>
+                            <input type="text" class="form-control" value="${modelGroup.id || ''}" oninput="updatePricelistModel(${mIndex}, 'id', this.value)" placeholder="contoh: brio-satya">
+                        </div>
+                    </div>
+                    <div id="pricelist-items-container-${mIndex}"></div>
+                    <button class="btn btn-secondary" onclick="addPricelistModelItem(${mIndex})" style="margin-top: 10px; width: 100%; font-size: 12px; background: var(--bg); color: var(--text-main); border: 1px dashed var(--border);">+ Tambah Varian / Tipe</button>
+                `;
+                container.appendChild(card);
+
+                const itemsContainer = document.getElementById(`pricelist-items-container-${mIndex}`);
+                if (modelGroup.items) {
+                    modelGroup.items.forEach((item, iIndex) => {
+                        const itemCard = document.createElement('div');
+                        itemCard.className = 'blogger-car-card';
+                        itemCard.style.borderLeft = '4px solid var(--accent)';
+                        itemCard.style.padding = '12px';
+                        itemCard.style.marginLeft = '20px';
+                        itemCard.style.marginTop = '10px';
+                        itemCard.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <strong style="color:var(--primary); font-size:13px;">Varian ${iIndex + 1}</strong>
+                                <button class="btn-sm bg-red" onclick="removePricelistModelItem(${mIndex}, ${iIndex})" style="padding: 2px 6px; font-size: 11px;">Hapus</button>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group" style="flex: 2;">
+                                    <label>TIPE</label>
+                                    <input type="text" class="form-control" value="${item.tipe || ''}" oninput="updatePricelistModelItem(${mIndex}, ${iIndex}, 'tipe', this.value)" placeholder="Contoh: E SE">
+                                </div>
+                                <div class="form-group">
+                                    <label>TRANS</label>
+                                    <input type="text" class="form-control" value="${item.trans || ''}" oninput="updatePricelistModelItem(${mIndex}, ${iIndex}, 'trans', this.value)" placeholder="Contoh: CVT">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>HARGA OTR</label>
+                                    <input type="text" class="form-control" value="${item.harga || ''}" oninput="updatePricelistModelItem(${mIndex}, ${iIndex}, 'harga', this.value)" placeholder="Rp183,500,000">
+                                </div>
+                                <div class="form-group">
+                                    <label>PAKET PRIMA</label>
+                                    <input type="text" class="form-control" value="${item.essential || ''}" oninput="updatePricelistModelItem(${mIndex}, ${iIndex}, 'essential', this.value)" placeholder="Rp187,140,000">
+                                </div>
+                                <div class="form-group">
+                                    <label>PAKET PRIMA+</label>
+                                    <input type="text" class="form-control" value="${item.extra || ''}" oninput="updatePricelistModelItem(${mIndex}, ${iIndex}, 'extra', this.value)" placeholder="Rp189,300,000">
+                                </div>
+                            </div>
+                        `;
+                        itemsContainer.appendChild(itemCard);
+                    });
+                }
+            });
+
+            // Render Notes S&K
+            const notesContainer = document.getElementById('pricelist-notes-container');
+            notesContainer.innerHTML = '';
+            pricelistUIData.notes.forEach((note, nIndex) => {
+                const noteCard = document.createElement('div');
+                noteCard.style.display = 'flex';
+                noteCard.style.gap = '10px';
+                noteCard.style.marginBottom = '10px';
+                noteCard.innerHTML = `
+                    <textarea class="form-control" style="flex: 1; resize: vertical; min-height: 40px;" oninput="updatePricelistNote(${nIndex}, this.value)" placeholder="Masukkan teks keterangan di sini...">${note}</textarea>
+                    <button class="btn-sm bg-red" onclick="removePricelistNote(${nIndex})">X</button>
+                `;
+                notesContainer.appendChild(noteCard);
+            });
+
+            updatePricelistOutput();
+        }
+
+        function generateSlug(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')           
+                .replace(/[^\w\-]+/g, '')       
+                .replace(/\-\-+/g, '-')         
+                .replace(/^-+/, '')             
+                .replace(/-+$/, '');            
+        }
+
+        function addPricelistModel() {
+            pricelistUIData.models.push({ id: "", label: "", items: [] });
+            renderPricelistEditor();
+        }
+        function removePricelistModel(mIndex) {
+            if(confirm('Yakin ingin menghapus model ini beserta semua variannya?')) {
+                pricelistUIData.models.splice(mIndex, 1);
+                renderPricelistEditor();
+            }
+        }
+        function updatePricelistModel(mIndex, field, value) {
+            pricelistUIData.models[mIndex][field] = value;
+            if (field === 'label' && !pricelistUIData.models[mIndex].id) {
+                pricelistUIData.models[mIndex].id = generateSlug(value);
+            }
+            updatePricelistOutput();
+        }
+
+        function addPricelistModelItem(mIndex) {
+            if (!pricelistUIData.models[mIndex].items) pricelistUIData.models[mIndex].items = [];
+            pricelistUIData.models[mIndex].items.push({ tipe: "", trans: "", harga: "", essential: "", extra: "" });
+            renderPricelistEditor();
+        }
+        function removePricelistModelItem(mIndex, iIndex) {
+            pricelistUIData.models[mIndex].items.splice(iIndex, 1);
+            renderPricelistEditor();
+        }
+        function updatePricelistModelItem(mIndex, iIndex, field, value) {
+            pricelistUIData.models[mIndex].items[iIndex][field] = value;
+            updatePricelistOutput();
+        }
+
+        function addPricelistNote() {
+            pricelistUIData.notes.push("");
+            renderPricelistEditor();
+        }
+        function removePricelistNote(nIndex) {
+            pricelistUIData.notes.splice(nIndex, 1);
+            renderPricelistEditor();
+        }
+        function updatePricelistNote(nIndex, value) {
+            pricelistUIData.notes[nIndex] = value;
+            updatePricelistOutput();
+        }
+
+        function updatePricelistOutput() {
+            const outputArea = document.getElementById('pricelist-json-output');
+            outputArea.value = JSON.stringify(pricelistUIData, null, 2);
+            localStorage.setItem('honda_pricelist_db', JSON.stringify(pricelistUIData));
+        }
+
+        function copyPricelistJSON() {
+            const outputArea = document.getElementById('pricelist-json-output');
+            outputArea.select();
+            document.execCommand('copy');
+            alert('JSON berhasil di-copy!');
+        }
+
+        function loadPricelistJSON() {
+            const outputArea = document.getElementById('pricelist-json-output');
+            try {
+                const parsed = JSON.parse(outputArea.value);
+                if (parsed.models && parsed.notes) {
+                    pricelistUIData = parsed;
+                    renderPricelistEditor();
+                    alert('Data JSON berhasil di-load!');
+                } else {
+                    alert('Format JSON tidak valid! Pastikan mengandung "models" dan "notes".');
+                }
+            } catch (e) {
+                alert('Gagal membaca JSON.');
+            }
+        }
+
+        async function fetchPricelistFromGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathPricelist;
+
+            if (!token || !owner || !repo || !path) return;
+
+            const statusEl = document.getElementById('github-status-pricelist');
+            if (statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (!response.ok) throw new Error(`Gagal menarik data (${response.status})`);
+                const data = await response.json();
+                pricelistFileSha = data.sha;
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                const parsed = JSON.parse(decodedContent);
+                if (parsed.models && parsed.notes) {
+                    pricelistUIData = parsed;
+                    renderPricelistEditor();
+                    if (statusEl) {
+                        statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+                        setTimeout(() => statusEl.innerHTML = "", 5000);
+                    }
+                } else {
+                    throw new Error("Format JSON di GitHub tidak sesuai skema Pricelist.");
+                }
+            } catch (error) {
+                console.error(error);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`;
+            }
+        }
+
+        async function savePricelistToGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathPricelist;
+
+            if (!token || !owner || !repo || !path) {
+                alert('Harap lengkapi konfigurasi GitHub Sync!');
+                return;
+            }
+
+            const statusEl = document.getElementById('github-status-pricelist');
+            if (statusEl) statusEl.innerHTML = "<i>Menyimpan data... ⏳</i>";
+
+            const stringContent = JSON.stringify(pricelistUIData, null, 2);
+            const encodedContent = btoa(unescape(encodeURIComponent(stringContent)));
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            if (!pricelistFileSha) {
+                try {
+                    const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                    if (checkRes.ok) pricelistFileSha = (await checkRes.json()).sha;
+                } catch (e) {}
+            }
+
+            const bodyData = { message: "⚡ Update Pricelist via Generator", content: encodedContent };
+            if (pricelistFileSha) bodyData.sha = pricelistFileSha;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyData)
+                });
+                if (!response.ok) throw new Error("Gagal menyimpan.");
+                pricelistFileSha = (await response.json()).content.sha;
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+                alert('🎉 Data pricelist berhasil disimpan ke GitHub!');
+            } catch (error) {
+                alert(error.message);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menyimpan.</span>`;
+            }
+        }
+
+        // ================= 10. BUILD YOUR DREAMS (FEATURES) EDITOR LOGIC =================
+        let bydUIData = [];
+        let bydFileSha = "";
+
+        function renderBydEditor() {
+            // Destroy old CKEditor instances for BYD
+            for (let name in CKEDITOR.instances) {
+                if (name.startsWith('byd-editor-')) {
+                    CKEDITOR.instances[name].destroy(true);
+                }
+            }
+
+            const container = document.getElementById('byd-categories-container');
+            container.innerHTML = '';
+
+            bydUIData.forEach((category, cIndex) => {
+                const catCard = document.createElement('div');
+                catCard.className = 'blogger-car-card';
+                catCard.innerHTML = `
+                    <div class="blogger-car-header">
+                        <h3 style="margin: 0; color: var(--primary); font-size: 15px; font-weight: bold;">Menu Utama: ${category.label || 'Kategori Baru'}</h3>
+                        <button class="btn-sm bg-red" onclick="removeBydCategory(${cIndex})">Hapus Kategori</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Menu (Label)</label>
+                            <input type="text" class="form-control" value="${category.label || ''}" oninput="updateBydCategory(${cIndex}, 'label', this.value)" placeholder="Contoh: Exterior">
+                        </div>
+                        <div class="form-group">
+                            <label>ID (Slug - Otomatis)</label>
+                            <input type="text" class="form-control" value="${category.id || ''}" oninput="updateBydCategory(${cIndex}, 'id', this.value)" placeholder="contoh: exterior">
+                        </div>
+                    </div>
+                    <div id="byd-items-container-${cIndex}"></div>
+                    <button class="btn btn-secondary" onclick="addBydItem(${cIndex})" style="margin-top: 10px; width: 100%; font-size: 12px; background: var(--bg); color: var(--text-main); border: 1px dashed var(--border);">+ Tambah Sub-Menu (Konten)</button>
+                `;
+                container.appendChild(catCard);
+
+                const itemsContainer = document.getElementById(`byd-items-container-${cIndex}`);
+                if (category.items) {
+                    category.items.forEach((item, iIndex) => {
+                        const itemCard = document.createElement('div');
+                        itemCard.className = 'blogger-car-card';
+                        itemCard.style.borderLeft = '4px solid var(--accent)';
+                        itemCard.style.padding = '12px';
+                        itemCard.style.marginLeft = '20px';
+                        itemCard.style.marginTop = '10px';
+                        itemCard.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <strong style="color:var(--primary); font-size:13px;">Sub-Menu ${iIndex + 1}</strong>
+                                <div style="display:flex; gap:5px;">
+                                    <button class="btn-sm bg-gray" onclick="moveBydItemUp(${cIndex}, ${iIndex})" ${iIndex === 0 ? 'disabled' : ''}>↑</button>
+                                    <button class="btn-sm bg-gray" onclick="moveBydItemDown(${cIndex}, ${iIndex})" ${iIndex === category.items.length - 1 ? 'disabled' : ''}>↓</button>
+                                    <button class="btn-sm bg-red" onclick="removeBydItem(${cIndex}, ${iIndex})">X</button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Judul Konten</label>
+                                    <input type="text" class="form-control" value="${item.title || ''}" oninput="updateBydItem(${cIndex}, ${iIndex}, 'title', this.value)" placeholder="Contoh: Front Grille">
+                                </div>
+                                <div class="form-group">
+                                    <label>Slug ID</label>
+                                    <input type="text" class="form-control" value="${item.slug || ''}" oninput="updateBydItem(${cIndex}, ${iIndex}, 'slug', this.value)" placeholder="Otomatis terisi dari judul">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Link Gambar (URL)</label>
+                                <input type="text" class="form-control" value="${item.img || ''}" oninput="updateBydItem(${cIndex}, ${iIndex}, 'img', this.value)" placeholder="https://cdn.argust.my.id/gambar.jpg">
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi Konten</label>
+                                <textarea id="byd-editor-${cIndex}-${iIndex}" class="form-control byd-desc-editor">${item.desc || ''}</textarea>
+                            </div>
+                        `;
+                        itemsContainer.appendChild(itemCard);
+                    });
+                }
+            });
+
+            initBydCKEditors();
+            updateBydOutput();
+        }
+
+        function initBydCKEditors() {
+            const textareas = document.querySelectorAll('.byd-desc-editor');
+            textareas.forEach(ta => {
+                const editor = CKEDITOR.replace(ta.id, {
+                    allowedContent: true,
+                    height: 120,
+                    versionCheck: false,
+                    toolbar: [
+                        ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
+                        ['NumberedList', 'BulletedList'],
+                        ['Link', 'Unlink'],
+                        ['Table', 'Source']
+                    ]
+                });
+
+                editor.on('change', function() {
+                    const parts = ta.id.split('-');
+                    const c = parseInt(parts[2]);
+                    const idx = parseInt(parts[3]);
+                    updateBydItem(c, idx, 'desc', this.getData());
+                });
+            });
+        }
+
+        function addBydCategory() {
+            bydUIData.push({ id: "", label: "", items: [] });
+            renderBydEditor();
+        }
+        function removeBydCategory(cIndex) {
+            if(confirm('Yakin ingin menghapus kategori ini beserta isinya?')) {
+                bydUIData.splice(cIndex, 1);
+                renderBydEditor();
+            }
+        }
+        function updateBydCategory(cIndex, field, value) {
+            bydUIData[cIndex][field] = value;
+            if (field === 'label' && !bydUIData[cIndex].id) {
+                bydUIData[cIndex].id = generateSlug(value);
+            }
+            updateBydOutput();
+        }
+
+        function addBydItem(cIndex) {
+            if (!bydUIData[cIndex].items) bydUIData[cIndex].items = [];
+            bydUIData[cIndex].items.push({ title: "", slug: "", img: "", desc: "" });
+            renderBydEditor();
+        }
+        function removeBydItem(cIndex, iIndex) {
+            bydUIData[cIndex].items.splice(iIndex, 1);
+            renderBydEditor();
+        }
+        function updateBydItem(cIndex, iIndex, field, value) {
+            bydUIData[cIndex].items[iIndex][field] = value;
+            if (field === 'title' && !bydUIData[cIndex].items[iIndex].slug) {
+                bydUIData[cIndex].items[iIndex].slug = generateSlug(value);
+            }
+            updateBydOutput();
+        }
+
+        function moveBydItemUp(cIndex, iIndex) {
+            if (iIndex > 0) {
+                let temp = bydUIData[cIndex].items[iIndex];
+                bydUIData[cIndex].items[iIndex] = bydUIData[cIndex].items[iIndex - 1];
+                bydUIData[cIndex].items[iIndex - 1] = temp;
+                renderBydEditor();
+            }
+        }
+        function moveBydItemDown(cIndex, iIndex) {
+            if (iIndex < bydUIData[cIndex].items.length - 1) {
+                let temp = bydUIData[cIndex].items[iIndex];
+                bydUIData[cIndex].items[iIndex] = bydUIData[cIndex].items[iIndex + 1];
+                bydUIData[cIndex].items[iIndex + 1] = temp;
+                renderBydEditor();
+            }
+        }
+
+        function updateBydOutput() {
+            const outputArea = document.getElementById('byd-json-output');
+            outputArea.value = JSON.stringify(bydUIData, null, 2);
+            localStorage.setItem('honda_byd_db', JSON.stringify(bydUIData));
+        }
+
+        function copyBydJSON() {
+            const outputArea = document.getElementById('byd-json-output');
+            outputArea.select();
+            document.execCommand('copy');
+            alert('JSON berhasil di-copy!');
+        }
+
+        function loadBydJSON() {
+            const outputArea = document.getElementById('byd-json-output');
+            try {
+                const parsed = JSON.parse(outputArea.value);
+                if (Array.isArray(parsed)) {
+                    bydUIData = parsed;
+                    renderBydEditor();
+                    alert('Data JSON berhasil di-load!');
+                } else {
+                    alert('Format JSON tidak valid! Harus berupa Array [ ... ]');
+                }
+            } catch (e) {
+                alert('Gagal membaca JSON.');
+            }
+        }
+
+        async function fetchBydFromGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathByd;
+
+            if (!token || !owner || !repo || !path) return;
+
+            const statusEl = document.getElementById('github-status-byd');
+            if (statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (!response.ok) throw new Error(`Gagal menarik data (${response.status})`);
+                const data = await response.json();
+                bydFileSha = data.sha;
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                bydUIData = JSON.parse(decodedContent);
+                renderBydEditor();
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+            } catch (error) {
+                console.error(error);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`;
+            }
+        }
+
+        async function saveBydToGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathByd;
+
+            if (!token || !owner || !repo || !path) {
+                alert('Harap lengkapi konfigurasi GitHub Sync!');
+                return;
+            }
+
+            const statusEl = document.getElementById('github-status-byd');
+            if (statusEl) statusEl.innerHTML = "<i>Menyimpan data... ⏳</i>";
+
+            const stringContent = JSON.stringify(bydUIData, null, 2);
+            const encodedContent = btoa(unescape(encodeURIComponent(stringContent)));
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            if (!bydFileSha) {
+                try {
+                    const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                    if (checkRes.ok) bydFileSha = (await checkRes.json()).sha;
+                } catch (e) {}
+            }
+
+            const bodyData = { message: "⚡ Update Features via Generator", content: encodedContent };
+            if (bydFileSha) bodyData.sha = bydFileSha;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyData)
+                });
+                if (!response.ok) throw new Error("Gagal menyimpan.");
+                bydFileSha = (await response.json()).content.sha;
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+                alert('🎉 Data fitur berhasil disimpan ke GitHub!');
+            } catch (error) {
+                alert(error.message);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menyimpan.</span>`;
+            }
+        }
+
+        // ================= 11. WEBSITE BANNER EDITOR LOGIC =================
+        let bannerUIData = {
+            models: [
+                { label: "Desktop Banner", items: [] },
+                { label: "Mobile Banner", items: [] }
+            ]
+        };
+        let bannerFileSha = "";
+
+        function renderBannerEditor() {
+            const container = document.getElementById('banner-models-container');
+            container.innerHTML = '';
+
+            bannerUIData.models.forEach((group, gIndex) => {
+                const card = document.createElement('div');
+                card.className = 'blogger-car-card';
+                card.innerHTML = `
+                    <div class="blogger-car-header">
+                        <h3 style="margin:0; font-size:15px; font-weight:bold; color:var(--primary);">${group.label}</h3>
+                    </div>
+                    <div id="banner-items-${gIndex}"></div>
+                    <button class="btn btn-primary" onclick="addBannerItem(${gIndex})" style="margin-top:10px; width:100%;">+ Tambah Banner</button>
+                `;
+                container.appendChild(card);
+
+                const itemsContainer = document.getElementById(`banner-items-${gIndex}`);
+                group.items.forEach((item, iIndex) => {
+                    const el = document.createElement('div');
+                    el.className = 'blogger-car-card';
+                    el.style.borderLeft = '4px solid var(--info)';
+                    el.style.marginLeft = '20px';
+                    el.style.marginTop = '10px';
+                    el.style.padding = '12px';
+                    el.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <strong>Banner ${iIndex + 1}</strong>
+                            <div style="display:flex; gap:5px;">
+                                <button class="btn-sm bg-gray" onclick="moveBannerItemUp(${gIndex}, ${iIndex})" ${iIndex === 0 ? 'disabled' : ''}>↑</button>
+                                <button class="btn-sm bg-gray" onclick="moveBannerItemDown(${gIndex}, ${iIndex})" ${iIndex === group.items.length - 1 ? 'disabled' : ''}>↓</button>
+                                <button class="btn-sm bg-red" onclick="removeBannerItem(${gIndex}, ${iIndex})">X</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ID / Slug</label>
+                            <input class="form-control" value="${item.id || ''}" oninput="updateBannerField(${gIndex}, ${iIndex}, 'id', this.value)" placeholder="contoh: hrv-slp">
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input class="form-control" value="${item.image || ''}" oninput="updateBannerField(${gIndex}, ${iIndex}, 'image', this.value)" placeholder="Atau pilih upload gambar di bawah">
+                            <div style="border: 2px dashed var(--border); padding: 12px; text-align: center; border-radius: 6px; background: var(--bg); margin-top: 10px;">
+                                <label for="banner-file-${gIndex}-${iIndex}" style="cursor: pointer; color: var(--info); font-weight: bold;">📸 Pilih & Upload Gambar Baru</label>
+                                <input type="file" id="banner-file-${gIndex}-${iIndex}" accept="image/*" style="display:none;" onchange="uploadBannerImageToGitHub(${gIndex}, ${iIndex}, this)">
+                                <div id="banner-upload-status-${gIndex}-${iIndex}" style="font-size: 11px; margin-top: 5px; font-weight: bold;"></div>
+                            </div>
+                            ${(item._tempImage || item.image) ? `
+                                <div style="margin-top:10px;"><img src="${item._tempImage || item.image}" style="width:100%; max-height:120px; object-fit:cover; border-radius:4px; border:1px solid var(--border);"></div>
+                            ` : ''}
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Link Tujuan</label>
+                                <input class="form-control" value="${item.link || ''}" oninput="updateBannerField(${gIndex}, ${iIndex}, 'link', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Alt Text</label>
+                                <input class="form-control" value="${item.alt || ''}" oninput="updateBannerField(${gIndex}, ${iIndex}, 'alt', this.value)">
+                            </div>
+                        </div>
+                    `;
+                    itemsContainer.appendChild(el);
+                });
+            });
+
+            updateBannerOutput();
+        }
+
+        function addBannerItem(g) {
+            bannerUIData.models[g].items.push({ id: '', image: '', link: '#', alt: '', _tempImage: '' });
+            renderBannerEditor();
+        }
+        function removeBannerItem(g, i) {
+            const item = bannerUIData.models[g].items[i];
+            if (item.image && item.image.includes('github.io')) {
+                if (confirm('Hapus banner ini beserta gambarnya dari repo GitHub?')) {
+                    const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+                    deleteOldImageByUrl(item.image, config.pathBannerImg);
+                    bannerUIData.models[g].items.splice(i, 1);
+                    renderBannerEditor();
+                }
+            } else {
+                bannerUIData.models[g].items.splice(i, 1);
+                renderBannerEditor();
+            }
+        }
+
+        function updateBannerField(g, i, k, v) {
+            bannerUIData.models[g].items[i][k] = v;
+            if (k === 'image' && bannerUIData.models[g].items[i]._tempImage) {
+                bannerUIData.models[g].items[i]._tempImage = '';
+            }
+            updateBannerOutput();
+            if (k === 'image') renderBannerEditor();
+        }
+
+        function moveBannerItemUp(g, i) {
+            if (i > 0) {
+                let temp = bannerUIData.models[g].items[i];
+                bannerUIData.models[g].items[i] = bannerUIData.models[g].items[i - 1];
+                bannerUIData.models[g].items[i - 1] = temp;
+                renderBannerEditor();
+            }
+        }
+        function moveBannerItemDown(g, i) {
+            if (i < bannerUIData.models[g].items.length - 1) {
+                let temp = bannerUIData.models[g].items[i];
+                bannerUIData.models[g].items[i] = bannerUIData.models[g].items[i + 1];
+                bannerUIData.models[g].items[i + 1] = temp;
+                renderBannerEditor();
+            }
+        }
+
+        async function uploadBannerImageToGitHub(gIndex, iIndex, inputEl) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            let imgFolder = config.pathBannerImg;
+
+            if (!token || !owner || !repo || !imgFolder) {
+                alert("Lengkapi pengaturan kredensial & folder image GitHub!");
+                inputEl.value = ""; return;
+            }
+
+            if(imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
+            const statusEl = document.getElementById(`banner-upload-status-${gIndex}-${iIndex}`);
+            if (statusEl) statusEl.innerHTML = "⏳ Memproses...";
+
+            const item = bannerUIData.models[gIndex].items[iIndex];
+            if (item.image && item.image.includes('github.io')) {
+                await deleteOldImageByUrl(item.image, imgFolder);
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64 = e.target.result.split(',')[1];
+                const ext = file.name.split('.').pop();
+                const slug = item.id ? item.id.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase() : 'banner';
+                const uniqueFileName = `${slug}_${Date.now()}.${ext}`;
+                const fullPath = `${imgFolder}/${uniqueFileName}`;
+
+                item._tempImage = e.target.result;
+                renderBannerEditor();
+
+                try {
+                    const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fullPath}`;
+                    const res = await fetch(putUrl, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: `📸 Upload banner: ${uniqueFileName}`, content: base64 })
+                    });
+                    if (!res.ok) throw new Error("Gagal upload gambar ke GitHub.");
+                    const resData = await res.json();
+                    let publicUrl = repo.includes('.github.io') 
+                        ? `https://${repo}/${resData.content.path}` 
+                        : `https://${owner}.github.io/${repo}/${resData.content.path}`;
+
+                    item.image = publicUrl;
+                    item._tempImage = '';
+                    renderBannerEditor();
+                } catch(err) {
+                    alert(err.message);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateBannerOutput() {
+            const filterItem = (it) => ({ id: it.id, image: it.image, link: it.link, alt: it.alt });
+            const json = {
+                banners: {
+                    desktop: bannerUIData.models[0].items.map(filterItem),
+                    mobile: bannerUIData.models[1].items.map(filterItem)
+                }
+            };
+            document.getElementById('banner-json-output').value = JSON.stringify(json, null, 2);
+            localStorage.setItem('honda_banner_db', JSON.stringify(bannerUIData));
+        }
+
+        function copyBannerJSON() {
+            const outputArea = document.getElementById('banner-json-output');
+            outputArea.select(); document.execCommand('copy'); alert('Copied!');
+        }
+
+        function loadBannerJSON() {
+            try {
+                const parsed = JSON.parse(document.getElementById('banner-json-output').value);
+                bannerUIData.models[0].items = parsed.banners?.desktop || [];
+                bannerUIData.models[1].items = parsed.banners?.mobile || [];
+                renderBannerEditor();
+                alert('JSON loaded!');
+            } catch(e) {
+                alert('Format JSON salah.');
+            }
+        }
+
+        async function fetchBannerFromGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathBanner;
+
+            if (!token || !owner || !repo || !path) return;
+            const statusEl = document.getElementById('github-status-banner');
+            if (statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (!res.ok) throw new Error("Gagal fetch.");
+                const data = await res.json();
+                bannerFileSha = data.sha;
+                const parsed = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                bannerUIData.models[0].items = parsed.banners?.desktop || [];
+                bannerUIData.models[1].items = parsed.banners?.mobile || [];
+                renderBannerEditor();
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+            } catch(e) {
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`;
+            }
+        }
+
+        async function saveBannerToGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathBanner;
+
+            if (!token || !owner || !repo || !path) {
+                alert("Konfigurasi belum lengkap!"); return;
+            }
+            const statusEl = document.getElementById('github-status-banner');
+            if (statusEl) statusEl.innerHTML = "<i>Menyimpan... ⏳</i>";
+
+            const filterItem = (it) => ({ id: it.id, image: it.image, link: it.link, alt: it.alt });
+            const json = {
+                banners: {
+                    desktop: bannerUIData.models[0].items.map(filterItem),
+                    mobile: bannerUIData.models[1].items.map(filterItem)
+                }
+            };
+            const stringContent = JSON.stringify(json, null, 2);
+            const base64 = btoa(unescape(encodeURIComponent(stringContent)));
+
+            if (!bannerFileSha) {
+                try {
+                    const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                        headers: { 'Authorization': `token ${token}` }
+                    });
+                    if (check.ok) bannerFileSha = (await check.json()).sha;
+                } catch(e) {}
+            }
+
+            const body = { message: "⚡ Update Banners via Dashboard Editor", content: base64 };
+            if (bannerFileSha) body.sha = bannerFileSha;
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                if (!res.ok) throw new Error("Gagal upload.");
+                bannerFileSha = (await res.json()).content.sha;
+                alert("Berhasil disimpan!");
+                if (statusEl) statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan!</span>`;
+            } catch(e) {
+                alert(e.message);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal.</span>`;
+            }
+        }
+
+        // ================= 12. E-LEARNING (TRAINING) EDITOR LOGIC =================
+        let elearningUIData = null;
+        let elearningActiveSessionKey = "";
+        let elearningFileSha = "";
+
+        function arrToStr(arr) { return arr ? arr.join('\n') : ''; }
+        function strToArr(str) { return str.split('\n').map(s => s.trim()).filter(s => s !== ''); }
+
+        function renderElearningEditor() {
+            const wrapper = document.getElementById('elearning-wrapper');
+            if (!elearningUIData) {
+                wrapper.innerHTML = `
+                    <div style="padding: 40px; text-align: center; color: var(--text-muted); border: 2px dashed var(--border); border-radius: 8px;">
+                        Tampilan Editor masih kosong.<br>Silakan <b>Tarik Data JSON</b> dari GitHub atau klik <b>Load Data</b> di kotak preview kanan.
+                    </div>
+                `;
+                return;
+            }
+
+            wrapper.innerHTML = `
+                <div style="font-size: 15px; font-weight: bold; margin-bottom: 15px; color: var(--primary);">🌍 Global Settings</div>
+                <div class="blogger-car-card" id="elearning-global-container"></div>
+
+                <div style="font-size: 15px; font-weight: bold; margin-top: 30px; margin-bottom: 15px; color: var(--primary); display: flex; justify-content: space-between; align-items: center;">
+                    <span>📚 Class Sessions</span>
+                    <button class="btn btn-primary" onclick="addElearningSession()">+ Tambah Sesi Baru</button>
+                </div>
+                
+                <div class="session-tabs" id="elearning-session-tabs" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;"></div>
+                <div id="elearning-session-editor-container"></div>
+            `;
+
+            renderElearningGlobal();
+            renderElearningSessionTabs();
+            renderElearningActiveSession();
+            updateElearningOutput();
+        }
+
+        function renderElearningGlobal() {
+            const g = elearningUIData.global || {};
+            const container = document.getElementById('elearning-global-container');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Page Title</label>
+                        <input type="text" class="form-control" value="${g.pageTitle || ''}" oninput="elearningUIData.global.pageTitle = this.value; updateElearningOutput();">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Info (WhatsApp text)</label>
+                        <input type="text" class="form-control" value="${g.contactInfo || ''}" oninput="elearningUIData.global.contactInfo = this.value; updateElearningOutput();">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Welcome Text</label>
+                    <textarea class="form-control" style="min-height:60px;" oninput="elearningUIData.global.welcomeText = this.value; updateElearningOutput();">${g.welcomeText || ''}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Learning Journey Image URL</label>
+                    <input type="text" class="form-control" value="${g.learningJourneyImg || ''}" oninput="elearningUIData.global.learningJourneyImg = this.value; updateElearningOutput();">
+                    
+                    <div style="border: 2px dashed var(--border); padding: 12px; text-align: center; border-radius: 6px; background: var(--bg); margin-top: 10px;">
+                        <label for="elearning-file-global" style="cursor: pointer; color: var(--info); font-weight: bold;">📸 Pilih & Upload Gambar Journey</label>
+                        <input type="file" id="elearning-file-global" accept="image/*" style="display:none;" onchange="uploadElearningImageToGitHub('globalJourney', this)">
+                        <div id="elearning-upload-status-globalJourney" style="font-size: 11px; margin-top: 5px; font-weight: bold;"></div>
+                    </div>
+                    ${g.learningJourneyImg ? `
+                        <div style="margin-top:10px;"><img src="${g.learningJourneyImg}" style="width:100%; max-height:120px; object-fit:cover; border-radius:4px; border:1px solid var(--border);"></div>
+                    ` : ''}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Objectives (Pisahkan dengan Enter)</label>
+                        <textarea class="form-control" style="min-height:85px;" oninput="elearningUIData.global.objectives = strToArr(this.value); updateElearningOutput();">${arrToStr(g.objectives)}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ground Rules (Pisahkan dengan Enter)</label>
+                        <textarea class="form-control" style="min-height:85px;" oninput="elearningUIData.global.groundRules = strToArr(this.value); updateElearningOutput();">${arrToStr(g.groundRules)}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                        <label style="margin:0; font-weight: bold; color: var(--primary);">Important Links & Blocks</label>
+                        <button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="addElearningImportantBlock()">+ Tambah Blok</button>
+                    </div>
+                    <div id="elearning-important-blocks-container"></div>
+                </div>
+            `;
+
+            renderElearningImportantBlocks();
+        }
+
+        function renderElearningImportantBlocks() {
+            const container = document.getElementById('elearning-important-blocks-container');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            if(!elearningUIData.global.importantBlocks) elearningUIData.global.importantBlocks = [];
+
+            elearningUIData.global.importantBlocks.forEach((b, i) => {
+                let inputHtml = '';
+                if (b.type === 'heading' || b.type === 'heading-sub') {
+                    inputHtml = `<input type="text" class="form-control" value="${b.text || ''}" oninput="updateElearningImportantBlock(${i}, 'text', this.value)" placeholder="Teks heading...">`;
+                } else if (b.type === 'card') {
+                    inputHtml = `
+                        <input type="text" class="form-control mb-2" value="${b.title || ''}" oninput="updateElearningImportantBlock(${i}, 'title', this.value)" placeholder="Nama Form/Link (Contoh: Feedback-CT)" style="margin-bottom:8px;">
+                        <input type="text" class="form-control mb-2" value="${b.urlText || ''}" oninput="updateElearningImportantBlock(${i}, 'urlText', this.value)" placeholder="Teks URL Penjelasan" style="margin-bottom:8px;">
+                        <input type="text" class="form-control" value="${b.url || ''}" oninput="updateElearningImportantBlock(${i}, 'url', this.value)" placeholder="URL Link Tujuan">
+                    `;
+                } else if (b.type === 'list') {
+                    let val = b.items ? b.items.join('\n') : '';
+                    inputHtml = `<textarea class="form-control" oninput="updateElearningImportantBlockList(${i}, this.value)" placeholder="Daftar info (pisahkan dengan Enter)">${val}</textarea>`;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'blogger-car-card';
+                div.style.padding = '12px';
+                div.style.borderLeft = '3px solid var(--accent)';
+                div.style.marginTop = '10px';
+                div.innerHTML = `
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <select class="form-control" style="width: auto; flex:1;" onchange="changeElearningImportantBlockType(${i}, this.value)">
+                            <option value="heading" ${b.type==='heading'?'selected':''}>Heading (Judul Emoji)</option>
+                            <option value="heading-sub" ${b.type==='heading-sub'?'selected':''}>Sub Heading</option>
+                            <option value="card" ${b.type==='card'?'selected':''}>Card (Tombol Link)</option>
+                            <option value="list" ${b.type==='list'?'selected':''}>List (Informasi Pelengkap)</option>
+                        </select>
+                        <div style="display:flex; gap:5px;">
+                            <button class="btn btn-secondary" onclick="moveElearningImportantBlock(${i}, -1)" ${i===0?'disabled':''} style="padding:4px 8px;">↑</button>
+                            <button class="btn btn-secondary" onclick="moveElearningImportantBlock(${i}, 1)" ${i===elearningUIData.global.importantBlocks.length-1?'disabled':''} style="padding:4px 8px;">↓</button>
+                            <button class="btn btn-danger" onclick="removeElearningImportantBlock(${i})" style="padding:4px 8px;">X</button>
+                        </div>
+                    </div>
+                    ${inputHtml}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateElearningImportantBlock(idx, key, val) {
+            elearningUIData.global.importantBlocks[idx][key] = val;
+            updateElearningOutput();
+        }
+        function updateElearningImportantBlockList(idx, val) {
+            elearningUIData.global.importantBlocks[idx].items = strToArr(val);
+            updateElearningOutput();
+        }
+        function changeElearningImportantBlockType(idx, newType) {
+            elearningUIData.global.importantBlocks[idx] = { type: newType };
+            renderElearningGlobal(); updateElearningOutput();
+        }
+        function addElearningImportantBlock() {
+            elearningUIData.global.importantBlocks.push({ type: 'heading', text: 'Judul Baru' });
+            renderElearningGlobal(); updateElearningOutput();
+        }
+        function removeElearningImportantBlock(idx) {
+            elearningUIData.global.importantBlocks.splice(idx, 1);
+            renderElearningGlobal(); updateElearningOutput();
+        }
+        function moveElearningImportantBlock(idx, direction) {
+            let arr = elearningUIData.global.importantBlocks;
+            if (idx + direction >= 0 && idx + direction < arr.length) {
+                let temp = arr[idx];
+                arr[idx] = arr[idx + direction];
+                arr[idx + direction] = temp;
+                renderElearningGlobal(); updateElearningOutput();
+            }
+        }
+
+        function renderElearningSessionTabs() {
+            const tabsContainer = document.getElementById('elearning-session-tabs');
+            if (!tabsContainer) return;
+            tabsContainer.innerHTML = '';
+            
+            if(!elearningUIData.sessions) elearningUIData.sessions = {};
+            const keys = Object.keys(elearningUIData.sessions);
+            
+            if(keys.length === 0) {
+                document.getElementById('elearning-session-editor-container').innerHTML = '<p style="color:#888; text-align:center;">Belum ada sesi. Silakan tambah.</p>';
+                return;
+            }
+
+            if(!elearningUIData.sessions[elearningActiveSessionKey]) elearningActiveSessionKey = keys[0];
+
+            keys.forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${key === elearningActiveSessionKey ? 'active' : ''}`;
+                btn.style.padding = '8px 12px';
+                btn.style.border = '1px solid var(--border)';
+                btn.style.borderRadius = '4px';
+                btn.style.cursor = 'pointer';
+                btn.style.fontWeight = 'bold';
+                btn.style.fontSize = '12px';
+                if (key === elearningActiveSessionKey) {
+                    btn.style.background = 'var(--primary)';
+                    btn.style.color = '#fff';
+                } else {
+                    btn.style.background = 'var(--bg)';
+                    btn.style.color = 'var(--text-main)';
+                }
+                btn.innerText = key.toUpperCase();
+                btn.onclick = () => {
+                    elearningActiveSessionKey = key;
+                    renderElearningSessionTabs();
+                    renderElearningActiveSession();
+                };
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderElearningActiveSession() {
+            if(!elearningActiveSessionKey || !elearningUIData.sessions[elearningActiveSessionKey]) return;
+            
+            const s = elearningUIData.sessions[elearningActiveSessionKey];
+            const container = document.getElementById('elearning-session-editor-container');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="blogger-car-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+                        <h3 style="margin:0; font-size:15px; font-weight:bold; color:var(--primary);">Edit Data: ${elearningActiveSessionKey.toUpperCase()}</h3>
+                        <button class="btn-sm bg-red" onclick="deleteElearningSession('${elearningActiveSessionKey}')">Hapus Sesi Ini</button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Session Title</label>
+                            <input type="text" class="form-control" value="${s.title || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].title = this.value; updateElearningOutput();">
+                        </div>
+                        <div class="form-group">
+                            <label>YouTube Video ID</label>
+                            <input type="text" class="form-control" value="${s.materials.youtubeId || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].materials.youtubeId = this.value; updateElearningOutput();" placeholder="Contoh: y1RzB_7qYvE">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group"><label>Category</label><input type="text" class="form-control" value="${s.category || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].category = this.value; updateElearningOutput();"></div>
+                        <div class="form-group"><label>Date</label><input type="text" class="form-control" value="${s.date || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].date = this.value; updateElearningOutput();"></div>
+                        <div class="form-group"><label>Participant</label><input type="text" class="form-control" value="${s.participant || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].participant = this.value; updateElearningOutput();"></div>
+                    </div>
+
+                    <div style="background: var(--bg); padding: 15px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 15px;">
+                        <h4 style="margin-top:0; margin-bottom: 12px; color:var(--primary); font-size:14px; font-weight:bold;">🧑‍🏫 Speaker Profile</h4>
+                        <div class="form-row">
+                            <div class="form-group"><label>Name</label><input type="text" class="form-control" value="${s.speaker.name || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].speaker.name = this.value; updateElearningOutput();"></div>
+                            <div class="form-group">
+                                <label>Image URL</label>
+                                <input type="text" class="form-control" value="${s.speaker.image || ''}" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].speaker.image = this.value; updateElearningOutput();">
+                            </div>
+                        </div>
+
+                        <div style="border: 2px dashed var(--border); padding: 12px; text-align: center; border-radius: 6px; background: var(--card-bg); margin-top: 10px;">
+                            <label for="elearning-file-speaker" style="cursor: pointer; color: var(--info); font-weight: bold;">📸 Pilih & Upload Foto Speaker</label>
+                            <input type="file" id="elearning-file-speaker" accept="image/*" style="display:none;" onchange="uploadElearningImageToGitHub('speaker', this)">
+                            <div id="elearning-upload-status-speaker" style="font-size: 11px; margin-top: 5px; font-weight: bold;"></div>
+                        </div>
+
+                        ${s.speaker.image ? `
+                        <div style="max-width: 120px; margin-top:10px;"><img src="${s.speaker.image}" style="border-radius: 50%; height:100px; width:100px; object-fit:cover; border: 2px solid var(--border);"></div>
+                        ` : ''}
+
+                        <div class="form-group" style="margin-top:10px;"><label>Description</label><textarea class="form-control" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].speaker.desc = this.value; updateElearningOutput();">${s.speaker.desc || ''}</textarea></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What You'll Learn (Pisahkan dengan Enter)</label>
+                        <textarea class="form-control" oninput="elearningUIData.sessions['${elearningActiveSessionKey}'].learnings = strToArr(this.value); updateElearningOutput();">${arrToStr(s.learnings)}</textarea>
+                    </div>
+
+                    <div class="form-row" style="align-items:flex-start;">
+                        <div class="form-group" style="flex:1;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
+                                <label style="margin:0;">Materials: DURING Session</label>
+                                <button class="btn-sm bg-gray" onclick="addElearningMaterial('during')">+ Tambah</button>
+                            </div>
+                            <div id="elearning-mat-during-container"></div>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
+                                <label style="margin:0;">Materials: AFTER Session</label>
+                                <button class="btn-sm bg-gray" onclick="addElearningMaterial('after')">+ Tambah</button>
+                            </div>
+                            <div id="elearning-mat-after-container"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            renderElearningMaterials('during');
+            renderElearningMaterials('after');
+        }
+
+        function renderElearningMaterials(type) {
+            const container = document.getElementById(`elearning-mat-${type}-container`);
+            if (!container) return;
+            container.innerHTML = '';
+            
+            let arr = elearningUIData.sessions[elearningActiveSessionKey].materials[type] || [];
+            
+            arr.forEach((m, i) => {
+                const div = document.createElement('div');
+                div.className = 'blogger-car-card';
+                div.style.padding = '10px';
+                div.style.marginBottom = '10px';
+                div.innerHTML = `
+                    <div style="display:flex; gap:8px; margin-bottom:8px; align-items:center;">
+                        <input type="text" class="form-control" value="${m.icon || ''}" placeholder="Icon (ex: 📊)" style="width:50px;" oninput="updateElearningMaterial('${type}', ${i}, 'icon', this.value)">
+                        <input type="text" class="form-control" value="${m.title || ''}" placeholder="Judul Link" style="flex:1;" oninput="updateElearningMaterial('${type}', ${i}, 'title', this.value)">
+                        <button class="btn-sm bg-red" onclick="removeElearningMaterial('${type}', ${i})" style="padding: 4px 8px;">X</button>
+                    </div>
+                    <input type="text" class="form-control" value="${m.desc || ''}" placeholder="Deskripsi Singkat" style="margin-bottom:8px;" oninput="updateElearningMaterial('${type}', ${i}, 'desc', this.value)">
+                    <input type="text" class="form-control" value="${m.url || ''}" placeholder="URL Tujuan" oninput="updateElearningMaterial('${type}', ${i}, 'url', this.value)">
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateElearningMaterial(type, idx, key, val) {
+            elearningUIData.sessions[elearningActiveSessionKey].materials[type][idx][key] = val;
+            updateElearningOutput();
+        }
+        function addElearningMaterial(type) {
+            if(!elearningUIData.sessions[elearningActiveSessionKey].materials[type]) elearningUIData.sessions[elearningActiveSessionKey].materials[type] = [];
+            elearningUIData.sessions[elearningActiveSessionKey].materials[type].push({ icon: '🔗', title: 'Link Baru', desc: '', url: '#' });
+            renderElearningActiveSession(); updateElearningOutput();
+        }
+        function removeElearningMaterial(type, idx) {
+            elearningUIData.sessions[elearningActiveSessionKey].materials[type].splice(idx, 1);
+            renderElearningActiveSession(); updateElearningOutput();
+        }
+
+        function addElearningSession() {
+            const count = Object.keys(elearningUIData.sessions).length + 1;
+            const newKey = `sesi-${count}`;
+            
+            elearningUIData.sessions[newKey] = {
+                "title": "Sesi Baru", "category": "Class Session", "date": "TBD", "participant": "All",
+                "speaker": { "name": "", "image": "", "desc": "" },
+                "learnings": ["Materi 1"],
+                "materials": {
+                    "youtubeId": "",
+                    "during": [ { "icon": "📊", "title": "Deck Material", "desc": "", "url": "#" } ],
+                    "after": [ { "icon": "✅", "title": "Feedback", "desc": "", "url": "#" } ]
+                }
+            };
+            
+            elearningActiveSessionKey = newKey;
+            renderElearningEditor();
+        }
+
+        function deleteElearningSession(key) {
+            if(confirm(`Yakin ingin menghapus ${key}?`)) {
+                let img = elearningUIData.sessions[key].speaker.image;
+                if (img && img.includes('github.io')) {
+                    const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+                    deleteOldImageByUrl(img, config.pathElearningImg);
+                }
+                delete elearningUIData.sessions[key];
+                renderElearningEditor();
+            }
+        }
+
+        async function uploadElearningImageToGitHub(targetType, inputEl) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            let imgFolder = config.pathElearningImg;
+
+            if (!token || !owner || !repo || !imgFolder) {
+                alert("Harap lengkapi konfigurasi GitHub Token, Username, Repo, dan Folder Upload Gambar!");
+                inputEl.value = ""; return;
+            }
+            if(imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
+
+            const statusEl = document.getElementById(`elearning-upload-status-${targetType}`);
+            if (statusEl) statusEl.innerHTML = "⏳ Sedang memproses...";
+            
+            let oldUrl = "";
+            let slug = "";
+            
+            if (targetType === 'globalJourney') {
+                oldUrl = elearningUIData.global.learningJourneyImg;
+                slug = "journey";
+            } else if (targetType === 'speaker') {
+                oldUrl = elearningUIData.sessions[elearningActiveSessionKey].speaker.image;
+                let speakerName = elearningUIData.sessions[elearningActiveSessionKey].speaker.name;
+                slug = speakerName ? speakerName.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase() : 'speaker';
+            }
+
+            if (oldUrl && oldUrl.includes('github.io')) {
+                await deleteOldImageByUrl(oldUrl, imgFolder);
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Data = e.target.result.split(',')[1];
+                const ext = file.name.split('.').pop();
+                const uniqueFileName = `${slug}_${Date.now()}.${ext}`;
+                const fullPath = `${imgFolder}/${uniqueFileName}`;
+
+                try {
+                    const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fullPath}`;
+                    const res = await fetch(putUrl, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: `📸 Upload image: ${uniqueFileName}`, content: base64Data })
+                    });
+
+                    if (!res.ok) throw new Error("Gagal upload.");
+                    const resData = await res.json();
+                    
+                    let publicUrl = repo.includes('.github.io') 
+                        ? `https://${repo}/${resData.content.path}` 
+                        : `https://${owner}.github.io/${repo}/${resData.content.path}`;
+
+                    if (targetType === 'globalJourney') {
+                        elearningUIData.global.learningJourneyImg = publicUrl;
+                        renderElearningGlobal();
+                    } else if (targetType === 'speaker') {
+                        elearningUIData.sessions[elearningActiveSessionKey].speaker.image = publicUrl;
+                        renderElearningActiveSession();
+                    }
+                    
+                    updateElearningOutput(); 
+                    const finalStatus = document.getElementById(`elearning-upload-status-${targetType}`);
+                    if(finalStatus) finalStatus.innerHTML = "✅ Upload Berhasil!";
+                } catch (err) {
+                    if (statusEl) {
+                        statusEl.innerHTML = `❌ Error: ${err.message}`;
+                        statusEl.style.color = "red";
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateElearningOutput() {
+            if(elearningUIData) {
+                document.getElementById('elearning-json-output').value = JSON.stringify(elearningUIData, null, 2);
+                localStorage.setItem('honda_elearning_db', JSON.stringify(elearningUIData));
+            }
+        }
+
+        function copyElearningJSON() {
+            const outputArea = document.getElementById('elearning-json-output');
+            outputArea.select();
+            document.execCommand('copy');
+            alert('JSON berhasil di-copy!');
+        }
+
+        function loadElearningJSON() {
+            const outputArea = document.getElementById('elearning-json-output');
+            try {
+                const parsed = JSON.parse(outputArea.value);
+                if (parsed.global && parsed.sessions) {
+                    elearningUIData = parsed;
+                    renderElearningEditor();
+                    alert('Data JSON berhasil di-load!');
+                } else {
+                    alert('Format JSON tidak valid! Pastikan mengandung "global" dan "sessions".');
+                }
+            } catch (e) {
+                alert('Gagal membaca JSON.');
+            }
+        }
+
+        async function fetchElearningFromGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathElearning;
+
+            if (!token || !owner || !repo || !path) return;
+            const statusEl = document.getElementById('github-status-elearning');
+            if (statusEl) statusEl.innerHTML = "<i>Menarik data... ⏳</i>";
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (!res.ok) throw new Error("Gagal fetch.");
+                const data = await res.json();
+                elearningFileSha = data.sha;
+                elearningUIData = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                renderElearningEditor();
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+            } catch(e) {
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`;
+            }
+        }
+
+        async function saveElearningToGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathElearning;
+
+            if (!token || !owner || !repo || !path) {
+                alert("Konfigurasi belum lengkap!"); return;
+            }
+            const statusEl = document.getElementById('github-status-elearning');
+            if (statusEl) statusEl.innerHTML = "<i>Menyimpan... ⏳</i>";
+
+            const stringContent = JSON.stringify(elearningUIData, null, 2);
+            const base64 = btoa(unescape(encodeURIComponent(stringContent)));
+
+            if (!elearningFileSha) {
+                try {
+                    const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                        headers: { 'Authorization': `token ${token}` }
+                    });
+                    if (check.ok) elearningFileSha = (await check.json()).sha;
+                } catch(e) {}
+            }
+
+            const body = { message: "⚡ Update Training via Dashboard Editor", content: base64 };
+            if (elearningFileSha) body.sha = elearningFileSha;
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                if (!res.ok) throw new Error("Gagal upload.");
+                elearningFileSha = (await res.json()).content.sha;
+                alert("Berhasil disimpan!");
+                if (statusEl) statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan!</span>`;
+            } catch(e) {
+                alert(e.message);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal.</span>`;
+            }
+        }
+
+        async function saveBloggerToGitHub() {
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+            const path = config.pathBlogger;
+
+            if (!token || !owner || !repo || !path) {
+                alert('Harap isi semua konfigurasi GitHub Integration di panel pengaturan!');
+                return;
+            }
+
+            const statusEl = document.getElementById('github-status-blogger');
+            if (statusEl) statusEl.innerHTML = "<i>Menyimpan data... ⏳</i>";
+
+            const jsonContent = buildBloggerFinalJSON();
+            const stringContent = JSON.stringify(jsonContent, null, 2);
+            const encodedContent = btoa(unescape(encodeURIComponent(stringContent)));
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            if (!bloggerFileSha) {
+                try {
+                    const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                    if (checkRes.ok) bloggerFileSha = (await checkRes.json()).sha;
+                } catch (e) {}
+            }
+
+            const bodyData = { message: "⚡ Update Products Data via Blogger Editor", content: encodedContent };
+            if (bloggerFileSha) bodyData.sha = bloggerFileSha;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyData)
+                });
+
+                if (!response.ok) throw new Error(`Gagal menyimpan file.`);
+
+                bloggerFileSha = (await response.json()).content.sha; 
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan ke GitHub!</span>`;
+                    setTimeout(() => statusEl.innerHTML = "", 5000);
+                }
+                alert('🎉 Data produk berhasil disimpan/dikomit ke GitHub!');
+            } catch (error) {
+                alert(error.message);
+                if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menyimpan.</span>`;
+            }
         }
     </script>
 </body>
