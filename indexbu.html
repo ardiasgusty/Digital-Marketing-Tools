@@ -3233,6 +3233,75 @@
             return data.candidates[0].content.parts[0].text;
         }
 
+        async function deleteOldImageByUrl(imageUrl, folderPath) {
+            if (!imageUrl) return;
+            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const token = config.token;
+            const owner = config.user;
+            const repo = config.repo;
+
+            if (!token || !owner || !repo) return;
+
+            let path = "";
+            try {
+                const urlObj = new URL(imageUrl);
+                const pathname = urlObj.pathname;
+                
+                const repoPrefix = `/${repo}/`;
+                if (pathname.startsWith(repoPrefix)) {
+                    path = pathname.substring(repoPrefix.length);
+                } else {
+                    path = pathname.startsWith('/') ? pathname.substring(1) : pathname;
+                    if (urlObj.hostname.endsWith('.github.io')) {
+                        const parts = path.split('/');
+                        if (parts[0] === repo) {
+                            path = parts.slice(1).join('/');
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Gagal mengurai URL gambar:", e);
+                return;
+            }
+
+            if (!path) return;
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            try {
+                // 1. Ambil SHA dari file
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                if (!res.ok) {
+                    console.warn(`File gambar tidak ditemukan di GitHub (SHA check failed): ${path}`);
+                    return;
+                }
+                const fileData = await res.json();
+                const sha = fileData.sha;
+
+                // 2. Hapus file
+                const delRes = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `🗑️ Hapus gambar lama: ${path.split('/').pop()}`,
+                        sha: sha
+                    })
+                });
+                if (delRes.ok) {
+                    console.log(`Gambar berhasil dihapus dari GitHub: ${path}`);
+                } else {
+                    console.error(`Gagal menghapus gambar dari GitHub: ${delRes.statusText}`);
+                }
+            } catch (err) {
+                console.error("Error saat menghapus gambar di GitHub:", err);
+            }
+        }
+
         function syncGHFields(val, keyType) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             if (keyType) config[keyType] = val;
@@ -5635,16 +5704,13 @@ ${platHtml}
         function removeBannerItem(g, i) {
             const item = bannerUIData.models[g].items[i];
             if (item.image && item.image.includes('github.io')) {
-                if (confirm('Hapus banner ini beserta gambarnya dari repo GitHub?')) {
+                if (confirm('Hapus banner ini beserta gambarnya dari repo GitHub? (Klik OK untuk menghapus gambar di GitHub, Klik Batal untuk hanya menghapus dari daftar JSON)')) {
                     const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
                     deleteOldImageByUrl(item.image, config.pathBannerImg);
-                    bannerUIData.models[g].items.splice(i, 1);
-                    renderBannerEditor();
                 }
-            } else {
-                bannerUIData.models[g].items.splice(i, 1);
-                renderBannerEditor();
             }
+            bannerUIData.models[g].items.splice(i, 1);
+            renderBannerEditor();
         }
 
         function updateBannerField(g, i, k, v) {
