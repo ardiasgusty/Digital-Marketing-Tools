@@ -626,11 +626,13 @@
                 gap: 12px;
                 align-items: center;
             }
+
             .pagination-nav {
                 width: 100%;
                 justify-content: center;
                 flex-wrap: wrap;
             }
+
             .btn-pg {
                 padding: 5px 10px;
                 font-size: 11px;
@@ -1171,11 +1173,13 @@
             gap: 20px;
             align-items: start;
         }
+
         @media (max-width: 992px) {
             .blogger-editor-wrap {
                 grid-template-columns: 1fr;
             }
         }
+
         .blogger-car-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -1183,8 +1187,9 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
+
         .blogger-car-header {
             display: flex;
             justify-content: space-between;
@@ -1233,11 +1238,6 @@
             <div id="btn-back" class="back-nav" onclick="backAction()">← Kembali</div>
 
             <div class="tools-grid" id="menu-grid">
-                <div class="tool-card" onclick="openTool('ads')">
-                    <div class="tool-icon" style="background: #ffeaa7; color: #e67e22;">📢</div>
-                    <h3>Ads Manager Dashboard</h3>
-                    <p>Akses cepat ke Meta Ads, Google Ads, dan TikTok Ads beserta halaman billing.</p>
-                </div>
                 <div class="tool-card" onclick="openTool('spreadsheet')">
                     <div class="tool-icon" style="background: #dfe6e9; color: #0984e3;">📊</div>
                     <h3>Database & Content Plan</h3>
@@ -1335,8 +1335,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-todo" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-todo')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-todo" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-todo')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -1488,62 +1490,6 @@
                 </div>
             </div>
 
-            <div id="ads-section" class="tool-section">
-                <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <h2>📢 Ads Manager Dashboard</h2>
-                    </div>
-                    <button class="btn btn-accent" style="width:auto; padding:8px 15px; margin-bottom:0;"
-                        onclick="toggleFullScreen('ads-wrap', 'btn-exit-ads-fs')">Layar Penuh ⛶</button>
-                </div>
-
-                <!-- Info Banner / Panduan Bypass Iframe -->
-                <div class="blogger-car-card" style="border-left: 4px solid var(--accent); padding: 15px; margin-bottom: 20px; background: var(--bg);">
-                    <h4 style="margin: 0 0 8px 0; color: var(--accent); display: flex; align-items: center; gap: 8px;">
-                        <span>💡</span> Petunjuk Penggunaan Dashboard Iklan
-                    </h4>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.5; color: var(--text-main);">
-                        Halaman iklan ini diatur agar terbuka langsung di dalam dashboard. Jika tampilan di bawah muncul <b>kosong / blank</b>, hal tersebut dikarenakan kebijakan keamanan dari penyedia platform iklan (Google/Meta/TikTok).
-                    </p>
-                    <p style="font-size: 13px; margin: 8px 0 0 0; line-height: 1.5; color: var(--text-main);">
-                        <b>Solusi Terbaik:</b> Pasang ekstensi gratis di Google Chrome / Microsoft Edge seperti 
-                        <a href="https://chromewebstore.google.com/detail/ignore-x-frame-options/ammjpmhgckbejfgffomddpbhbggmelid" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: underline;">Ignore X-Frame-Options ↗</a> 
-                        lalu refresh halaman ini. Halaman iklan akan terbuka sempurna di bawah.
-                    </p>
-                </div>
-
-                <div class="sheet-tabs" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <button class="tab-btn active"
-                            onclick="changeAdsTab(this, 'https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503')">Meta Ads</button>
-                        <button class="tab-btn"
-                            onclick="changeAdsTab(this, 'https://business.facebook.com/billing_hub/accounts/details/?business_id=1971446882930169&amp;asset_id=1085536315731503&amp;payment_account_id=1085536315731503&amp;placement=ads_manager&amp;entrypoint=ads_ecosystem_navigation_ads_billing_tool_plugin&amp;payment_account_id_from_jsmodule=1085536315731503')">Meta Billing</button>
-                        <button class="tab-btn"
-                            onclick="changeAdsTab(this, 'https://ads.google.com/aw/overview?ocid=344233617&amp;euid=289823264&amp;__u=3523471136&amp;uscid=344233617&amp;__c=5261525833&amp;authuser=0')">Google Ads</button>
-                        <button class="tab-btn"
-                            onclick="changeAdsTab(this, 'https://ads.google.com/aw/billing/summary?ocid=344233617&amp;euid=289823264&amp;__u=3523471136&amp;uscid=344233617&amp;__c=5261525833&amp;authuser=0&amp;subid=all-en-awhp-g-aw-c-home-signin-bgc!o2-s500g500%7Cib:6653296821%7Cib:9279461727%7Cib:7966379274%7C-ahpm-0000000179-0000000001')">Google Billing</button>
-                        <button class="tab-btn"
-                            onclick="changeAdsTab(this, 'https://ads.tiktok.com/i18n/dashboard?aadvid=7194279338676682753&amp;isTTOauth=true&amp;is_from_login=1')">TikTok Ads</button>
-                        <button class="tab-btn"
-                            onclick="changeAdsTab(this, 'https://ads.tiktok.com/i18n/account/payment?aadvid=7194279338676682753')">TikTok Billing</button>
-                    </div>
-                    
-                    <button class="btn btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; display: flex; align-items: center; gap: 5px;" onclick="openActiveAdsTabInNewTab()">
-                        <span>Buka di Tab Baru</span> ↗
-                    </button>
-                </div>
-
-                <div id="ads-wrap"
-                    style="width: 100%; height: 650px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:white; position:relative; margin-bottom:40px;">
-                    <button id="btn-exit-ads-fs" onclick="toggleFullScreen('ads-wrap', 'btn-exit-ads-fs')"
-                        style="display:none; position:absolute; top:10px; right:40px; z-index:10000; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Tutup
-                        Layar Penuh ✖</button>
-                    <iframe id="main-ads-frame"
-                        src="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503"
-                        style="width: 100%; height: 100%; border: none; background: white;"></iframe>
-                </div>
-            </div>
-
             <div id="spreadsheet-section" class="tool-section">
                 <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
@@ -1587,8 +1533,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-links" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-links')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-links" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-links')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -1924,8 +1872,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-cpm" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-cpm')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-cpm" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-cpm')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -2113,8 +2063,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-cpmm" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-cpmm')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-cpmm" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-cpmm')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -2280,8 +2232,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-kpi" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-kpi')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-kpi" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-kpi')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -2612,8 +2566,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-blogger" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-blogger')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-blogger" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-blogger')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -2622,38 +2578,51 @@
                                     <input type="text" id="gh-path-blogger" class="form-control gh-sync-path-blogger"
                                         placeholder="Contoh: data/products.json"
                                         onchange="syncGHFields(this.value, 'pathBlogger')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-blogger')">📂 Browse File</button>
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-blogger')">📂
+                                        Browse File</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-github" onclick="fetchBloggerFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
-                            <button class="btn btn-success" onclick="saveBloggerToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                            <button class="btn btn-github" onclick="fetchBloggerFromGitHub()"
+                                style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBloggerToGitHub()"
+                                style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
                         </div>
-                        <div id="github-status-blogger" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                        <div id="github-status-blogger" style="font-size:12px; margin-top:10px; text-align:right;">
+                        </div>
                     </div>
                 </details>
 
                 <div class="blogger-editor-wrap">
                     <div class="editor-panel">
-                        <div style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
-                            <strong>💡 Info:</strong> Varian dipisahkan dengan baris baru (Enter). Untuk URL gambar, gunakan tautan langsung dari Blogger/GitHub CDN kamu.
+                        <div
+                            style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
+                            <strong>💡 Info:</strong> Varian dipisahkan dengan baris baru (Enter). Untuk URL gambar,
+                            gunakan tautan langsung dari Blogger/GitHub CDN kamu.
                         </div>
-                        
+
                         <div id="blogger-cars-container"></div>
-                        
-                        <button class="btn btn-primary" onclick="addBloggerCar()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+
+                        <button class="btn btn-primary" onclick="addBloggerCar()"
+                            style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
                             + Tambah Mobil Baru
                         </button>
                     </div>
 
-                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div class="output-panel"
+                        style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
                         <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Produk JSON output ter-generate otomatis di sini.</p>
-                        <textarea id="blogger-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">
+                            Produk JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="blogger-json-output"
+                            style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
                         <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-primary" onclick="copyBloggerJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
-                            <button class="btn btn-secondary" onclick="loadBloggerJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                            <button class="btn btn-primary" onclick="copyBloggerJSON()"
+                                style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBloggerJSON()"
+                                style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load
+                                dari JSON</button>
                         </div>
                     </div>
                 </div>
@@ -2672,50 +2641,68 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-pricelist" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-pricelist')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-pricelist" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-pricelist')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
                                 <label>File Path JSON (Pricelist DB)</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-path-pricelist" class="form-control gh-sync-path-pricelist"
+                                    <input type="text" id="gh-path-pricelist"
+                                        class="form-control gh-sync-path-pricelist"
                                         placeholder="Contoh: data/honda-pricelist.json"
                                         onchange="syncGHFields(this.value, 'pathPricelist')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-pricelist')">📂 Browse File</button>
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-pricelist')">📂
+                                        Browse File</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-github" onclick="fetchPricelistFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
-                            <button class="btn btn-success" onclick="savePricelistToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                            <button class="btn btn-github" onclick="fetchPricelistFromGitHub()"
+                                style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="savePricelistToGitHub()"
+                                style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
                         </div>
-                        <div id="github-status-pricelist" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                        <div id="github-status-pricelist" style="font-size:12px; margin-top:10px; text-align:right;">
+                        </div>
                     </div>
                 </details>
 
                 <div class="blogger-editor-wrap">
                     <div class="editor-panel">
-                        <div style="font-size: 15px; font-weight: bold; margin-bottom: 15px; color: var(--primary);">1. Data Tabel Mobil (Models)</div>
+                        <div style="font-size: 15px; font-weight: bold; margin-bottom: 15px; color: var(--primary);">1.
+                            Data Tabel Mobil (Models)</div>
                         <div id="pricelist-models-container"></div>
-                        <button class="btn btn-primary" onclick="addPricelistModel()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+                        <button class="btn btn-primary" onclick="addPricelistModel()"
+                            style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
                             + Tambah Grup Model Mobil
                         </button>
 
-                        <div style="font-size: 15px; font-weight: bold; margin-top: 30px; margin-bottom: 15px; color: var(--primary);">2. Syarat & Ketentuan (Notes)</div>
+                        <div
+                            style="font-size: 15px; font-weight: bold; margin-top: 30px; margin-bottom: 15px; color: var(--primary);">
+                            2. Syarat & Ketentuan (Notes)</div>
                         <div id="pricelist-notes-container"></div>
-                        <button class="btn btn-secondary" onclick="addPricelistNote()" style="margin-top: 10px; width: 100%; padding: 10px; font-size: 14px; background: var(--bg); color: var(--text-main); border: 1px dashed var(--border);">
+                        <button class="btn btn-secondary" onclick="addPricelistNote()"
+                            style="margin-top: 10px; width: 100%; padding: 10px; font-size: 14px; background: var(--bg); color: var(--text-main); border: 1px dashed var(--border);">
                             + Tambah Keterangan / S&K Baru
                         </button>
                     </div>
 
-                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div class="output-panel"
+                        style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
                         <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Pricelist JSON output ter-generate otomatis di sini.</p>
-                        <textarea id="pricelist-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">
+                            Pricelist JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="pricelist-json-output"
+                            style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
                         <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-primary" onclick="copyPricelistJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
-                            <button class="btn btn-secondary" onclick="loadPricelistJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                            <button class="btn btn-primary" onclick="copyPricelistJSON()"
+                                style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadPricelistJSON()"
+                                style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load
+                                dari JSON</button>
                         </div>
                     </div>
                 </div>
@@ -2734,8 +2721,10 @@
                             <div class="form-group">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-byd" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-byd')">📂 Browse Repo</button>
+                                    <input type="text" id="gh-repo-byd" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-byd')">📂
+                                        Browse Repo</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 2;">
@@ -2744,13 +2733,16 @@
                                     <input type="text" id="gh-path-byd" class="form-control gh-sync-path-byd"
                                         placeholder="Contoh: data/product_features/brio.json"
                                         onchange="syncGHFields(this.value, 'pathByd')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-byd')">📂 Browse File</button>
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-byd')">📂
+                                        Browse File</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-github" onclick="fetchBydFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
-                            <button class="btn btn-success" onclick="saveBydToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                            <button class="btn btn-github" onclick="fetchBydFromGitHub()"
+                                style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBydToGitHub()"
+                                style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
                         </div>
                         <div id="github-status-byd" style="font-size:12px; margin-top:10px; text-align:right;"></div>
                     </div>
@@ -2758,24 +2750,34 @@
 
                 <div class="blogger-editor-wrap">
                     <div class="editor-panel">
-                        <div style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
-                            <strong>💡 Info:</strong> Untuk memasukkan kode HTML Tabel Spesifikasi, klik tombol <strong>"Source"</strong> di ujung kanan kotak deskripsi CKEditor, lalu <i>paste</i> kodenya.
+                        <div
+                            style="background: var(--bg); padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 13px; border-left: 4px solid var(--info); line-height: 1.4;">
+                            <strong>💡 Info:</strong> Untuk memasukkan kode HTML Tabel Spesifikasi, klik tombol
+                            <strong>"Source"</strong> di ujung kanan kotak deskripsi CKEditor, lalu <i>paste</i>
+                            kodenya.
                         </div>
-                        
+
                         <div id="byd-categories-container"></div>
-                        
-                        <button class="btn btn-primary" onclick="addBydCategory()" style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
+
+                        <button class="btn btn-primary" onclick="addBydCategory()"
+                            style="margin-top: 10px; width: 100%; padding: 12px; font-size: 16px;">
                             + Tambah Kategori Baru (Menu Utama)
                         </button>
                     </div>
 
-                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div class="output-panel"
+                        style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
                         <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Features JSON output ter-generate otomatis di sini.</p>
-                        <textarea id="byd-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">
+                            Features JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="byd-json-output"
+                            style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
                         <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-primary" onclick="copyBydJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
-                            <button class="btn btn-secondary" onclick="loadBydJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                            <button class="btn btn-primary" onclick="copyBydJSON()"
+                                style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBydJSON()"
+                                style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load
+                                dari JSON</button>
                         </div>
                     </div>
                 </div>
@@ -2794,8 +2796,10 @@
                             <div class="form-group" style="flex: 1.2;">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-banner" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-banner')">📂 Browse</button>
+                                    <input type="text" id="gh-repo-banner" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-banner')">📂
+                                        Browse</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 1.5;">
@@ -2804,22 +2808,27 @@
                                     <input type="text" id="gh-path-banner" class="form-control gh-sync-path-banner"
                                         placeholder="Contoh: honda/data/banners.json"
                                         onchange="syncGHFields(this.value, 'pathBanner')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-banner')">📂 Browse File</button>
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-banner')">📂
+                                        Browse File</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 1.5;">
                                 <label>Folder Upload Gambar</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-path-banner-img" class="form-control gh-sync-path-banner-img"
+                                    <input type="text" id="gh-path-banner-img"
+                                        class="form-control gh-sync-path-banner-img"
                                         placeholder="Contoh: honda/assets/images/banner"
                                         onchange="syncGHFields(this.value, 'pathBannerImg')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('folder', 'gh-path-banner-img')">📂 Browse Folder</button>
+                                    <button class="btn-sm bg-gray"
+                                        onclick="openGHModal('folder', 'gh-path-banner-img')">📂 Browse Folder</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-github" onclick="fetchBannerFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
-                            <button class="btn btn-success" onclick="saveBannerToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                            <button class="btn btn-github" onclick="fetchBannerFromGitHub()"
+                                style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveBannerToGitHub()"
+                                style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
                         </div>
                         <div id="github-status-banner" style="font-size:12px; margin-top:10px; text-align:right;"></div>
                     </div>
@@ -2830,13 +2839,19 @@
                         <div id="banner-models-container"></div>
                     </div>
 
-                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div class="output-panel"
+                        style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
                         <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Banner JSON output ter-generate otomatis di sini.</p>
-                        <textarea id="banner-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">
+                            Banner JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="banner-json-output"
+                            style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
                         <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-primary" onclick="copyBannerJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
-                            <button class="btn btn-secondary" onclick="loadBannerJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                            <button class="btn btn-primary" onclick="copyBannerJSON()"
+                                style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadBannerJSON()"
+                                style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load
+                                dari JSON</button>
                         </div>
                     </div>
                 </div>
@@ -2845,7 +2860,8 @@
             <div id="elearning-editor-section" class="tool-section">
                 <div class="section-header">
                     <h2>🛠️ E-Learning Editor (Training JSON)</h2>
-                    <p>Sunting dan konfigurasikan program pembelajaran training secara visual lengkap dengan upload modul & speaker.</p>
+                    <p>Sunting dan konfigurasikan program pembelajaran training secara visual lengkap dengan upload
+                        modul & speaker.</p>
                 </div>
 
                 <details class="config-accordion" style="margin-bottom: 25px;">
@@ -2855,53 +2871,71 @@
                             <div class="form-group" style="flex: 1.2;">
                                 <label>Repository</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-repo-elearning" class="form-control gh-sync-repo" onchange="syncGHFields(this.value, 'repo')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-elearning')">📂 Browse</button>
+                                    <input type="text" id="gh-repo-elearning" class="form-control gh-sync-repo"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-elearning')">📂
+                                        Browse</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 1.5;">
                                 <label>File Path JSON Utama (.json)</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-path-elearning" class="form-control gh-sync-path-elearning"
+                                    <input type="text" id="gh-path-elearning"
+                                        class="form-control gh-sync-path-elearning"
                                         placeholder="Contoh: json/training.json"
                                         onchange="syncGHFields(this.value, 'pathElearning')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-elearning')">📂 Browse File</button>
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-elearning')">📂
+                                        Browse File</button>
                                 </div>
                             </div>
                             <div class="form-group" style="flex: 1.5;">
                                 <label>Folder Upload Gambar</label>
                                 <div class="input-group">
-                                    <input type="text" id="gh-path-elearning-img" class="form-control gh-sync-path-elearning-img"
+                                    <input type="text" id="gh-path-elearning-img"
+                                        class="form-control gh-sync-path-elearning-img"
                                         placeholder="Contoh: assets/images"
                                         onchange="syncGHFields(this.value, 'pathElearningImg')">
-                                    <button class="btn-sm bg-gray" onclick="openGHModal('folder', 'gh-path-elearning-img')">📂 Browse Folder</button>
+                                    <button class="btn-sm bg-gray"
+                                        onclick="openGHModal('folder', 'gh-path-elearning-img')">📂 Browse
+                                        Folder</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row" style="margin-top: 15px; display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-github" onclick="fetchElearningFromGitHub()" style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
-                            <button class="btn btn-success" onclick="saveElearningToGitHub()" style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
+                            <button class="btn btn-github" onclick="fetchElearningFromGitHub()"
+                                style="flex:1; margin-bottom:0;">↓ Tarik Data dari GitHub</button>
+                            <button class="btn btn-success" onclick="saveElearningToGitHub()"
+                                style="flex:1; margin-bottom:0;">↑ Simpan Langsung ke GitHub</button>
                         </div>
-                        <div id="github-status-elearning" style="font-size:12px; margin-top:10px; text-align:right;"></div>
+                        <div id="github-status-elearning" style="font-size:12px; margin-top:10px; text-align:right;">
+                        </div>
                     </div>
                 </details>
 
                 <div class="blogger-editor-wrap">
                     <div class="editor-panel">
                         <div id="elearning-wrapper">
-                            <div style="padding: 40px; text-align: center; color: var(--text-muted); border: 2px dashed var(--border); border-radius: 8px;">
-                                Tampilan Editor masih kosong.<br>Silakan <b>Tarik Data JSON</b> dari GitHub atau klik <b>Load Data</b> di kotak preview kanan.
+                            <div
+                                style="padding: 40px; text-align: center; color: var(--text-muted); border: 2px dashed var(--border); border-radius: 8px;">
+                                Tampilan Editor masih kosong.<br>Silakan <b>Tarik Data JSON</b> dari GitHub atau klik
+                                <b>Load Data</b> di kotak preview kanan.
                             </div>
                         </div>
                     </div>
 
-                    <div class="output-panel" style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div class="output-panel"
+                        style="background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
                         <h3 style="margin-top: 0; font-size: 16px; color: var(--primary);">Preview & Output JSON</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">Training JSON output ter-generate otomatis di sini.</p>
-                        <textarea id="elearning-json-output" style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 15px;">
+                            Training JSON output ter-generate otomatis di sini.</p>
+                        <textarea id="elearning-json-output"
+                            style="width: 100%; height: 350px; font-family: 'Courier New', Courier, monospace; font-size: 12px; background: #282c34; color: #d1d9e1; border-radius: 4px; border: none; resize: vertical; padding: 10px; margin-bottom: 15px;"></textarea>
                         <div class="form-row" style="display: flex; gap: 10px; margin-bottom: 0;">
-                            <button class="btn btn-primary" onclick="copyElearningJSON()" style="flex:1; margin-bottom:0;">Copy JSON</button>
-                            <button class="btn btn-secondary" onclick="loadElearningJSON()" style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load dari JSON</button>
+                            <button class="btn btn-primary" onclick="copyElearningJSON()"
+                                style="flex:1; margin-bottom:0;">Copy JSON</button>
+                            <button class="btn btn-secondary" onclick="loadElearningJSON()"
+                                style="flex:1; margin-bottom:0; background: var(--bg); color: var(--text-main); border: 1px solid var(--border);">Load
+                                dari JSON</button>
                         </div>
                     </div>
                 </div>
@@ -2917,28 +2951,44 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>GitHub Personal Access Token (PAT)</label>
-                        <input type="password" class="form-control gh-sync-token" placeholder="Masukkan GitHub PAT..." onchange="syncGHFields(this.value, 'token')">
+                        <input type="password" class="form-control gh-sync-token" placeholder="Masukkan GitHub PAT..."
+                            onchange="syncGHFields(this.value, 'token')">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>GitHub Username / Owner</label>
-                        <input type="text" class="form-control gh-sync-user" placeholder="Masukkan Username GitHub..." onchange="syncGHFields(this.value, 'user')">
+                        <input type="text" class="form-control gh-sync-user" placeholder="Masukkan Username GitHub..."
+                            onchange="syncGHFields(this.value, 'user')">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Google Gemini API Key</label>
-                        <input type="password" class="form-control api-key-input" placeholder="Masukkan Gemini API Key..." oninput="syncApiKey(this.value)">
+                        <input type="password" class="form-control api-key-input"
+                            placeholder="Masukkan Gemini API Key..." oninput="syncApiKey(this.value)">
                     </div>
                 </div>
 
-                <div style="background: var(--bg); padding: 15px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--info); margin-top: 20px;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Google Gemini Model Version</label>
+                        <select id="gemini-model-select" class="form-control" onchange="syncGeminiModel(this.value)">
+                            <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+                            <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div
+                    style="background: var(--bg); padding: 15px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--info); margin-top: 20px;">
                     <strong>ℹ️ Panduan Pengaturan:</strong>
                     <p style="margin: 5px 0 0 0; line-height: 1.4; color: var(--text-muted);">
-                        Isi data di atas terlebih dahulu sebelum menggunakan menu lainnya. Kredensial ini digunakan untuk sinkronisasi data dengan GitHub dan fitur AI Content Generator. Pengaturan disimpan secara lokal di browser Anda.
+                        Isi data di atas terlebih dahulu sebelum menggunakan menu lainnya. Kredensial ini digunakan
+                        untuk sinkronisasi data dengan GitHub dan fitur AI Content Generator. Pengaturan disimpan secara
+                        lokal di browser Anda.
                     </p>
                 </div>
             </div>
@@ -3094,34 +3144,34 @@
         function renderPaginationControls(type, totalPages) {
             const container = document.getElementById(`pagination-nav-${type}`);
             if (!container) return;
-            
+
             const currentPage = tableState[type].page;
             let html = "";
-            
+
             // First page button
             html += `<button class="btn-pg" onclick="gotoPage('${type}', 1)" ${currentPage === 1 ? 'disabled' : ''} title="Halaman Pertama">&laquo;</button>`;
-            
+
             // Prev page button
             html += `<button class="btn-pg" onclick="gotoPage('${type}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} title="Sebelumnya">&lsaquo;</button>`;
-            
+
             // Calculate page range to show (max 5 pages)
             let startPage = Math.max(1, currentPage - 2);
             let endPage = Math.min(totalPages, startPage + 4);
             if (endPage - startPage < 4) {
                 startPage = Math.max(1, endPage - 4);
             }
-            
+
             // Render page numbers
             for (let i = startPage; i <= endPage; i++) {
                 html += `<button class="btn-pg ${i === currentPage ? 'active' : ''}" onclick="gotoPage('${type}', ${i})">${i}</button>`;
             }
-            
+
             // Next page button
             html += `<button class="btn-pg" onclick="gotoPage('${type}', ${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} title="Berikutnya">&rsaquo;</button>`;
-            
+
             // Last page button
             html += `<button class="btn-pg" onclick="gotoPage('${type}', ${totalPages})" ${currentPage === totalPages ? 'disabled' : ''} title="Halaman Terakhir">&raquo;</button>`;
-            
+
             container.innerHTML = html;
         }
         function paginateData(dataArray, type) {
@@ -3152,6 +3202,35 @@
         function syncApiKey(val) {
             localStorage.setItem('gemini_api_key', val.trim());
             document.querySelectorAll('.api-key-input').forEach(el => { if (el.value !== val) el.value = val; });
+        }
+
+        function syncGeminiModel(val) {
+            localStorage.setItem('gemini_model', val);
+            const selectEl = document.getElementById('gemini-model-select');
+            if (selectEl && selectEl.value !== val) selectEl.value = val;
+        }
+
+        async function callGeminiAPI(promptText) {
+            const apiKey = localStorage.getItem('gemini_api_key');
+            if (!apiKey) {
+                throw new Error("API Key Gemini kosong! Masukkan kunci di kolom pengaturan.");
+            }
+            
+            let model = localStorage.getItem('gemini_model') || 'gemini-3.5-flash';
+            
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+            });
+            const data = await response.json();
+            if (data.error) {
+                throw new Error(data.error.message);
+            }
+            if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts[0]) {
+                throw new Error("Respon AI tidak teratur/kosong.");
+            }
+            return data.candidates[0].content.parts[0].text;
         }
 
         function syncGHFields(val, keyType) {
@@ -3261,6 +3340,10 @@
             const savedGeminiKey = localStorage.getItem('gemini_api_key');
             if (savedGeminiKey) document.querySelectorAll('.api-key-input').forEach(el => el.value = savedGeminiKey);
 
+            const savedGeminiModel = localStorage.getItem('gemini_model') || 'gemini-3.5-flash';
+            const modelSelect = document.getElementById('gemini-model-select');
+            if (modelSelect) modelSelect.value = savedGeminiModel;
+
             const ghConf = JSON.parse(localStorage.getItem('gh_config'));
             document.querySelectorAll('.gh-sync-token').forEach(el => el.value = ghConf.token || "");
             document.querySelectorAll('.gh-sync-user').forEach(el => el.value = ghConf.user || "");
@@ -3296,7 +3379,7 @@
                 if (bloggerUIData.length === 0) {
                     const cached = localStorage.getItem('honda_blogger_db');
                     if (cached) {
-                        try { bloggerUIData = JSON.parse(cached); } catch(e) {}
+                        try { bloggerUIData = JSON.parse(cached); } catch (e) { }
                     }
                     if (bloggerUIData.length === 0) {
                         addBloggerCar();
@@ -3313,7 +3396,7 @@
                 if (pricelistUIData.models.length === 0) {
                     const cached = localStorage.getItem('honda_pricelist_db');
                     if (cached) {
-                        try { pricelistUIData = JSON.parse(cached); } catch(e) {}
+                        try { pricelistUIData = JSON.parse(cached); } catch (e) { }
                     }
                     if (pricelistUIData.models.length === 0) {
                         addPricelistModel();
@@ -3330,7 +3413,7 @@
                 if (bydUIData.length === 0) {
                     const cached = localStorage.getItem('honda_byd_db');
                     if (cached) {
-                        try { bydUIData = JSON.parse(cached); } catch(e) {}
+                        try { bydUIData = JSON.parse(cached); } catch (e) { }
                     }
                     if (bydUIData.length === 0) {
                         addBydCategory();
@@ -3347,7 +3430,7 @@
                 if (bannerUIData.models[0].items.length === 0 && bannerUIData.models[1].items.length === 0) {
                     const cached = localStorage.getItem('honda_banner_db');
                     if (cached) {
-                        try { bannerUIData = JSON.parse(cached); } catch(e) {}
+                        try { bannerUIData = JSON.parse(cached); } catch (e) { }
                     }
                     renderBannerEditor();
                     fetchBannerFromGitHub();
@@ -3360,24 +3443,13 @@
                 if (!elearningUIData) {
                     const cached = localStorage.getItem('honda_elearning_db');
                     if (cached) {
-                        try { elearningUIData = JSON.parse(cached); } catch(e) {}
+                        try { elearningUIData = JSON.parse(cached); } catch (e) { }
                     }
                     renderElearningEditor();
                     fetchElearningFromGitHub();
                 } else {
                     renderElearningEditor();
                 }
-            }
-
-            if (toolId === 'ads') {
-                const defaultUrl = 'https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503';
-                document.getElementById('main-ads-frame').src = defaultUrl;
-                currentAdsUrl = defaultUrl;
-                const tabs = document.querySelectorAll('#ads-section .tab-btn');
-                tabs.forEach((tab, idx) => {
-                    if (idx === 0) tab.classList.add('active');
-                    else tab.classList.remove('active');
-                });
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3410,17 +3482,6 @@
         function changeSheet(btn, url) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
             document.getElementById('main-sheet-frame').src = url;
-        }
-
-        let currentAdsUrl = "https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503";
-        function changeAdsTab(btn, url) {
-            document.querySelectorAll('#ads-section .tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentAdsUrl = url;
-            document.getElementById('main-ads-frame').src = url;
-        }
-        function openActiveAdsTabInNewTab() {
-            window.open(currentAdsUrl, '_blank');
         }
 
         // ================= TO DO LIST LOGIC =================
@@ -3701,7 +3762,7 @@
             let pType = 'pathImg';
             if (currentGHTargetInput === 'gh-path-banner-img') pType = 'pathBannerImg';
             else if (currentGHTargetInput === 'gh-path-elearning-img') pType = 'pathElearningImg';
-            
+
             syncGHFields(currentGHPath, pType);
             closeGHModal();
         }
@@ -3909,9 +3970,6 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
         function clearGenHistory() { localStorage.removeItem('honda_local_gen_history'); renderGenHistory(); }
 
         async function generateAIContent() {
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if (!apiKey) return alert("⚠️ API Key Gemini kosong! Masukkan kunci di kolom yang tersedia.");
-
             const type = document.getElementById('gen-type').value;
             const length = document.getElementById('gen-length').value;
             const duration = document.getElementById('gen-duration').value;
@@ -3929,13 +3987,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                 : `Buatkan Video Script Reels. Durasi: ${duration}. Mobil: ${prod}. Framework copywriting: ${fw}. Data 1: ${prob}. Data 2: ${feat}. CTA: ${cta}. Buat format tabel "Visual" dan "Audio".`;
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
-                });
-                const data = await response.json();
-                if (data.error) throw new Error(data.error.message);
-                const outText = data.candidates[0].content.parts[0].text;
+                const outText = await callGeminiAPI(sysPrompt);
                 document.getElementById('gen-output').innerText = outText;
                 document.getElementById('gen-result-box').style.display = 'block';
                 saveGenToHistory(`${type} - ${prod} (${fw.split(' ')[0]})`, outText);
@@ -4030,12 +4082,8 @@ Konversi DM: ${dmCount}.
 Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on track, jelaskan bahwa konten bagus tapi distribusi kurang. Return murni JSON format {"soWhat":"...", "nowWhat":"..."}`;
 
                     try {
-                        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
-                            method: 'POST', headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
-                        });
-                        const data = await response.json();
-                        let text = data.candidates[0].content.parts[0].text.replace(/```json/g, '').replace(/```/g, '').trim();
+                        const outText = await callGeminiAPI(sysPrompt);
+                        let text = outText.replace(/```json/g, '').replace(/```/g, '').trim();
                         const aiResult = JSON.parse(text);
                         soWhat = aiResult.soWhat; nowWhat = aiResult.nowWhat;
                     } catch (e) {
@@ -4199,12 +4247,8 @@ Jumlah Post: ${postCount}. Followers: ${foll}.
 Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distribusi/reach organik terbatas walau interaksi bagus. Jika sebaliknya, jelaskan reach luas tapi interaksi kurang menempel. Return murni JSON format {"soWhat":"...", "nowWhat":"..."}`;
 
                     try {
-                        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
-                            method: 'POST', headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ contents: [{ parts: [{ text: sysPrompt }] }] })
-                        });
-                        const data = await response.json();
-                        let text = data.candidates[0].content.parts[0].text.replace(/```json/g, '').replace(/```/g, '').trim();
+                        const outText = await callGeminiAPI(sysPrompt);
+                        let text = outText.replace(/```json/g, '').replace(/```/g, '').trim();
                         const aiResult = JSON.parse(text);
                         soWhat = aiResult.soWhat; nowWhat = aiResult.nowWhat;
                     } catch (e) {
@@ -4428,8 +4472,6 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
         function clearCareHistory() { localStorage.removeItem('honda_local_care_history'); renderCareHistory(); }
 
         async function generateCareAI() {
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if (!apiKey) return alert("⚠️ API Key Gemini kosong!");
             const salutation = document.getElementById('care-salutation').value;
             const name = document.getElementById('care-name').value || "Pelanggan";
             const comment = document.getElementById('care-input').value;
@@ -4441,12 +4483,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
             const promptText = `Sebagai CS Honda Bintaro, balas komentar: "${comment}".
 Sapa pelanggan ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan ke: ${direction}. Tulis bahasa Indonesia natural.`;
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
-                });
-                const data = await response.json();
-                if (data.error) throw new Error(data.error.message);
-                const outText = data.candidates[0].content.parts[0].text;
+                const outText = await callGeminiAPI(promptText);
                 document.getElementById('care-output').innerText = outText; document.getElementById('care-result-box').style.display = 'block';
                 saveCareToHistory(`Balasan untuk ${salutation} ${name}`, outText);
             } catch (err) { alert("Error: " + err.message); }
@@ -4724,7 +4761,7 @@ ${platHtml}
             bloggerUIData.forEach((car, index) => {
                 const card = document.createElement('div');
                 card.className = 'blogger-car-card';
-                
+
                 let cardTitle = car.name ? car.name : (car.carId ? car.carId.toUpperCase() : 'MOBIL BARU');
 
                 card.innerHTML = `
@@ -4813,7 +4850,7 @@ ${platHtml}
                     ]
                 });
 
-                editor.on('change', function() {
+                editor.on('change', function () {
                     const idx = parseInt(ta.id.split('-')[2]);
                     updateBloggerCar(idx, 'description', this.getData());
                 });
@@ -4821,15 +4858,15 @@ ${platHtml}
         }
 
         function addBloggerCar() {
-            bloggerUIData.push({ 
-                carId: "", name: "", price: "", variants: "", dp: "", angsuran: "", 
-                seats: "", engine: "", description: "", imgThumb: "", imgFull: "" 
+            bloggerUIData.push({
+                carId: "", name: "", price: "", variants: "", dp: "", angsuran: "",
+                seats: "", engine: "", description: "", imgThumb: "", imgFull: ""
             });
             renderBloggerEditor();
         }
 
         function removeBloggerCar(index) {
-            if(confirm('Yakin ingin menghapus data mobil ini?')) {
+            if (confirm('Yakin ingin menghapus data mobil ini?')) {
                 bloggerUIData.splice(index, 1);
                 renderBloggerEditor();
             }
@@ -4843,8 +4880,8 @@ ${platHtml}
         function buildBloggerFinalJSON() {
             let finalData = {};
             bloggerUIData.forEach(car => {
-                if(!car.carId || car.carId.trim() === '') return;
-                
+                if (!car.carId || car.carId.trim() === '') return;
+
                 let variantArray = (car.variants || "").split('\n').map(v => v.trim()).filter(v => v !== '');
 
                 let carObj = {
@@ -4944,8 +4981,8 @@ ${platHtml}
                 if (!response.ok) throw new Error(`Gagal menarik data (${response.status}). Periksa Token/Path.`);
 
                 const data = await response.json();
-                bloggerFileSha = data.sha; 
-                
+                bloggerFileSha = data.sha;
+
                 const decodedContent = decodeURIComponent(escape(atob(data.content)));
                 const parsed = JSON.parse(decodedContent);
 
@@ -5078,11 +5115,11 @@ ${platHtml}
 
         function generateSlug(text) {
             return text.toString().toLowerCase()
-                .replace(/\s+/g, '-')           
-                .replace(/[^\w\-]+/g, '')       
-                .replace(/\-\-+/g, '-')         
-                .replace(/^-+/, '')             
-                .replace(/-+$/, '');            
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+/, '')
+                .replace(/-+$/, '');
         }
 
         function addPricelistModel() {
@@ -5090,7 +5127,7 @@ ${platHtml}
             renderPricelistEditor();
         }
         function removePricelistModel(mIndex) {
-            if(confirm('Yakin ingin menghapus model ini beserta semua variannya?')) {
+            if (confirm('Yakin ingin menghapus model ini beserta semua variannya?')) {
                 pricelistUIData.models.splice(mIndex, 1);
                 renderPricelistEditor();
             }
@@ -5220,7 +5257,7 @@ ${platHtml}
                 try {
                     const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
                     if (checkRes.ok) pricelistFileSha = (await checkRes.json()).sha;
-                } catch (e) {}
+                } catch (e) { }
             }
 
             const bodyData = { message: "⚡ Update Pricelist via Generator", content: encodedContent };
@@ -5344,7 +5381,7 @@ ${platHtml}
                     ]
                 });
 
-                editor.on('change', function() {
+                editor.on('change', function () {
                     const parts = ta.id.split('-');
                     const c = parseInt(parts[2]);
                     const idx = parseInt(parts[3]);
@@ -5358,7 +5395,7 @@ ${platHtml}
             renderBydEditor();
         }
         function removeBydCategory(cIndex) {
-            if(confirm('Yakin ingin menghapus kategori ini beserta isinya?')) {
+            if (confirm('Yakin ingin menghapus kategori ini beserta isinya?')) {
                 bydUIData.splice(cIndex, 1);
                 renderBydEditor();
             }
@@ -5490,7 +5527,7 @@ ${platHtml}
                 try {
                     const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
                     if (checkRes.ok) bydFileSha = (await checkRes.json()).sha;
-                } catch (e) {}
+                } catch (e) { }
             }
 
             const bodyData = { message: "⚡ Update Features via Generator", content: encodedContent };
@@ -5651,7 +5688,7 @@ ${platHtml}
                 inputEl.value = ""; return;
             }
 
-            if(imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
+            if (imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
             const statusEl = document.getElementById(`banner-upload-status-${gIndex}-${iIndex}`);
             if (statusEl) statusEl.innerHTML = "⏳ Memproses...";
 
@@ -5661,7 +5698,7 @@ ${platHtml}
             }
 
             const reader = new FileReader();
-            reader.onload = async function(e) {
+            reader.onload = async function (e) {
                 const base64 = e.target.result.split(',')[1];
                 const ext = file.name.split('.').pop();
                 const slug = item.id ? item.id.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase() : 'banner';
@@ -5680,14 +5717,14 @@ ${platHtml}
                     });
                     if (!res.ok) throw new Error("Gagal upload gambar ke GitHub.");
                     const resData = await res.json();
-                    let publicUrl = repo.includes('.github.io') 
-                        ? `https://${repo}/${resData.content.path}` 
+                    let publicUrl = repo.includes('.github.io')
+                        ? `https://${repo}/${resData.content.path}`
                         : `https://${owner}.github.io/${repo}/${resData.content.path}`;
 
                     item.image = publicUrl;
                     item._tempImage = '';
                     renderBannerEditor();
-                } catch(err) {
+                } catch (err) {
                     alert(err.message);
                 }
             };
@@ -5718,7 +5755,7 @@ ${platHtml}
                 bannerUIData.models[1].items = parsed.banners?.mobile || [];
                 renderBannerEditor();
                 alert('JSON loaded!');
-            } catch(e) {
+            } catch (e) {
                 alert('Format JSON salah.');
             }
         }
@@ -5749,7 +5786,7 @@ ${platHtml}
                     statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
                     setTimeout(() => statusEl.innerHTML = "", 5000);
                 }
-            } catch(e) {
+            } catch (e) {
                 if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`;
             }
         }
@@ -5783,7 +5820,7 @@ ${platHtml}
                         headers: { 'Authorization': `token ${token}` }
                     });
                     if (check.ok) bannerFileSha = (await check.json()).sha;
-                } catch(e) {}
+                } catch (e) { }
             }
 
             const body = { message: "⚡ Update Banners via Dashboard Editor", content: base64 };
@@ -5799,7 +5836,7 @@ ${platHtml}
                 bannerFileSha = (await res.json()).content.sha;
                 alert("Berhasil disimpan!");
                 if (statusEl) statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan!</span>`;
-            } catch(e) {
+            } catch (e) {
                 alert(e.message);
                 if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal.</span>`;
             }
@@ -5906,8 +5943,8 @@ ${platHtml}
             const container = document.getElementById('elearning-important-blocks-container');
             if (!container) return;
             container.innerHTML = '';
-            
-            if(!elearningUIData.global.importantBlocks) elearningUIData.global.importantBlocks = [];
+
+            if (!elearningUIData.global.importantBlocks) elearningUIData.global.importantBlocks = [];
 
             elearningUIData.global.importantBlocks.forEach((b, i) => {
                 let inputHtml = '';
@@ -5932,14 +5969,14 @@ ${platHtml}
                 div.innerHTML = `
                     <div style="display:flex; gap:10px; margin-bottom:10px;">
                         <select class="form-control" style="width: auto; flex:1;" onchange="changeElearningImportantBlockType(${i}, this.value)">
-                            <option value="heading" ${b.type==='heading'?'selected':''}>Heading (Judul Emoji)</option>
-                            <option value="heading-sub" ${b.type==='heading-sub'?'selected':''}>Sub Heading</option>
-                            <option value="card" ${b.type==='card'?'selected':''}>Card (Tombol Link)</option>
-                            <option value="list" ${b.type==='list'?'selected':''}>List (Informasi Pelengkap)</option>
+                            <option value="heading" ${b.type === 'heading' ? 'selected' : ''}>Heading (Judul Emoji)</option>
+                            <option value="heading-sub" ${b.type === 'heading-sub' ? 'selected' : ''}>Sub Heading</option>
+                            <option value="card" ${b.type === 'card' ? 'selected' : ''}>Card (Tombol Link)</option>
+                            <option value="list" ${b.type === 'list' ? 'selected' : ''}>List (Informasi Pelengkap)</option>
                         </select>
                         <div style="display:flex; gap:5px;">
-                            <button class="btn btn-secondary" onclick="moveElearningImportantBlock(${i}, -1)" ${i===0?'disabled':''} style="padding:4px 8px;">↑</button>
-                            <button class="btn btn-secondary" onclick="moveElearningImportantBlock(${i}, 1)" ${i===elearningUIData.global.importantBlocks.length-1?'disabled':''} style="padding:4px 8px;">↓</button>
+                            <button class="btn btn-secondary" onclick="moveElearningImportantBlock(${i}, -1)" ${i === 0 ? 'disabled' : ''} style="padding:4px 8px;">↑</button>
+                            <button class="btn btn-secondary" onclick="moveElearningImportantBlock(${i}, 1)" ${i === elearningUIData.global.importantBlocks.length - 1 ? 'disabled' : ''} style="padding:4px 8px;">↓</button>
                             <button class="btn btn-danger" onclick="removeElearningImportantBlock(${i})" style="padding:4px 8px;">X</button>
                         </div>
                     </div>
@@ -5983,16 +6020,16 @@ ${platHtml}
             const tabsContainer = document.getElementById('elearning-session-tabs');
             if (!tabsContainer) return;
             tabsContainer.innerHTML = '';
-            
-            if(!elearningUIData.sessions) elearningUIData.sessions = {};
+
+            if (!elearningUIData.sessions) elearningUIData.sessions = {};
             const keys = Object.keys(elearningUIData.sessions);
-            
-            if(keys.length === 0) {
+
+            if (keys.length === 0) {
                 document.getElementById('elearning-session-editor-container').innerHTML = '<p style="color:#888; text-align:center;">Belum ada sesi. Silakan tambah.</p>';
                 return;
             }
 
-            if(!elearningUIData.sessions[elearningActiveSessionKey]) elearningActiveSessionKey = keys[0];
+            if (!elearningUIData.sessions[elearningActiveSessionKey]) elearningActiveSessionKey = keys[0];
 
             keys.forEach(key => {
                 const btn = document.createElement('button');
@@ -6021,8 +6058,8 @@ ${platHtml}
         }
 
         function renderElearningActiveSession() {
-            if(!elearningActiveSessionKey || !elearningUIData.sessions[elearningActiveSessionKey]) return;
-            
+            if (!elearningActiveSessionKey || !elearningUIData.sessions[elearningActiveSessionKey]) return;
+
             const s = elearningUIData.sessions[elearningActiveSessionKey];
             const container = document.getElementById('elearning-session-editor-container');
             if (!container) return;
@@ -6106,9 +6143,9 @@ ${platHtml}
             const container = document.getElementById(`elearning-mat-${type}-container`);
             if (!container) return;
             container.innerHTML = '';
-            
+
             let arr = elearningUIData.sessions[elearningActiveSessionKey].materials[type] || [];
-            
+
             arr.forEach((m, i) => {
                 const div = document.createElement('div');
                 div.className = 'blogger-car-card';
@@ -6132,7 +6169,7 @@ ${platHtml}
             updateElearningOutput();
         }
         function addElearningMaterial(type) {
-            if(!elearningUIData.sessions[elearningActiveSessionKey].materials[type]) elearningUIData.sessions[elearningActiveSessionKey].materials[type] = [];
+            if (!elearningUIData.sessions[elearningActiveSessionKey].materials[type]) elearningUIData.sessions[elearningActiveSessionKey].materials[type] = [];
             elearningUIData.sessions[elearningActiveSessionKey].materials[type].push({ icon: '🔗', title: 'Link Baru', desc: '', url: '#' });
             renderElearningActiveSession(); updateElearningOutput();
         }
@@ -6144,24 +6181,24 @@ ${platHtml}
         function addElearningSession() {
             const count = Object.keys(elearningUIData.sessions).length + 1;
             const newKey = `sesi-${count}`;
-            
+
             elearningUIData.sessions[newKey] = {
                 "title": "Sesi Baru", "category": "Class Session", "date": "TBD", "participant": "All",
                 "speaker": { "name": "", "image": "", "desc": "" },
                 "learnings": ["Materi 1"],
                 "materials": {
                     "youtubeId": "",
-                    "during": [ { "icon": "📊", "title": "Deck Material", "desc": "", "url": "#" } ],
-                    "after": [ { "icon": "✅", "title": "Feedback", "desc": "", "url": "#" } ]
+                    "during": [{ "icon": "📊", "title": "Deck Material", "desc": "", "url": "#" }],
+                    "after": [{ "icon": "✅", "title": "Feedback", "desc": "", "url": "#" }]
                 }
             };
-            
+
             elearningActiveSessionKey = newKey;
             renderElearningEditor();
         }
 
         function deleteElearningSession(key) {
-            if(confirm(`Yakin ingin menghapus ${key}?`)) {
+            if (confirm(`Yakin ingin menghapus ${key}?`)) {
                 let img = elearningUIData.sessions[key].speaker.image;
                 if (img && img.includes('github.io')) {
                     const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
@@ -6186,14 +6223,14 @@ ${platHtml}
                 alert("Harap lengkapi konfigurasi GitHub Token, Username, Repo, dan Folder Upload Gambar!");
                 inputEl.value = ""; return;
             }
-            if(imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
+            if (imgFolder.endsWith('/')) imgFolder = imgFolder.slice(0, -1);
 
             const statusEl = document.getElementById(`elearning-upload-status-${targetType}`);
             if (statusEl) statusEl.innerHTML = "⏳ Sedang memproses...";
-            
+
             let oldUrl = "";
             let slug = "";
-            
+
             if (targetType === 'globalJourney') {
                 oldUrl = elearningUIData.global.learningJourneyImg;
                 slug = "journey";
@@ -6208,7 +6245,7 @@ ${platHtml}
             }
 
             const reader = new FileReader();
-            reader.onload = async function(e) {
+            reader.onload = async function (e) {
                 const base64Data = e.target.result.split(',')[1];
                 const ext = file.name.split('.').pop();
                 const uniqueFileName = `${slug}_${Date.now()}.${ext}`;
@@ -6224,9 +6261,9 @@ ${platHtml}
 
                     if (!res.ok) throw new Error("Gagal upload.");
                     const resData = await res.json();
-                    
-                    let publicUrl = repo.includes('.github.io') 
-                        ? `https://${repo}/${resData.content.path}` 
+
+                    let publicUrl = repo.includes('.github.io')
+                        ? `https://${repo}/${resData.content.path}`
                         : `https://${owner}.github.io/${repo}/${resData.content.path}`;
 
                     if (targetType === 'globalJourney') {
@@ -6236,10 +6273,10 @@ ${platHtml}
                         elearningUIData.sessions[elearningActiveSessionKey].speaker.image = publicUrl;
                         renderElearningActiveSession();
                     }
-                    
-                    updateElearningOutput(); 
+
+                    updateElearningOutput();
                     const finalStatus = document.getElementById(`elearning-upload-status-${targetType}`);
-                    if(finalStatus) finalStatus.innerHTML = "✅ Upload Berhasil!";
+                    if (finalStatus) finalStatus.innerHTML = "✅ Upload Berhasil!";
                 } catch (err) {
                     if (statusEl) {
                         statusEl.innerHTML = `❌ Error: ${err.message}`;
@@ -6251,7 +6288,7 @@ ${platHtml}
         }
 
         function updateElearningOutput() {
-            if(elearningUIData) {
+            if (elearningUIData) {
                 document.getElementById('elearning-json-output').value = JSON.stringify(elearningUIData, null, 2);
                 localStorage.setItem('honda_elearning_db', JSON.stringify(elearningUIData));
             }
@@ -6304,7 +6341,7 @@ ${platHtml}
                     statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Sinkronisasi Berhasil!</span>`;
                     setTimeout(() => statusEl.innerHTML = "", 5000);
                 }
-            } catch(e) {
+            } catch (e) {
                 if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik file.</span>`;
             }
         }
@@ -6331,7 +6368,7 @@ ${platHtml}
                         headers: { 'Authorization': `token ${token}` }
                     });
                     if (check.ok) elearningFileSha = (await check.json()).sha;
-                } catch(e) {}
+                } catch (e) { }
             }
 
             const body = { message: "⚡ Update Training via Dashboard Editor", content: base64 };
@@ -6347,7 +6384,7 @@ ${platHtml}
                 elearningFileSha = (await res.json()).content.sha;
                 alert("Berhasil disimpan!");
                 if (statusEl) statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan!</span>`;
-            } catch(e) {
+            } catch (e) {
                 alert(e.message);
                 if (statusEl) statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal.</span>`;
             }
@@ -6378,7 +6415,7 @@ ${platHtml}
                 try {
                     const checkRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
                     if (checkRes.ok) bloggerFileSha = (await checkRes.json()).sha;
-                } catch (e) {}
+                } catch (e) { }
             }
 
             const bodyData = { message: "⚡ Update Products Data via Blogger Editor", content: encodedContent };
@@ -6393,7 +6430,7 @@ ${platHtml}
 
                 if (!response.ok) throw new Error(`Gagal menyimpan file.`);
 
-                bloggerFileSha = (await response.json()).content.sha; 
+                bloggerFileSha = (await response.json()).content.sha;
                 if (statusEl) {
                     statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil Disimpan ke GitHub!</span>`;
                     setTimeout(() => statusEl.innerHTML = "", 5000);
