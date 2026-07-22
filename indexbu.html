@@ -1233,6 +1233,11 @@
             <div id="btn-back" class="back-nav" onclick="backAction()">← Kembali</div>
 
             <div class="tools-grid" id="menu-grid">
+                <div class="tool-card" onclick="openTool('ads')">
+                    <div class="tool-icon" style="background: #ffeaa7; color: #e67e22;">📢</div>
+                    <h3>Ads Manager Dashboard</h3>
+                    <p>Akses cepat ke Meta Ads, Google Ads, dan TikTok Ads beserta halaman billing.</p>
+                </div>
                 <div class="tool-card" onclick="openTool('spreadsheet')">
                     <div class="tool-icon" style="background: #dfe6e9; color: #0984e3;">📊</div>
                     <h3>Database & Content Plan</h3>
@@ -1480,6 +1485,62 @@
                     <div id="dist-platforms-container"></div>
                     <p id="dist-analysis"
                         style="font-size:13px; margin-top:15px; color:var(--text-muted); line-height:1.5;"></p>
+                </div>
+            </div>
+
+            <div id="ads-section" class="tool-section">
+                <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2>📢 Ads Manager Dashboard</h2>
+                    </div>
+                    <button class="btn btn-accent" style="width:auto; padding:8px 15px; margin-bottom:0;"
+                        onclick="toggleFullScreen('ads-wrap', 'btn-exit-ads-fs')">Layar Penuh ⛶</button>
+                </div>
+
+                <!-- Info Banner / Panduan Bypass Iframe -->
+                <div class="blogger-car-card" style="border-left: 4px solid var(--accent); padding: 15px; margin-bottom: 20px; background: var(--bg);">
+                    <h4 style="margin: 0 0 8px 0; color: var(--accent); display: flex; align-items: center; gap: 8px;">
+                        <span>💡</span> Petunjuk Penggunaan Dashboard Iklan
+                    </h4>
+                    <p style="font-size: 13px; margin: 0; line-height: 1.5; color: var(--text-main);">
+                        Halaman iklan ini diatur agar terbuka langsung di dalam dashboard. Jika tampilan di bawah muncul <b>kosong / blank</b>, hal tersebut dikarenakan kebijakan keamanan dari penyedia platform iklan (Google/Meta/TikTok).
+                    </p>
+                    <p style="font-size: 13px; margin: 8px 0 0 0; line-height: 1.5; color: var(--text-main);">
+                        <b>Solusi Terbaik:</b> Pasang ekstensi gratis di Google Chrome / Microsoft Edge seperti 
+                        <a href="https://chromewebstore.google.com/detail/ignore-x-frame-options/ammjpmhgckbejfgffomddpbhbggmelid" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: underline;">Ignore X-Frame-Options ↗</a> 
+                        lalu refresh halaman ini. Halaman iklan akan terbuka sempurna di bawah.
+                    </p>
+                </div>
+
+                <div class="sheet-tabs" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="tab-btn active"
+                            onclick="changeAdsTab(this, 'https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503')">Meta Ads</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://business.facebook.com/billing_hub/accounts/details/?business_id=1971446882930169&amp;asset_id=1085536315731503&amp;payment_account_id=1085536315731503&amp;placement=ads_manager&amp;entrypoint=ads_ecosystem_navigation_ads_billing_tool_plugin&amp;payment_account_id_from_jsmodule=1085536315731503')">Meta Billing</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.google.com/aw/overview?ocid=344233617&amp;euid=289823264&amp;__u=3523471136&amp;uscid=344233617&amp;__c=5261525833&amp;authuser=0')">Google Ads</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.google.com/aw/billing/summary?ocid=344233617&amp;euid=289823264&amp;__u=3523471136&amp;uscid=344233617&amp;__c=5261525833&amp;authuser=0&amp;subid=all-en-awhp-g-aw-c-home-signin-bgc!o2-s500g500%7Cib:6653296821%7Cib:9279461727%7Cib:7966379274%7C-ahpm-0000000179-0000000001')">Google Billing</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.tiktok.com/i18n/dashboard?aadvid=7194279338676682753&amp;isTTOauth=true&amp;is_from_login=1')">TikTok Ads</button>
+                        <button class="tab-btn"
+                            onclick="changeAdsTab(this, 'https://ads.tiktok.com/i18n/account/payment?aadvid=7194279338676682753')">TikTok Billing</button>
+                    </div>
+                    
+                    <button class="btn btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; display: flex; align-items: center; gap: 5px;" onclick="openActiveAdsTabInNewTab()">
+                        <span>Buka di Tab Baru</span> ↗
+                    </button>
+                </div>
+
+                <div id="ads-wrap"
+                    style="width: 100%; height: 650px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background:white; position:relative; margin-bottom:40px;">
+                    <button id="btn-exit-ads-fs" onclick="toggleFullScreen('ads-wrap', 'btn-exit-ads-fs')"
+                        style="display:none; position:absolute; top:10px; right:40px; z-index:10000; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Tutup
+                        Layar Penuh ✖</button>
+                    <iframe id="main-ads-frame"
+                        src="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503"
+                        style="width: 100%; height: 100%; border: none; background: white;"></iframe>
                 </div>
             </div>
 
@@ -3308,6 +3369,17 @@
                 }
             }
 
+            if (toolId === 'ads') {
+                const defaultUrl = 'https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503';
+                document.getElementById('main-ads-frame').src = defaultUrl;
+                currentAdsUrl = defaultUrl;
+                const tabs = document.querySelectorAll('#ads-section .tab-btn');
+                tabs.forEach((tab, idx) => {
+                    if (idx === 0) tab.classList.add('active');
+                    else tab.classList.remove('active');
+                });
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         function backAction() {
@@ -3338,6 +3410,17 @@
         function changeSheet(btn, url) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
             document.getElementById('main-sheet-frame').src = url;
+        }
+
+        let currentAdsUrl = "https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=1085536315731503";
+        function changeAdsTab(btn, url) {
+            document.querySelectorAll('#ads-section .tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentAdsUrl = url;
+            document.getElementById('main-ads-frame').src = url;
+        }
+        function openActiveAdsTabInNewTab() {
+            window.open(currentAdsUrl, '_blank');
         }
 
         // ================= TO DO LIST LOGIC =================
