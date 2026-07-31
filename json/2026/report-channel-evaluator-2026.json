@@ -53,5 +53,16 @@
     "int": 1722,
     "er": "11.18",
     "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "Juli",
+    "week": "4",
+    "evalDateRaw": "2026-07-28",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15399,
+    "int": 413,
+    "er": "2.68",
+    "status": "<span class=\"badge bg-blue\">Ideal</span>"
   }
 ]
