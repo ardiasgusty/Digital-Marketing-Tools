@@ -6,8 +6,8 @@
     "period": "Weekly",
     "platform": "Instagram",
     "foll": 15380,
-    "int": 387,
-    "er": "2.52",
+    "int": 364,
+    "er": "2.37",
     "status": "<span class=\"badge bg-blue\">Ideal</span>"
   },
   {
@@ -50,9 +50,9 @@
     "period": "Weekly",
     "platform": "Instagram",
     "foll": 15399,
-    "int": 1722,
-    "er": "11.18",
-    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+    "int": 318,
+    "er": "2.07",
+    "status": "<span class=\"badge bg-blue\">Ideal</span>"
   },
   {
     "month": "Juli",
@@ -64,5 +64,16 @@
     "int": 413,
     "er": "2.68",
     "status": "<span class=\"badge bg-blue\">Ideal</span>"
+  },
+  {
+    "month": "Juli",
+    "week": "5",
+    "evalDateRaw": "2026-07-31",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15399,
+    "int": 120,
+    "er": "0.78",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
   }
 ]
