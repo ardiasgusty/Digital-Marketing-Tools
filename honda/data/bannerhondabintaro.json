@@ -2,84 +2,78 @@
   "banners": {
     "desktop": [
       {
-        "id": "honda-family-fair",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/honda-family-fair_1783065104846.webp",
+        "id": "dapatkan-double-kupon-undian-honda-brio",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/banner_1789632014226.webp",
         "link": "#",
-        "alt": "Honda Family Fair"
+        "alt": "Dapatkan Double Kupon Undian Honda Brio"
       },
       {
-        "id": "8rio-sales-desktop",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/8rio-sales-desktop_1782954806623.webp",
+        "id": "honda-family-fair",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/honda-family-fair_1788322377632.webp",
+        "link": "#",
+        "alt": "Program Honda Family Fair"
+      },
+      {
+        "id": "brio-sales-desktop",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-sales-desktop_1788317197759.webp",
         "link": "#",
         "alt": "Beli Mobil Honda bisa dapat Honda Brio"
       },
       {
-        "id": "8rio-service-desktop",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/8rio-service-desktop_1782954816786.webp",
+        "id": "brio-service-desktop",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-service-desktop_1788317062998.webp",
         "link": "#",
         "alt": "Servis Mobil Honda bisa dapat Honda Brio"
       },
       {
-        "id": "hrv-slp",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/hrv-slp_1783065113933.webp",
+        "id": "brio-hrv-slp",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-hrv-slp_1788317050733.webp",
         "link": "#",
-        "alt": "Extra Cashback Beli Honda HR-V"
-      },
-      {
-        "id": "brio-slp",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-slp_1783065132437.webp",
-        "link": "#",
-        "alt": "Extra Cashback Beli Honda Brio"
-      },
-      {
-        "id": "promo-jfk-honda",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/promo-jfk-honda_1781498173427.webp",
-        "link": "#",
-        "alt": "Promo terbatas Honda di Jakarta Fair"
+        "alt": "Promo Honda Brio Extra Cashback 5jt"
       }
     ],
     "mobile": [
       {
-        "id": "honda-family-fair",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/honda-family-fair_1783065152271.webp",
+        "id": "honda-family-fair-banner",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/honda-family-fair-banner_1788322417300.webp",
         "link": "#",
-        "alt": "Honda Family Fair"
+        "alt": "Program Honda Family Fair"
       },
       {
-        "id": "8rio-sales-mobile",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/8rio-sales-mobile_1782954846078.webp",
+        "id": "brio-sales-mobile",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-sales-mobile_1788317189830.webp",
         "link": "#",
         "alt": "Beli Mobil Honda bisa dapat Honda Brio"
       },
       {
-        "id": "8rio-service-mobile",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/8rio-service-mobile_1782954856187.webp",
+        "id": "brio-service-mobile",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-service-mobile_1788317246985.webp",
         "link": "#",
         "alt": "Servis Mobil Honda bisa dapat Honda Brio"
       },
       {
         "id": "8rio-detil-mobile",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/8rio-detil-mobile_1782954864552.webp",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/8rio-detil-mobile_1788317257613.webp",
         "link": "#",
         "alt": "Beli dan Servis Mobil Honda bisa dapat Honda Brio"
       },
       {
-        "id": "hrv-slp-mobile",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/hrv-slp-mobile_1783065169688.webp",
+        "id": "brio-hrv-slp-mobile",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-hrv-slp-mobile_1788317272139.webp",
         "link": "#",
-        "alt": "Extra Cashback Beli Honda HR-V"
+        "alt": "Promo Honda Brio & HR-V Extra Cashback 5jt"
       },
       {
-        "id": "brio-slp-mobile",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/brio-slp-mobile_1783065183403.webp",
+        "id": "dapatkan-double-kupon-undian-honda-brio-mobile-1",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/banner_1789632653371.webp",
         "link": "#",
-        "alt": "Extra Cashback Beli Honda Brio"
+        "alt": "Beli dan Servis Mobil Honda bisa dapat Honda Brio"
       },
       {
-        "id": "promo-jfk-honda-mobile",
-        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/banner_1781498202804.webp",
+        "id": "dapatkan-double-kupon-undian-honda-brio-mobile-2",
+        "image": "https://ardiasgusty.github.io/honda/assets/images/banner/banner_1789632659380.webp",
         "link": "#",
-        "alt": "Promo terbatas Honda di Jakarta Fair"
+        "alt": "Beli dan Servis Mobil Honda bisa dapat Honda Brio"
       }
     ]
   }
