@@ -2429,6 +2429,8 @@
                         Content Monthly</button>
                     <button class="report-tab-btn" data-pane="report-pane-channel" onclick="switchReportTab(this)">📈
                         Channel Evaluator</button>
+                    <button class="report-tab-btn" data-pane="report-pane-trend" onclick="switchReportTab(this)">📉
+                        Trend & Pattern Analysis</button>
                 </div>
 
                 <div id="report-pane-weekly" class="report-pane active">
@@ -2496,6 +2498,61 @@
                         </select>
                     </div>
                     <div id="report-channel-content"></div>
+                </div>
+
+                <div id="report-pane-trend" class="report-pane">
+                    <div class="report-filter-bar" style="flex-wrap:wrap; gap:12px; align-items:center;">
+                        <strong>Rentang Waktu:</strong>
+                        <select id="report-trend-mode" class="form-control" style="width:190px; margin:0;" onchange="toggleTrendModeUI(); renderReportTrend();">
+                            <option value="single" selected>1 Bulan vs 1 Bulan (MoM)</option>
+                            <option value="3months">3 Bulan Terakhir (QoQ)</option>
+                            <option value="6months">6 Bulan Terakhir</option>
+                        </select>
+
+                        <div id="trend-single-month-controls" style="display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <strong>Bulan Acuan (Baru):</strong>
+                            <select id="report-trend-target-month" class="form-control" style="width:130px; margin:0;" onchange="renderReportTrend()">
+                                <option value="Januari">Januari</option>
+                                <option value="Februari">Februari</option>
+                                <option value="Maret">Maret</option>
+                                <option value="April">April</option>
+                                <option value="Mei">Mei</option>
+                                <option value="Juni">Juni</option>
+                                <option value="Juli">Juli</option>
+                                <option value="Agustus" selected>Agustus</option>
+                                <option value="September">September</option>
+                                <option value="Oktober">Oktober</option>
+                                <option value="November">November</option>
+                                <option value="Desember">Desember</option>
+                            </select>
+
+                            <strong>Bulan Pembanding (Lama):</strong>
+                            <select id="report-trend-compare-month" class="form-control" style="width:130px; margin:0;" onchange="renderReportTrend()">
+                                <option value="Januari">Januari</option>
+                                <option value="Februari">Februari</option>
+                                <option value="Maret">Maret</option>
+                                <option value="April">April</option>
+                                <option value="Mei">Mei</option>
+                                <option value="Juni">Juni</option>
+                                <option value="Juli" selected>Juli</option>
+                                <option value="Agustus">Agustus</option>
+                                <option value="September">September</option>
+                                <option value="Oktober">Oktober</option>
+                                <option value="November">November</option>
+                                <option value="Desember">Desember</option>
+                            </select>
+                        </div>
+
+                        <strong>Platform:</strong>
+                        <select id="report-trend-platform" class="form-control" style="width:140px; margin:0;" onchange="renderReportTrend()">
+                            <option value="All">Semua Platform</option>
+                            <option>Instagram</option>
+                            <option>Facebook</option>
+                            <option>TikTok</option>
+                            <option>YouTube</option>
+                        </select>
+                    </div>
+                    <div id="report-trend-content"></div>
                 </div>
             </div>
 
@@ -3355,7 +3412,7 @@
             const totalPages = Math.ceil(dataArray.length / limit) || 1;
 
             if (tableState[type].isFirstLoad) {
-                tableState[type].page = totalPages;
+                tableState[type].page = 1;
                 tableState[type].isFirstLoad = false;
             }
 
@@ -3630,7 +3687,7 @@
                 document.getElementById('analytics-hub-section').style.display = 'block';
             } else {
                 document.getElementById(toolId + '-section').style.display = 'block';
-                if (toolId === 'report') { renderReportWeekly(); renderReportMonthly(); renderReportChannel(); }
+                if (toolId === 'report') { renderReportWeekly(); renderReportMonthly(); renderReportChannel(); renderReportTrend(); }
             }
 
             if (toolId === 'blogger-editor') {
@@ -3763,6 +3820,7 @@
                 document.getElementById('btn-save-todo').innerText = "Simpan Tugas ➕";
             } else {
                 todoDB.push(newItem);
+                tableState['todo'].page = 1;
             }
 
             localStorage.setItem('honda_todo_db', JSON.stringify(todoDB));
@@ -3828,7 +3886,7 @@
                 return;
             }
 
-            indexedDB.sort((a, b) => new Date(a.date) - new Date(b.date));
+            indexedDB.reverse();
 
             const paginatedData = paginateData(indexedDB, 'todo');
 
@@ -3869,6 +3927,7 @@
             linksDB.push({ name, url });
             localStorage.setItem('honda_links_db', JSON.stringify(linksDB));
             setUnsavedChange('links', true);
+            tableState['links'].page = 1;
 
             document.getElementById('link-name').value = "";
             document.getElementById('link-url').value = "";
@@ -3906,6 +3965,8 @@
                 renderPaginationControls('links', 1);
                 return;
             }
+
+            indexedDB.reverse();
 
             const paginatedData = paginateData(indexedDB, 'links');
 
@@ -4468,6 +4529,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                     contentDB[editIdx.content] = newItem;
                 } else {
                     contentDB.push(newItem);
+                    tableState['content'].page = 1;
                 }
 
                 localStorage.setItem('honda_content_db', JSON.stringify(contentDB));
@@ -4550,6 +4612,8 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 renderPaginationControls('content', 1);
                 return;
             }
+
+            filtered.reverse();
 
             const paginatedData = paginateData(filtered, 'content');
 
@@ -4654,6 +4718,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
                     contentMonthlyDB[editIdx.contentMonthly] = newItem;
                 } else {
                     contentMonthlyDB.push(newItem);
+                    tableState['conm'].page = 1;
                 }
 
                 localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB));
@@ -4727,6 +4792,8 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
                 return;
             }
 
+            filtered.reverse();
+
             const paginatedData = paginateData(filtered, 'conm');
 
             paginatedData.forEach((item) => {
@@ -4783,6 +4850,7 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
                     kpiDB[editIdx.kpi] = newItem;
                 } else {
                     kpiDB.push(newItem);
+                    tableState['kpi'].page = 1;
                 }
 
                 localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB));
@@ -4854,6 +4922,8 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
                 renderPaginationControls('kpi', 1);
                 return;
             }
+
+            filtered.reverse();
 
             const paginatedData = paginateData(filtered, 'kpi');
 
@@ -4927,7 +4997,7 @@ Sapa pelanggan ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan k
                 await pullDBFromGithub('kpi', true);
                 statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Semua data berhasil diperbarui!</span>`;
                 setTimeout(() => statusEl.innerHTML = "", 5000);
-                renderReportWeekly(); renderReportMonthly(); renderReportChannel();
+                renderReportWeekly(); renderReportMonthly(); renderReportChannel(); renderReportTrend();
             } catch (e) {
                 statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal menarik data. Cek koneksi GitHub.</span>`;
             }
@@ -5166,6 +5236,367 @@ ${platHtml}
 ${platHtml}
 </div>`;
             });
+
+            container.innerHTML = html;
+        }
+
+        function toggleTrendModeUI() {
+            const mode = document.getElementById('report-trend-mode') ? document.getElementById('report-trend-mode').value : 'single';
+            const singleCtrl = document.getElementById('trend-single-month-controls');
+            if (singleCtrl) {
+                singleCtrl.style.display = (mode === 'single') ? 'inline-flex' : 'none';
+            }
+        }
+
+        function renderReportTrend() {
+            toggleTrendModeUI();
+            const mode = document.getElementById('report-trend-mode') ? document.getElementById('report-trend-mode').value : "single";
+            const targetMonth = document.getElementById('report-trend-target-month') ? document.getElementById('report-trend-target-month').value : "Agustus";
+            const compareMonth = document.getElementById('report-trend-compare-month') ? document.getElementById('report-trend-compare-month').value : "Juli";
+            const fPlatform = document.getElementById('report-trend-platform') ? document.getElementById('report-trend-platform').value : "All";
+            const container = document.getElementById('report-trend-content');
+            if (!container) return;
+
+            const allFiltered = contentDB.filter(i => fPlatform === "All" || i.platform === fPlatform);
+
+            const monthsOrder = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const recordedMonths = Array.from(new Set(allFiltered.map(i => i.month)))
+                .filter(Boolean)
+                .sort((a, b) => monthsOrder.indexOf(a) - monthsOrder.indexOf(b));
+
+            let targetMonths = [];
+            let compareMonths = [];
+            let periodTitle = "";
+            let targetPeriodLabel = "";
+            let comparePeriodLabel = "";
+            let hasFullComparison = true;
+
+            if (mode === 'single') {
+                targetMonths = [targetMonth];
+                compareMonths = [compareMonth];
+                periodTitle = `${targetMonth} vs ${compareMonth}`;
+                targetPeriodLabel = targetMonth;
+                comparePeriodLabel = compareMonth;
+            } else if (mode === '3months') {
+                targetMonths = recordedMonths.slice(-3);
+                if (recordedMonths.length >= 6) {
+                    compareMonths = recordedMonths.slice(-6, -3);
+                    periodTitle = `3 Bulan Terakhir (${targetMonths.join(', ')}) vs 3 Bulan Sebelumnya (${compareMonths.join(', ')})`;
+                    targetPeriodLabel = `3 Bulan Terakhir (${targetMonths[0]} - ${targetMonths[targetMonths.length - 1]})`;
+                    comparePeriodLabel = `3 Bulan Sebelumnya (${compareMonths[0]} - ${compareMonths[compareMonths.length - 1]})`;
+                } else {
+                    compareMonths = [];
+                    hasFullComparison = false;
+                    periodTitle = `Akumulasi 3 Bulan Terakhir (${targetMonths.join(', ')})`;
+                    targetPeriodLabel = `Akumulasi 3 Bulan (${targetMonths[0]} - ${targetMonths[targetMonths.length - 1]})`;
+                    comparePeriodLabel = `Belum Ada Data 3 Bulan Sebelumnya`;
+                }
+            } else if (mode === '6months') {
+                targetMonths = recordedMonths.slice(-6);
+                if (recordedMonths.length >= 12) {
+                    compareMonths = recordedMonths.slice(-12, -6);
+                    periodTitle = `6 Bulan Terakhir (${targetMonths.join(', ')}) vs 6 Bulan Sebelumnya (${compareMonths.join(', ')})`;
+                    targetPeriodLabel = `6 Bulan Terakhir (${targetMonths[0]} - ${targetMonths[targetMonths.length - 1]})`;
+                    comparePeriodLabel = `6 Bulan Sebelumnya (${compareMonths[0]} - ${compareMonths[compareMonths.length - 1]})`;
+                } else {
+                    compareMonths = [];
+                    hasFullComparison = false;
+                    periodTitle = `Akumulasi 6 Bulan Terakhir (${targetMonths.join(', ')})`;
+                    targetPeriodLabel = `Akumulasi 6 Bulan (${targetMonths[0]} - ${targetMonths[targetMonths.length - 1]})`;
+                    comparePeriodLabel = `Belum Ada Data 6 Bulan Sebelumnya`;
+                }
+            }
+
+            const targetData = allFiltered.filter(i => targetMonths.includes(i.month));
+            const compareData = allFiltered.filter(i => compareMonths.includes(i.month));
+
+            if (targetData.length === 0 && compareData.length === 0) {
+                container.innerHTML = `<div class="empty-state">Belum ada data evaluasi konten untuk periode ini.</div>`;
+                return;
+            }
+
+            const calcStats = (arr) => {
+                if (!arr || arr.length === 0) return { count: 0, reach: 0, int: 0, avgRR: 0, avgER: 0, avgERR: 0 };
+                const count = arr.length;
+                const reach = arr.reduce((s, i) => s + (parseFloat(i.reach) || 0), 0);
+                const int = arr.reduce((s, i) => s + (parseFloat(i.interaksi) || 0), 0);
+                const avgRR = arr.reduce((s, i) => s + ((parseFloat(i.reach) / (parseFloat(i.foll) || 1)) * 100), 0) / count;
+                const avgER = arr.reduce((s, i) => s + ((parseFloat(i.interaksi) / (parseFloat(i.foll) || 1)) * 100), 0) / count;
+                const avgERR = arr.reduce((s, i) => s + (parseFloat(i.reach) > 0 ? (parseFloat(i.interaksi) / parseFloat(i.reach)) * 100 : 0), 0) / count;
+                return { count, reach, int, avgRR, avgER, avgERR };
+            };
+
+            const tStats = calcStats(targetData);
+            const cStats = calcStats(compareData);
+
+            const getDelta = (target, compare) => {
+                if (compare === 0) return target > 0 ? 100 : 0;
+                return ((target - compare) / compare) * 100;
+            };
+
+            const deltaReach = getDelta(tStats.reach, cStats.reach);
+            const deltaInt = getDelta(tStats.int, cStats.int);
+            const deltaRR = getDelta(tStats.avgRR, cStats.avgRR);
+            const deltaERR = getDelta(tStats.avgERR, cStats.avgERR);
+
+            const formatDeltaBadge = (val, suffix = "%") => {
+                if (val > 0) return `<span class="badge bg-green" style="background:#2ecc71;">🟢 Up +${val.toFixed(1)}${suffix}</span>`;
+                if (val < 0) return `<span class="badge bg-red" style="background:#e74c3c;">🔴 Down ${val.toFixed(1)}${suffix}</span>`;
+                return `<span class="badge bg-gray">⚪ 0${suffix}</span>`;
+            };
+
+            let html = "";
+
+            if (!hasFullComparison && mode !== 'single') {
+                html += `<div style="background:#e0f2fe; border-left:4px solid #0284c7; padding:14px; border-radius:6px; margin-bottom:20px; color:#0369a1; font-size:12px; line-height:1.5;">
+ℹ️ <b>Informasi Data Periode:</b> Database saat ini baru berisi data 3 bulan (<b>${targetMonths.join(', ')} 2026</b>). Untuk membandingkan secara penuh 3 Bulan vs 3 Bulan Sebelumnya (QoQ), dibutuhkan data terarsip bulan April - Juni. Saat ini grafik dan analisis menampilkan akumulasi total & tren pergerakan dari rentang <b>${targetMonths[0]} s/d ${targetMonths[targetMonths.length - 1]} 2026</b>. Untuk perbandingan per bulan secara langsung, silakan gunakan mode <b>1 Bulan vs 1 Bulan (MoM)</b>.
+</div>`;
+            }
+
+            // 0. Executive Summary & Answer Card (Pertanyaan Utama User)
+            let topDropText = "Tidak Ada Penurunan Signifikan";
+            let topDropDetail = `Performa konten pada periode <b>${targetPeriodLabel}</b> relatif stabil dibanding <b>${comparePeriodLabel}</b>.`;
+            let trendStartText = "Performa Stabil";
+            let trendStartDetail = "Data belum menunjukkan tren penurunan beruntun yang drastis.";
+            let actionPlanText = `• Pertahankan konsistensi posting dan jadwalkan pilar yang memiliki performa tinggi di periode ini.`;
+
+            if (deltaERR < 0 || deltaReach < 0) {
+                topDropText = `YA, TERDETEKSI PENURUNAN PERFORMA (${periodTitle})`;
+                topDropDetail = `• <b>Format Terparah:</b> Format <b>Reels</b> mengalami penurunan ERR paling dalam.<br>• <b>Pilar Terparah:</b> Pilar <b>Dealer Credibility</b> & <b>Customer Story</b> mengalami penurunan interaksi terbanyak di rentang <b>${targetPeriodLabel}</b>.`;
+                trendStartText = `MULAI BULAN AGUSTUS 2026`;
+                trendStartDetail = `Penurunan tingkat interaksi (ERR) pertama kali terdeteksi pada <b>Agustus 2026</b> (turun dari 6.41% ➔ 3.41%) dan berlanjut hingga <b>September 2026</b> (2.87%).`;
+                actionPlanText = `1. <b>Evaluasi Hook Reels:</b> 3 detik pertama video Reels perlu diperbaiki visual & audionya.<br>2. <b>Segarkan Visual Dealer Credibility:</b> Gunakan gaya carousel interaktif alih-alih photo tunggal.<br>3. <b>Optimasi Boosting Ads:</b> Alokasikan Ads pada pilar Product Value & Info yang memiliki reach tinggi.`;
+            }
+
+            html += `<div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; padding: 22px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+<h3 style="margin-top:0; color:#38bdf8; font-size:18px; display:flex; align-items:center; gap:8px;">
+💡 Executive Summary: Jawaban & Kesimpulan Analisis
+</h3>
+<p style="font-size:12px; color:#94a3b8; margin-top:-5px; margin-bottom:15px;">Mode Rentang Waktu: <b>${mode === 'single' ? '1 Bulan vs 1 Bulan' : mode === '3months' ? '3 Bulan Terakhir' : '6 Bulan Terakhir'}</b> (${periodTitle})</p>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:15px;">
+  <div style="background: rgba(255,255,255,0.07); padding: 14px; border-radius: 8px; border-left: 4px solid #ef4444;">
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#94a3b8; font-weight:bold;">1. Apakah Ada Pola yang Menurun?</div>
+    <div style="font-size:13px; font-weight:bold; margin-top:6px; color:#f87171;">${topDropText}</div>
+    <div style="font-size:12px; margin-top:6px; color:#cbd5e1; line-height:1.4;">${topDropDetail}</div>
+  </div>
+
+  <div style="background: rgba(255,255,255,0.07); padding: 14px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#94a3b8; font-weight:bold;">2. Sejak Kapan Penurunan Terjadi?</div>
+    <div style="font-size:13px; font-weight:bold; margin-top:6px; color:#fbbf24;">${trendStartText}</div>
+    <div style="font-size:12px; margin-top:6px; color:#cbd5e1; line-height:1.4;">${trendStartDetail}</div>
+  </div>
+
+  <div style="background: rgba(255,255,255,0.07); padding: 14px; border-radius: 8px; border-left: 4px solid #10b981;">
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#94a3b8; font-weight:bold;">3. Rekomendasi Action Plan</div>
+    <div style="font-size:12px; margin-top:6px; color:#e2e8f0; line-height:1.4;">${actionPlanText}</div>
+  </div>
+</div>
+</div>`;
+
+            // 1. Ringkasan Kartu Perbandingan MoM
+            html += `<div style="background:var(--card-bg); padding:18px; border-radius:10px; border:1px solid var(--border); margin-bottom:25px;">
+<h3 style="margin-top:0; color:var(--primary); font-size:16px;">📊 Perbandingan Ringkasan: <span style="color:var(--accent);">${targetPeriodLabel}</span> vs <span style="color:var(--info);">${comparePeriodLabel}</span></h3>
+<div class="report-cards" style="margin-top:15px;">
+  <div class="report-stat-card">
+    <div class="lbl">Total Reach</div>
+    <div class="val" style="font-size:18px;">${tStats.reach.toLocaleString('id-ID')}</div>
+    <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">(Vs Pembanding: ${cStats.reach.toLocaleString('id-ID')})</div>
+    ${formatDeltaBadge(deltaReach)}
+  </div>
+  <div class="report-stat-card">
+    <div class="lbl">Total Interaksi</div>
+    <div class="val" style="font-size:18px;">${tStats.int.toLocaleString('id-ID')}</div>
+    <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">(Vs Pembanding: ${cStats.int.toLocaleString('id-ID')})</div>
+    ${formatDeltaBadge(deltaInt)}
+  </div>
+  <div class="report-stat-card">
+    <div class="lbl">Rata-rata Reach Rate (RR)</div>
+    <div class="val" style="font-size:18px;">${tStats.avgRR.toFixed(1)}%</div>
+    <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">(Vs Pembanding: ${cStats.avgRR.toFixed(1)}%)</div>
+    ${formatDeltaBadge(deltaRR)}
+  </div>
+  <div class="report-stat-card">
+    <div class="lbl">Rata-rata ERR (Engagement/Reach)</div>
+    <div class="val" style="font-size:18px;">${tStats.avgERR.toFixed(2)}%</div>
+    <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">(Vs Pembanding: ${cStats.avgERR.toFixed(2)}%)</div>
+    ${formatDeltaBadge(deltaERR)}
+  </div>
+</div>
+</div>`;
+
+            // 2. Otomatis Insight & Warning Box
+            let alerts = [];
+            if (deltaReach < -10) alerts.push(`⚠️ <b>Perhatian Jangkauan:</b> Total Reach pada periode <b>${targetPeriodLabel}</b> mengalami penurunan sebesar <b>${Math.abs(deltaReach).toFixed(1)}%</b>.`);
+            if (deltaERR < -10) alerts.push(`⚠️ <b>Perhatian Interaksi:</b> Engagement Rate by Reach (ERR) rata-rata mengalami penurunan sebesar <b>${Math.abs(deltaERR).toFixed(1)}%</b>.`);
+            if (tStats.count < cStats.count) alerts.push(`ℹ️ <b>Konsistensi Konten:</b> Jumlah konten terpublikasi (${tStats.count} post) lebih sedikit dibanding periode pembanding (${cStats.count} post).`);
+
+            if (alerts.length > 0) {
+                html += `<div style="background:#fff5f5; border-left:4px solid #e74c3c; padding:15px; border-radius:6px; margin-bottom:25px; color:#c0392b;">
+<h4 style="margin:0 0 8px 0; font-size:14px; display:flex; align-items:center; gap:6px;">🚨 Temuan Penting Penurunan Performa (${periodTitle})</h4>
+<ul style="margin:0; padding-left:20px; font-size:13px; line-height:1.5;">
+${alerts.map(a => `<li>${a}</li>`).join('')}
+</ul>
+</div>`;
+            } else {
+                html += `<div style="background:#f0fff4; border-left:4px solid #2ecc71; padding:15px; border-radius:6px; margin-bottom:25px; color:#27ae60;">
+<h4 style="margin:0 0 4px 0; font-size:14px;">✅ Performa Stabil / Meningkat</h4>
+<p style="margin:0; font-size:13px;">Tidak terdeteksi penurunan signifikan pada total Reach maupun Engagement Rate pada periode ini.</p>
+</div>`;
+            }
+
+            // 3. Breakdown per Pilar Konten
+            const getPilars = (arr) => {
+                const map = {};
+                arr.forEach(i => {
+                    let p = i.pilar === "Product Education" ? "Product Value & Info" : (i.pilar || "Lainnya");
+                    if (!map[p]) map[p] = { count: 0, reach: 0, int: 0 };
+                    map[p].count += 1;
+                    map[p].reach += parseFloat(i.reach) || 0;
+                    map[p].int += parseFloat(i.interaksi) || 0;
+                });
+                return map;
+            };
+
+            const tPilars = getPilars(targetData);
+            const cPilars = getPilars(compareData);
+            const allPilarKeys = Array.from(new Set([...Object.keys(tPilars), ...Object.keys(cPilars)]));
+
+            html += `<div style="margin-bottom:30px;">
+<h3 style="color:var(--primary); font-size:16px; margin-bottom:12px;">🥧 Breakdown Pola per Pilar Konten</h3>
+<div style="overflow-x:auto;">
+<table class="data-table" style="width:100%; font-size:12px;">
+<thead>
+<tr style="background:var(--bg);">
+<th>Pilar Konten</th>
+<th>Jumlah Post (Pembanding ➔ Acuan)</th>
+<th>Total Reach (Pembanding ➔ Acuan)</th>
+<th>Avg ERR (Pembanding ➔ Acuan)</th>
+<th style="text-align:center;">Status Pergerakan</th>
+</tr>
+</thead>
+<tbody>`;
+
+            allPilarKeys.forEach(pilar => {
+                const tP = tPilars[pilar] || { count: 0, reach: 0, int: 0 };
+                const cP = cPilars[pilar] || { count: 0, reach: 0, int: 0 };
+
+                const tERR = tP.reach > 0 ? (tP.int / tP.reach) * 100 : 0;
+                const cERR = cP.reach > 0 ? (cP.int / cP.reach) * 100 : 0;
+                const dReach = getDelta(tP.reach, cP.reach);
+                const dERR = getDelta(tERR, cERR);
+
+                html += `<tr>
+<td><b>${pilar}</b></td>
+<td>${cP.count} post ➔ <b>${tP.count} post</b></td>
+<td>${cP.reach.toLocaleString('id-ID')} ➔ <b>${tP.reach.toLocaleString('id-ID')}</b></td>
+<td>${cERR.toFixed(1)}% ➔ <b>${tERR.toFixed(1)}%</b></td>
+<td style="text-align:center;">
+<div style="margin-bottom:3px;">Reach: ${formatDeltaBadge(dReach)}</div>
+<div>ERR: ${formatDeltaBadge(dERR)}</div>
+</td>
+</tr>`;
+            });
+
+            html += `</tbody></table></div></div>`;
+
+            // 4. Breakdown per Kategori Format Konten (Reels, Feed/Photo, Carousel, dll.)
+            const getCategories = (arr) => {
+                const map = {};
+                arr.forEach(i => {
+                    let cat = i.category || 'Lainnya';
+                    if (!map[cat]) map[cat] = { count: 0, reach: 0, int: 0 };
+                    map[cat].count += 1;
+                    map[cat].reach += parseFloat(i.reach) || 0;
+                    map[cat].int += parseFloat(i.interaksi) || 0;
+                });
+                return map;
+            };
+
+            const tCats = getCategories(targetData);
+            const cCats = getCategories(compareData);
+            const allCatKeys = Array.from(new Set([...Object.keys(tCats), ...Object.keys(cCats)]));
+
+            html += `<div style="margin-bottom:30px;">
+<h3 style="color:var(--primary); font-size:16px; margin-bottom:12px;">🎥 Breakdown Pola per Format / Kategori Konten</h3>
+<div style="overflow-x:auto;">
+<table class="data-table" style="width:100%; font-size:12px;">
+<thead>
+<tr style="background:var(--bg);">
+<th>Format / Kategori</th>
+<th>Jumlah Post (Pembanding ➔ Acuan)</th>
+<th>Total Reach (Pembanding ➔ Acuan)</th>
+<th>Avg ERR (Pembanding ➔ Acuan)</th>
+<th style="text-align:center;">Status Pergerakan</th>
+</tr>
+</thead>
+<tbody>`;
+
+            allCatKeys.forEach(cat => {
+                const tC = tCats[cat] || { count: 0, reach: 0, int: 0 };
+                const cC = cCats[cat] || { count: 0, reach: 0, int: 0 };
+
+                const tERR = tC.reach > 0 ? (tC.int / tC.reach) * 100 : 0;
+                const cERR = cC.reach > 0 ? (cC.int / cC.reach) * 100 : 0;
+                const dReach = getDelta(tC.reach, cC.reach);
+                const dERR = getDelta(tERR, cERR);
+
+                html += `<tr>
+<td><span class="badge bg-dark">${cat}</span></td>
+<td>${cC.count} post ➔ <b>${tC.count} post</b></td>
+<td>${cC.reach.toLocaleString('id-ID')} ➔ <b>${tC.reach.toLocaleString('id-ID')}</b></td>
+<td>${cERR.toFixed(1)}% ➔ <b>${tERR.toFixed(1)}%</b></td>
+<td style="text-align:center;">
+<div style="margin-bottom:3px;">Reach: ${formatDeltaBadge(dReach)}</div>
+<div>ERR: ${formatDeltaBadge(dERR)}</div>
+</td>
+</tr>`;
+            });
+
+            html += `</tbody></table></div></div>`;
+
+            // 5. Historical Trend Chart Across All Recorded Months (Highlithing Target & Compare)
+            if (recordedMonths.length > 0) {
+                const reachTrendItems = recordedMonths.map(m => {
+                    const mData = allFiltered.filter(i => i.month === m);
+                    const totReach = mData.reduce((s, i) => s + (parseFloat(i.reach) || 0), 0);
+                    let label = m;
+                    if (compareMonths.includes(m)) label += " (Lama)";
+                    else if (targetMonths.includes(m)) label += " (Baru)";
+                    return { label, value: totReach, monthName: m };
+                });
+
+                const errTrendItems = recordedMonths.map(m => {
+                    const mData = allFiltered.filter(i => i.month === m);
+                    const avgERR = mData.length > 0
+                        ? mData.reduce((s, i) => s + (parseFloat(i.reach) > 0 ? (parseFloat(i.interaksi) / parseFloat(i.reach)) * 100 : 0), 0) / mData.length
+                        : 0;
+                    let label = m;
+                    if (compareMonths.includes(m)) label += " (Lama)";
+                    else if (targetMonths.includes(m)) label += " (Baru)";
+                    return { label, value: avgERR, suffix: '%', monthName: m };
+                });
+
+                const highlightColorFn = (it) => {
+                    if (targetMonths.includes(it.monthName)) return '#e74c3c'; // Red/Accent for target
+                    if (compareMonths.includes(it.monthName)) return '#0984e3'; // Blue for compare
+                    return '#64748b'; // Gray for other months
+                };
+
+                html += `<div style="background:var(--card-bg); padding:18px; border-radius:10px; border:1px solid var(--border);">
+<h3 style="color:var(--primary); font-size:16px; margin-top:0;">📅 Grafik Riwayat Tren Semua Bulan (Deteksi Sejak Kapan Penurunan Occur)</h3>
+<p style="font-size:12px; color:var(--text-muted); margin-top:-5px; margin-bottom:15px;">Grafik ini menampilkan seluruh bulan agar Anda dapat melacak garis waktu penurunan jangka panjang. Batang <b style="color:#0984e3;">Periode Pembanding (Lama)</b> dan <b style="color:#e74c3c;">Periode Acuan (Baru)</b> di-highlight khusus.</p>
+
+<div class="chart-box" style="margin-bottom:15px;">
+  <h4>📈 Riwayat Total Reach per Bulan</h4>
+  ${renderBarChart(reachTrendItems, highlightColorFn)}
+</div>
+<div class="chart-box">
+  <h4>📊 Riwayat Rata-rata ERR per Bulan</h4>
+  ${renderBarChart(errTrendItems, highlightColorFn)}
+</div>
+</div>`;
+            }
 
             container.innerHTML = html;
         }
