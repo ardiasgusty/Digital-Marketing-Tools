@@ -2040,13 +2040,41 @@
                     <p>Input metadata begitu konten tayang di sosial media. Data ini akan disimpan sebagai draf untuk dievaluasi oleh Evaluator pada Hari ke-7 di <b>Content Performance Monitor</b>.</p>
                 </div>
 
+                <details class="config-accordion" style="margin-bottom: 20px;">
+                    <summary>🔗 Pengaturan Target & GitHub Sync (Publish Log DB)</summary>
+                    <div style="padding:10px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Repository</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-repo-publish" class="form-control gh-sync-repo" value="Digital-Marketing-Tools"
+                                        onchange="syncGHFields(this.value, 'repo')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-publish')">📂
+                                        Browse Repo</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="flex: 2;">
+                                <label>File Path JSON Publish Log (.json)</label>
+                                <div class="input-group">
+                                    <input type="text" id="gh-path-publish" class="form-control gh-sync-path-publish" value="json/2026/publish-log-2026.json"
+                                        placeholder="json/2026/publish-log-2026.json"
+                                        onchange="syncGHFields(this.value, 'pathPublish')">
+                                    <button class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-publish')">📂
+                                        Browse File</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
                 <div class="form-row" style="background: var(--bg-secondary); padding: 15px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 20px;">
                     <div style="flex: 1;">
-                        <h4 style="margin-top:0; color:var(--primary); font-size: 15px;">💡 Alur Kerja Tim Kreatif:</h4>
+                        <h4 style="margin-top:0; color:var(--primary); font-size: 15px;">💡 Alur Kerja Tim Kreatif (Multi-Device Sync):</h4>
                         <ol style="margin: 5px 0 0 18px; padding: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5;">
-                            <li>Isi Judul, Link URL, Tanggal Publish, Platform, Kategori, dan Pilar Konten saat tayang.</li>
+                            <li>Rizky & Wafi menginput Judul, Link URL, Tanggal Publish (default Hari Ini), Platform, Kategori, dan Pilar Konten saat tayang.</li>
                             <li>Sistem akan <b>otomatis memilih Kreator</b> (Video: <b>Wafie</b> | Design/Photo: <b>Rizky</b>).</li>
-                            <li>Klik <b>"🚀 Simpan Draf Konten Tayang"</b>. Evaluator dapat menarik data draf ini di hari ke-7 tanpa perlu ketik ulang metadata!</li>
+                            <li>Klik <b>"🚀 Simpan Draf Konten Tayang"</b> lalu klik <b>"↑ Simpan JSON Langsung"</b> agar tersimpan ke GitHub cloud repository.</li>
+                            <li>Di komputer/device lain (Manager/Evaluator), klik <b>"↓ Tarik Data JSON"</b> untuk mengambil seluruh data Publish Log yang di-input Rizky & Wafi!</li>
                         </ol>
                     </div>
                 </div>
@@ -2107,14 +2135,20 @@
                         <select id="pub-kreator" class="form-control">
                             <option value="Wafie">Wafie (Video Specialist)</option>
                             <option value="Rizky">Rizky (Design Specialist)</option>
-                            <option value="Siska">Siska (Article Specialist - Pending)</option>
                         </select>
                     </div>
                 </div>
 
                 <button id="btn-save-pub-draft" class="btn btn-accent" onclick="savePublishedDraft()">🚀 Simpan Draf Konten Tayang</button>
 
-                <h4 style="margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:10px;">📋 Daftar Draf Konten Tayang (Menunggu Evaluasi Hari ke-7)</h4>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:30px; margin-bottom:10px; flex-wrap:wrap; gap:10px; border-bottom:1px solid var(--border); padding-bottom:10px;">
+                    <h4 style="margin:0;">📋 Daftar Draf Konten Tayang (Menunggu Evaluasi Hari ke-7)</h4>
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <button class="btn-sm bg-dark" onclick="pullDBFromGithub('publish')">↓ Tarik Data JSON</button>
+                        <button id="btn-sync-publish" class="btn-sm bg-green" onclick="syncDBToGithub('publish')">↑ Simpan JSON Langsung</button>
+                    </div>
+                </div>
+                <div id="github-status-publish" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
 
                 <div class="table-responsive">
                     <table class="data-table">
@@ -2243,7 +2277,6 @@
                         <select id="mon-kreator" class="form-control">
                             <option value="Wafie">Wafie (Video Specialist)</option>
                             <option value="Rizky">Rizky (Design Specialist)</option>
-                            <option value="Siska">Siska (Article Specialist - Pending)</option>
                         </select>
                     </div>
                 </div>
@@ -3486,12 +3519,13 @@
         const DEFAULT_CONFIG = {
             token: "",
             user: "ardiasgusty",
-            repo: "ardiasgusty.github.io",
+            repo: "Digital-Marketing-Tools",
             pathContent: "json/2026/report-content-performance-2026.json",
             pathContentMonthly: "json/2026/report-content-performance-monthly-2026.json",
             pathKPI: "json/2026/report-channel-evaluator-2026.json",
             pathLinks: "json/kumpulan-link-penting.json",
             pathTodo: "json/2026/to-do-list-2026.json",
+            pathPublish: "json/2026/publish-log-2026.json",
             pathBlogger: "honda/data/products.json",
             pathPricelist: "honda/data/pricelist.json",
             pathByd: "honda/product_features/stepwgn.json",
@@ -3512,6 +3546,7 @@
             let statusId = "";
             
             if (type === 'todo') { btnId = 'btn-sync-todo'; statusId = 'github-status-todo'; }
+            else if (type === 'publish') { btnId = 'btn-sync-publish'; statusId = 'github-status-publish'; }
             else if (type === 'links') { btnId = 'btn-sync-links'; statusId = 'github-status-links'; }
             else if (type === 'content') { btnId = 'btn-sync-content'; statusId = 'github-status-content-table'; }
             else if (type === 'content-monthly' || type === 'conm') { btnId = 'btn-sync-conm'; statusId = 'github-status-content-monthly-table'; }
@@ -3855,6 +3890,7 @@
             if (document.getElementById('gh-path-links')) document.getElementById('gh-path-links').value = config.pathLinks || '';
             if (document.getElementById('gh-path-cpmm')) document.getElementById('gh-path-cpmm').value = config.pathContentMonthly || '';
             if (document.getElementById('gh-path-todo')) document.getElementById('gh-path-todo').value = config.pathTodo || '';
+            if (document.getElementById('gh-path-publish')) document.getElementById('gh-path-publish').value = config.pathPublish || '';
             if (document.getElementById('gh-path-blogger')) document.getElementById('gh-path-blogger').value = config.pathBlogger || '';
             if (document.getElementById('gh-path-pricelist')) document.getElementById('gh-path-pricelist').value = config.pathPricelist || '';
             if (document.getElementById('gh-path-byd')) document.getElementById('gh-path-byd').value = config.pathByd || '';
@@ -3962,6 +3998,8 @@
             pullDBFromGithub('kpi', true);
             pullDBFromGithub('links', true);
             pullDBFromGithub('todo', true);
+            pullDBFromGithub('publish', true);
+            setDefaultPublishDate();
 
             renderGenHistory(); renderCareHistory();
             checkGeminiConnectionStatus();
@@ -3983,7 +4021,7 @@
             } else {
                 document.getElementById(toolId + '-section').style.display = 'block';
                 if (toolId === 'report') { renderReportWeekly(); renderReportMonthly(); renderReportChannel(); renderReportTrend(); renderReportKreator(); }
-                if (toolId === 'publish-log') { renderPublishedDrafts(); }
+                if (toolId === 'publish-log') { renderPublishedDrafts(); setDefaultPublishDate(); }
                 if (toolId === 'monitor') { populateDraftSelectDropdown(); }
             }
 
@@ -4320,6 +4358,7 @@
             else if (type === 'kpi') { path = config.pathKPI; statusElId = 'github-status-kpi-table'; }
             else if (type === 'links') { path = config.pathLinks; statusElId = 'github-status-links'; }
             else if (type === 'todo') { path = config.pathTodo; statusElId = 'github-status-todo'; }
+            else if (type === 'publish') { path = config.pathPublish; statusElId = 'github-status-publish'; }
 
             const statusEl = document.getElementById(statusElId);
             let loadedFromGithub = false;
@@ -4344,6 +4383,7 @@
                     else if (type === 'kpi') localPath = 'json/2026/report-channel-evaluator-2026.json';
                     else if (type === 'links') localPath = 'json/kumpulan-link-penting.json';
                     else if (type === 'todo') localPath = 'json/2026/to-do-list-2026.json';
+                    else if (type === 'publish') localPath = 'json/2026/publish-log-2026.json';
                 }
 
                 if (localPath) {
@@ -4359,6 +4399,7 @@
                             else if (type === 'kpi') altPath = 'json/2026/report-channel-evaluator-2026.json';
                             else if (type === 'links') altPath = 'json/kumpulan-link-penting.json';
                             else if (type === 'todo') altPath = 'json/2026/to-do-list-2026.json';
+                            else if (type === 'publish') altPath = 'json/2026/publish-log-2026.json';
 
                             if (altPath && altPath !== localPath) {
                                 const altRes = await fetch(altPath);
@@ -4377,6 +4418,7 @@
                 else if (type === 'kpi') { kpiDB = jsonData || []; localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase(); }
                 else if (type === 'links') { linksDB = jsonData || []; localStorage.setItem('honda_links_db', JSON.stringify(linksDB)); renderLinksDatabase(); }
                 else if (type === 'todo') { todoDB = jsonData || []; localStorage.setItem('honda_todo_db', JSON.stringify(todoDB)); renderTodoDatabase(); }
+                else if (type === 'publish') { publishedDraftDB = jsonData || []; localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB)); renderPublishedDrafts(); populateDraftSelectDropdown(); }
 
                 setUnsavedChange(type, false);
 
@@ -4403,6 +4445,7 @@
             else if (type === 'kpi') { success = await pushGHData(config.pathKPI, kpiDB, 'github-status-kpi-table'); }
             else if (type === 'links') { success = await pushGHData(config.pathLinks, linksDB, 'github-status-links'); }
             else if (type === 'todo') { success = await pushGHData(config.pathTodo, todoDB, 'github-status-todo'); }
+            else if (type === 'publish') { success = await pushGHData(config.pathPublish, publishedDraftDB, 'github-status-publish'); }
 
             if (success) {
                 setUnsavedChange(type, false);
@@ -4458,6 +4501,7 @@
                             else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
                             else if (currentGHTargetInput === 'gh-path-links') pType = 'pathLinks';
                             else if (currentGHTargetInput === 'gh-path-todo') pType = 'pathTodo';
+                            else if (currentGHTargetInput === 'gh-path-publish') pType = 'pathPublish';
                             else if (currentGHTargetInput === 'gh-path-blogger') pType = 'pathBlogger';
                             else if (currentGHTargetInput === 'gh-path-pricelist') pType = 'pathPricelist';
                             else if (currentGHTargetInput === 'gh-path-byd') pType = 'pathByd';
@@ -4759,6 +4803,17 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             }
         }
 
+        function setDefaultPublishDate() {
+            const pubDateInput = document.getElementById('pub-date');
+            if (pubDateInput) {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                pubDateInput.value = `${year}-${month}-${day}`;
+            }
+        }
+
         function savePublishedDraft() {
             const title = document.getElementById('pub-title').value.trim();
             const link = document.getElementById('pub-link').value.trim();
@@ -4788,12 +4843,53 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
             document.getElementById('pub-title').value = '';
             document.getElementById('pub-link').value = '';
-            document.getElementById('pub-date').value = '';
+            setDefaultPublishDate();
             generateThumbnailPreview('', 'thumb-pub');
 
             renderPublishedDrafts();
             populateDraftSelectDropdown();
-            alert("✅ Draf Konten Tayang berhasil disimpan! Evaluator bisa menarik data ini di Content Performance Monitor.");
+            setUnsavedChange('publish', true);
+            alert("✅ Draf Konten Tayang berhasil disimpan secara lokal!\n\n💡 Klik '↑ Simpan JSON Langsung' untuk menyinkronkan data ke GitHub agar dapat ditarik oleh device/komputer lain.");
+        }
+
+        function exportPublishLogJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(publishedDraftDB, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `publish-log-${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function triggerImportPublishLogJSON() {
+            const fileInput = document.getElementById('import-publish-file');
+            if (fileInput) fileInput.click();
+        }
+
+        function importPublishLogJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (Array.isArray(importedData)) {
+                        publishedDraftDB = importedData;
+                        localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB));
+                        renderPublishedDrafts();
+                        populateDraftSelectDropdown();
+                        setUnsavedChange('publish', true);
+                        alert(`✅ Berhasil mengimpor ${importedData.length} data Publish Log!`);
+                    } else {
+                        alert("❌ Format file JSON tidak valid (harus berupa array).");
+                    }
+                } catch (err) {
+                    alert("❌ Gagal membaca file JSON: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
 
         function renderPublishedDrafts() {
@@ -4835,6 +4931,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                 localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB));
                 renderPublishedDrafts();
                 populateDraftSelectDropdown();
+                setUnsavedChange('publish', true);
             }
         }
 
@@ -4991,6 +5088,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                     if (publishedDraftDB[selectedIdx]) {
                         publishedDraftDB[selectedIdx].evaluated = true;
                         localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB));
+                        setUnsavedChange('publish', true);
                         renderPublishedDrafts();
                         populateDraftSelectDropdown();
                     }
