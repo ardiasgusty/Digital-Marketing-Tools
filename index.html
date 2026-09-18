@@ -4776,7 +4776,7 @@
             }
 
             if (jsonData) {
-                if (type === 'content') { contentDB = jsonData || []; localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase(); }
+                if (type === 'content') { contentDB = jsonData || []; localStorage.setItem('honda_content_db', JSON.stringify(contentDB)); renderContentDatabase(); renderPublishedDrafts(); populateDraftSelectDropdown(); }
                 else if (type === 'content-monthly') { contentMonthlyDB = jsonData || []; localStorage.setItem('honda_content_monthly_db', JSON.stringify(contentMonthlyDB)); renderContentMonthlyDatabase(); }
                 else if (type === 'kpi') { kpiDB = jsonData || []; localStorage.setItem('honda_kpi_db', JSON.stringify(kpiDB)); renderKPIDatabase(); }
                 else if (type === 'links') { linksDB = jsonData || []; localStorage.setItem('honda_links_db', JSON.stringify(linksDB)); renderLinksDatabase(); }
@@ -4803,7 +4803,10 @@
         async function syncDBToGithub(type) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             let success = false;
-            if (type === 'content') { success = await pushGHData(config.pathContent, contentDB, 'github-status-content-table'); }
+            if (type === 'content') { 
+                success = await pushGHData(config.pathContent, contentDB, 'github-status-content-table'); 
+                if (unsavedChanges.publish) { syncDBToGithub('publish'); }
+            }
             else if (type === 'content-monthly') { success = await pushGHData(config.pathContentMonthly, contentMonthlyDB, 'github-status-content-monthly-table'); }
             else if (type === 'kpi') { success = await pushGHData(config.pathKPI, kpiDB, 'github-status-kpi-table'); }
             else if (type === 'links') { success = await pushGHData(config.pathLinks, linksDB, 'github-status-links'); }
@@ -5303,6 +5306,28 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             return Math.floor(diffTime / (1000 * 60 * 60 * 24));
         }
 
+        function isDraftEvaluated(draft) {
+            if (!draft) return false;
+            if (draft.evaluated) return true;
+
+            if (contentDB && Array.isArray(contentDB) && contentDB.length > 0) {
+                const isMatch = contentDB.some(c => {
+                    if (!c) return false;
+                    if (draft.link && c.link) {
+                        const normDraft = draft.link.split('?')[0].replace(/\/+$/, '');
+                        const normCPM = c.link.split('?')[0].replace(/\/+$/, '');
+                        if (normDraft === normCPM) return true;
+                    }
+                    if (draft.title && c.title && draft.title.trim().toLowerCase() === c.title.trim().toLowerCase()) {
+                        if (draft.datePub && c.datePub && draft.datePub === c.datePub) return true;
+                    }
+                    return false;
+                });
+                if (isMatch) return true;
+            }
+            return false;
+        }
+
         function renderPublishedDrafts() {
             const tbody = document.getElementById('db-body-published-drafts');
             if (!tbody) return;
@@ -5318,8 +5343,10 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                 const kreatorBadge = draft.kreator === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (draft.kreator === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : (draft.kreator === 'Siska' ? '<span class="badge bg-gold">✍️ Siska</span>' : `<span class="badge bg-gray">👤 ${draft.kreator}</span>`));
                 
                 const daysElapsed = getDaysElapsed(draft.datePub);
+                const evaluated = isDraftEvaluated(draft);
+
                 let statusBadge = "";
-                if (draft.evaluated) {
+                if (evaluated) {
                     statusBadge = '<span class="badge bg-green">✅ Sudah Dievaluasi ke CPM</span>';
                 } else if (daysElapsed >= 7) {
                     statusBadge = `<span class="badge bg-blue" style="animation: pulsing-glow 2s infinite;">⚡ Siap Dievaluasi (${daysElapsed} hari tayang)</span>`;
@@ -5330,7 +5357,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                 
                 const canDelete = canUserDeleteDraft(draft);
 
-                const evaluateBtn = draft.evaluated 
+                const evaluateBtn = evaluated 
                     ? `<span style="font-size:11px; color:var(--text-muted); font-weight:600;">Ter-evaluasi</span>`
                     : `<button class="btn-sm bg-blue" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi sekarang ke Content Performance Monitor">⚡ Evaluasi Sekarang</button>`;
 
@@ -5382,7 +5409,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             select.innerHTML = '<option value="">-- Pilih Konten Tayang Siap Evaluasi (≥ 7 Hari Tayang) --</option>';
             
             const pendingDrafts = publishedDraftDB.filter(d => {
-                if (d.evaluated) return false;
+                if (isDraftEvaluated(d)) return false;
                 const days = getDaysElapsed(d.datePub);
                 return days >= 7;
             });
@@ -5552,7 +5579,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                     tableState['content'].page = 1;
                 }
 
-                // If created from draft, mark draft as evaluated
+                // If created from draft, mark draft as evaluated & sync
                 const draftIdxSelect = document.getElementById('mon-draft-select');
                 if (draftIdxSelect && draftIdxSelect.value !== "") {
                     const selectedIdx = parseInt(draftIdxSelect.value);
@@ -5562,6 +5589,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                         setUnsavedChange('publish', true);
                         renderPublishedDrafts();
                         populateDraftSelectDropdown();
+                        syncDBToGithub('publish');
                     }
                 }
 
