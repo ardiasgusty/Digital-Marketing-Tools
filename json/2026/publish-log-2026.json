@@ -165,7 +165,7 @@
     "category": "Feed / Photo",
     "pilar": "Product Value & Info",
     "kreator": "Rizky",
-    "evaluated": false,
+    "evaluated": true,
     "createdAt": "2026-09-18T00:45:08.736Z"
   },
   {
@@ -178,7 +178,7 @@
     "category": "Reels",
     "pilar": "Product Value & Info",
     "kreator": "Wafie",
-    "evaluated": false,
+    "evaluated": true,
     "createdAt": "2026-09-18T00:44:15.485Z"
   }
 ]
