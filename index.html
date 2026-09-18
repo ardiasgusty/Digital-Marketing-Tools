@@ -1398,10 +1398,25 @@
         <div class="login-box">
             <h2>Digital Marketing</h2>
             <p>Honda Bintaro Framework</p>
-            <div id="error-msg" class="error-msg">⚠️ Password salah! Hubungi Admin.</div>
-            <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password"
-                onkeydown="if(event.key === 'Enter') { event.preventDefault(); verifyPassword(); }">
-            <button class="btn" onclick="verifyPassword()">Akses Dashboard</button>
+            <div id="error-msg" class="error-msg">⚠️ User / Password salah! Hubungi Admin.</div>
+
+            <div style="text-align:left; margin-bottom:12px;">
+                <label style="font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:4px; display:block;">Pilih User / Peran Tim:</label>
+                <select id="username-select" class="form-control" style="margin-bottom:0;">
+                    <option value="superadmin">👑 Superadmin</option>
+                    <option value="wafie">🎥 Wafie (Video Specialist)</option>
+                    <option value="rizky">🎨 Rizky (Design Specialist)</option>
+                    <option value="siska">✍️ Siska (Article Specialist)</option>
+                </select>
+            </div>
+
+            <div style="text-align:left; margin-bottom:18px;">
+                <label style="font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:4px; display:block;">Password:</label>
+                <input type="password" id="password-input" class="form-control" placeholder="Masukkan Password" style="margin-bottom:0;"
+                    onkeydown="if(event.key === 'Enter') { event.preventDefault(); verifyPassword(); }">
+            </div>
+
+            <button class="btn" onclick="verifyPassword()">Akses Dashboard 🚀</button>
         </div>
     </div>
 
@@ -1412,6 +1427,7 @@
                 <p>Internal Tools & Creative Framework</p>
             </div>
             <div class="header-actions">
+                <span id="user-badge" class="badge bg-dark" style="font-size:12px; padding:6px 12px; display:inline-flex; align-items:center; gap:5px;">👤 Login: -</span>
                 <button class="btn-theme" onclick="toggleTheme()" id="theme-btn">🌙</button>
                 <button class="btn-logout" onclick="logout()">Keluar</button>
             </div>
@@ -2135,6 +2151,7 @@
                         <select id="pub-kreator" class="form-control">
                             <option value="Wafie">Wafie (Video Specialist)</option>
                             <option value="Rizky">Rizky (Design Specialist)</option>
+                            <option value="Siska">Siska (Article Specialist)</option>
                         </select>
                     </div>
                 </div>
@@ -2277,6 +2294,7 @@
                         <select id="mon-kreator" class="form-control">
                             <option value="Wafie">Wafie (Video Specialist)</option>
                             <option value="Rizky">Rizky (Design Specialist)</option>
+                            <option value="Siska">Siska (Article Specialist)</option>
                         </select>
                     </div>
                 </div>
@@ -3381,14 +3399,22 @@
                     <p>Konfigurasi kredensial GitHub dan API Key Google Gemini untuk seluruh sistem.</p>
                 </div>
 
+                <div id="setting-lock-banner" style="display:none; background:#fff3cd; border-left:4px solid #ffc107; padding:12px 15px; border-radius:6px; margin-bottom:15px; color:#856404; font-size:13px;">
+                    🔒 <b>Mode Lihat-Saja (Pengaturan Sistem Terkunci):</b> Kredensial & API Key telah tersimpan di <code>json/system-config.json</code> secara otomatis. Hanya <b>Superadmin</b> yang memiliki akses untuk mengubah atau menyimpan Pengaturan Global ini.
+                </div>
+
                 <div class="form-row">
                     <div class="form-group">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
                             <label style="margin-bottom:0;">GitHub Personal Access Token (PAT)</label>
                             <div id="gh-conn-status"></div>
                         </div>
-                        <input type="password" class="form-control gh-sync-token" placeholder="Masukkan GitHub PAT..."
-                            onchange="syncGHFields(this.value, 'token')">
+                        <div class="input-group">
+                            <input type="password" id="setting-gh-token-input" class="form-control gh-sync-token" placeholder="Masukkan GitHub PAT..."
+                                onchange="syncGHFields(this.value, 'token')">
+                            <button class="btn-sm bg-gray" type="button" onclick="toggleInputVisibility('setting-gh-token-input')">👁️ Show/Hide</button>
+                        </div>
+                        <span class="badge bg-green" style="font-size:10px; padding:2px 6px; margin-top:4px; display:inline-block;">🔒 Ter-enkripsi Otomatis saat Disimpan</span>
                     </div>
                 </div>
 
@@ -3406,8 +3432,12 @@
                             <label style="margin-bottom:0;">Google Gemini API Key</label>
                             <div id="gemini-conn-status"></div>
                         </div>
-                        <input type="password" class="form-control api-key-input"
-                            placeholder="Masukkan Gemini API Key..." oninput="syncApiKey(this.value)">
+                        <div class="input-group">
+                            <input type="password" id="setting-gemini-key-input" class="form-control api-key-input"
+                                placeholder="Masukkan Gemini API Key..." oninput="syncApiKey(this.value)">
+                            <button class="btn-sm bg-gray" type="button" onclick="toggleInputVisibility('setting-gemini-key-input')">👁️ Show/Hide</button>
+                        </div>
+                        <span class="badge bg-green" style="font-size:10px; padding:2px 6px; margin-top:4px; display:inline-block;">🔒 Ter-enkripsi Otomatis saat Disimpan</span>
                     </div>
                 </div>
 
@@ -3421,13 +3451,16 @@
                     </div>
                 </div>
 
+                <div id="setting-admin-actions" style="display:none; margin-top:15px;">
+                    <button type="button" class="btn bg-green" style="width:100%;" onclick="syncSystemConfigToGithub()">💾 Simpan & Sinkronkan Pengaturan Sistem ke GitHub (json/system-config.json)</button>
+                </div>
+
                 <div
                     style="background: var(--bg); padding: 15px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--info); margin-top: 20px;">
-                    <strong>ℹ️ Panduan Pengaturan:</strong>
+                    <strong>ℹ️ Panduan Pengaturan Global:</strong>
                     <p style="margin: 5px 0 0 0; line-height: 1.4; color: var(--text-muted);">
-                        Isi data di atas terlebih dahulu sebelum menggunakan menu lainnya. Kredensial ini digunakan
-                        untuk sinkronisasi data dengan GitHub dan fitur AI Content Generator. Pengaturan disimpan secara
-                        lokal di browser Anda.
+                        Sistem memuat kredensial GitHub PAT & Gemini API Key dari <code>json/system-config.json</code> (diluar folder 2026).
+                        Token & API Key disimpan secara terenkripsi (<code>enc::...</code>) sehingga aman dan anggota tim lain (Wafie, Rizky, Siska) dapat langsung menggunakan sistem tanpa perlu menginput kredensial manual. Perubahan hanya dapat dilakukan oleh Superadmin.
                     </p>
                 </div>
             </div>
@@ -3588,8 +3621,63 @@
             }
         }
 
-        async function checkGHConnectionStatus() {
+        // ================= SECRET ENCRYPTION & DECRYPTION LAYER =================
+        const SECRET_SALT = "HB_DIGITAL_MARKETING_SALT_2026_SECURE";
+
+        function encryptSecret(plainText) {
+            if (!plainText || typeof plainText !== 'string') return "";
+            if (plainText.startsWith("enc::")) return plainText;
+            let result = "";
+            for (let i = 0; i < plainText.length; i++) {
+                const charCode = plainText.charCodeAt(i) ^ SECRET_SALT.charCodeAt(i % SECRET_SALT.length);
+                result += String.fromCharCode(charCode);
+            }
+            return "enc::" + btoa(encodeURIComponent(result));
+        }
+
+        function decryptSecret(cipherText) {
+            if (!cipherText || typeof cipherText !== 'string') return "";
+            if (!cipherText.startsWith("enc::")) return cipherText;
+            try {
+                const base64Data = cipherText.substring(5);
+                const raw = decodeURIComponent(atob(base64Data));
+                let result = "";
+                for (let i = 0; i < raw.length; i++) {
+                    const charCode = raw.charCodeAt(i) ^ SECRET_SALT.charCodeAt(i % SECRET_SALT.length);
+                    result += String.fromCharCode(charCode);
+                }
+                return result;
+            } catch (e) {
+                console.error("Gagal dekripsi token:", e);
+                return "";
+            }
+        }
+
+        function getGHConfig() {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            return {
+                ...config,
+                token: decryptSecret(config.token || "")
+            };
+        }
+
+        function getDecryptedGHToken() {
+            return getGHConfig().token;
+        }
+
+        function getDecryptedGeminiKey() {
+            const rawKey = localStorage.getItem('gemini_api_key') || "";
+            return decryptSecret(rawKey);
+        }
+
+        function toggleInputVisibility(inputId) {
+            const el = document.getElementById(inputId);
+            if (!el) return;
+            el.type = el.type === 'password' ? 'text' : 'password';
+        }
+
+        async function checkGHConnectionStatus() {
+            const config = getGHConfig();
             const token = config.token;
             const statusEl = document.getElementById('gh-conn-status');
             if (!statusEl) return;
@@ -3606,7 +3694,7 @@
                 });
                 if (res.ok) {
                     const userData = await res.json();
-                    statusEl.innerHTML = `<span class="badge" style="background:#27ae60; color:white; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11px;">✅ Terhubung (@${userData.login})</span>`;
+                    statusEl.innerHTML = `<span class="badge" style="background:#27ae60; color:white; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11px;">🔒 Encrypted & Connected (@${userData.login})</span>`;
                 } else {
                     statusEl.innerHTML = `<span class="badge" style="background:#e74c3c; color:white; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11px;">❌ Terputus (Token Tidak Valid)</span>`;
                 }
@@ -3616,7 +3704,7 @@
         }
 
         async function checkGeminiConnectionStatus() {
-            const apiKey = localStorage.getItem('gemini_api_key');
+            const apiKey = getDecryptedGeminiKey();
             const statusEl = document.getElementById('gemini-conn-status');
             if (!statusEl) return;
 
@@ -3629,7 +3717,7 @@
             try {
                 const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
                 if (res.ok) {
-                    statusEl.innerHTML = `<span class="badge" style="background:#27ae60; color:white; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11px;">✅ Terhubung & Aktif</span>`;
+                    statusEl.innerHTML = `<span class="badge" style="background:#27ae60; color:white; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11px;">🔒 Encrypted & Connected</span>`;
                 } else {
                     statusEl.innerHTML = `<span class="badge" style="background:#e74c3c; color:white; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11px;">❌ Terputus (API Key Tidak Valid)</span>`;
                 }
@@ -3755,21 +3843,105 @@
             return dataArray.slice(start, start + limit);
         }
 
-        // ================= AUTHENTICATION =================
+        // ================= MULTI-USER AUTHENTICATION & PERMISSIONS =================
+        const USER_CREDENTIALS = {
+            'superadmin': { password: 'dmhondabintaro', displayName: 'Superadmin', role: 'superadmin', kreatorName: 'Superadmin' },
+            'wafie': { password: 'ninabobo', displayName: 'Wafie (Video Specialist)', role: 'kreator', kreatorName: 'Wafie' },
+            'rizky': { password: '17april', displayName: 'Rizky (Design Specialist)', role: 'kreator', kreatorName: 'Rizky' },
+            'siska': { password: 'hondabintaro', displayName: 'Siska (Article Specialist)', role: 'evaluator', kreatorName: 'Siska' }
+        };
+
         function verifyPassword() {
-            const input = document.getElementById('password-input').value;
-            if (!input) return;
-            if (btoa(input.split('').reverse().join('')) === TARGET_HASH) {
+            const selectEl = document.getElementById('username-select');
+            const selectVal = selectEl ? selectEl.value.toLowerCase() : '';
+            const passInput = (document.getElementById('password-input').value || '').trim();
+            const errorEl = document.getElementById('error-msg');
+            
+            if (!passInput) {
+                if (errorEl) { errorEl.innerText = "⚠️ Mohon masukkan password!"; errorEl.style.display = 'block'; }
+                return;
+            }
+
+            let authenticatedUser = null;
+            let authenticatedKey = null;
+
+            // 1. Check selected user in dropdown
+            if (selectVal && USER_CREDENTIALS[selectVal] && USER_CREDENTIALS[selectVal].password === passInput) {
+                authenticatedUser = USER_CREDENTIALS[selectVal];
+                authenticatedKey = selectVal;
+            } else {
+                // 2. Fallback check: match password against all registered users
+                for (const [key, userObj] of Object.entries(USER_CREDENTIALS)) {
+                    if (userObj.password === passInput) {
+                        authenticatedUser = userObj;
+                        authenticatedKey = key;
+                        break;
+                    }
+                }
+            }
+
+            if (authenticatedUser) {
                 sessionStorage.setItem('auth_hb', 'true');
+                sessionStorage.setItem('auth_user', authenticatedKey);
+                sessionStorage.setItem('auth_user_name', authenticatedUser.displayName);
+                sessionStorage.setItem('auth_user_kreator', authenticatedUser.kreatorName);
+                
+                if (errorEl) errorEl.style.display = 'none';
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('dashboard-screen').style.display = 'flex';
-            } else { document.getElementById('error-msg').style.display = 'block'; }
+                
+                updateUserBadgeUI();
+                autoSelectKreatorByUser();
+                renderPublishedDrafts();
+                checkSettingPermissions();
+            } else {
+                if (errorEl) {
+                    errorEl.innerText = "⚠️ User atau password salah! Hubungi Admin.";
+                    errorEl.style.display = 'block';
+                }
+            }
         }
-        function logout() { sessionStorage.removeItem('auth_hb'); location.reload(); }
+
+        function logout() {
+            sessionStorage.removeItem('auth_hb');
+            sessionStorage.removeItem('auth_user');
+            sessionStorage.removeItem('auth_user_name');
+            sessionStorage.removeItem('auth_user_kreator');
+            location.reload();
+        }
+
+        function updateUserBadgeUI() {
+            const badgeEl = document.getElementById('user-badge');
+            const userName = sessionStorage.getItem('auth_user_name') || 'User';
+            if (badgeEl) badgeEl.innerHTML = `👤 Login: <b>${userName}</b>`;
+        }
+
+        function autoSelectKreatorByUser() {
+            const userKreator = sessionStorage.getItem('auth_user_kreator');
+            if (userKreator && userKreator !== 'Superadmin') {
+                const pubKreatorSelect = document.getElementById('pub-kreator');
+                if (pubKreatorSelect) {
+                    const matchOpt = Array.from(pubKreatorSelect.options).find(o => o.value.toLowerCase() === userKreator.toLowerCase());
+                    if (matchOpt) pubKreatorSelect.value = matchOpt.value;
+                }
+            }
+        }
+
+        function canUserDeleteDraft(draft) {
+            const currentUser = (sessionStorage.getItem('auth_user') || '').toLowerCase();
+            if (currentUser === 'superadmin') return true;
+            if (!draft || !draft.kreator) return false;
+            const draftKreator = draft.kreator.toLowerCase();
+            if (currentUser === draftKreator) return true;
+            if (draft.createdBy && currentUser === draft.createdBy.toLowerCase()) return true;
+            return false;
+        }
 
         function syncApiKey(val) {
-            localStorage.setItem('gemini_api_key', val.trim());
-            document.querySelectorAll('.api-key-input').forEach(el => { if (el.value !== val) el.value = val; });
+            const plainKey = val.trim();
+            const encKey = encryptSecret(plainKey);
+            localStorage.setItem('gemini_api_key', encKey);
+            document.querySelectorAll('.api-key-input').forEach(el => { if (el.value !== plainKey) el.value = plainKey; });
             checkGeminiConnectionStatus();
         }
 
@@ -3780,7 +3952,7 @@
         }
 
         async function callGeminiAPI(promptText) {
-            const apiKey = localStorage.getItem('gemini_api_key');
+            const apiKey = getDecryptedGeminiKey();
             if (!apiKey) {
                 throw new Error("API Key Gemini kosong! Masukkan kunci di kolom pengaturan.");
             }
@@ -3804,7 +3976,7 @@
 
         async function deleteOldImageByUrl(imageUrl, folderPath) {
             if (!imageUrl) return;
-            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const config = getGHConfig();
             const token = config.token;
             const owner = config.user;
             const repo = config.repo;
@@ -3873,11 +4045,15 @@
 
         function syncGHFields(val, keyType) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
-            if (keyType) config[keyType] = val;
-
+            
             if (keyType === 'token' && val !== null) {
-                document.querySelectorAll('.gh-sync-token').forEach(el => { if (el.value !== val) el.value = val; });
+                const plainToken = val.trim();
+                config.token = encryptSecret(plainToken);
+                document.querySelectorAll('.gh-sync-token').forEach(el => { if (el.value !== plainToken) el.value = plainToken; });
+            } else if (keyType) {
+                config[keyType] = val;
             }
+
             if (keyType === 'user' && val !== null) {
                 document.querySelectorAll('.gh-sync-user').forEach(el => { if (el.value !== val) el.value = val; });
             }
@@ -3901,6 +4077,187 @@
 
             localStorage.setItem('gh_config', JSON.stringify(config));
             checkGHConnectionStatus();
+        }
+
+        // ================= GLOBAL SYSTEM CONFIG MANAGEMENT =================
+        async function loadSystemConfig() {
+            try {
+                const res = await fetch('json/system-config.json?v=' + Date.now());
+                if (!res.ok) return;
+                const config = await res.json();
+                
+                let currentGH = {};
+                try {
+                    currentGH = JSON.parse(localStorage.getItem('gh_config') || '{}');
+                } catch (e) { }
+
+                const updatedGH = {
+                    ...currentGH,
+                    token: config.token || currentGH.token || "",
+                    user: config.user || currentGH.user || "ardiasgusty",
+                    repo: config.repo || currentGH.repo || "Digital-Marketing-Tools",
+                    pathContent: config.pathContent || currentGH.pathContent || "json/2026/report-content-performance-2026.json",
+                    pathContentMonthly: config.pathContentMonthly || currentGH.pathContentMonthly || "json/2026/report-content-performance-monthly-2026.json",
+                    pathKPI: config.pathKPI || currentGH.pathKPI || "json/2026/report-channel-evaluator-2026.json",
+                    pathLinks: config.pathLinks || currentGH.pathLinks || "json/kumpulan-link-penting.json",
+                    pathTodo: config.pathTodo || currentGH.pathTodo || "json/2026/to-do-list-2026.json",
+                    pathPublish: config.pathPublish || currentGH.pathPublish || "json/2026/publish-log-2026.json",
+                    pathBlogger: config.pathBlogger || currentGH.pathBlogger || "honda/data/products.json",
+                    pathPricelist: config.pathPricelist || currentGH.pathPricelist || "honda/data/pricelist.json",
+                    pathByd: config.pathByd || currentGH.pathByd || "honda/product_features/stepwgn.json",
+                    pathBanner: config.pathBanner || currentGH.pathBanner || "honda/data/bannerhondabintaro.json",
+                    pathBannerImg: config.pathBannerImg || currentGH.pathBannerImg || "honda/assets/banner",
+                    pathElearning: config.pathElearning || currentGH.pathElearning || "honda/data/elearning.json",
+                    pathElearningImg: config.pathElearningImg || currentGH.pathElearningImg || "honda/assets/elearning"
+                };
+                localStorage.setItem('gh_config', JSON.stringify(updatedGH));
+
+                if (config.gemini_api_key) {
+                    localStorage.setItem('gemini_api_key', config.gemini_api_key);
+                }
+                if (config.gemini_model) {
+                    localStorage.setItem('gemini_model', config.gemini_model);
+                }
+
+                const decToken = decryptSecret(updatedGH.token || "");
+                const decGemini = decryptSecret(config.gemini_api_key || localStorage.getItem('gemini_api_key') || "");
+
+                document.querySelectorAll('.gh-sync-token').forEach(el => el.value = decToken);
+                document.querySelectorAll('.gh-sync-user').forEach(el => el.value = updatedGH.user);
+                document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = updatedGH.repo);
+                document.querySelectorAll('.api-key-input').forEach(el => el.value = decGemini);
+
+                const modelSelect = document.getElementById('gemini-model-select');
+                if (modelSelect && (config.gemini_model || localStorage.getItem('gemini_model'))) {
+                    modelSelect.value = config.gemini_model || localStorage.getItem('gemini_model');
+                }
+
+                syncGHFields(null, null);
+            } catch (e) {
+                console.warn("Gagal memuat system-config.json:", e);
+            }
+        }
+
+        function checkSettingPermissions() {
+            const currentUser = (sessionStorage.getItem('auth_user') || '').toLowerCase();
+            const isSuperadmin = (currentUser === 'superadmin');
+
+            const lockBanner = document.getElementById('setting-lock-banner');
+            const adminActions = document.getElementById('setting-admin-actions');
+            const userInputs = document.querySelectorAll('#setting-section input, #setting-section select');
+
+            if (lockBanner) {
+                lockBanner.style.display = isSuperadmin ? 'none' : 'block';
+            }
+            if (adminActions) {
+                adminActions.style.display = isSuperadmin ? 'block' : 'none';
+            }
+
+            userInputs.forEach(el => {
+                el.disabled = !isSuperadmin;
+                if (!isSuperadmin) {
+                    el.style.backgroundColor = 'var(--bg)';
+                    el.style.cursor = 'not-allowed';
+                } else {
+                    el.style.backgroundColor = '';
+                    el.style.cursor = '';
+                }
+            });
+        }
+
+        async function syncSystemConfigToGithub() {
+            const currentUser = (sessionStorage.getItem('auth_user') || '').toLowerCase();
+            if (currentUser !== 'superadmin') {
+                alert("⛔ Hanya Superadmin yang diizinkan untuk mengubah & menyimpan Pengaturan Sistem ke GitHub!");
+                return;
+            }
+
+            const configGH = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const tokenEl = document.getElementById('setting-gh-token-input');
+            const geminiEl = document.getElementById('setting-gemini-key-input');
+            const modelEl = document.getElementById('gemini-model-select');
+
+            const rawToken = tokenEl ? tokenEl.value.trim() : getGHConfig().token;
+            const rawGemini = geminiEl ? geminiEl.value.trim() : getDecryptedGeminiKey();
+            const rawModel = modelEl ? modelEl.value : (localStorage.getItem('gemini_model') || 'gemini-3.5-flash');
+
+            if (!rawToken) {
+                alert("❌ GitHub Access Token (PAT) belum diisi!");
+                return;
+            }
+
+            const systemConfigData = {
+                token: encryptSecret(rawToken),
+                user: configGH.user || "ardiasgusty",
+                repo: configGH.repo || "Digital-Marketing-Tools",
+                gemini_api_key: encryptSecret(rawGemini),
+                gemini_model: rawModel,
+                pathContent: configGH.pathContent || "json/2026/report-content-performance-2026.json",
+                pathContentMonthly: configGH.pathContentMonthly || "json/2026/report-content-performance-monthly-2026.json",
+                pathKPI: configGH.pathKPI || "json/2026/report-channel-evaluator-2026.json",
+                pathLinks: configGH.pathLinks || "json/kumpulan-link-penting.json",
+                pathTodo: configGH.pathTodo || "json/2026/to-do-list-2026.json",
+                pathPublish: configGH.pathPublish || "json/2026/publish-log-2026.json",
+                pathBlogger: configGH.pathBlogger || "honda/data/products.json",
+                pathPricelist: configGH.pathPricelist || "honda/data/pricelist.json",
+                pathByd: configGH.pathByd || "honda/product_features/stepwgn.json",
+                pathBanner: configGH.pathBanner || "honda/data/bannerhondabintaro.json",
+                pathBannerImg: configGH.pathBannerImg || "honda/assets/banner",
+                pathElearning: configGH.pathElearning || "honda/data/elearning.json",
+                pathElearningImg: configGH.pathElearningImg || "honda/assets/elearning"
+            };
+
+            const targetPath = "json/system-config.json";
+            const commitMsg = "⚙️ Update Pengaturan Global & Token Enkripsi (json/system-config.json)";
+
+            try {
+                const ghUrl = `https://api.github.com/repos/${systemConfigData.user}/${systemConfigData.repo}/contents/${targetPath}`;
+                let sha = null;
+
+                const getRes = await fetch(ghUrl, {
+                    headers: { 'Authorization': `token ${rawToken}` }
+                });
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                }
+
+                const contentStr = JSON.stringify(systemConfigData, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(contentStr)));
+
+                const putRes = await fetch(ghUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${rawToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: commitMsg,
+                        content: encodedContent,
+                        sha: sha || undefined
+                    })
+                });
+
+                if (putRes.ok) {
+                    alert("✅ Pengaturan Global (json/system-config.json) berhasil disimpan & terenkripsi di GitHub!");
+                    localStorage.setItem('gh_config', JSON.stringify({
+                        ...configGH,
+                        token: systemConfigData.token,
+                        user: systemConfigData.user,
+                        repo: systemConfigData.repo
+                    }));
+                    localStorage.setItem('gemini_api_key', systemConfigData.gemini_api_key);
+                    localStorage.setItem('gemini_model', systemConfigData.gemini_model);
+                    checkGHConnectionStatus();
+                    checkGeminiConnectionStatus();
+                } else {
+                    const errData = await putRes.json();
+                    alert(`❌ Gagal menyimpan ke GitHub: ${errData.message || putRes.statusText}`);
+                }
+            } catch (e) {
+                console.error("Error syncSystemConfigToGithub:", e);
+                alert(`❌ Error saat menyimpan ke GitHub: ${e.message}`);
+            }
         }
 
         function resetForm(prefix) {
@@ -3968,23 +4325,28 @@
         }
 
         // ================= INIT CODE =================
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadSystemConfig();
+            checkSettingPermissions();
+
             if (sessionStorage.getItem('auth_hb') === 'true') {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('dashboard-screen').style.display = 'flex';
+                updateUserBadgeUI();
+                autoSelectKreatorByUser();
             }
             if (localStorage.getItem('honda_theme') === 'dark') toggleTheme();
 
             if (!localStorage.getItem('gh_config')) localStorage.setItem('gh_config', JSON.stringify(DEFAULT_CONFIG));
 
-            const savedGeminiKey = localStorage.getItem('gemini_api_key');
+            const savedGeminiKey = getDecryptedGeminiKey();
             if (savedGeminiKey) document.querySelectorAll('.api-key-input').forEach(el => el.value = savedGeminiKey);
 
             const savedGeminiModel = localStorage.getItem('gemini_model') || 'gemini-3.5-flash';
             const modelSelect = document.getElementById('gemini-model-select');
             if (modelSelect) modelSelect.value = savedGeminiModel;
 
-            const ghConf = JSON.parse(localStorage.getItem('gh_config'));
+            const ghConf = getGHConfig();
             document.querySelectorAll('.gh-sync-token').forEach(el => el.value = ghConf.token || "");
             document.querySelectorAll('.gh-sync-user').forEach(el => el.value = ghConf.user || "");
             document.querySelectorAll('.gh-sync-repo').forEach(el => el.value = ghConf.repo || "");
@@ -4012,6 +4374,7 @@
             document.querySelectorAll('.tool-section').forEach(sec => sec.style.display = 'none');
 
             if (toolId === 'setting') {
+                checkSettingPermissions();
                 checkGHConnectionStatus();
                 checkGeminiConnectionStatus();
             }
@@ -4316,14 +4679,14 @@
 
         // ================= GITHUB ADVANCED CONNECT DATABASE =================
         async function fetchGHData(path) {
-            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const config = getGHConfig();
             if (!config.token || !config.user || !config.repo) throw new Error("Config GitHub error.");
             const res = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${path}`, { headers: { "Authorization": `token ${config.token}` } });
             if (!res.ok) throw new Error("Fetch error."); return await res.json();
         }
 
         async function pushGHData(filename, dataObj, statusElementId) {
-            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const config = getGHConfig();
             const statusEl = document.getElementById(statusElementId);
             if (!config.token || !config.user || !config.repo || !filename) { statusEl.innerHTML = `<span style="color:red;">❌ Sync Gagal: Isi field lengkap!</span>`; return false; }
             statusEl.innerHTML = "<i>Memulai sinkronisasi ke GitHub... ⏳</i>";
@@ -4351,7 +4714,7 @@
         }
 
         async function pullDBFromGithub(type, silent = false) {
-            const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
+            const config = getGHConfig();
             let path, statusElId;
             if (type === 'content') { path = config.pathContent; statusElId = 'github-status-content-table'; }
             else if (type === 'content-monthly') { path = config.pathContentMonthly; statusElId = 'github-status-content-monthly-table'; }
@@ -4814,6 +5177,8 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             }
         }
 
+        let editDraftIdx = -1;
+
         function savePublishedDraft() {
             const title = document.getElementById('pub-title').value.trim();
             const link = document.getElementById('pub-link').value.trim();
@@ -4821,24 +5186,44 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             const platform = document.getElementById('pub-platform').value;
             const category = document.getElementById('pub-category').value;
             const pilar = document.getElementById('pub-pilar').value;
-            const kreator = document.getElementById('pub-kreator').value || getAutoKreator(category);
+            const kreator = document.getElementById('pub-kreator').value;
 
-            if (!title || !link || !datePub) {
-                alert("⚠️ Mohon isi Nama Konten, Link URL, dan Tanggal Publish terlebih dahulu!");
+            if (!title || !link || !datePub || !platform || !category || !pilar || !kreator) {
+                alert("⚠️ Mohon isi seluruh data Publish Log (Judul, Link URL, Tanggal, Platform, Kategori, Pilar, dan Kreator) terlebih dahulu! Tidak boleh ada data yang belum terisi.");
                 return;
             }
 
             const match = link.match(/\/(?:p|reel|reels)\/([a-zA-Z0-9_-]+)/);
             const shortcode = match ? match[1] : null;
+            const currentUserKey = sessionStorage.getItem('auth_user') || 'guest';
 
-            const draft = {
-                id: 'draft_' + Date.now(),
-                title, link, shortcode, datePub, platform, category, pilar, kreator,
-                evaluated: false,
-                createdAt: new Date().toISOString()
-            };
+            if (editDraftIdx > -1) {
+                publishedDraftDB[editDraftIdx] = {
+                    ...publishedDraftDB[editDraftIdx],
+                    title, link, shortcode, datePub, platform, category, pilar, kreator,
+                    updatedAt: new Date().toISOString()
+                };
+                editDraftIdx = -1;
+                const saveBtn = document.getElementById('btn-save-pub-draft');
+                if (saveBtn) {
+                    saveBtn.innerText = '🚀 Simpan Draf Konten Tayang';
+                    saveBtn.className = 'btn btn-accent';
+                }
+                const cancelBtn = document.getElementById('btn-cancel-pub-draft');
+                if (cancelBtn) cancelBtn.style.display = 'none';
+                alert("✅ Draf Konten Tayang berhasil diperbarui!");
+            } else {
+                const draft = {
+                    id: 'draft_' + Date.now(),
+                    title, link, shortcode, datePub, platform, category, pilar, kreator,
+                    evaluated: false,
+                    createdBy: currentUserKey,
+                    createdAt: new Date().toISOString()
+                };
+                publishedDraftDB.unshift(draft);
+                alert("✅ Draf Konten Tayang berhasil disimpan secara lokal!\n\n💡 Klik '↑ Simpan JSON Langsung' untuk menyinkronkan data ke GitHub agar dapat ditarik oleh device/komputer lain.");
+            }
 
-            publishedDraftDB.unshift(draft);
             localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB));
 
             document.getElementById('pub-title').value = '';
@@ -4849,47 +5234,58 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             renderPublishedDrafts();
             populateDraftSelectDropdown();
             setUnsavedChange('publish', true);
-            alert("✅ Draf Konten Tayang berhasil disimpan secara lokal!\n\n💡 Klik '↑ Simpan JSON Langsung' untuk menyinkronkan data ke GitHub agar dapat ditarik oleh device/komputer lain.");
         }
 
-        function exportPublishLogJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(publishedDraftDB, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `publish-log-${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+        function editPublishedDraft(idx) {
+            const draft = publishedDraftDB[idx];
+            if (!draft) return;
+            editDraftIdx = idx;
+
+            document.getElementById('pub-title').value = draft.title || '';
+            document.getElementById('pub-link').value = draft.link || '';
+            document.getElementById('pub-date').value = draft.datePub || '';
+            document.getElementById('pub-platform').value = draft.platform || 'Instagram';
+            document.getElementById('pub-category').value = draft.category || 'Reels';
+            document.getElementById('pub-pilar').value = draft.pilar || 'Product Value & Info';
+            document.getElementById('pub-kreator').value = draft.kreator || 'Wafie';
+
+            if (draft.link) generateThumbnailPreview(draft.link, 'thumb-pub');
+
+            const saveBtn = document.getElementById('btn-save-pub-draft');
+            if (saveBtn) {
+                saveBtn.innerText = '✏️ Update Draf Konten Tayang';
+                saveBtn.className = 'btn btn-info';
+            }
+
+            let cancelBtn = document.getElementById('btn-cancel-pub-draft');
+            if (!cancelBtn) {
+                cancelBtn = document.createElement('button');
+                cancelBtn.id = 'btn-cancel-pub-draft';
+                cancelBtn.className = 'btn bg-gray';
+                cancelBtn.innerText = '✖ Batal Edit';
+                cancelBtn.style.marginLeft = '10px';
+                cancelBtn.onclick = cancelEditPublishedDraft;
+                saveBtn.parentNode.insertBefore(cancelBtn, saveBtn.nextSibling);
+            } else {
+                cancelBtn.style.display = 'inline-block';
+            }
+
+            document.getElementById('publish-log-section').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function triggerImportPublishLogJSON() {
-            const fileInput = document.getElementById('import-publish-file');
-            if (fileInput) fileInput.click();
-        }
-
-        function importPublishLogJSON(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (Array.isArray(importedData)) {
-                        publishedDraftDB = importedData;
-                        localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB));
-                        renderPublishedDrafts();
-                        populateDraftSelectDropdown();
-                        setUnsavedChange('publish', true);
-                        alert(`✅ Berhasil mengimpor ${importedData.length} data Publish Log!`);
-                    } else {
-                        alert("❌ Format file JSON tidak valid (harus berupa array).");
-                    }
-                } catch (err) {
-                    alert("❌ Gagal membaca file JSON: " + err.message);
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
+        function cancelEditPublishedDraft() {
+            editDraftIdx = -1;
+            document.getElementById('pub-title').value = '';
+            document.getElementById('pub-link').value = '';
+            setDefaultPublishDate();
+            generateThumbnailPreview('', 'thumb-pub');
+            const saveBtn = document.getElementById('btn-save-pub-draft');
+            if (saveBtn) {
+                saveBtn.innerText = '🚀 Simpan Draf Konten Tayang';
+                saveBtn.className = 'btn btn-accent';
+            }
+            const cancelBtn = document.getElementById('btn-cancel-pub-draft');
+            if (cancelBtn) cancelBtn.style.display = 'none';
         }
 
         function renderPublishedDrafts() {
@@ -4904,12 +5300,20 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
             publishedDraftDB.forEach((draft, idx) => {
                 const thumb = draft.shortcode ? `<img src="${buildIGThumbUrl(draft.shortcode)}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
-                const kreatorBadge = draft.kreator === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (draft.kreator === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : `<span class="badge bg-gray">👤 ${draft.kreator}</span>`);
-                const statusBadge = draft.evaluated ? '<span class="badge bg-green">✅ Sudah Dievaluasi</span>' : '<span class="badge bg-gold">⏳ Menunggu Evaluasi (Hari ke-7)</span>';
+                const kreatorBadge = draft.kreator === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (draft.kreator === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : (draft.kreator === 'Siska' ? '<span class="badge bg-gold">✍️ Siska</span>' : `<span class="badge bg-gray">👤 ${draft.kreator}</span>`));
+                const statusBadge = draft.evaluated ? '<span class="badge bg-green">✅ Sudah Dievaluasi ke CPM</span>' : '<span class="badge bg-gold">⏳ Menunggu Evaluasi (Hari ke-7)</span>';
                 
-                const actionBtn = draft.evaluated 
-                    ? `<span style="font-size:11px; color:var(--text-muted);">Ter-evaluasi</span>`
-                    : `<button class="btn-sm bg-blue" onclick="triggerEvaluateDraft(${idx})">⚡ Evaluasi Sekarang</button>`;
+                const canDelete = canUserDeleteDraft(draft);
+
+                const evaluateBtn = draft.evaluated 
+                    ? `<span style="font-size:11px; color:var(--text-muted); font-weight:600;">Ter-evaluasi</span>`
+                    : `<button class="btn-sm bg-blue" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi sekarang ke Content Performance Monitor">⚡ Evaluasi Sekarang</button>`;
+
+                const editBtn = `<button class="btn-sm bg-info" onclick="editPublishedDraft(${idx})" title="Edit metadata draf ini">✏️ Edit</button>`;
+                
+                const deleteBtn = canDelete 
+                    ? `<button class="btn-sm bg-red" onclick="deletePublishedDraft(${idx})" title="Hapus draf ini">❌ Hapus</button>`
+                    : `<button class="btn-sm bg-gray" style="opacity:0.45; cursor:not-allowed;" title="Hanya ${draft.kreator} atau Superadmin yang dapat menghapus" disabled>🔒 Hapus (Terkunci)</button>`;
 
                 tbody.innerHTML += `<tr>
                     <td>${thumb}</td>
@@ -4918,14 +5322,25 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                     <td>${kreatorBadge}</td>
                     <td>${statusBadge}</td>
                     <td style="text-align:center;">
-                        ${actionBtn}
-                        <button class="btn-sm bg-red" onclick="deletePublishedDraft(${idx})" style="margin-top:4px;">X Hapus</button>
+                        <div style="display:flex; flex-direction:column; gap:4px; align-items:center; justify-content:center;">
+                            ${evaluateBtn}
+                            <div style="display:flex; gap:4px; justify-content:center; width:100%;">
+                                ${editBtn}
+                                ${deleteBtn}
+                            </div>
+                        </div>
                     </td>
                 </tr>`;
             });
         }
 
         function deletePublishedDraft(idx) {
+            const draft = publishedDraftDB[idx];
+            if (!canUserDeleteDraft(draft)) {
+                alert(`⚠️ Akses Ditolak! Anda tidak memiliki izin untuk menghapus draf milik ${draft ? draft.kreator : 'user lain'}.`);
+                return;
+            }
+
             if (confirm('Yakin ingin menghapus draf ini?')) {
                 publishedDraftDB.splice(idx, 1);
                 localStorage.setItem('honda_published_draft_db', JSON.stringify(publishedDraftDB));
@@ -5034,7 +5449,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
                 let soWhat = ""; let nowWhat = "";
 
-                const apiKey = localStorage.getItem('gemini_api_key');
+                const apiKey = getDecryptedGeminiKey();
                 if (apiKey) {
                     const btn = document.getElementById('btn-eval-mon');
                     const oriText = btn.innerText;
@@ -5389,7 +5804,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 const what = `Platform: <b>${platform}</b>. Periode: ${dateStart} s/d ${dateEnd} (${postCount} post). ER by Reach: <b>${erByReach.toFixed(2)}%</b>. Avg Reach/Post: <b>${avgReachPerPost.toLocaleString('id-ID', { maximumFractionDigits: 0 })}</b>. Target -> ER >${targetER}% | Avg Reach >${targetAvgReach.toLocaleString('id-ID')}.`;
 
                 let soWhat = ""; let nowWhat = "";
-                const apiKey = localStorage.getItem('gemini_api_key');
+                const apiKey = getDecryptedGeminiKey();
                 if (apiKey) {
                     const btn = document.getElementById('btn-eval-conm');
                     const oriText = btn.innerText;

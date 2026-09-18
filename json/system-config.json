@@ -1,0 +1,20 @@
+{
+  "token": "",
+  "user": "ardiasgusty",
+  "repo": "Digital-Marketing-Tools",
+  "gemini_api_key": "",
+  "gemini_model": "gemini-3.5-flash",
+  "pathContent": "json/2026/report-content-performance-2026.json",
+  "pathContentMonthly": "json/2026/report-content-performance-monthly-2026.json",
+  "pathKPI": "json/2026/report-channel-evaluator-2026.json",
+  "pathLinks": "json/kumpulan-link-penting.json",
+  "pathTodo": "json/2026/to-do-list-2026.json",
+  "pathPublish": "json/2026/publish-log-2026.json",
+  "pathBlogger": "honda/data/products.json",
+  "pathPricelist": "honda/data/pricelist.json",
+  "pathByd": "honda/product_features/stepwgn.json",
+  "pathBanner": "honda/data/bannerhondabintaro.json",
+  "pathBannerImg": "honda/assets/banner",
+  "pathElearning": "honda/data/elearning.json",
+  "pathElearningImg": "honda/assets/elearning"
+}
