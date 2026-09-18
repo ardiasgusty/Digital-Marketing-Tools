@@ -5288,6 +5288,21 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             if (cancelBtn) cancelBtn.style.display = 'none';
         }
 
+        function getDaysElapsed(dateStr) {
+            if (!dateStr) return 0;
+            const pubDate = new Date(dateStr);
+            if (isNaN(pubDate.getTime())) return 0;
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const targetDate = new Date(pubDate);
+            targetDate.setHours(0, 0, 0, 0);
+            
+            const diffTime = today.getTime() - targetDate.getTime();
+            return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        }
+
         function renderPublishedDrafts() {
             const tbody = document.getElementById('db-body-published-drafts');
             if (!tbody) return;
@@ -5301,7 +5316,17 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             publishedDraftDB.forEach((draft, idx) => {
                 const thumb = draft.shortcode ? `<img src="${buildIGThumbUrl(draft.shortcode)}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
                 const kreatorBadge = draft.kreator === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (draft.kreator === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : (draft.kreator === 'Siska' ? '<span class="badge bg-gold">✍️ Siska</span>' : `<span class="badge bg-gray">👤 ${draft.kreator}</span>`));
-                const statusBadge = draft.evaluated ? '<span class="badge bg-green">✅ Sudah Dievaluasi ke CPM</span>' : '<span class="badge bg-gold">⏳ Menunggu Evaluasi (Hari ke-7)</span>';
+                
+                const daysElapsed = getDaysElapsed(draft.datePub);
+                let statusBadge = "";
+                if (draft.evaluated) {
+                    statusBadge = '<span class="badge bg-green">✅ Sudah Dievaluasi ke CPM</span>';
+                } else if (daysElapsed >= 7) {
+                    statusBadge = `<span class="badge bg-blue" style="animation: pulsing-glow 2s infinite;">⚡ Siap Dievaluasi (${daysElapsed} hari tayang)</span>`;
+                } else {
+                    const daysRemaining = 7 - daysElapsed;
+                    statusBadge = `<span class="badge bg-gold">⏳ Menunggu (${daysElapsed}/7 hari tayang - ${daysRemaining} hr lagi)</span>`;
+                }
                 
                 const canDelete = canUserDeleteDraft(draft);
 
@@ -5317,7 +5342,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
                 tbody.innerHTML += `<tr>
                     <td>${thumb}</td>
-                    <td><b>${draft.title}</b><br><a href="${draft.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">Publish: ${draft.datePub}</span></td>
+                    <td><b>${draft.title}</b><br><a href="${draft.link}" target="_blank" style="color:var(--info); font-size:11px;">Buka Konten ↗</a><br><span style="font-size:11px; color:var(--text-muted);">Publish: ${draft.datePub} (${daysElapsed} hari tayang)</span></td>
                     <td><span class="badge bg-dark">${draft.platform}</span> <span class="badge bg-gray">${draft.category}</span><br><small>${draft.pilar}</small></td>
                     <td>${kreatorBadge}</td>
                     <td>${statusBadge}</td>
@@ -5354,14 +5379,29 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             const select = document.getElementById('mon-draft-select');
             if (!select) return;
 
-            select.innerHTML = '<option value="">-- Pilih Konten Tayang Siap Evaluasi --</option>';
+            select.innerHTML = '<option value="">-- Pilih Konten Tayang Siap Evaluasi (≥ 7 Hari Tayang) --</option>';
             
-            const pendingDrafts = publishedDraftDB.filter(d => !d.evaluated);
+            const pendingDrafts = publishedDraftDB.filter(d => {
+                if (d.evaluated) return false;
+                const days = getDaysElapsed(d.datePub);
+                return days >= 7;
+            });
+
+            if (pendingDrafts.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = "";
+                opt.disabled = true;
+                opt.textContent = "ℹ️ Tidak ada konten tayang yang sudah genap 7 hari";
+                select.appendChild(opt);
+                return;
+            }
+
             pendingDrafts.forEach((draft) => {
                 const globalIdx = publishedDraftDB.findIndex(d => d.id === draft.id);
+                const days = getDaysElapsed(draft.datePub);
                 const opt = document.createElement('option');
                 opt.value = globalIdx;
-                opt.textContent = `[${draft.datePub}] ${draft.title} (${draft.platform} - ${draft.category} - ${draft.kreator})`;
+                opt.textContent = `[${draft.datePub} - ${days} hari tayang] ${draft.title} (${draft.platform} - ${draft.category} - ${draft.kreator})`;
                 select.appendChild(opt);
             });
         }
@@ -5386,9 +5426,25 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
         }
 
         function triggerEvaluateDraft(idx) {
+            const draft = publishedDraftDB[idx];
+            if (!draft) return;
+
+            const days = getDaysElapsed(draft.datePub);
+            if (days < 7) {
+                const confirmEval = confirm(`⚠️ Konten "${draft.title}" baru tayang ${days} hari (belum genap 7 hari).\n\nApakah Anda yakin tetap ingin mengevaluasi konten ini sekarang?`);
+                if (!confirmEval) return;
+            }
+
             openTool('monitor');
             const select = document.getElementById('mon-draft-select');
             if (select) {
+                let existingOpt = Array.from(select.options).find(o => o.value == idx);
+                if (!existingOpt) {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = `[${draft.datePub} - ${days} hari tayang] ${draft.title} (${draft.platform} - ${draft.category} - ${draft.kreator})`;
+                    select.appendChild(opt);
+                }
                 select.value = idx;
                 autoFillFromDraft(idx);
             }
