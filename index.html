@@ -5308,7 +5308,6 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
         function isDraftEvaluated(draft) {
             if (!draft) return false;
-            if (draft.evaluated) return true;
 
             if (contentDB && Array.isArray(contentDB) && contentDB.length > 0) {
                 const isMatch = contentDB.some(c => {
@@ -5358,7 +5357,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                 const canDelete = canUserDeleteDraft(draft);
 
                 const evaluateBtn = evaluated 
-                    ? `<span style="font-size:11px; color:var(--text-muted); font-weight:600;">Ter-evaluasi</span>`
+                    ? `<button class="btn-sm bg-gray" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi ulang atau perbarui data performa konten ini">🔄 Evaluasi Ulang</button>`
                     : `<button class="btn-sm bg-blue" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi sekarang ke Content Performance Monitor">⚡ Evaluasi Sekarang</button>`;
 
                 const editBtn = `<button class="btn-sm bg-info" onclick="editPublishedDraft(${idx})" title="Edit metadata draf ini">✏️ Edit</button>`;
@@ -5408,22 +5407,22 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
             select.innerHTML = '<option value="">-- Pilih Konten Tayang Siap Evaluasi (≥ 7 Hari Tayang) --</option>';
             
-            const pendingDrafts = publishedDraftDB.filter(d => {
+            const readyPendingDrafts = publishedDraftDB.filter(d => {
                 if (isDraftEvaluated(d)) return false;
                 const days = getDaysElapsed(d.datePub);
                 return days >= 7;
             });
 
-            if (pendingDrafts.length === 0) {
+            if (readyPendingDrafts.length === 0) {
                 const opt = document.createElement('option');
                 opt.value = "";
                 opt.disabled = true;
-                opt.textContent = "ℹ️ Tidak ada konten tayang yang sudah genap 7 hari";
+                opt.textContent = "ℹ️ Tidak ada konten tayang yang siap dievaluasi (≥ 7 hari tayang & belum dievaluasi)";
                 select.appendChild(opt);
                 return;
             }
 
-            pendingDrafts.forEach((draft) => {
+            readyPendingDrafts.forEach((draft) => {
                 const globalIdx = publishedDraftDB.findIndex(d => d.id === draft.id);
                 const days = getDaysElapsed(draft.datePub);
                 const opt = document.createElement('option');
@@ -5457,12 +5456,18 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             if (!draft) return;
 
             const days = getDaysElapsed(draft.datePub);
-            if (days < 7) {
+            const evaluated = isDraftEvaluated(draft);
+
+            if (evaluated) {
+                const confirmReEval = confirm(`ℹ️ Konten "${draft.title}" sudah pernah dievaluasi di Content Performance Monitor.\n\nApakah Anda ingin mengevaluasi ulang / memperbarui data performa konten ini?`);
+                if (!confirmReEval) return;
+            } else if (days < 7) {
                 const confirmEval = confirm(`⚠️ Konten "${draft.title}" baru tayang ${days} hari (belum genap 7 hari).\n\nApakah Anda yakin tetap ingin mengevaluasi konten ini sekarang?`);
                 if (!confirmEval) return;
             }
 
             openTool('monitor');
+            populateDraftSelectDropdown();
             const select = document.getElementById('mon-draft-select');
             if (select) {
                 let existingOpt = Array.from(select.options).find(o => o.value == idx);
@@ -5575,7 +5580,24 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 if (wasEditing) {
                     contentDB[editIdx.content] = newItem;
                 } else {
-                    contentDB.push(newItem);
+                    const existingIdx = contentDB.findIndex(c => {
+                        if (!c) return false;
+                        if (link && c.link) {
+                            const normForm = link.split('?')[0].replace(/\/+$/, '');
+                            const normCPM = c.link.split('?')[0].replace(/\/+$/, '');
+                            if (normForm === normCPM) return true;
+                        }
+                        if (title && c.title && title.trim().toLowerCase() === c.title.trim().toLowerCase() && datePub === c.datePub) {
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    if (existingIdx > -1) {
+                        contentDB[existingIdx] = newItem;
+                    } else {
+                        contentDB.push(newItem);
+                    }
                     tableState['content'].page = 1;
                 }
 
@@ -5596,6 +5618,8 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 localStorage.setItem('honda_content_db', JSON.stringify(contentDB));
                 setUnsavedChange('content', true);
                 renderContentDatabase();
+                renderPublishedDrafts();
+                populateDraftSelectDropdown();
                 resetForm('mon');
             } catch (error) {
                 console.error(error); alert("Terjadi kesalahan saat menghitung: " + error.message);
@@ -5633,6 +5657,8 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 localStorage.setItem('honda_content_db', JSON.stringify(contentDB));
                 setUnsavedChange('content', true);
                 renderContentDatabase();
+                renderPublishedDrafts();
+                populateDraftSelectDropdown();
             }
         }
 
