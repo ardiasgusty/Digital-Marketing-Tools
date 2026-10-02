@@ -3100,5 +3100,26 @@
     "what": "Platform: <b>Instagram</b>. Reach Rate: <b>18.1%</b>. ER: <b>0.17%</b>. ERR: <b>0.93%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
     "soWhat": "Distribusi gagal memancing minat, indikasi audiens drop-off cepat.",
     "nowWhat": "Evaluasi hook 3 detik pertama dan CTA."
+  },
+  {
+    "title": "𝗔 𝗺𝗼𝗺𝗲𝗻𝘁 𝗼𝗳 𝗖𝘂𝘀𝘁𝗼𝗺𝗲𝗿 𝗗𝗮𝘆!",
+    "link": "https://www.instagram.com/reel/DdnMwbnTb4f/",
+    "shortcode": "DdnMwbnTb4f",
+    "month": "September",
+    "week": "4",
+    "evalDateRaw": "2026-09-30",
+    "datePub": "2026-09-23",
+    "pilar": "Customer Story",
+    "platform": "Instagram",
+    "category": "Reels",
+    "kreator": "Wafie",
+    "foll": 15421,
+    "reach": 839,
+    "interaksi": 25,
+    "dmCount": "0",
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 5.4% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.16% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 2.98% <span class=\"badge bg-red\">Off Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>5.4%</b>. ER: <b>0.16%</b>. ERR: <b>2.98%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
+    "soWhat": "Distribusi gagal memancing minat, indikasi audiens drop-off cepat.",
+    "nowWhat": "Evaluasi hook 3 detik pertama dan CTA."
   }
 ]
