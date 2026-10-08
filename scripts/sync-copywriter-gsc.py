@@ -10,6 +10,33 @@ ROOT = Path(__file__).resolve().parent.parent
 EXPECTED_ACCOUNT = 'siska-kpi-sync@honda-bintaro-252404.iam.gserviceaccount.com'
 
 
+def google_access_error(response):
+    """Report only recognized error codes; never echo a raw Google response."""
+    try:
+        error = response.json().get('error', {})
+        reasons = {item.get('reason') for item in error.get('details', []) + error.get('errors', [])}
+    except (ValueError, AttributeError, TypeError):
+        reasons = set()
+    if reasons & {'SERVICE_DISABLED', 'API_DISABLED', 'accessNotConfigured'}:
+        return 'Google Search Console API belum aktif pada project honda-bintaro-252404. Aktifkan API tersebut di Google Cloud.'
+    if reasons & {'forbidden', 'insufficientPermissions', 'PERMISSION_DENIED'}:
+        return 'Akses GSC ditolak. Pastikan service account sudah ditambahkan ke properti GSC yang dipilih dengan izin membaca performa.'
+    return f'GSC HTTP {response.status_code}. Periksa akses properti, API, dan kredensial Google.'
+
+
+def verify_property(session, property_name):
+    response = session.get('https://www.googleapis.com/webmasters/v3/sites', timeout=60)
+    if not response.ok:
+        raise RuntimeError(google_access_error(response))
+    sites = response.json().get('siteEntry', [])
+    allowed = ('sc-domain:honda-bintaro.com', 'https://www.honda-bintaro.com/', 'https://honda-bintaro.com/')
+    available = [item['siteUrl'] for item in sites if item.get('siteUrl') in allowed and item.get('permissionLevel') != 'siteUnverifiedUser']
+    if property_name not in available:
+        if available:
+            raise RuntimeError('GSC_PROPERTY tidak cocok. Properti Honda yang dapat diakses: ' + ', '.join(available))
+        raise RuntimeError('Service account belum memiliki akses properti Honda Bintaro di GSC. Tambahkan email service account melalui Settings > Users and permissions.')
+
+
 def month_ranges(year, through):
     """Dates use Search Console's Pacific timezone, independently of publication dates."""
     ranges = []
@@ -34,7 +61,7 @@ def query_pages(session, property_name, start, end):
         }, timeout=60)
         if not response.ok:
             # Do not log requests, credentials, tokens, or full Google responses.
-            raise RuntimeError(f'GSC HTTP {response.status_code}. Periksa akses properti, API, dan kredensial Google.')
+            raise RuntimeError(google_access_error(response))
         rows = response.json().get('rows', [])
         for row in rows:
             keys = row.get('keys', [])
@@ -79,6 +106,7 @@ def main():
     credentials = service_account.Credentials.from_service_account_info(
         credentials_data, scopes=['https://www.googleapis.com/auth/webmasters.readonly'])
     session = AuthorizedSession(credentials)
+    verify_property(session, property_name)
     year = int(os.environ.get('COPYWRITER_YEAR') or dt.datetime.now(ZoneInfo('Asia/Jakarta')).year)
     source = ROOT / 'json' / str(year) / f'kpi-copywriter-siska-{year}.json'
     database = json.loads(source.read_text())
