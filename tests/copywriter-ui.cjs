@@ -55,7 +55,7 @@ async function run() {
     assert(element('copywriter-status').textContent.includes('503'));
     assert.equal(JSON.parse(storage.get('honda_copywriter_2026')).articles.length, database.articles.length);
     const id = database.articles[0].wordpressId;
-    vm.runInContext(`copywriterGSC = ${JSON.stringify({ year: 2026, months: [
+    vm.runInContext(`copywriterGSC = ${JSON.stringify({ year: 2026, lastSyncedAt: '2026-10-08T09:00:00Z', months: [
         { month: '2026-09', startDate: '2026-09-01', endDate: '2026-09-30', articles: [{ wordpressId: id, metrics: { clicks: 2, impressions: 10, position: 2 } }] },
         { month: '2026-10', startDate: '2026-10-01', endDate: '2026-10-05', articles: [{ wordpressId: id, metrics: { clicks: 3, impressions: 90, position: 12 } }] }
     ] })}`, context);
@@ -67,7 +67,16 @@ async function run() {
     context.renderCopywriter();
     assert(element('copywriter-content').innerHTML.includes('Performa Google Search'));
     assert(element('copywriter-content').innerHTML.includes('CTR:'));
-    assert(element('copywriter-content').innerHTML.includes('GSC: data belum tersedia'));
+    assert(element('copywriter-content').innerHTML.includes('Artikel terbit setelah batas data final GSC'));
+    assert(element('copywriter-content').innerHTML.includes('Google belum mengembalikan baris'));
+    const older = database.articles.find(article => !article.publishedAt.startsWith('2026-10'));
+    vm.runInContext(`copywriterGSC.months[1].articles.push(${JSON.stringify({ wordpressId: older.wordpressId, metrics: { clicks: 7, impressions: 500, position: 9 } })})`, context);
+    context.renderCopywriter();
+    const html = element('copywriter-content').innerHTML;
+    assert(html.includes(`2 dari ${database.articles.length} artikel`));
+    assert(html.includes('10 Klik')); // Includes October traffic from an article published earlier.
+    assert(html.includes('Database Artikel (5)')); // Production still selects only October publications.
+    assert(html.includes('Rincian GSC semua artikel'));
     console.log('PASS: live-data rendering, links/calendar, holiday validation, JSON save with SHA, failure preserves existing data.');
 }
 run().catch(error => { console.error(error); process.exitCode = 1; });

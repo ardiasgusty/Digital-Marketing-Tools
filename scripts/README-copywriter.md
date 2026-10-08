@@ -31,7 +31,7 @@ The current preview evaluates published article production only. It does not inf
 
 Run checks with `node tests/copywriter.cjs` and `node tests/copywriter-ui.cjs`.
 
-## Google Search Console importer (prepared, not yet connected)
+## Google Search Console importer
 
 - Service account: `siska-kpi-sync@honda-bintaro-252404.iam.gserviceaccount.com`.
 - Grant this account access to the Honda Bintaro property in Search Console and enable Google Search Console API in its Cloud project.
@@ -39,7 +39,9 @@ Run checks with `node tests/copywriter.cjs` and `node tests/copywriter-ui.cjs`.
 - Set the Actions repository variable `GSC_PROPERTY` to the exact GSC property identifier, e.g. `sc-domain:honda-bintaro.com` or `https://www.honda-bintaro.com/`.
 - Existing application GitHub PAT is for manual JSON saving only. Scheduled jobs use GitHub's own `GITHUB_TOKEN`, not an exposed site token. Google access requires Google credentials independently.
 - The workflow skips GSC until both settings exist. The importer uses Google's authentication library with read-only scope and writes `json/<year>/kpi-copywriter-siska-gsc-<year>.json` separately from the article database.
-- Metrics cover web search per page and month, using finalized data up to three days before today in Pacific time. They do not use WordPress's publication timezone.
+- Metrics cover web search per page and month. A date query discovers the latest available final data from Google in Pacific time, rather than discarding three days locally. They do not use WordPress's publication timezone.
 - Queries paginate and all months must succeed before the GSC JSON is replaced. Missing page rows are `null`, not fabricated zero impressions or clicks. Search Console's own top-row limitations still apply.
-- The UI reads the separate GSC database and shows per-article metrics and a period summary. CTR is recomputed from total clicks/impressions; average position is weighted by impressions. Missing rows remain unavailable, not zero. Live access validation is pending deployment and Google credentials in Actions. No real performance metrics have been imported yet.
+- The UI reads the separate GSC database and shows per-article metrics and a period summary. CTR is recomputed from total clicks/impressions; average position is weighted by impressions. Missing rows remain unavailable, not zero. Live access is configured and the GSC JSON is populated by the scheduled workflow.
+- Production and the article-card list use publication month. The GSC summary and its expandable article table use traffic month across all saved articles of the selected year, including posts published in earlier months. New articles beyond the final-data cutoff display a specific pending-data explanation.
+- URL matching prefers exact canonical/link matches, then a unique match ignoring fragment and trailing slash. Host, scheme, query and path case remain distinct. Ambiguous aliases are not combined or guessed.
 - Offline importer tests: `python3 tests/copywriter-gsc.py`.

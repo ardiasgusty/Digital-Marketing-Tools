@@ -29,6 +29,19 @@ pages = gsc.query_pages(Session(), 'sc-domain:honda-bintaro.com', '2026-01-01', 
 matched = gsc.article_metrics([{'wordpressId': 1, 'link': 'https://www.honda-bintaro.com/a/'}, {'wordpressId': 2, 'link': 'https://www.honda-bintaro.com/b/'}], pages)
 assert matched[0]['metrics']['ctr'] == .03
 assert matched[1]['metrics'] is None
+alias = gsc.article_metrics([{'wordpressId': 3, 'link': 'https://www.honda-bintaro.com/a#section'}], pages)
+assert alias[0]['metrics']['clicks'] == 3
+assert alias[0]['matchedPage'] == 'https://www.honda-bintaro.com/a/'
+assert gsc.article_metrics([{'wordpressId': 4, 'link': 'https://other.example/a/'}], pages)[0]['metrics'] is None
+ambiguous = {**pages, 'https://www.honda-bintaro.com/a': pages['https://www.honda-bintaro.com/a/']}
+assert gsc.article_metrics([{'wordpressId': 5, 'link': 'https://www.honda-bintaro.com/a#section'}], ambiguous)[0]['metrics'] is None
+class DatesSession:
+    def post(self, url, json, timeout):
+        assert json['dimensions'] == ['date'] and json['dataState'] == 'final'
+        assert json['endDate'] == '2026-10-09'
+        return type('Dates', (), {'ok': True, 'json': lambda self: {'rows': [{'keys': ['2026-10-07']}, {'keys': ['2026-10-08']}]}})()
+assert gsc.latest_final_date(DatesSession(), 'sc-domain:honda-bintaro.com', 2026, dt.date(2026, 10, 9)) == dt.date(2026, 10, 8)
+assert gsc.latest_final_date(DatesSession(), 'sc-domain:honda-bintaro.com', 2027, dt.date(2026, 10, 9)) is None
 
 
 class ForbiddenSession:

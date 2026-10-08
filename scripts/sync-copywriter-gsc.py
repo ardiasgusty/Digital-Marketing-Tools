@@ -3,7 +3,7 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit, urlunsplit
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -78,11 +78,46 @@ def query_pages(session, property_name, start, end):
         offset += len(rows)
 
 
+def latest_final_date(session, property_name, year, today):
+    start = dt.date(year, 1, 1)
+    end = min(today, dt.date(year, 12, 31))
+    if end < start:
+        return None
+    endpoint = f'https://www.googleapis.com/webmasters/v3/sites/{quote(property_name, safe="")}/searchAnalytics/query'
+    response = session.post(endpoint, json={
+        'startDate': start.isoformat(), 'endDate': end.isoformat(),
+        'dimensions': ['date'], 'type': 'web', 'dataState': 'final', 'rowLimit': 1000,
+    }, timeout=60)
+    if not response.ok:
+        raise RuntimeError(google_access_error(response))
+    dates = [dt.date.fromisoformat(row['keys'][0]) for row in response.json().get('rows', [])]
+    return max(dates) if dates else None
+
+
+def normalized_url(value):
+    """Ignore a fragment and trailing slash, but preserve host, scheme, query and path case."""
+    parts = urlsplit(value)
+    return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), parts.path.rstrip('/') or '/', parts.query, ''))
+
+
 def article_metrics(articles, pages):
-    """Match canonical page URLs exactly; absent rows are not invented zero results."""
-    return [dict(wordpressId=article['wordpressId'], link=article['link'],
-                 metrics=pages.get(article.get('canonicalUrl') or article['link']))
-            for article in articles]
+    """Prefer exact canonical/link matches. Never invent metrics or merge ambiguous URLs."""
+    aliases = {}
+    for url in pages:
+        aliases.setdefault(normalized_url(url), []).append(url)
+    result = []
+    for article in articles:
+        candidates = list(dict.fromkeys([article.get('canonicalUrl') or article['link'], article['link']]))
+        matched = next((url for url in candidates if url in pages), None)
+        if matched is None:
+            for url in candidates:
+                matches = aliases.get(normalized_url(url), [])
+                if len(matches) == 1:
+                    matched = matches[0]
+                    break
+        result.append(dict(wordpressId=article['wordpressId'], link=article['link'],
+                           matchedPage=matched, metrics=pages.get(matched)))
+    return result
 
 
 def main():
@@ -112,15 +147,16 @@ def main():
     database = json.loads(source.read_text())
     if database['year'] != year or database['authorId'] != 8:
         raise ValueError('Invalid Siska article database')
-    # Use a conservative three-day delay and finalized metrics; never label these real-time.
-    through = dt.datetime.now(ZoneInfo('America/Los_Angeles')).date() - dt.timedelta(days=3)
+    # Discover actual finalized dates from Google, instead of discarding three days locally.
+    through = latest_final_date(session, property_name, year, dt.datetime.now(ZoneInfo('America/Los_Angeles')).date())
     months = []
-    for month, start, end in month_ranges(year, through):
+    for month, start, end in (month_ranges(year, through) if through else []):
         pages = query_pages(session, property_name, start, end)
         months.append({'month': month, 'startDate': start, 'endDate': end,
                        'articles': article_metrics(database['articles'], pages)})
     output = {'version': 1, 'year': year, 'property': property_name, 'searchType': 'web',
               'dateTimezone': 'America/Los_Angeles', 'dataState': 'final',
+              'latestFinalDate': through.isoformat() if through else None,
               'lastSyncedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'months': months}
     destination = source.with_name(f'kpi-copywriter-siska-gsc-{year}.json')
     if destination.exists():

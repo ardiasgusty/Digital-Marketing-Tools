@@ -181,11 +181,20 @@ function saveCopywriterHolidays() {
     copywriterStatus('Hari libur diterapkan lokal. Klik Simpan ke GitHub agar pengaturan tersimpan di JSON.');
 }
 function changeCopywriterPage(delta) { copywriterPage += delta; renderCopywriter(); }
+function copywriterMissingMetric(article, performance) {
+    if (!copywriterGSC) return 'GSC belum dimuat. Klik Muat Database.';
+    if (!performance?.months.length) return 'Belum ada data final GSC untuk bulan ini.';
+    const end = performance.months[performance.months.length - 1].endDate;
+    const published = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(article.publishedAt + '+07:00'));
+    if (published > end) return `Artikel terbit setelah batas data final GSC (${end}).`;
+    return 'Google belum mengembalikan baris untuk URL ini pada periode trafik terpilih; bukan bukti trafiknya 0.';
+}
 function renderCopywriter() {
     if (!copywriterDB) return;
     const month = document.getElementById('copywriter-month').value;
     const result = CopywriterCore.calculate(copywriterDB, month);
-    const performance = copywriterPerformance(result.articles, month);
+    // Publication month controls production. Traffic month covers all saved articles of the year.
+    const performance = copywriterPerformance(copywriterDB.articles, month);
     const number = value => Number(value).toLocaleString('id-ID', { maximumFractionDigits: 2 });
     const grade = result.score === null ? null : getKPIGrade(result.score);
     document.getElementById('copywriter-holidays').value = copywriterDB.holidays.join('\n');
@@ -197,9 +206,16 @@ function renderCopywriter() {
         const thumbnail = copywriterURL(article.thumbnailUrl);
         const title = copywriterEscape(new DOMParser().parseFromString(article.title, 'text/html').body.textContent);
         const metric = performance?.metrics.get(article.wordpressId);
-        const stats = metric ? `<div style="font-size:11px; line-height:1.8; margin-top:10px; color:var(--text-muted);">Klik: <b>${number(metric.clicks)}</b> • Impresi: <b>${number(metric.impressions)}</b><br>CTR: <b>${number(metric.ctr * 100)}%</b> • Posisi: <b>${metric.position === null ? '—' : number(metric.position)}</b></div>` : '<div style="font-size:11px; margin-top:10px; color:var(--text-muted);">GSC: data belum tersedia untuk periode ini.</div>';
+        const stats = metric ? `<div style="font-size:11px; line-height:1.8; margin-top:10px; color:var(--text-muted);">Klik: <b>${number(metric.clicks)}</b> • Impresi: <b>${number(metric.impressions)}</b><br>CTR: <b>${number(metric.ctr * 100)}%</b> • Posisi: <b>${metric.position === null ? '—' : number(metric.position)}</b></div>` : `<div style="font-size:11px; margin-top:10px; color:var(--text-muted);">GSC: ${copywriterEscape(copywriterMissingMetric(article, performance))}</div>`;
         return `<article class="copywriter-article">${thumbnail ? `<img src="${thumbnail}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<div style="padding:14px;"><div style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">${copywriterEscape(article.publishedAt.replace('T', ' '))}</div><h4 style="margin:0 0 12px; font-size:14px; line-height:1.5;">${title}</h4>${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--accent); font-size:12px; font-weight:700;">🔗 Buka Artikel</a>` : '<small>Link belum tersedia</small>'}${stats}</div></article>`;
     }).join('');
+    const trafficRows = performance ? [...copywriterDB.articles].sort((a, b) => (performance.metrics.get(b.wordpressId)?.impressions || 0) - (performance.metrics.get(a.wordpressId)?.impressions || 0)).map(article => {
+        const metric = performance.metrics.get(article.wordpressId);
+        const link = copywriterURL(article.link);
+        const title = copywriterEscape(new DOMParser().parseFromString(article.title, 'text/html').body.textContent);
+        const cellStyle = 'padding:10px; border-bottom:1px solid var(--border);';
+        return `<tr><td style="${cellStyle}">${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">${title}</a>` : title}<small style="display:block; color:var(--text-muted); margin-top:4px;">Terbit: ${copywriterEscape(article.publishedAt.slice(0, 10))}</small></td>${metric ? [number(metric.clicks), number(metric.impressions), number(metric.ctr * 100) + '%', metric.position === null ? '—' : number(metric.position)].map(value => `<td style="${cellStyle} white-space:nowrap;">${value}</td>`).join('') : `<td colspan="4" style="${cellStyle} color:var(--text-muted);">${copywriterEscape(copywriterMissingMetric(article, performance))}</td>`}</tr>`;
+    }).join('') : '';
     const groups = [];
     for (let m = 1; m <= 12; m++) {
         const days = result.days.filter(day => Number(day.date.slice(5, 7)) === m);
@@ -233,13 +249,15 @@ function renderCopywriter() {
             </div>
         </div>
         <div class="creator-overview-box"><h3 style="margin:0 0 14px; font-size:16px;">🔎 Performa Google Search</h3>
+            <p style="font-size:12px; line-height:1.6; color:var(--text-muted);">Trafik ${month === 'All' ? 'sepanjang tahun' : copywriterMonths[Number(month) - 1]} untuk seluruh ${copywriterDB.articles.length} artikel Siska yang tersimpan pada tahun ${copywriterDB.year}, termasuk artikel yang terbit pada bulan sebelumnya. Filter produksi dan kalender tetap berdasarkan bulan publikasi.</p>
             ${performance?.available ? renderStatCards([
                 { val: number(performance.total.clicks), lbl: 'Klik' },
                 { val: number(performance.total.impressions), lbl: 'Impresi' },
                 { val: number(performance.total.ctr * 100) + '%', lbl: 'CTR' },
                 { val: performance.total.position === null ? '—' : number(performance.total.position), lbl: 'Posisi Rata-rata' }
             ]) : `<p style="font-size:12px; color:var(--text-muted);">${copywriterEscape(copywriterGSC ? 'Belum ada baris data GSC yang cocok untuk artikel pada periode ini.' : copywriterGSCMessage)}</p>`}
-            ${performance?.months.length ? `<p style="font-size:11px; line-height:1.6; color:var(--text-muted); margin-bottom:0;">Periode: ${copywriterEscape(performance.months[0].startDate)} – ${copywriterEscape(performance.months[performance.months.length - 1].endDate)} (zona waktu GSC: Pacific). Data final pencarian web; ${performance.available} dari ${result.articles.length} artikel memiliki baris data. Artikel tanpa data tidak dianggap mendapat 0. Terakhir disinkronkan: ${copywriterEscape(copywriterGSC.lastSyncedAt)}. Performa pencarian belum memengaruhi Point produksi.</p>` : ''}
+            ${performance?.months.length ? `<p style="font-size:11px; line-height:1.6; color:var(--text-muted); margin-bottom:0;">Periode trafik: ${copywriterEscape(performance.months[0].startDate)} – ${copywriterEscape(performance.months[performance.months.length - 1].endDate)} (zona waktu GSC: Pacific). Data final pencarian web; ${performance.available} dari ${copywriterDB.articles.length} artikel memiliki baris data. Artikel tanpa data tidak dianggap mendapat 0. Data tersimpan pada: ${copywriterEscape(new Date(copywriterGSC.lastSyncedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }))} WIB. Performa pencarian belum memengaruhi Point produksi.</p>` : ''}
+            ${trafficRows ? `<details style="margin-top:16px;"><summary style="cursor:pointer; font-weight:700; font-size:13px;">📊 Rincian GSC semua artikel (${copywriterDB.articles.length})</summary><div style="overflow-x:auto; margin-top:12px;"><table style="width:100%; font-size:12px; border-collapse:collapse;"><thead><tr>${['Artikel', 'Klik', 'Impresi', 'CTR', 'Posisi'].map(label => `<th style="text-align:left; padding:10px; border-bottom:1px solid var(--border);">${label}</th>`).join('')}</tr></thead><tbody>${trafficRows}</tbody></table></div></details>` : ''}
         </div>
         <div class="creator-overview-box"><h3 style="margin:0 0 8px; font-size:16px;">📅 Kalender Publikasi</h3><p style="font-size:12px; color:var(--text-muted); margin:0 0 18px;">Hijau: terbit • Kuning: belum terbit • Merah: Minggu / hari besar yang diatur • Garis putus-putus: hari mendatang</p><div class="copywriter-calendar-grid">${groups.join('')}</div></div>
         <div class="creator-overview-box"><div style="display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:16px;"><h3 style="font-size:16px; margin:0;">📰 Database Artikel (${result.articles.length})</h3><div style="display:flex; gap:8px; align-items:center;"><button class="btn-sm bg-dark" onclick="changeCopywriterPage(-1)" ${copywriterPage === 1 ? 'disabled' : ''}>←</button><small>${copywriterPage} / ${pages}</small><button class="btn-sm bg-dark" onclick="changeCopywriterPage(1)" ${copywriterPage === pages ? 'disabled' : ''}>→</button></div></div><div class="copywriter-articles">${cards || '<div class="empty-state">Belum ada artikel tersimpan pada periode ini.</div>'}</div></div>`;
