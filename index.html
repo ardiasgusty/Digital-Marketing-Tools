@@ -995,6 +995,224 @@
             word-break: break-all;
         }
 
+        /* CREATOR KPI REPORT STYLES */
+        .stat-grid {
+            display: grid;
+        }
+
+        .creator-overview-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .creator-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        @media (max-width: 1080px) {
+            .creator-stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .creator-stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .creator-duo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 960px) {
+            .creator-duo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .creator-kpi-card {
+            background: var(--bg);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .creator-kpi-card:hover {
+            box-shadow: var(--shadow-sm);
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .creator-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .creator-matrix-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .creator-matrix-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 4px;
+        }
+
+        .creator-matrix-val {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .creator-matrix-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .creator-selisih-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 11.5px;
+            font-weight: 800;
+        }
+
+        .creator-selisih-tag.zero {
+            background: rgba(34, 197, 94, 0.12);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.35);
+        }
+
+        .creator-selisih-tag.deficit {
+            background: rgba(239, 68, 68, 0.12);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        .creator-subtarget-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .creator-chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .creator-day-chip {
+            flex: 1;
+            min-width: 68px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 6px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .creator-day-chip.peak {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        .creator-day-chip .day-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .creator-day-chip.peak .day-name {
+            color: var(--accent);
+        }
+        .creator-day-chip .day-count {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+        .creator-day-chip.peak .day-count {
+            color: var(--accent);
+        }
+        .creator-week-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .creator-week-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+        .creator-week-card .week-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .creator-week-card .week-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 3px;
+        }
+        .grade-badge-lg {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .target-progress-bar-bg {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        .target-progress-bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
         /* SPREADSHEET TABS */
         .sheet-tabs {
             display: flex;
@@ -2746,7 +2964,7 @@
                     <button class="report-tab-btn" data-pane="report-pane-trend" onclick="switchReportTab(this)">📉
                         Trend & Pattern Analysis</button>
                     <button class="report-tab-btn" data-pane="report-pane-kreator" onclick="switchReportTab(this)">🎨
-                        KPI Performa Kreator</button>
+                        KPI Performance Creator</button>
                 </div>
 
                 <div id="report-pane-weekly" class="report-pane active">
@@ -2897,6 +3115,7 @@
                             <option>TikTok</option>
                             <option>YouTube</option>
                         </select>
+                        <button class="btn-sm bg-dark" onclick="openCreatorTargetModal()" style="margin-left:auto; display:flex; align-items:center; gap:6px;">⚙️ Atur Target Bulanan</button>
                     </div>
                     <div id="report-kreator-content"></div>
                 </div>
@@ -3511,6 +3730,58 @@
         </div>
     </div>
 
+    <!-- MODAL PENGATURAN TARGET BULANAN KREATOR -->
+    <div id="creator-target-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+        <div class="gh-modal-content" style="max-width: 480px;">
+            <div class="gh-modal-header">
+                <h3 style="margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px;">⚙️ Pengaturan Target KPI Bulanan Kreator</h3>
+                <button class="gh-modal-close" onclick="closeCreatorTargetModal()">X</button>
+            </div>
+            <div style="padding: 20px; background: var(--bg);">
+                <div style="margin-bottom: 15px; font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+                    Atur target kuantitas konten bulanan untuk masing-masing kreator. Target ini bersifat dinamis untuk mengukur <b>Point KPI</b> berdasarkan <b>Actual / Target × 100</b>.
+                </div>
+                <div style="background: var(--card-bg); padding: 14px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px;">
+                    <div style="font-weight: 700; font-size: 13.5px; margin-bottom: 8px; color: var(--accent); display: flex; align-items: center; gap: 6px;">🎥 Target Wafie (Video Specialist)</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--text-muted);">Target Reels / Bulan</label>
+                            <input type="number" id="target-input-wafie-reels" class="form-control" style="margin: 0;" min="1" value="12">
+                        </div>
+                        <div>
+                            <label style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--text-muted);">Target YouTube / Bulan</label>
+                            <input type="number" id="target-input-wafie-youtube" class="form-control" style="margin: 0;" min="0" value="2">
+                        </div>
+                    </div>
+                </div>
+                <div style="background: var(--card-bg); padding: 14px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px;">
+                    <div style="font-weight: 700; font-size: 13.5px; margin-bottom: 8px; color: #0284c7; display: flex; align-items: center; gap: 6px;">🎨 Target Rizky (Design Specialist)</div>
+                    <div>
+                        <label style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--text-muted);">Target Total Desain / Bulan (Feed, Carousel, Story)</label>
+                        <input type="number" id="target-input-rizky-total" class="form-control" style="margin: 0;" min="1" value="35">
+                    </div>
+                </div>
+                <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; background: var(--card-bg); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);">
+                    Wafie: Reels 70% + YouTube 30%, capaian tiap format maksimal 100%. Jika target YouTube 0, Reels 100%.<br>
+                    Rizky: Actual / Target × 100.<br><br>
+                    🎯 <b>Skala Grade berdasarkan Point:</b><br>
+                    • <b>Grade A:</b> Skor ≥ 90 Poin (Sangat Baik / On Target)<br>
+                    • <b>Grade B:</b> Skor 80 - 89 Poin (Baik)<br>
+                    • <b>Grade C:</b> Skor 70 - 79 Poin (Cukup)<br>
+                    • <b>Grade D:</b> Skor 60 - 69 Poin (Kurang)<br>
+                    • <b>Grade E:</b> Skor &lt; 60 Poin (Sangat Kurang)
+                </div>
+            </div>
+            <div class="gh-modal-footer">
+                <button class="btn-sm bg-gray" onclick="resetCreatorTargetsDefault()">↺ Reset Default</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-sm bg-dark" onclick="closeCreatorTargetModal()">Batal</button>
+                    <button class="btn-sm bg-green" onclick="saveCreatorTargetsFromModal()">💾 Simpan Target</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <svg viewBox="0 0 24 24">
             <path d="M12 19V5M5 12l7-7 7 7" />
@@ -3577,7 +3848,7 @@
         function updateUnsavedChangesUI(type) {
             let btnId = "";
             let statusId = "";
-            
+
             if (type === 'todo') { btnId = 'btn-sync-todo'; statusId = 'github-status-todo'; }
             else if (type === 'publish') { btnId = 'btn-sync-publish'; statusId = 'github-status-publish'; }
             else if (type === 'links') { btnId = 'btn-sync-links'; statusId = 'github-status-links'; }
@@ -3856,7 +4127,7 @@
             const selectVal = selectEl ? selectEl.value.toLowerCase() : '';
             const passInput = (document.getElementById('password-input').value || '').trim();
             const errorEl = document.getElementById('error-msg');
-            
+
             if (!passInput) {
                 if (errorEl) { errorEl.innerText = "⚠️ Mohon masukkan password!"; errorEl.style.display = 'block'; }
                 return;
@@ -3885,11 +4156,11 @@
                 sessionStorage.setItem('auth_user', authenticatedKey);
                 sessionStorage.setItem('auth_user_name', authenticatedUser.displayName);
                 sessionStorage.setItem('auth_user_kreator', authenticatedUser.kreatorName);
-                
+
                 if (errorEl) errorEl.style.display = 'none';
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('dashboard-screen').style.display = 'flex';
-                
+
                 updateUserBadgeUI();
                 autoSelectKreatorByUser();
                 renderPublishedDrafts();
@@ -4045,7 +4316,7 @@
 
         function syncGHFields(val, keyType) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
-            
+
             if (keyType === 'token' && val !== null) {
                 const plainToken = val.trim();
                 config.token = encryptSecret(plainToken);
@@ -4085,7 +4356,7 @@
                 const res = await fetch('json/system-config.json?v=' + Date.now());
                 if (!res.ok) return;
                 const config = await res.json();
-                
+
                 let currentGH = {};
                 try {
                     currentGH = JSON.parse(localStorage.getItem('gh_config') || '{}');
@@ -4565,11 +4836,11 @@
 
             // Sort by date closest first (clone array to not mess up original index mapping)
             let indexedDB = todoDB.map((item, index) => ({ ...item, originalIndex: index }));
-            
+
             // Search filter
             const searchVal = document.getElementById('search-todo') ? document.getElementById('search-todo').value.toLowerCase().trim() : "";
             if (searchVal) {
-                indexedDB = indexedDB.filter(item => 
+                indexedDB = indexedDB.filter(item =>
                     (item.title && item.title.toLowerCase().includes(searchVal)) ||
                     (item.platform && item.platform.toLowerCase().includes(searchVal)) ||
                     (item.pilar && item.pilar.toLowerCase().includes(searchVal)) ||
@@ -4648,11 +4919,11 @@
             }
 
             let indexedDB = linksDB.map((item, index) => ({ ...item, originalIndex: index }));
-            
+
             // Search filter
             const searchVal = document.getElementById('search-links') ? document.getElementById('search-links').value.toLowerCase().trim() : "";
             if (searchVal) {
-                indexedDB = indexedDB.filter(item => 
+                indexedDB = indexedDB.filter(item =>
                     (item.name && item.name.toLowerCase().includes(searchVal)) ||
                     (item.url && item.url.toLowerCase().includes(searchVal))
                 );
@@ -4707,8 +4978,8 @@
                 statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Berhasil tersimpan di GitHub!</span>`;
                 setTimeout(() => statusEl.innerHTML = "", 5000);
                 return true;
-            } catch (err) { 
-                statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal sync. Cek Token scope.</span>`; 
+            } catch (err) {
+                statusEl.innerHTML = `<span style="color:red; font-weight:bold;">❌ Gagal sync. Cek Token scope.</span>`;
                 return false;
             }
         }
@@ -4803,8 +5074,8 @@
         async function syncDBToGithub(type) {
             const config = JSON.parse(localStorage.getItem('gh_config') || '{}');
             let success = false;
-            if (type === 'content') { 
-                success = await pushGHData(config.pathContent, contentDB, 'github-status-content-table'); 
+            if (type === 'content') {
+                success = await pushGHData(config.pathContent, contentDB, 'github-status-content-table');
                 if (unsavedChanges.publish) { syncDBToGithub('publish'); }
             }
             else if (type === 'content-monthly') { success = await pushGHData(config.pathContentMonthly, contentMonthlyDB, 'github-status-content-monthly-table'); }
@@ -5295,13 +5566,13 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             if (!dateStr) return 0;
             const pubDate = new Date(dateStr);
             if (isNaN(pubDate.getTime())) return 0;
-            
+
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-            
+
             const targetDate = new Date(pubDate);
             targetDate.setHours(0, 0, 0, 0);
-            
+
             const diffTime = today.getTime() - targetDate.getTime();
             return Math.floor(diffTime / (1000 * 60 * 60 * 24));
         }
@@ -5318,7 +5589,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                         if (normDraft === normCPM) return true;
                     }
                     if (draft.title && c.title && draft.title.trim().toLowerCase() === c.title.trim().toLowerCase()) {
-                        if (draft.datePub && c.datePub && draft.datePub === c.datePub) return true;
+                        if (draft.platform === c.platform && draft.datePub && c.datePub && draft.datePub === c.datePub) return true;
                     }
                     return false;
                 });
@@ -5340,7 +5611,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             publishedDraftDB.forEach((draft, idx) => {
                 const thumb = draft.shortcode ? `<img src="${buildIGThumbUrl(draft.shortcode)}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
                 const kreatorBadge = draft.kreator === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (draft.kreator === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : (draft.kreator === 'Siska' ? '<span class="badge bg-gold">✍️ Siska</span>' : `<span class="badge bg-gray">👤 ${draft.kreator}</span>`));
-                
+
                 const daysElapsed = getDaysElapsed(draft.datePub);
                 const evaluated = isDraftEvaluated(draft);
 
@@ -5353,16 +5624,16 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
                     const daysRemaining = 7 - daysElapsed;
                     statusBadge = `<span class="badge bg-gold">⏳ Menunggu (${daysElapsed}/7 hari tayang - ${daysRemaining} hr lagi)</span>`;
                 }
-                
+
                 const canDelete = canUserDeleteDraft(draft);
 
-                const evaluateBtn = evaluated 
+                const evaluateBtn = evaluated
                     ? `<button class="btn-sm bg-gray" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi ulang atau perbarui data performa konten ini">🔄 Evaluasi Ulang</button>`
                     : `<button class="btn-sm bg-blue" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi sekarang ke Content Performance Monitor">⚡ Evaluasi Sekarang</button>`;
 
                 const editBtn = `<button class="btn-sm bg-info" onclick="editPublishedDraft(${idx})" title="Edit metadata draf ini">✏️ Edit</button>`;
-                
-                const deleteBtn = canDelete 
+
+                const deleteBtn = canDelete
                     ? `<button class="btn-sm bg-red" onclick="deletePublishedDraft(${idx})" title="Hapus draf ini">❌ Hapus</button>`
                     : `<button class="btn-sm bg-gray" style="opacity:0.45; cursor:not-allowed;" title="Hanya ${draft.kreator} atau Superadmin yang dapat menghapus" disabled>🔒 Hapus (Terkunci)</button>`;
 
@@ -5406,7 +5677,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             if (!select) return;
 
             select.innerHTML = '<option value="">-- Pilih Konten Tayang Siap Evaluasi (≥ 7 Hari Tayang) --</option>';
-            
+
             const readyPendingDrafts = publishedDraftDB.filter(d => {
                 if (isDraftEvaluated(d)) return false;
                 const days = getDaysElapsed(d.datePub);
@@ -5675,14 +5946,14 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
             }
 
             let indexedDB = contentDB.map((item, index) => ({ ...item, originalIndex: index }));
-            
+
             const searchVal = document.getElementById('search-mon') ? document.getElementById('search-mon').value.toLowerCase().trim() : "";
 
             let filtered = indexedDB.filter((item) => {
-                const matchSearch = !searchVal || 
-                    (item.title && item.title.toLowerCase().includes(searchVal)) || 
-                    (item.what && item.what.toLowerCase().includes(searchVal)) || 
-                    (item.soWhat && item.soWhat.toLowerCase().includes(searchVal)) || 
+                const matchSearch = !searchVal ||
+                    (item.title && item.title.toLowerCase().includes(searchVal)) ||
+                    (item.what && item.what.toLowerCase().includes(searchVal)) ||
+                    (item.soWhat && item.soWhat.toLowerCase().includes(searchVal)) ||
                     (item.nowWhat && item.nowWhat.toLowerCase().includes(searchVal)) ||
                     (item.pilar && item.pilar.toLowerCase().includes(searchVal)) ||
                     (item.category && item.category.toLowerCase().includes(searchVal)) ||
@@ -5709,7 +5980,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 const thumb = item.shortcode ? `<img src="${buildIGThumbUrl(item.shortcode)}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
                 const wsnHTML = `<b>W:</b> ${item.what.replace(/<br>/g, '')}<br><b>S:</b> ${item.soWhat}<br><b>N:</b> ${item.nowWhat}`;
                 let displayPilar = item.pilar === "Product Education" ? "Product Value & Info" : item.pilar;
-                
+
                 const kreatorVal = item.kreator || getAutoKreator(item.category);
                 const kreatorBadge = kreatorVal === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (kreatorVal === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : `<span class="badge bg-gray">👤 ${kreatorVal}</span>`);
 
@@ -5726,146 +5997,873 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
             });
         }
 
-        // ================= CREATOR KPI REPORT RENDERER =================
+        // ================= CREATOR KPI REPORT RENDERER & DYNAMIC TARGET SYSTEM =================
+        function validCreatorTarget(value, fallback, minimum) {
+            const number = Number(value);
+            return value !== null && value !== undefined && value !== '' && Number.isInteger(number) && number >= minimum ? number : fallback;
+        }
+
+        // All months uses one monthly target for each publication month present in the dataset.
+        function getCreatorPeriodTargets(items, month = 'All') {
+            const targets = getCreatorTargets();
+            const months = new Set(items.map(item => {
+                const date = parseSafeDate(item.datePub || item.evalDateRaw);
+                return date ? `${date.getFullYear()}-${date.getMonth() + 1}` : item.month;
+            }).filter(value => value && value !== 'Unknown'));
+            const count = month === 'All' ? Math.max(months.size, 1) : 1;
+            return {
+                wafie: { reels: targets.wafie.reels * count, youtube: targets.wafie.youtube * count },
+                rizky: { total: targets.rizky.total * count },
+                months: count
+            };
+        }
+
+        function getCreatorTargets() {
+            const saved = localStorage.getItem('honda_creator_targets');
+            if (saved) {
+                try {
+                    const p = JSON.parse(saved);
+                    return {
+                        wafie: {
+                            reels: validCreatorTarget(p.wafie?.reels, 12, 1),
+                            youtube: validCreatorTarget(p.wafie?.youtube, 2, 0)
+                        },
+                        rizky: {
+                            total: validCreatorTarget(p.rizky?.total, 35, 1)
+                        }
+                    };
+                } catch (e) {}
+            }
+            return {
+                wafie: { reels: 12, youtube: 2 },
+                rizky: { total: 35 }
+            };
+        }
+
+        function saveCreatorTargets(targets) {
+            localStorage.setItem('honda_creator_targets', JSON.stringify(targets));
+        }
+
+        function openCreatorTargetModal() {
+            const targets = getCreatorTargets();
+            const wReels = document.getElementById('target-input-wafie-reels');
+            const wYt = document.getElementById('target-input-wafie-youtube');
+            const rTotal = document.getElementById('target-input-rizky-total');
+            if (wReels) wReels.value = targets.wafie.reels;
+            if (wYt) wYt.value = targets.wafie.youtube;
+            if (rTotal) rTotal.value = targets.rizky.total;
+            const modal = document.getElementById('creator-target-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeCreatorTargetModal() {
+            const modal = document.getElementById('creator-target-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function saveCreatorTargetsFromModal() {
+            const wReels = Number(document.getElementById('target-input-wafie-reels').value);
+            const wYt = Number(document.getElementById('target-input-wafie-youtube').value);
+            const rTotal = Number(document.getElementById('target-input-rizky-total').value);
+            if (![wReels, wYt, rTotal].every(Number.isInteger) || wReels < 1 || wYt < 0 || rTotal < 1) {
+                alert('Target harus bilangan bulat: Reels dan Desain minimal 1, YouTube minimal 0.');
+                return;
+            }
+            saveCreatorTargets({
+                wafie: { reels: wReels, youtube: wYt },
+                rizky: { total: rTotal }
+            });
+            closeCreatorTargetModal();
+            renderReportKreator();
+            renderReportWeekly();
+            renderReportMonthly();
+            alert("✅ Target bulanan kreator berhasil diperbarui dan disimpan!");
+        }
+
+        function resetCreatorTargetsDefault() {
+            const def = { wafie: { reels: 12, youtube: 2 }, rizky: { total: 35 } };
+            const wReels = document.getElementById('target-input-wafie-reels');
+            const wYt = document.getElementById('target-input-wafie-youtube');
+            const rTotal = document.getElementById('target-input-rizky-total');
+            if (wReels) wReels.value = def.wafie.reels;
+            if (wYt) wYt.value = def.wafie.youtube;
+            if (rTotal) rTotal.value = def.rizky.total;
+        }
+
+        function calculateWafiePoints(reels, youtube, targetReels, targetYouTube) {
+            const reelsWeight = targetYouTube > 0 ? 70 : 100;
+            const youtubeWeight = targetYouTube > 0 ? 30 : 0;
+            const reelsRatio = targetReels > 0 ? Math.min(Math.max(reels, 0) / targetReels, 1) : 0;
+            const youtubeRatio = targetYouTube > 0 ? Math.min(Math.max(youtube, 0) / targetYouTube, 1) : 0;
+            return Math.round(reelsRatio * reelsWeight + youtubeRatio * youtubeWeight);
+        }
+
+        function getKPIGrade(score) {
+            if (score >= 90) return { grade: 'A', badgeClass: 'bg-green', label: 'Grade A (Sangat Baik)', desc: 'Capaian ≥90%' };
+            if (score >= 80) return { grade: 'B', badgeClass: 'bg-blue', label: 'Grade B (Baik)', desc: 'Capaian 80-89%' };
+            if (score >= 70) return { grade: 'C', badgeClass: 'bg-gold', label: 'Grade C (Cukup)', desc: 'Capaian 70-79%' };
+            if (score >= 60) return { grade: 'D', badgeClass: 'bg-warning', label: 'Grade D (Kurang)', desc: 'Capaian 60-69%' };
+            return { grade: 'E', badgeClass: 'bg-red', label: 'Grade E (Sangat Kurang)', desc: 'Capaian <60%' };
+        }
+
+        function parseSafeDate(dateString) {
+            const match = String(dateString || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:$|T| )/);
+            if (!match) return null;
+            const [, year, month, day] = match.map(Number);
+            const date = new Date(year, month - 1, day);
+            return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day ? date : null;
+        }
+
+        function getCreatorForItem(item) {
+            if (item && item.kreator) {
+                const k = item.kreator.toString().trim().toLowerCase();
+                if (k.includes('wafie') || k.includes('wafi')) return 'Wafie';
+                if (k.includes('rizky')) return 'Rizky';
+            }
+            return isYouTubeFormat(item) ? 'Wafie' : getAutoKreator(item ? item.category : '');
+        }
+
+        function isYouTubeFormat(item) {
+            if (!item) return false;
+            const p = (item.platform || '').toString().toLowerCase();
+            const c = (item.category || '').toString().toLowerCase();
+            return p.includes('youtube') || c.includes('youtube') || c.includes('long');
+        }
+
+        function getUnifiedCreatorDataset() {
+            if ((!contentDB || contentDB.length === 0) && typeof localStorage !== 'undefined') {
+                const cb = localStorage.getItem('honda_content_db');
+                if (cb) { try { contentDB = JSON.parse(cb); } catch (e) {} }
+            }
+            if (typeof loadPublishedDraftDB === 'function') loadPublishedDraftDB();
+            if ((!publishedDraftDB || publishedDraftDB.length === 0) && typeof localStorage !== 'undefined') {
+                const pdb = localStorage.getItem('honda_published_draft_db');
+                if (pdb) { try { publishedDraftDB = JSON.parse(pdb); } catch (e) {} }
+            }
+
+            const unifiedList = [];
+            const evaluatedLinks = new Set();
+            const evaluatedKeys = new Set();
+            const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+            // 1. Data yang sudah dievaluasi di Content Performance Monitor
+            if (Array.isArray(contentDB)) {
+                contentDB.forEach((item, idx) => {
+                    if (!item) return;
+                    if (item.link) {
+                        evaluatedLinks.add(item.link.split('?')[0].replace(/\/+$/, '').trim().toLowerCase());
+                    }
+                    if (item.title && item.datePub) {
+                        evaluatedKeys.add(`${item.platform}_${item.title.trim().toLowerCase()}_${item.datePub.trim()}`);
+                    }
+
+                    const dObj = parseSafeDate(item.datePub || item.evalDateRaw);
+                    const pubMonth = item.month || (dObj ? getMonthFromDate(item.datePub || item.evalDateRaw) : 'Unknown');
+                    const pubWeek = item.week ? ('W' + item.week.toString().replace(/^W/i, '')) : (dObj ? ('W' + calculateWeek(item.datePub || item.evalDateRaw)) : 'W1');
+                    const pubDay = dObj ? dayNames[dObj.getDay()] : 'Unknown';
+                    const creator = getCreatorForItem(item);
+
+                    unifiedList.push({
+                        ...item,
+                        kreator: creator,
+                        month: pubMonth,
+                        week: pubWeek,
+                        dayOfWeek: pubDay,
+                        reach: parseFloat(item.reach) || 0,
+                        interaksi: parseFloat(item.interaksi) || 0,
+                        isEvaluated: true,
+                        source: 'cpm',
+                        originalIndex: idx
+                    });
+                });
+            }
+
+            // 2. Data draf Publish Log yang SUDAH tayang namun BELUM dievaluasi
+            if (Array.isArray(publishedDraftDB)) {
+                publishedDraftDB.forEach((draft, idx) => {
+                    if (!draft) return;
+
+                    // Deduplikasi cerdas: jika sudah masuk Content Performance Monitor, jangan hitung ganda
+                    let alreadyEvaluated = (draft.evaluated === true);
+                    if (!alreadyEvaluated && draft.link) {
+                        const norm = draft.link.split('?')[0].replace(/\/+$/, '').trim().toLowerCase();
+                        if (evaluatedLinks.has(norm)) alreadyEvaluated = true;
+                    }
+                    if (!alreadyEvaluated && draft.title && draft.datePub) {
+                        const key = `${draft.platform}_${draft.title.trim().toLowerCase()}_${draft.datePub.trim()}`;
+                        if (evaluatedKeys.has(key)) alreadyEvaluated = true;
+                    }
+                    if (!alreadyEvaluated && typeof isDraftEvaluated === 'function' && isDraftEvaluated(draft)) {
+                        alreadyEvaluated = true;
+                    }
+
+                    if (alreadyEvaluated) return; // Lewati draf ini karena versi evaluasinya sudah dihitung dari contentDB!
+
+                    const dObj = parseSafeDate(draft.datePub);
+                    const pubMonth = dObj ? getMonthFromDate(draft.datePub) : 'Unknown';
+                    const pubWeek = dObj ? ('W' + calculateWeek(draft.datePub)) : 'W1';
+                    const pubDay = dObj ? dayNames[dObj.getDay()] : 'Unknown';
+                    const creator = getCreatorForItem(draft);
+
+                    unifiedList.push({
+                        ...draft,
+                        kreator: creator,
+                        month: pubMonth,
+                        week: pubWeek,
+                        dayOfWeek: pubDay,
+                        reach: 0,
+                        interaksi: 0,
+                        isEvaluated: false,
+                        source: 'publish_log',
+                        draftIndex: idx
+                    });
+                });
+            }
+
+            return unifiedList;
+        }
+
+        function switchReportTabToKreator() {
+            const btn = document.querySelector('.report-tab-btn[data-pane="report-pane-kreator"]');
+            if (btn && typeof switchReportTab === 'function') switchReportTab(btn);
+        }
+
         function renderReportKreator() {
             const container = document.getElementById('report-kreator-content');
             if (!container) return;
 
-            if (!contentDB || contentDB.length === 0) {
-                container.innerHTML = `<div class="empty-state">Belum ada data evaluasi konten untuk menghitung KPI Performa Kreator.</div>`;
+            const allItems = getUnifiedCreatorDataset();
+
+            if (!allItems || allItems.length === 0) {
+                container.innerHTML = `<div class="empty-state">Belum ada data konten (Evaluasi CPM maupun Publish Log) untuk menghitung KPI Performance Creator.</div>`;
                 return;
             }
 
             const fMonth = document.getElementById('report-kreator-month') ? document.getElementById('report-kreator-month').value : "All";
             const fPlatform = document.getElementById('report-kreator-platform') ? document.getElementById('report-kreator-platform').value : "All";
 
-            let filtered = contentDB.filter(item => {
+            let filtered = allItems.filter(item => {
                 const matchMonth = (fMonth === "All" || item.month === fMonth);
                 const matchPlatform = (fPlatform === "All" || item.platform === fPlatform);
                 return matchMonth && matchPlatform;
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="empty-state">Tidak ada data konten yang cocok dengan filter bulan/platform ini.</div>`;
+                container.innerHTML = `
+                    <div class="empty-state" style="padding: 40px 20px;">
+                        <div style="font-size: 32px; margin-bottom: 10px;">🔍</div>
+                        <h4 style="margin: 0 0 6px 0; color: var(--text-main);">Tidak ada data konten yang cocok</h4>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 13px;">Filter bulan: <b>${fMonth}</b> • Platform: <b>${fPlatform}</b></p>
+                    </div>`;
                 return;
             }
 
-            let wafieItems = [];
-            let rizkyItems = [];
+            const targets = getCreatorPeriodTargets(allItems, fMonth);
 
-            filtered.forEach(item => {
-                const k = item.kreator || getAutoKreator(item.category);
-                if (k === 'Wafie') {
-                    wafieItems.push(item);
-                } else if (k === 'Rizky') {
-                    rizkyItems.push(item);
-                } else {
-                    rizkyItems.push(item);
-                }
-            });
+            const daysOrdered = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+            const weeksOrdered = ['W1', 'W2', 'W3', 'W4', 'W5'];
 
-            const calcKreatorStats = (items) => {
-                const totalContent = items.length;
-                const totalReach = items.reduce((sum, i) => sum + (parseFloat(i.reach) || 0), 0);
-                const totalInteraksi = items.reduce((sum, i) => sum + (parseFloat(i.interaksi) || 0), 0);
-                const totalDM = items.reduce((sum, i) => sum + (parseFloat(i.dmCount) || 0), 0);
-                const avgReach = totalContent > 0 ? Math.round(totalReach / totalContent) : 0;
-                const avgERR = totalReach > 0 ? ((totalInteraksi / totalReach) * 100).toFixed(2) : "0.00";
-                return { totalContent, totalReach, totalInteraksi, totalDM, avgReach, avgERR };
-            };
+            // Pisahkan per kreator
+            const wafieItems = filtered.filter(i => i.kreator === 'Wafie');
+            const rizkyItems = filtered.filter(i => i.kreator === 'Rizky');
 
-            const wafieStats = calcKreatorStats(wafieItems);
-            const rizkyStats = calcKreatorStats(rizkyItems);
+            // --- PERHITUNGAN WAFIE ---
+            const wafieTotal = wafieItems.length;
+            const wafieReels = wafieItems.filter(i => !isYouTubeFormat(i)).length;
+            const wafieYT = wafieItems.filter(i => isYouTubeFormat(i)).length;
+            const wafieTargetReels = targets.wafie.reels;
+            const wafieTargetYT = targets.wafie.youtube;
+            const wafieTargetTotal = wafieTargetReels + wafieTargetYT;
+            const wafieScore = calculateWafiePoints(wafieReels, wafieYT, wafieTargetReels, wafieTargetYT);
+            const wafieSelisihReels = Math.max(0, wafieTargetReels - wafieReels);
+            const wafieSelisihYT = Math.max(0, wafieTargetYT - wafieYT);
+            const wafieSelisihTotal = wafieSelisihReels + wafieSelisihYT;
+            const wafieGrade = getKPIGrade(wafieScore);
 
+            const wafieEvaluated = wafieItems.filter(i => i.isEvaluated);
+            const wafieDrafts = wafieItems.filter(i => !i.isEvaluated);
+            const wafieTotalReach = wafieEvaluated.reduce((s, i) => s + (i.reach || 0), 0);
+            const wafieTotalInt = wafieEvaluated.reduce((s, i) => s + (i.interaksi || 0), 0);
+            const wafieAvgReach = wafieEvaluated.length > 0 ? Math.round(wafieTotalReach / wafieEvaluated.length) : 0;
+            const wafieAvgERR = wafieTotalReach > 0 ? ((wafieTotalInt / wafieTotalReach) * 100).toFixed(2) : "0.00";
+
+            // Breakdown Mingguan Wafie
+            const wafieWeeks = { W1: 0, W2: 0, W3: 0, W4: 0, W5: 0 };
+            wafieItems.forEach(i => { if (wafieWeeks[i.week] !== undefined) wafieWeeks[i.week]++; else wafieWeeks.W1++; });
+
+            // Breakdown Harian Wafie
+            const wafieDays = {};
+            daysOrdered.forEach(d => wafieDays[d] = 0);
+            wafieItems.forEach(i => { if (wafieDays[i.dayOfWeek] !== undefined) wafieDays[i.dayOfWeek]++; });
+            const wafiePeakDay = Object.entries(wafieDays).reduce((max, cur) => cur[1] > max.count ? { day: cur[0], count: cur[1] } : max, { day: 'Senin', count: 0 });
+
+            // --- PERHITUNGAN RIZKY ---
+            const rizkyTotal = rizkyItems.length;
+            const rizkyTargetTotal = targets.rizky.total;
+            const rizkySelisihTotal = Math.max(0, rizkyTargetTotal - rizkyTotal);
+            const rizkyScore = rizkyTargetTotal > 0 ? Math.round((rizkyTotal / rizkyTargetTotal) * 100) : 0;
+            const rizkyGrade = getKPIGrade(rizkyScore);
+
+            const rizkyFeed = rizkyItems.filter(i => (i.category || '').toLowerCase().includes('feed') || (i.category || '').toLowerCase().includes('photo')).length;
+            const rizkyCarousel = rizkyItems.filter(i => (i.category || '').toLowerCase().includes('carousel')).length;
+            const rizkyStory = rizkyItems.filter(i => (i.category || '').toLowerCase().includes('story')).length;
+            const rizkyOther = Math.max(0, rizkyTotal - rizkyFeed - rizkyCarousel - rizkyStory);
+
+            const rizkyEvaluated = rizkyItems.filter(i => i.isEvaluated);
+            const rizkyDrafts = rizkyItems.filter(i => !i.isEvaluated);
+            const rizkyTotalReach = rizkyEvaluated.reduce((s, i) => s + (i.reach || 0), 0);
+            const rizkyTotalInt = rizkyEvaluated.reduce((s, i) => s + (i.interaksi || 0), 0);
+            const rizkyAvgReach = rizkyEvaluated.length > 0 ? Math.round(rizkyTotalReach / rizkyEvaluated.length) : 0;
+            const rizkyAvgERR = rizkyTotalReach > 0 ? ((rizkyTotalInt / rizkyTotalReach) * 100).toFixed(2) : "0.00";
+
+            // Breakdown Mingguan Rizky
+            const rizkyWeeks = { W1: 0, W2: 0, W3: 0, W4: 0, W5: 0 };
+            rizkyItems.forEach(i => { if (rizkyWeeks[i.week] !== undefined) rizkyWeeks[i.week]++; else rizkyWeeks.W1++; });
+
+            // Breakdown Harian Rizky
+            const rizkyDays = {};
+            daysOrdered.forEach(d => rizkyDays[d] = 0);
+            rizkyItems.forEach(i => { if (rizkyDays[i.dayOfWeek] !== undefined) rizkyDays[i.dayOfWeek]++; });
+            const rizkyPeakDay = Object.entries(rizkyDays).reduce((max, cur) => cur[1] > max.count ? { day: cur[0], count: cur[1] } : max, { day: 'Senin', count: 0 });
+
+            // --- PERHITUNGAN GABUNGAN TIM (EXECUTIVE SUMMARY) ---
+            const teamTotalContent = wafieTotal + rizkyTotal;
+            const teamTotalTarget = wafieTargetTotal + rizkyTargetTotal;
+            const teamSelisih = Math.max(0, teamTotalTarget - teamTotalContent);
+            const teamScore = teamTotalTarget > 0 ? Math.round((teamTotalContent / teamTotalTarget) * 100) : 0;
+            const teamGrade = getKPIGrade(teamScore);
+
+            const teamTotalEvaluated = wafieEvaluated.length + rizkyEvaluated.length;
+            const teamTotalDrafts = wafieDrafts.length + rizkyDrafts.length;
+            const teamTotalReach = wafieTotalReach + rizkyTotalReach;
+            const teamTotalInt = wafieTotalInt + rizkyTotalInt;
+            const teamAvgERR = teamTotalReach > 0 ? ((teamTotalInt / teamTotalReach) * 100).toFixed(2) : "0.00";
+
+            const teamWeeks = { W1: 0, W2: 0, W3: 0, W4: 0, W5: 0 };
+            weeksOrdered.forEach(w => teamWeeks[w] = (wafieWeeks[w] || 0) + (rizkyWeeks[w] || 0));
+
+            const teamDays = {};
+            daysOrdered.forEach(d => teamDays[d] = (wafieDays[d] || 0) + (rizkyDays[d] || 0));
+            const teamPeakDay = Object.entries(teamDays).reduce((max, cur) => cur[1] > max.count ? { day: cur[0], count: cur[1] } : max, { day: 'Senin', count: 0 });
+
+            // Top items helper (hanya konten yang sudah dievaluasi dengan reach)
             const getTopItems = (items) => {
-                return [...items].sort((a, b) => (parseFloat(b.reach) || 0) - (parseFloat(a.reach) || 0)).slice(0, 3);
+                return [...items].filter(i => (parseFloat(i.reach) || 0) > 0)
+                    .sort((a, b) => (parseFloat(b.reach) || 0) - (parseFloat(a.reach) || 0))
+                    .slice(0, 5);
             };
 
-            const wafieTop = getTopItems(wafieItems);
-            const rizkyTop = getTopItems(rizkyItems);
+            const wafieTop = getTopItems(wafieEvaluated);
+            const rizkyTop = getTopItems(rizkyEvaluated);
 
-            const renderTopList = (topItems) => {
-                if (topItems.length === 0) return `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px;">Belum ada data konten.</div>`;
-                return topItems.map(item => `
-                    <div style="padding: 10px; background: var(--bg); border-radius: 8px; margin-bottom: 8px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border);">
+            const getUnderperformItems = (items) => [...items]
+                .filter(i => i.reach > 0 && (i.interaksi / i.reach) * 100 < 3.5)
+                .sort((a, b) => (a.interaksi / a.reach) - (b.interaksi / b.reach) || a.reach - b.reach)
+                .slice(0, 5);
+            const wafieUnderperform = getUnderperformItems(wafieEvaluated);
+            const rizkyUnderperform = getUnderperformItems(rizkyEvaluated);
+
+            const escapeCreatorText = value => String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[char]));
+            const getCreatorContentLink = item => {
+                try {
+                    const url = new URL(String(item.link || '').trim());
+                    return ['https:', 'http:'].includes(url.protocol) ? escapeCreatorText(url.href) : '';
+                } catch { return ''; }
+            };
+
+            const renderTopList = (topItems, underperform = false) => {
+                if (topItems.length === 0) return `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:12px; background:var(--bg); border-radius:8px;">${underperform ? 'Tidak ada konten dengan reach yang memiliki ERR di bawah 3,5% untuk filter ini.' : 'Belum ada data evaluasi konten untuk kategori ini.'}</div>`;
+                return topItems.map((item, idx) => `
+                    <div style="padding: 10px 12px; background: var(--bg); border-radius: 8px; margin-bottom: 8px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border);">
                         <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 65%;">
-                            <b>${item.title}</b><br>
-                            <span style="color: var(--text-muted); font-size: 11px;">${item.platform} • ${item.category} • ${item.month}</span>
+                            <div style="font-weight:700; color:var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${underperform ? (idx + 1) + '. ' : (['🥇 ', '🥈 ', '🥉 '][idx] || (idx + 1) + '. ')}${escapeCreatorText(item.title)}</div>
+                            <span style="color: var(--text-muted); font-size: 11px;">${escapeCreatorText(item.platform)} • ${escapeCreatorText(item.category)} • ${escapeCreatorText(item.datePub || item.month)}</span>
+                            <div style="margin-top:5px;">
+                                ${getCreatorContentLink(item)
+                                    ? `<a href="${getCreatorContentLink(item)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent); font-weight:600; text-decoration:underline;">🔗 Buka Konten</a>`
+                                    : '<span style="font-size:11px; color:var(--text-muted);">Link konten belum tersedia</span>'}
+                            </div>
                         </div>
-                        <div style="text-align: right;">
-                            <span class="badge bg-green">👁️ ${(parseFloat(item.reach)||0).toLocaleString('id-ID')}</span><br>
-                            <span style="font-size: 11px; color: var(--accent); font-weight:600;">ERR: ${(item.reach > 0 ? ((item.interaksi/item.reach)*100).toFixed(1) : 0)}%</span>
+                        <div style="text-align: right; min-width: 90px;">
+                            <span class="badge ${underperform ? 'bg-red' : 'bg-green'}" style="font-size:11px;">👁️ ${(parseFloat(item.reach)||0).toLocaleString('id-ID')}</span><br>
+                            <span style="font-size: 11px; color: var(--accent); font-weight:700;">ERR: ${(item.reach > 0 ? ((item.interaksi/item.reach)*100).toFixed(2) : 0)}%</span>
                         </div>
                     </div>
                 `).join('');
             };
 
-            container.innerHTML = `
-                <div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 25px;">
-                    <!-- WAFIE CARD -->
-                    <div class="stat-card" style="border-top: 4px solid var(--accent); background: var(--card-bg); padding: 20px; border-radius: 12px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <div>
-                                <h3 style="margin:0; font-size:18px; color:var(--text-main);">🎥 Wafie</h3>
-                                <span style="font-size:12px; color:var(--text-muted);">Video Specialist (Reels, Shorts, Long Video)</span>
-                            </div>
-                            <span class="badge bg-accent" style="font-size:13px; padding:6px 12px;">KPI Score: ${wafieStats.avgERR}% ERR</span>
-                        </div>
-                        
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Total Video Production</span>
-                                <h4 style="margin:4px 0 0 0; font-size:20px; color:var(--primary);">${wafieStats.totalContent} Konten</h4>
-                            </div>
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Total Reach Video</span>
-                                <h4 style="margin:4px 0 0 0; font-size:20px; color:var(--success);">${wafieStats.totalReach.toLocaleString('id-ID')}</h4>
-                            </div>
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Avg Reach / Video</span>
-                                <h4 style="margin:4px 0 0 0; font-size:16px; color:var(--info);">${wafieStats.avgReach.toLocaleString('id-ID')}</h4>
-                            </div>
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Total DM Konversi</span>
-                                <h4 style="margin:4px 0 0 0; font-size:16px; color:var(--gold);">${wafieStats.totalDM} DM</h4>
-                            </div>
-                        </div>
+            const renderWeeklyChips = (weekObj, creatorColor) => {
+                return weeksOrdered.map(w => `
+                    <div class="creator-week-card">
+                        <div class="week-label">${w}</div>
+                        <div class="week-val" style="color:${creatorColor};">${weekObj[w] || 0}</div>
+                    </div>
+                `).join('');
+            };
 
-                        <h4 style="font-size:13px; margin: 15px 0 8px 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; color: var(--primary);">🏆 Top 3 Video Performers (Reach Highest):</h4>
-                        ${renderTopList(wafieTop)}
+            const renderDailyChips = (dayObj, peakDayName) => {
+                return daysOrdered.map(d => {
+                    const count = dayObj[d] || 0;
+                    const isPeak = (d === peakDayName && count > 0);
+                    return `
+                        <div class="creator-day-chip ${isPeak ? 'peak' : ''}">
+                            <div class="day-name">${d.slice(0, 3)}</div>
+                            <div class="day-count">${count}</div>
+                            ${isPeak ? '<div style="font-size:9px; color:var(--accent); font-weight:bold; margin-top:1px;">🔥 PEAK</div>' : ''}
+                        </div>
+                    `;
+                }).join('');
+            };
+
+            // Max value for comparative weekly chart
+            const maxWeekTeam = Math.max(...Object.values(teamWeeks), 1);
+
+            container.innerHTML = `
+                <!-- ================= EXECUTIVE SUMMARY GABUNGAN TIM ================= -->
+                <div class="creator-overview-box">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+                        <div>
+                            <h3 style="margin:0; font-size:19px; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                                <span>👥</span> Hasil Gabungan Tim Kreator (Honda Bintaro)
+                            </h3>
+                            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                                Periode: <b>${fMonth === 'All' ? 'Akumulasi Seluruh Bulan (' + targets.months + ' bulan)' : 'Bulan ' + fMonth}</b> • Platform: <b>${fPlatform}</b> • Point produksi tim = Actual / Target × 100 • Data: Evaluasi CPM & Publish Log
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <span class="grade-badge-lg ${teamGrade.badgeClass}">
+                                🏆 Point: ${teamScore}
+                            </span>
+                            <button class="btn-sm bg-dark" onclick="openCreatorTargetModal()" title="Ubah target bulanan Wafie & Rizky">
+                                ⚙️ Sesuaikan Target
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- RIZKY CARD -->
-                    <div class="stat-card" style="border-top: 4px solid #0984e3; background: var(--card-bg); padding: 20px; border-radius: 12px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                    <!-- 4 KEY METRIC CARDS (HORIZONTAL RESPONSIVE GRID) -->
+                    <div class="creator-stat-grid">
+                        <!-- CARD 1: PRODUKSI TIM -->
+                        <div class="creator-kpi-card" style="border-left: 4px solid var(--primary);">
                             <div>
-                                <h3 style="margin:0; font-size:18px; color:var(--text-main);">🎨 Rizky</h3>
-                                <span style="font-size:12px; color:var(--text-muted);">Design Specialist (Story, Feed / Photo, Carousel)</span>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <span style="font-size:11px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Total Produksi Tim</span>
+                                    <span class="badge ${teamScore >= 100 ? 'bg-green' : (teamScore >= 80 ? 'bg-blue' : 'bg-gold')}">${teamScore} Point</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:6px;">
+                                    <h4 style="margin:0; font-size:24px; color:var(--primary); font-weight:800;">${teamTotalContent} <span style="font-size:13px; font-weight:normal; color:var(--text-muted);">/ Target: ${teamTotalTarget}</span></h4>
+                                </div>
+                                <div style="margin-top:6px;">
+                                    ${teamSelisih === 0
+                                        ? '<span class="creator-selisih-tag zero" style="font-size:11px; padding:2px 8px;">✓ Selisih: 0 (Tercapai)</span>'
+                                        : '<span class="creator-selisih-tag deficit" style="font-size:11px; padding:2px 8px;">⚠️ Selisih: Kurang ' + teamSelisih + ' Konten</span>'}
+                                </div>
+                                <div class="target-progress-bar-bg" style="margin-top:8px;">
+                                    <div class="target-progress-bar-fill" style="width: ${Math.min(teamScore, 100)}%; background: ${teamScore >= 90 ? 'var(--success)' : (teamScore >= 80 ? 'var(--info)' : 'var(--warning)')};"></div>
+                                </div>
                             </div>
-                            <span class="badge bg-info" style="font-size:13px; padding:6px 12px;">KPI Score: ${rizkyStats.avgERR}% ERR</span>
-                        </div>
-
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Total Design Production</span>
-                                <h4 style="margin:4px 0 0 0; font-size:20px; color:var(--primary);">${rizkyStats.totalContent} Konten</h4>
-                            </div>
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Total Reach Design</span>
-                                <h4 style="margin:4px 0 0 0; font-size:20px; color:var(--success);">${rizkyStats.totalReach.toLocaleString('id-ID')}</h4>
-                            </div>
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Avg Reach / Desain</span>
-                                <h4 style="margin:4px 0 0 0; font-size:16px; color:var(--info);">${rizkyStats.avgReach.toLocaleString('id-ID')}</h4>
-                            </div>
-                            <div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center;">
-                                <span style="font-size:11px; color:var(--text-muted);">Total DM Konversi</span>
-                                <h4 style="margin:4px 0 0 0; font-size:16px; color:var(--gold);">${rizkyStats.totalDM} DM</h4>
+                            <div style="font-size:11.5px; color:var(--text-muted); margin-top:10px; border-top:1px dashed var(--border); padding-top:8px; display:flex; justify-content:space-between;">
+                                <span>Wafie: <b>${wafieTotal}</b> (Selisih: <b>${wafieSelisihTotal}</b>)</span>
+                                <span>Rizky: <b>${rizkyTotal}</b> (Selisih: <b>${rizkySelisihTotal}</b>)</span>
                             </div>
                         </div>
 
-                        <h4 style="font-size:13px; margin: 15px 0 8px 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; color: var(--primary);">🏆 Top 3 Design Performers (Reach Highest):</h4>
+                        <!-- CARD 2: ERR TIM -->
+                        <div class="creator-kpi-card" style="border-left: 4px solid var(--accent);">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <span style="font-size:11px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Rata-rata ERR Tim</span>
+                                    <span class="badge ${parseFloat(teamAvgERR) >= 3.5 ? 'bg-green' : 'bg-accent'}">${parseFloat(teamAvgERR) >= 3.5 ? 'On Track' : 'Off Track'}</span>
+                                </div>
+                                <div style="margin-top:6px;">
+                                    <h4 style="margin:0; font-size:24px; color:var(--accent); font-weight:800;">${teamAvgERR}%</h4>
+                                </div>
+                                <div style="font-size:11.5px; color:var(--text-muted); margin-top:8px;">
+                                    Standar RevoU: <b>> 3.50% ERR</b>
+                                </div>
+                            </div>
+                            <div style="font-size:11.5px; color:var(--text-muted); margin-top:10px; border-top:1px dashed var(--border); padding-top:8px; display:flex; justify-content:space-between;">
+                                <span>Wafie: <b>${wafieAvgERR}%</b></span>
+                                <span>Rizky: <b>${rizkyAvgERR}%</b></span>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3: REACH TIM -->
+                        <div class="creator-kpi-card" style="border-left: 4px solid var(--success);">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <span style="font-size:11px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Total Jangkauan (Reach)</span>
+                                    <span class="badge bg-green" style="font-size:10px;">CPM Evaluated</span>
+                                </div>
+                                <div style="margin-top:6px;">
+                                    <h4 style="margin:0; font-size:24px; color:var(--success); font-weight:800;">${teamTotalReach.toLocaleString('id-ID')}</h4>
+                                </div>
+                                <div style="font-size:11.5px; color:var(--text-muted); margin-top:8px;">
+                                    Total Interaksi: <b>${teamTotalInt.toLocaleString('id-ID')}</b>
+                                </div>
+                            </div>
+                            <div style="font-size:11.5px; color:var(--text-muted); margin-top:10px; border-top:1px dashed var(--border); padding-top:8px;">
+                                Terhitung dari <b>${teamTotalEvaluated}</b> konten teruji CPM
+                            </div>
+                        </div>
+
+                        <!-- CARD 4: PIPELINE TIM -->
+                        <div class="creator-kpi-card" style="border-left: 4px solid var(--info);">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <span style="font-size:11px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Status Pipeline Konten</span>
+                                    <span class="badge bg-dark" style="font-size:10px;">${teamTotalContent} Total</span>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px; margin-top:8px; font-size:11.5px;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span><span class="badge bg-green" style="padding:1px 5px; font-size:9px;">✓</span> Dievaluasi CPM:</span>
+                                        <b style="color:var(--text-main); font-size:13px;">${teamTotalEvaluated}</b>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span><span class="badge bg-dark" style="padding:1px 5px; font-size:9px;">⏳</span> Draf Publish Log:</span>
+                                        <b style="color:var(--text-main); font-size:13px;">${teamTotalDrafts}</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="font-size:11.5px; color:var(--text-muted); margin-top:10px; border-top:1px dashed var(--border); padding-top:8px;">
+                                ${teamTotalDrafts === 0 ? '✨ Semua konten sudah masuk evaluasi' : '⚡ <b>' + teamTotalDrafts + ' draf</b> menunggu siklus evaluasi'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TIM CHARTS ROW: MINGGUAN & HARIAN GABUNGAN -->
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+                        <!-- MINGGUAN GABUNGAN -->
+                        <div style="background:var(--bg); padding:16px; border-radius:10px; border:1px solid var(--border);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                <h4 style="margin:0; font-size:13px; color:var(--text-main); font-weight:700;">📅 Distribusi Konten Mingguan Gabungan (W1 - W5)</h4>
+                                <div style="display:flex; gap:10px; font-size:11px;">
+                                    <span style="color:var(--accent); font-weight:600;">■ Wafie</span>
+                                    <span style="color:#0284c7; font-weight:600;">■ Rizky</span>
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:8px; align-items:flex-end; height:120px; padding:10px 4px 4px 4px; border-bottom:1px solid var(--border);">
+                                ${weeksOrdered.map(w => {
+                                    const wCount = wafieWeeks[w] || 0;
+                                    const rCount = rizkyWeeks[w] || 0;
+                                    const tot = wCount + rCount;
+                                    const hPercent = Math.max((tot / maxWeekTeam) * 100, tot > 0 ? 8 : 2);
+                                    const wRatio = tot > 0 ? (wCount / tot) * 100 : 50;
+                                    const rRatio = tot > 0 ? (rCount / tot) * 100 : 50;
+                                    return `
+                                        <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+                                            <div style="font-size:10px; font-weight:bold; color:var(--text-main); margin-bottom:4px;">${tot}</div>
+                                            <div style="width:70%; max-width:32px; height:${hPercent}%; display:flex; flex-direction:column; border-radius:6px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.1);" title="${w}: Total ${tot} (Wafie: ${wCount}, Rizky: ${rCount})">
+                                                <div style="height:${wRatio}%; background:var(--accent); width:100%;"></div>
+                                                <div style="height:${rRatio}%; background:#0284c7; width:100%;"></div>
+                                            </div>
+                                            <div style="font-size:11px; color:var(--text-muted); font-weight:700; margin-top:6px;">${w}</div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                            <div style="display:flex; justify-content:space-around; margin-top:10px; font-size:11px; color:var(--text-muted);">
+                                ${weeksOrdered.map(w => `<span><b>${w}:</b> ${teamWeeks[w]}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <!-- HARIAN GABUNGAN -->
+                        <div style="background:var(--bg); padding:16px; border-radius:10px; border:1px solid var(--border);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                <h4 style="margin:0; font-size:13px; color:var(--text-main); font-weight:700;">🕒 Ritme Jadwal Hari Publish Tim (Senin - Minggu)</h4>
+                                <span class="badge bg-accent" style="font-size:10px;">Peak: ${teamPeakDay.day} (${teamPeakDay.count})</span>
+                            </div>
+                            <div class="creator-chip-grid" style="margin-top:8px;">
+                                ${renderDailyChips(teamDays, teamPeakDay.day)}
+                            </div>
+                            <div style="margin-top:12px; font-size:11.5px; color:var(--text-muted); line-height:1.4;">
+                                💡 <b>Pola Posting:</b> Hari tersibuk adalah <b>${teamPeakDay.day}</b> dengan total <b>${teamPeakDay.count} konten</b>. Posting dilakukan konsisten sepanjang hari kerja.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= DETAIL KARTU PER KREATOR (DUO 2-COLUMN GRID) ================= -->
+                <div class="creator-duo-grid">
+
+                    <!-- ================= WAFIE CARD ================= -->
+                    <div class="stat-card" style="border-top: 4px solid var(--accent); background: var(--card-bg); padding: 22px; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                        <!-- HEADER -->
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+                            <div>
+                                <h3 style="margin:0; font-size:19px; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                                    <span>🎥</span> Wafie
+                                </h3>
+                                <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Video Specialist (Reels, Shorts, YouTube)</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <span class="grade-badge-lg ${wafieGrade.badgeClass}">
+                                    🎯 Grade ${wafieGrade.grade}
+                                </span>
+                                <div style="font-size:10.5px; color:var(--text-muted); margin-top:3px; font-weight:600;">${wafieSelisihTotal === 0 ? 'Target Terpenuhi Sepenuhnya' : wafieGrade.desc}</div>
+                            </div>
+                        </div>
+
+                        <!-- RINGKASAN TARGET VS ACTUAL & SELISIH -->
+                        <div style="background:var(--bg); padding:14px; border-radius:10px; border:1px solid var(--border); margin-bottom:16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <span style="font-size:12px; font-weight:700; color:var(--text-main);">🎯 Target vs Actual & Selisih Video</span>
+                                <span class="badge ${wafieScore >= 100 ? 'bg-green' : (wafieScore >= 80 ? 'bg-blue' : 'bg-gold')}">${wafieScore} Point (${wafieScore}%)</span>
+                            </div>
+
+                            <!-- 3 MATRIX CARDS: TARGET, ACTUAL, SELISIH -->
+                            <div class="creator-matrix-grid">
+                                <div class="creator-matrix-card">
+                                    <div class="creator-matrix-label">Target Konten</div>
+                                    <div class="creator-matrix-val">${wafieTargetTotal}</div>
+                                    <div class="creator-matrix-sub">Reels: ${wafieTargetReels} • YT: ${wafieTargetYT}</div>
+                                </div>
+                                <div class="creator-matrix-card" style="border-color: rgba(239, 68, 68, 0.35);">
+                                    <div class="creator-matrix-label">Actual Realisasi</div>
+                                    <div class="creator-matrix-val" style="color:var(--accent);">${wafieTotal}</div>
+                                    <div class="creator-matrix-sub">Reels: ${wafieReels} • YT: ${wafieYT}</div>
+                                </div>
+                                <div class="creator-matrix-card">
+                                    <div class="creator-matrix-label">Difference / Selisih</div>
+                                    <div style="margin: 4px 0 2px 0;">
+                                        ${wafieSelisihTotal === 0
+                                            ? `<span class="creator-selisih-tag zero">✓ 0 (Tercapai)</span>`
+                                            : `<span class="creator-selisih-tag deficit">⚠️ Kurang ${wafieSelisihTotal}</span>`
+                                        }
+                                    </div>
+                                    <div class="creator-matrix-sub">${wafieSelisihTotal === 0 ? 'Target Terpenuhi' : 'Belum Capai Target'}</div>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="target-progress-bar-bg" style="margin-top:10px; margin-bottom:12px;">
+                                <div class="target-progress-bar-fill" style="width: ${Math.min(wafieScore, 100)}%; background: var(--accent);"></div>
+                            </div>
+
+                            <div style="font-size:11px; color:var(--text-muted); margin-bottom:10px; line-height:1.5;">
+                                ${wafieTargetYT > 0 ? 'Point = capaian Reels × 70 + capaian YouTube × 30.' : 'Point = capaian Reels × 100 (tanpa target YouTube).'}
+                                Capaian tiap format maksimal 100%. Kelebihan Reels tidak menggantikan YouTube.
+                                Selisih total adalah jumlah kekurangan tiap format.
+                            </div>
+
+                            <!-- SUB-TARGET REELS & YOUTUBE DETAIL -->
+                            <div class="creator-subtarget-row">
+                                <div style="background:var(--card-bg); padding:10px 12px; border-radius:8px; border:1px solid var(--border);">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <b style="font-size:12px; color:var(--text-main);">🎬 Reels & Shorts (${wafieTargetYT > 0 ? 70 : 100}%)</b>
+                                        <span style="font-size:11px; font-weight:bold; color:${wafieReels >= wafieTargetReels ? '#16a34a' : 'var(--accent)'};">${Math.round(Math.min(wafieReels / (wafieTargetReels || 1), 1) * 100)}%</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--text-muted); margin-top:5px;">
+                                        <span>Target: <b>${wafieTargetReels}</b></span>
+                                        <span>Actual: <b style="color:var(--primary);">${wafieReels}</b></span>
+                                        <span>Selisih: <b>${wafieSelisihReels === 0 ? '<span style="color:#16a34a;">0</span>' : '<span style="color:#dc2626;">Kurang ' + wafieSelisihReels + '</span>'}</b></span>
+                                    </div>
+                                </div>
+                                <div style="background:var(--card-bg); padding:10px 12px; border-radius:8px; border:1px solid var(--border);">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <b style="font-size:12px; color:var(--text-main);">▶️ YouTube (${wafieTargetYT > 0 ? 30 : 0}%)</b>
+                                        <span style="font-size:11px; font-weight:bold; color:${wafieYT >= wafieTargetYT ? '#16a34a' : 'var(--accent)'};">${wafieTargetYT > 0 ? Math.round(Math.min(wafieYT / wafieTargetYT, 1) * 100) + '%' : 'Tanpa target'}</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--text-muted); margin-top:5px;">
+                                        <span>Target: <b>${wafieTargetYT}</b></span>
+                                        <span>Actual: <b style="color:var(--primary);">${wafieYT}</b></span>
+                                        <span>Selisih: <b>${wafieSelisihYT === 0 ? '<span style="color:#16a34a;">0</span>' : '<span style="color:#dc2626;">Kurang ' + wafieSelisihYT + '</span>'}</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BREAKDOWN MINGGUAN -->
+                        <div style="margin-bottom:16px;">
+                            <div style="font-size:12px; font-weight:700; color:var(--text-main); margin-bottom:8px;">📅 Jumlah Video per Minggu (${fMonth})</div>
+                            <div class="creator-week-row">
+                                ${renderWeeklyChips(wafieWeeks, 'var(--accent)')}
+                            </div>
+                        </div>
+
+                        <!-- BREAKDOWN HARIAN -->
+                        <div style="margin-bottom:18px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <div style="font-size:12px; font-weight:700; color:var(--text-main);">🕒 Jumlah Video per Hari (Senin - Minggu)</div>
+                                <span style="font-size:11px; color:var(--text-muted);">Peak: <b>${wafiePeakDay.day} (${wafiePeakDay.count})</b></span>
+                            </div>
+                            <div class="creator-chip-grid">
+                                ${renderDailyChips(wafieDays, wafiePeakDay.day)}
+                            </div>
+                        </div>
+
+                        <!-- KPI PERFORMA KONTEN (KUALITAS HASIL) -->
+                        <div style="background:var(--bg); padding:14px; border-radius:10px; border:1px solid var(--border); margin-bottom:18px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                <span style="font-size:12px; font-weight:700; color:var(--primary);">📈 KPI Performa Konten (Evaluasi Kualitas)</span>
+                                <span class="badge ${parseFloat(wafieAvgERR) >= 3.5 ? 'bg-green' : 'bg-accent'}">${parseFloat(wafieAvgERR) >= 3.5 ? 'On Track' : 'Off Track'}</span>
+                            </div>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                                <div style="background:var(--card-bg); padding:10px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <span style="font-size:11px; color:var(--text-muted);">Rata-rata ERR Video</span>
+                                    <h4 style="margin:4px 0 0 0; font-size:18px; color:var(--accent); font-weight:800;">${wafieAvgERR}%</h4>
+                                    <span style="font-size:10px; color:var(--text-muted);">Target: >3.5%</span>
+                                </div>
+                                <div style="background:var(--card-bg); padding:10px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <span style="font-size:11px; color:var(--text-muted);">Total Reach Video</span>
+                                    <h4 style="margin:4px 0 0 0; font-size:18px; color:var(--success); font-weight:800;">${wafieTotalReach.toLocaleString('id-ID')}</h4>
+                                    <span style="font-size:10px; color:var(--text-muted);">Avg: ${wafieAvgReach.toLocaleString('id-ID')} / vid</span>
+                                </div>
+                            </div>
+                            <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">
+                                * Dihitung dari <b>${wafieEvaluated.length} video</b> yang telah melalui evaluasi Content Performance Monitor.
+                            </div>
+                        </div>
+
+                        <!-- STATUS DRAF PUBLISH LOG -->
+                        ${wafieDrafts.length > 0 ? `
+                            <div style="padding:10px 12px; background:rgba(239,68,68,0.06); border:1px dashed var(--accent); border-radius:8px; margin-bottom:16px; font-size:12px; color:var(--text-main);">
+                                📝 <b>${wafieDrafts.length} video baru tayang di Publish Log</b> sedang menunggu siklus evaluasi mingguan CPM. Data ini sudah otomatis terhitung ke target produksi Wafie!
+                            </div>
+                        ` : ''}
+
+                        <!-- TOP 5 VIDEO -->
+                        <h4 style="font-size:13px; margin: 16px 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; color: var(--primary);">🏆 Top 5 Video Performers (Reach Tertinggi):</h4>
+                        ${renderTopList(wafieTop)}
+                        <h4 style="font-size:13px; margin:16px 0 8px; border-bottom:1px solid var(--border); padding-bottom:4px; color:var(--accent);">📉 Top 5 Video Underperform (ERR Terendah)</h4>
+                        <div style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">Konten yang sudah dievaluasi dengan reach &gt; 0 dan ERR &lt; 3,5%, diurutkan dari ERR terendah. Jika ERR sama, reach terendah ditampilkan lebih dulu.</div>
+                        ${renderTopList(wafieUnderperform, true)}
+                    </div>
+
+                    <!-- ================= RIZKY CARD ================= -->
+                    <div class="stat-card" style="border-top: 4px solid #0284c7; background: var(--card-bg); padding: 22px; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                        <!-- HEADER -->
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+                            <div>
+                                <h3 style="margin:0; font-size:19px; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                                    <span>🎨</span> Rizky
+                                </h3>
+                                <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Design Specialist (Feed / Photo, Carousel, Story)</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <span class="grade-badge-lg ${rizkyGrade.badgeClass}">
+                                    🎯 Grade ${rizkyGrade.grade}
+                                </span>
+                                <div style="font-size:10.5px; color:var(--text-muted); margin-top:3px; font-weight:600;">${rizkyScore >= 100 ? 'Target Terpenuhi Sepenuhnya' : rizkyGrade.desc}</div>
+                            </div>
+                        </div>
+
+                        <!-- RINGKASAN TARGET VS ACTUAL & SELISIH -->
+                        <div style="background:var(--bg); padding:14px; border-radius:10px; border:1px solid var(--border); margin-bottom:16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <span style="font-size:12px; font-weight:700; color:var(--text-main);">🎯 Target vs Actual & Selisih Desain</span>
+                                <span class="badge ${rizkyScore >= 100 ? 'bg-green' : (rizkyScore >= 80 ? 'bg-blue' : 'bg-gold')}">${rizkyScore} Point (${rizkyScore}%)</span>
+                            </div>
+
+                            <!-- 3 MATRIX CARDS: TARGET, ACTUAL, SELISIH -->
+                            <div class="creator-matrix-grid">
+                                <div class="creator-matrix-card">
+                                    <div class="creator-matrix-label">Target Konten</div>
+                                    <div class="creator-matrix-val">${rizkyTargetTotal}</div>
+                                    <div class="creator-matrix-sub">Target untuk periode terpilih</div>
+                                </div>
+                                <div class="creator-matrix-card" style="border-color: rgba(2, 132, 199, 0.35);">
+                                    <div class="creator-matrix-label">Actual Realisasi</div>
+                                    <div class="creator-matrix-val" style="color:#0284c7;">${rizkyTotal}</div>
+                                    <div class="creator-matrix-sub">${rizkyFeed} Feed • ${rizkyCarousel} Car • ${rizkyStory + rizkyOther} St</div>
+                                </div>
+                                <div class="creator-matrix-card">
+                                    <div class="creator-matrix-label">Difference / Selisih</div>
+                                    <div style="margin: 4px 0 2px 0;">
+                                        ${rizkySelisihTotal === 0
+                                            ? `<span class="creator-selisih-tag zero">✓ 0 (Tercapai)</span>`
+                                            : `<span class="creator-selisih-tag deficit">⚠️ Kurang ${rizkySelisihTotal}</span>`
+                                        }
+                                    </div>
+                                    <div class="creator-matrix-sub">${rizkySelisihTotal === 0 ? 'Target Terpenuhi' : 'Belum Capai Target'}</div>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="target-progress-bar-bg" style="margin-top:10px; margin-bottom:12px;">
+                                <div class="target-progress-bar-fill" style="width: ${Math.min(rizkyScore, 100)}%; background: #0284c7;"></div>
+                            </div>
+
+                            <div style="font-size:11px; color:var(--text-muted); margin-bottom:10px; line-height:1.5;">
+                                Point = Actual total desain / Target total desain × 100.
+                                Feed/Photo, Carousel, dan Story/Lainnya dihitung bersama tanpa bobot per format.
+                                Point dapat melebihi 100 jika produksi melampaui target.
+                                Selisih = maksimal(Target total desain − Actual total desain, 0).
+                            </div>
+
+                            <!-- FORMAT BREAKDOWN ROW -->
+                            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px;">
+                                <div style="background:var(--card-bg); padding:8px 6px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <div style="font-size:10.5px; color:var(--text-muted); font-weight:600;">🖼️ Feed / Photo</div>
+                                    <div style="font-size:15px; font-weight:800; color:var(--primary); margin-top:2px;">${rizkyFeed}</div>
+                                </div>
+                                <div style="background:var(--card-bg); padding:8px 6px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <div style="font-size:10.5px; color:var(--text-muted); font-weight:600;">🎠 Carousel</div>
+                                    <div style="font-size:15px; font-weight:800; color:var(--primary); margin-top:2px;">${rizkyCarousel}</div>
+                                </div>
+                                <div style="background:var(--card-bg); padding:8px 6px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <div style="font-size:10.5px; color:var(--text-muted); font-weight:600;">Story / Lainnya</div>
+                                    <div style="font-size:15px; font-weight:800; color:var(--primary); margin-top:2px;">${rizkyStory + rizkyOther}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BREAKDOWN MINGGUAN -->
+                        <div style="margin-bottom:16px;">
+                            <div style="font-size:12px; font-weight:700; color:var(--text-main); margin-bottom:8px;">📅 Jumlah Desain per Minggu (${fMonth})</div>
+                            <div class="creator-week-row">
+                                ${renderWeeklyChips(rizkyWeeks, '#0284c7')}
+                            </div>
+                        </div>
+
+                        <!-- BREAKDOWN HARIAN -->
+                        <div style="margin-bottom:18px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <div style="font-size:12px; font-weight:700; color:var(--text-main);">🕒 Jumlah Desain per Hari (Senin - Minggu)</div>
+                                <span style="font-size:11px; color:var(--text-muted);">Peak: <b>${rizkyPeakDay.day} (${rizkyPeakDay.count})</b></span>
+                            </div>
+                            <div class="creator-chip-grid">
+                                ${renderDailyChips(rizkyDays, rizkyPeakDay.day)}
+                            </div>
+                        </div>
+
+                        <!-- KPI PERFORMA KONTEN (KUALITAS HASIL) -->
+                        <div style="background:var(--bg); padding:14px; border-radius:10px; border:1px solid var(--border); margin-bottom:18px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                <span style="font-size:12px; font-weight:700; color:var(--primary);">📈 KPI Performa Konten (Evaluasi Kualitas)</span>
+                                <span class="badge ${parseFloat(rizkyAvgERR) >= 3.5 ? 'bg-green' : 'bg-accent'}">${parseFloat(rizkyAvgERR) >= 3.5 ? 'On Track' : 'Off Track'}</span>
+                            </div>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                                <div style="background:var(--card-bg); padding:10px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <span style="font-size:11px; color:var(--text-muted);">Rata-rata ERR Desain</span>
+                                    <h4 style="margin:4px 0 0 0; font-size:18px; color:#0284c7; font-weight:800;">${rizkyAvgERR}%</h4>
+                                    <span style="font-size:10px; color:var(--text-muted);">Target: >3.5%</span>
+                                </div>
+                                <div style="background:var(--card-bg); padding:10px; border-radius:8px; border:1px solid var(--border); text-align:center;">
+                                    <span style="font-size:11px; color:var(--text-muted);">Total Reach Desain</span>
+                                    <h4 style="margin:4px 0 0 0; font-size:18px; color:var(--success); font-weight:800;">${rizkyTotalReach.toLocaleString('id-ID')}</h4>
+                                    <span style="font-size:10px; color:var(--text-muted);">Avg: ${rizkyAvgReach.toLocaleString('id-ID')} / post</span>
+                                </div>
+                            </div>
+                            <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">
+                                * Dihitung dari <b>${rizkyEvaluated.length} desain</b> yang telah melalui evaluasi Content Performance Monitor.
+                            </div>
+                        </div>
+
+                        <!-- STATUS DRAF PUBLISH LOG -->
+                        ${rizkyDrafts.length > 0 ? `
+                            <div style="padding:10px 12px; background:rgba(2,132,199,0.06); border:1px dashed #0284c7; border-radius:8px; margin-bottom:16px; font-size:12px; color:var(--text-main);">
+                                📝 <b>${rizkyDrafts.length} desain baru tayang di Publish Log</b> sedang menunggu siklus evaluasi mingguan CPM. Data ini sudah otomatis terhitung ke target produksi Rizky!
+                            </div>
+                        ` : ''}
+
+                        <!-- TOP 5 DESAIN -->
+                        <h4 style="font-size:13px; margin: 16px 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; color: var(--primary);">🏆 Top 5 Design Performers (Reach Tertinggi):</h4>
                         ${renderTopList(rizkyTop)}
+                        <h4 style="font-size:13px; margin:16px 0 8px; border-bottom:1px solid var(--border); padding-bottom:4px; color:var(--accent);">📉 Top 5 Design Underperform (ERR Terendah)</h4>
+                        <div style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">Konten yang sudah dievaluasi dengan reach &gt; 0 dan ERR &lt; 3,5%, diurutkan dari ERR terendah. Jika ERR sama, reach terendah ditampilkan lebih dulu.</div>
+                        ${renderTopList(rizkyUnderperform, true)}
                     </div>
                 </div>
             `;
@@ -6004,20 +7002,20 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
             }
 
             let indexedDB = contentMonthlyDB.map((item, index) => ({ ...item, originalIndex: index }));
-            
+
             // Search filter
             const searchVal = document.getElementById('search-conm') ? document.getElementById('search-conm').value.toLowerCase().trim() : "";
 
             let filtered = indexedDB.filter(item => {
-                const matchSearch = !searchVal || 
-                    (item.title && item.title.toLowerCase().includes(searchVal)) || 
-                    (item.month && item.month.toLowerCase().includes(searchVal)) || 
+                const matchSearch = !searchVal ||
+                    (item.title && item.title.toLowerCase().includes(searchVal)) ||
+                    (item.month && item.month.toLowerCase().includes(searchVal)) ||
                     (item.platform && item.platform.toLowerCase().includes(searchVal)) ||
-                    (item.what && item.what.toLowerCase().includes(searchVal)) || 
-                    (item.soWhat && item.soWhat.toLowerCase().includes(searchVal)) || 
+                    (item.what && item.what.toLowerCase().includes(searchVal)) ||
+                    (item.soWhat && item.soWhat.toLowerCase().includes(searchVal)) ||
                     (item.nowWhat && item.nowWhat.toLowerCase().includes(searchVal));
 
-                return (fMonth === "All" || item.month === fMonth) && 
+                return (fMonth === "All" || item.month === fMonth) &&
                        (fPlatform === "All" || item.platform === fPlatform) &&
                        matchSearch;
             });
@@ -6136,15 +7134,15 @@ Buat analisa tajam. Jika ER tinggi tapi Avg Reach rendah, jelaskan bahwa distrib
             }
 
             let indexedDB = kpiDB.map((item, index) => ({ ...item, originalIndex: index }));
-            
+
             // Search filter
             const searchVal = document.getElementById('search-kpi') ? document.getElementById('search-kpi').value.toLowerCase().trim() : "";
 
             let filtered = indexedDB.filter(item => {
-                const matchSearch = !searchVal || 
-                    (item.month && item.month.toLowerCase().includes(searchVal)) || 
-                    (item.platform && item.platform.toLowerCase().includes(searchVal)) || 
-                    (item.period && item.period.toLowerCase().includes(searchVal)) || 
+                const matchSearch = !searchVal ||
+                    (item.month && item.month.toLowerCase().includes(searchVal)) ||
+                    (item.platform && item.platform.toLowerCase().includes(searchVal)) ||
+                    (item.period && item.period.toLowerCase().includes(searchVal)) ||
                     (item.status && item.status.toLowerCase().includes(searchVal));
 
                 return (fMonth === "All" || item.month === fMonth) &&
@@ -6231,6 +7229,7 @@ Sapa pelanggan ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan k
                 await pullDBFromGithub('content', true);
                 await pullDBFromGithub('content-monthly', true);
                 await pullDBFromGithub('kpi', true);
+                await pullDBFromGithub('publish', true);
                 statusEl.innerHTML = `<span style="color:green; font-weight:bold;">✅ Semua data berhasil diperbarui!</span>`;
                 setTimeout(() => statusEl.innerHTML = "", 5000);
                 renderReportWeekly(); renderReportMonthly(); renderReportChannel(); renderReportTrend(); renderReportKreator();
@@ -6863,7 +7862,7 @@ ${alerts.map(a => `<li>${a}</li>`).join('')}
                         <h3 style="margin: 0; color: var(--primary); font-size: 15px; font-weight: bold;">${cardTitle}</h3>
                         <button class="btn-sm bg-red" onclick="removeBloggerCar(${index})">Hapus Mobil</button>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label>ID Mobil / Slug (Tanpa spasi)</label>
@@ -8081,7 +9080,7 @@ ${alerts.map(a => `<li>${a}</li>`).join('')}
                     <span>📚 Class Sessions</span>
                     <button class="btn btn-primary" onclick="addElearningSession()">+ Tambah Sesi Baru</button>
                 </div>
-                
+
                 <div class="session-tabs" id="elearning-session-tabs" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;"></div>
                 <div id="elearning-session-editor-container"></div>
             `;
@@ -8117,7 +9116,7 @@ ${alerts.map(a => `<li>${a}</li>`).join('')}
                 <div class="form-group">
                     <label>Learning Journey Image URL</label>
                     <input type="text" class="form-control" value="${g.learningJourneyImg || ''}" oninput="elearningUIData.global.learningJourneyImg = this.value; updateElearningOutput();">
-                    
+
                     <div style="border: 2px dashed var(--border); padding: 12px; text-align: center; border-radius: 6px; background: var(--bg); margin-top: 10px;">
                         <label for="elearning-file-global" style="cursor: pointer; color: var(--info); font-weight: bold;">📸 Pilih & Upload Gambar Journey</label>
                         <input type="file" id="elearning-file-global" accept="image/*" style="display:none;" onchange="uploadElearningImageToGitHub('globalJourney', this)">
