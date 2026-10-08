@@ -1,0 +1,52 @@
+name: Sync Siska WordPress articles
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: copywriter-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/sync-copywriter.cjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync Search Console when configured
+        id: gsc
+        continue-on-error: true
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_PROPERTY: ${{ vars.GSC_PROPERTY }}
+        shell: bash
+        run: |
+          if [ -z "$GSC_SERVICE_ACCOUNT_JSON" ] || [ -z "$GSC_PROPERTY" ]; then
+            echo 'GSC not configured yet; WordPress article sync remains active.'
+            exit 0
+          fi
+          python -m pip install --disable-pip-version-check 'google-auth[requests]>=2,<3'
+          python scripts/sync-copywriter-gsc.py
+      - name: Commit updated article database
+        shell: bash
+        run: |
+          git add 'json/*/kpi-copywriter-siska-*.json'
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Sync Siska WordPress article database'
+          git pull --rebase
+          git push
+      - name: Report Search Console sync failure
+        if: steps.gsc.outcome == 'failure'
+        run: |
+          echo 'WordPress data was saved, but GSC synchronization failed. Check the GSC step log.'
+          exit 1

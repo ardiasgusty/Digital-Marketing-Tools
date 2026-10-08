@@ -1,0 +1,44 @@
+import datetime as dt
+import importlib.util
+from pathlib import Path
+
+path = Path(__file__).resolve().parent.parent / 'scripts' / 'sync-copywriter-gsc.py'
+spec = importlib.util.spec_from_file_location('gsc', path)
+gsc = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(gsc)
+
+assert gsc.month_ranges(2026, dt.date(2026, 2, 3)) == [('2026-01', '2026-01-01', '2026-01-31'), ('2026-02', '2026-02-01', '2026-02-03')]
+assert gsc.month_ranges(2027, dt.date(2026, 12, 31)) == []
+assert gsc.month_ranges(2024, dt.date(2024, 3, 1))[1][2] == '2024-02-29'
+
+
+class Response:
+    ok = True
+    def json(self):
+        return {'rows': [{'keys': ['https://www.honda-bintaro.com/a/'], 'clicks': 3, 'impressions': 100, 'ctr': .03, 'position': 7.2}]}
+
+
+class Session:
+    def post(self, url, json, timeout):
+        assert 'sc-domain%3Ahonda-bintaro.com' in url
+        assert json['dataState'] == 'final' and json['dimensions'] == ['page']
+        return Response()
+
+
+pages = gsc.query_pages(Session(), 'sc-domain:honda-bintaro.com', '2026-01-01', '2026-01-31')
+matched = gsc.article_metrics([{'wordpressId': 1, 'link': 'https://www.honda-bintaro.com/a/'}, {'wordpressId': 2, 'link': 'https://www.honda-bintaro.com/b/'}], pages)
+assert matched[0]['metrics']['ctr'] == .03
+assert matched[1]['metrics'] is None
+
+
+class ForbiddenSession:
+    def post(self, *args, **kwargs):
+        return type('Forbidden', (), {'ok': False, 'status_code': 403})()
+
+
+try:
+    gsc.query_pages(ForbiddenSession(), 'sc-domain:honda-bintaro.com', '2026-01-01', '2026-01-31')
+    raise AssertionError('Permission failure should stop import')
+except RuntimeError as error:
+    assert '403' in str(error)
+print('PASS: monthly date boundaries, leap year, exact page matching, CTR, missing data, authorization failure.')
