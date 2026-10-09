@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-08T04:36:34.393Z",
+  "lastSyncedAt": "2026-10-09T06:32:45.727Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13856,
+      "authorId": 8,
+      "title": "Keuntungan Berlipat! Saatnya Beli Honda HR-V Bulan Ini",
+      "link": "https://www.honda-bintaro.com/keuntungan-berlipat-saatnya-beli-honda-hr-v-bulan-ini/",
+      "publishedAt": "2026-10-09T10:04:39",
+      "modifiedAt": "2026-10-09T10:04:39",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Keuntungan-Berlipat-Saatnya-Beli-Honda-HR-V-Bulan-Ini-240x300.webp"
+    },
     {
       "wordpressId": 13851,
       "authorId": 8,
