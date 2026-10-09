@@ -6194,6 +6194,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
             const evaluatedLinks = new Set();
             const evaluatedKeys = new Set();
             const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
             // 1. Data yang sudah dievaluasi di Content Performance Monitor
             if (Array.isArray(contentDB)) {
@@ -6206,9 +6207,10 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                         evaluatedKeys.add(`${item.platform}_${item.title.trim().toLowerCase()}_${item.datePub.trim()}`);
                     }
 
-                    const dObj = parseSafeDate(item.datePub || item.evalDateRaw);
-                    const pubMonth = item.month || (dObj ? getMonthFromDate(item.datePub || item.evalDateRaw) : 'Unknown');
-                    const pubWeek = item.week ? ('W' + item.week.toString().replace(/^W/i, '')) : (dObj ? ('W' + calculateWeek(item.datePub || item.evalDateRaw)) : 'W1');
+                    // Creator production belongs to publication dates, not CPM evaluation periods.
+                    const dObj = parseSafeDate(item.datePub);
+                    const pubMonth = dObj ? monthNames[dObj.getMonth()] : 'Unknown';
+                    const pubWeek = dObj ? ('W' + Math.ceil(dObj.getDate() / 7)) : 'Unknown';
                     const pubDay = dObj ? dayNames[dObj.getDay()] : 'Unknown';
                     const creator = getCreatorForItem(item);
 
@@ -6249,8 +6251,8 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                     if (alreadyEvaluated) return; // Lewati draf ini karena versi evaluasinya sudah dihitung dari contentDB!
 
                     const dObj = parseSafeDate(draft.datePub);
-                    const pubMonth = dObj ? getMonthFromDate(draft.datePub) : 'Unknown';
-                    const pubWeek = dObj ? ('W' + calculateWeek(draft.datePub)) : 'W1';
+                    const pubMonth = dObj ? monthNames[dObj.getMonth()] : 'Unknown';
+                    const pubWeek = dObj ? ('W' + Math.ceil(dObj.getDate() / 7)) : 'Unknown';
                     const pubDay = dObj ? dayNames[dObj.getDay()] : 'Unknown';
                     const creator = getCreatorForItem(draft);
 
@@ -6338,7 +6340,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
 
             // Breakdown Mingguan Wafie
             const wafieWeeks = { W1: 0, W2: 0, W3: 0, W4: 0, W5: 0 };
-            wafieItems.forEach(i => { if (wafieWeeks[i.week] !== undefined) wafieWeeks[i.week]++; else wafieWeeks.W1++; });
+            wafieItems.forEach(i => { if (wafieWeeks[i.week] !== undefined) wafieWeeks[i.week]++; });
 
             // Breakdown Harian Wafie
             const wafieDays = {};
@@ -6367,7 +6369,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
 
             // Breakdown Mingguan Rizky
             const rizkyWeeks = { W1: 0, W2: 0, W3: 0, W4: 0, W5: 0 };
-            rizkyItems.forEach(i => { if (rizkyWeeks[i.week] !== undefined) rizkyWeeks[i.week]++; else rizkyWeeks.W1++; });
+            rizkyItems.forEach(i => { if (rizkyWeeks[i.week] !== undefined) rizkyWeeks[i.week]++; });
 
             // Breakdown Harian Rizky
             const rizkyDays = {};
@@ -6478,7 +6480,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                                 <span>👥</span> Hasil Gabungan Tim Kreator (Honda Bintaro)
                             </h3>
                             <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">
-                                Periode: <b>${fMonth === 'All' ? 'Akumulasi Seluruh Bulan (' + targets.months + ' bulan)' : 'Bulan ' + fMonth}</b> • Platform: <b>${fPlatform}</b> • Point produksi tim = Actual / Target × 100 • Data: Evaluasi CPM & Publish Log
+                                Periode: <b>${fMonth === 'All' ? 'Akumulasi Seluruh Bulan (' + targets.months + ' bulan)' : 'Bulan ' + fMonth}</b> • Platform: <b>${fPlatform}</b> • Point produksi tim = Actual / Target × 100 • Data: Evaluasi CPM & Publish Log<br>Bulan dan minggu produksi mengikuti tanggal publikasi. W1: 1–7 • W2: 8–14 • W3: 15–21 • W4: 22–28 • W5: 29–akhir bulan.
                             </div>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
