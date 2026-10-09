@@ -23,6 +23,11 @@ async function run() {
     const staleMerge = core.merge({ ...core.empty(2026), articles: [newer] }, articles);
     assert.equal(staleMerge.articles.find(item => item.wordpressId === 1).title, 'Newer');
     const result = core.calculate({ ...database, articles: [core.normalize(post(1, '2026-10-01T09:00:00')), core.normalize(post(2, '2026-10-01T10:00:00')), core.normalize(post(3, '2026-10-09T10:00:00'))] }, '10', '2026-10-03');
+    const twoHolidays = core.calculate({ ...database, holidays: ['2026-10-05', '2026-10-06', '2026-10-04'] }, '10', '2026-10-31');
+    assert.equal(twoHolidays.calendarDays, 31);
+    assert.equal(twoHolidays.sundayCount, 4);
+    assert.equal(twoHolidays.holidayCount, 2);
+    assert.equal(twoHolidays.target, 25);
     assert.equal(result.target, 26); // 31 days, 4 Sundays, 1 weekday holiday; no double subtraction.
     assert.equal(result.elapsedTarget, 3);
     assert.equal(result.actual, 2);

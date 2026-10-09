@@ -232,13 +232,14 @@ function renderCopywriter() {
             </div>
             ${renderStatCards([
                 { val: result.actual, lbl: 'Actual Artikel', sub: 'Terbit hingga hari ini' },
-                { val: result.elapsedTarget, lbl: 'Target hingga Hari Ini', sub: `Target seluruh periode: ${result.target} artikel` },
+                { val: result.target, lbl: month === 'All' ? 'Target Artikel Setahun' : 'Target Artikel Sebulan', sub: `Target hingga hari ini: ${result.elapsedTarget} artikel` },
                 { val: result.difference, lbl: 'Selisih Artikel', sub: 'Minimum 0' },
                 { val: `${result.points.toLocaleString('id-ID')} / 70`, lbl: 'Point Artikel', sub: result.score === null ? 'Periode belum berjalan' : `Capaian komponen artikel: ${result.score}%` }
             ])}
             <div style="font-size:12px; line-height:1.7; color:var(--text-muted); margin-top:14px;">
                 Kuantitas: <b>${result.quantityPoints.toFixed(2)} / 55 Point</b> • Jadwal harian: <b>${result.schedulePoints.toFixed(2)} / 15 Point</b> (${result.timely} dari ${result.elapsedTarget} hari kerja terisi).<br>
-                Target 1 artikel per hari selain Minggu dan tanggal libur yang diatur. Penilaian periode berjalan hanya memakai hari hingga hari ini (WIB). Artikel tambahan dapat memenuhi kuantitas, tetapi tidak menggantikan hari yang kosong.<br>
+                <b>Target otomatis:</b> ${result.calendarDays} hari − ${result.sundayCount} hari Minggu − ${result.holidayCount} hari libur selain Minggu = <b>${result.target} artikel</b>. Hari libur yang jatuh pada Minggu tidak dikurangi dua kali.<br>
+                Target 1 artikel per hari kerja Senin–Sabtu selain tanggal libur yang diatur. Penilaian periode berjalan hanya memakai hari hingga hari ini (WIB). Artikel tambahan dapat memenuhi kuantitas, tetapi tidak menggantikan hari yang kosong.<br>
                 <b>Preview penilaian produksi:</b> artikel terbit belum otomatis dinyatakan lolos kualitas. Grade ini khusus artikel; 30 Point pekerjaan pendukung belum dinilai.<br>
                 ${copywriterDB.holidays.length ? `${copywriterDB.holidays.length} tanggal libur dikonfigurasi.` : '<b>Hari besar belum dikonfigurasi. Atur tanggal libur sebelum memakai nilai sebagai acuan.</b>'}<br>
                 Data WordPress terakhir disinkronkan: ${copywriterEscape(lastSync)} ${copywriterDirty ? '• Ada perubahan lokal belum tersimpan ke GitHub' : ''}

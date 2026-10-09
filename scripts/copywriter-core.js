@@ -59,7 +59,10 @@
                 days.push({ date, working, count: counts.get(date) || 0, elapsed: date <= today });
             }
         }
-        const target = days.filter(day => day.working).length;
+        const calendarDays = days.length;
+        const sundayCount = days.filter(day => new Date(`${day.date}T00:00:00Z`).getUTCDay() === 0).length;
+        const holidayCount = days.filter(day => holidays.has(day.date) && new Date(`${day.date}T00:00:00Z`).getUTCDay() !== 0).length;
+        const target = calendarDays - sundayCount - holidayCount;
         const elapsedDays = days.filter(day => day.working && day.elapsed);
         const actual = new Map(articles.filter(item => item.publishedAt.slice(0, 10) <= today).map(item => [item.wordpressId, item])).size;
         const timely = elapsedDays.filter(day => day.count > 0).length;
@@ -67,7 +70,7 @@
         const schedulePoints = elapsedDays.length ? timely / elapsedDays.length * 15 : 0;
         const points = Math.round((quantityPoints + schedulePoints) * 100) / 100;
         const score = elapsedDays.length ? Math.round(points / 70 * 100) : null;
-        return { articles, days, target, elapsedTarget: elapsedDays.length, actual, timely, difference: Math.max(elapsedDays.length - actual, 0), quantityPoints, schedulePoints, points, score };
+        return { articles, days, calendarDays, sundayCount, holidayCount, target, elapsedTarget: elapsedDays.length, actual, timely, difference: Math.max(elapsedDays.length - actual, 0), quantityPoints, schedulePoints, points, score };
     }
     const core = { empty, normalize, fetchArticles, merge, calculate, localDate };
     if (typeof module !== 'undefined' && module.exports) module.exports = core;
