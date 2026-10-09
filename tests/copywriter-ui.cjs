@@ -77,6 +77,13 @@ async function run() {
     assert(html.includes('10 Klik')); // Includes October traffic from an article published earlier.
     assert(html.includes('Database Artikel (5)')); // Production still selects only October publications.
     assert(html.includes('Rincian GSC semua artikel'));
+    vm.runInContext(`copywriterGA4 = ${JSON.stringify({year:2026,dateTimezone:'Asia/Jakarta',lastSyncedAt:'2026-10-09T00:00:00Z',months:[{month:'2026-10',startDate:'2026-10-01',endDate:'2026-10-08',total:{views:20,activeUsers:3,averageEngagementSeconds:45},articles:[{wordpressId:older.wordpressId,metrics:{views:20,activeUsers:3,averageEngagementSeconds:45}}]},{month:'All',startDate:'2026-01-01',endDate:'2026-10-08',total:{views:200,activeUsers:8,averageEngagementSeconds:60},articles:[]}]})}`, context);
+    context.renderCopywriter();
+    assert(element('copywriter-content').innerHTML.includes('20 Views Artikel'));
+    assert(element('copywriter-content').innerHTML.includes('3 Pengguna Aktif'));
+    assert(element('copywriter-content').innerHTML.includes('45 detik'));
+    assert.equal(context.copywriterAnalytics('All').total.activeUsers, 8);
+    assert.equal(context.copywriterAnalytics('9'), null);
     console.log('PASS: live-data rendering, links/calendar, holiday validation, JSON save with SHA, failure preserves existing data.');
 }
 run().catch(error => { console.error(error); process.exitCode = 1; });

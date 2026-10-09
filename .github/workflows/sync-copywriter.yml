@@ -35,6 +35,19 @@ jobs:
           fi
           python -m pip install --disable-pip-version-check 'google-auth[requests]>=2,<3'
           python scripts/sync-copywriter-gsc.py
+      - name: Sync Google Analytics when configured
+        id: ga4
+        continue-on-error: true
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+        run: |
+          if [ -z "$GSC_SERVICE_ACCOUNT_JSON" ] || [ -z "$GA4_PROPERTY_ID" ]; then
+            echo 'GA4 not configured yet.'
+            exit 0
+          fi
+          python -m pip install --disable-pip-version-check 'google-auth[requests]>=2,<3'
+          python scripts/sync-copywriter-ga4.py
       - name: Commit updated article database
         shell: bash
         run: |
@@ -49,4 +62,9 @@ jobs:
         if: steps.gsc.outcome == 'failure'
         run: |
           echo 'WordPress data was saved, but GSC synchronization failed. Check the GSC step log.'
+          exit 1
+      - name: Report Analytics sync failure
+        if: steps.ga4.outcome == 'failure'
+        run: |
+          echo 'GA4 synchronization failed. Check the Analytics step log.'
           exit 1

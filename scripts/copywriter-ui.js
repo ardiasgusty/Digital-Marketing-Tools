@@ -1,3 +1,4 @@
+let copywriterGA4 = null;
 let copywriterDB = null;
 let copywriterBusy = false;
 let copywriterPage = 1;
@@ -31,7 +32,7 @@ function copywriterValidate(data, year) {
 async function copywriterReadGitHub(year, performance = false) {
     const config = getGHConfig();
     const headers = config.token ? { Authorization: `token ${config.token}` } : {};
-    const path = performance ? `json/${year}/kpi-copywriter-siska-gsc-${year}.json` : copywriterPath(year);
+    const path = performance ? `json/${year}/kpi-copywriter-siska-${performance === 'ga4' ? 'ga4' : 'gsc'}-${year}.json` : copywriterPath(year);
     const response = await fetch(`https://api.github.com/repos/${encodeURIComponent(config.user)}/${encodeURIComponent(config.repo)}/contents/${path}`, { headers, cache: 'no-store' });
     if (response.status === 404) return null;
     if (!response.ok) throw new Error(`Gagal membaca database GitHub (HTTP ${response.status}).`);
@@ -127,7 +128,7 @@ async function loadCopywriterDatabase(force = false) {
         }
         copywriterStatus(copywriterDirty ? 'Ada perubahan lokal yang belum disimpan ke GitHub.' : saved ? 'Database tersimpan berhasil dimuat.' : cached ? 'Menggunakan salinan lokal.' : 'Belum ada database untuk tahun ini. Klik Tarik WordPress.');
     } catch (error) { copywriterStatus(`${error.message} Salinan lokal tetap tersedia.`, true); }
-    finally { await loadCopywriterMetrics(year); renderCopywriter(); copywriterSetBusy(false); }
+    finally { await Promise.all([loadCopywriterMetrics(year), loadCopywriterAnalytics(year)]); renderCopywriter(); copywriterSetBusy(false); }
 }
 async function syncCopywriterWordPress() {
     if (copywriterBusy || !copywriterDB) return;
@@ -195,6 +196,7 @@ function renderCopywriter() {
     const result = CopywriterCore.calculate(copywriterDB, month);
     // Publication month controls production. Traffic month covers all saved articles of the year.
     const performance = copywriterPerformance(copywriterDB.articles, month);
+    const analytics = copywriterAnalytics(month);
     const number = value => Number(value).toLocaleString('id-ID', { maximumFractionDigits: 2 });
     const grade = result.score === null ? null : getKPIGrade(result.score);
     document.getElementById('copywriter-holidays').value = copywriterDB.holidays.join('\n');
@@ -207,7 +209,7 @@ function renderCopywriter() {
         const title = copywriterEscape(new DOMParser().parseFromString(article.title, 'text/html').body.textContent);
         const metric = performance?.metrics.get(article.wordpressId);
         const stats = metric ? `<div style="font-size:11px; line-height:1.8; margin-top:10px; color:var(--text-muted);">Klik: <b>${number(metric.clicks)}</b> • Impresi: <b>${number(metric.impressions)}</b><br>CTR: <b>${number(metric.ctr * 100)}%</b> • Posisi: <b>${metric.position === null ? '—' : number(metric.position)}</b></div>` : `<div style="font-size:11px; margin-top:10px; color:var(--text-muted);">GSC: ${copywriterEscape(copywriterMissingMetric(article, performance))}</div>`;
-        return `<article class="copywriter-article">${thumbnail ? `<img src="${thumbnail}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<div style="padding:14px;"><div style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">${copywriterEscape(article.publishedAt.replace('T', ' '))}</div><h4 style="margin:0 0 12px; font-size:14px; line-height:1.5;">${title}</h4>${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--accent); font-size:12px; font-weight:700;">🔗 Buka Artikel</a>` : '<small>Link belum tersedia</small>'}${stats}</div></article>`;
+        return `<article class="copywriter-article">${thumbnail ? `<img src="${thumbnail}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<div style="padding:14px;"><div style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">${copywriterEscape(article.publishedAt.replace('T', ' '))}</div><h4 style="margin:0 0 12px; font-size:14px; line-height:1.5;">${title}</h4>${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--accent); font-size:12px; font-weight:700;">🔗 Buka Artikel</a>` : '<small>Link belum tersedia</small>'}${copywriterAnalyticsArticle(article, analytics)}${stats}</div></article>`;
     }).join('');
     const trafficRows = performance ? [...copywriterDB.articles].sort((a, b) => (performance.metrics.get(b.wordpressId)?.impressions || 0) - (performance.metrics.get(a.wordpressId)?.impressions || 0)).map(article => {
         const metric = performance.metrics.get(article.wordpressId);
@@ -248,6 +250,7 @@ function renderCopywriter() {
                 Data WordPress terakhir disinkronkan: ${copywriterEscape(lastSync)} ${copywriterDirty ? '• Ada perubahan lokal belum tersimpan ke GitHub' : ''}
             </div>
         </div>
+        ${renderCopywriterAnalytics(analytics)}
         <div class="creator-overview-box"><h3 style="margin:0 0 14px; font-size:16px;">🔎 Performa Google Search</h3>
             <p style="font-size:12px; line-height:1.6; color:var(--text-muted);">Trafik ${month === 'All' ? 'sepanjang tahun' : copywriterMonths[Number(month) - 1]} untuk seluruh ${copywriterDB.articles.length} artikel Siska yang tersimpan pada tahun ${copywriterDB.year}, termasuk artikel yang terbit pada bulan sebelumnya. Filter produksi dan kalender tetap berdasarkan bulan publikasi.</p>
             ${performance?.available ? renderStatCards([
@@ -269,3 +272,37 @@ function initializeCopywriter() {
     document.getElementById('copywriter-month').value = String(Number(today.slice(5, 7)));
 }
 document.addEventListener('DOMContentLoaded', initializeCopywriter);
+
+async function loadCopywriterAnalytics(year) {
+    copywriterGA4 = null;
+    try {
+        let data;
+        try { data = (await copywriterReadGitHub(year, 'ga4'))?.database; } catch { /* Deployed fallback. */ }
+        if (!data) {
+            const response = await fetch(`json/${year}/kpi-copywriter-siska-ga4-${year}.json?v=${Date.now()}`, { cache: 'no-store' });
+            if (!response.ok) return;
+            data = await response.json();
+        }
+        if (data.year !== year || !Array.isArray(data.months)) return;
+        copywriterGA4 = data;
+    } catch { /* No stale Analytics totals presented as current data. */ }
+}
+function copywriterAnalytics(month) {
+    return copywriterGA4?.months.find(period => period.month === (month === 'All' ? 'All' : `${copywriterDB.year}-${String(month).padStart(2, '0')}`)) || null;
+}
+function copywriterAnalyticsArticle(article, period) {
+    const metric = period?.articles.find(row => row.wordpressId === article.wordpressId)?.metrics;
+    const number = value => Number(value).toLocaleString('id-ID', { maximumFractionDigits: 1 });
+    return `<div style="font-size:11px; line-height:1.8; margin-top:10px; color:var(--text-muted);">${metric ? `GA4 Views: <b>${number(metric.views)}</b> • Pengguna aktif: <b>${number(metric.activeUsers)}</b><br>Keterlibatan per pengguna aktif: <b>${metric.averageEngagementSeconds === null ? '—' : number(metric.averageEngagementSeconds) + ' detik'}</b>` : 'GA4: Belum tersedia data kunjungan untuk artikel ini pada periode terpilih.'}</div>`;
+}
+function renderCopywriterAnalytics(period) {
+    const number = value => Number(value).toLocaleString('id-ID', { maximumFractionDigits: 1 });
+    const total = period?.total;
+    const rows = period ? [...copywriterDB.articles].sort((a,b) => (period.articles.find(row => row.wordpressId === b.wordpressId)?.metrics?.views || 0) - (period.articles.find(row => row.wordpressId === a.wordpressId)?.metrics?.views || 0)).map(article => `<div style="padding:10px; border-bottom:1px solid var(--border);"><a href="${copywriterURL(article.link)}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">${copywriterEscape(new DOMParser().parseFromString(article.title, 'text/html').body.textContent)}</a>${copywriterAnalyticsArticle(article, period)}</div>`).join('') : '';
+    return `<div class="creator-overview-box"><h3 style="margin:0 0 14px; font-size:16px;">📈 Pembaca Artikel — Google Analytics</h3>
+        <p style="font-size:12px; color:var(--text-muted);">Kunjungan dari seluruh sumber untuk artikel Siska yang tersimpan pada tahun terpilih, termasuk artikel yang terbit pada bulan sebelumnya.</p>
+        ${total ? renderStatCards([{val:number(total.views),lbl:'Views Artikel'},{val:number(total.activeUsers),lbl:'Pengguna Aktif'},{val:total.averageEngagementSeconds === null ? '—' : number(total.averageEngagementSeconds) + ' detik',lbl:'Keterlibatan per Pengguna Aktif'}]) : '<p style="font-size:12px; color:var(--text-muted);">Data GA4 belum tersedia untuk periode ini.</p>'}
+        ${period ? `<p style="font-size:11px; line-height:1.6; color:var(--text-muted);">Periode: ${copywriterEscape(period.startDate)} – ${copywriterEscape(period.endDate)} (${copywriterEscape(copywriterGA4.dateTimezone)}). Hari ini belum disertakan; data terbaru masih dapat diperbarui Google. Pengguna dihitung untuk seluruh periode, bukan penjumlahan pengguna tiap artikel. Data tersimpan: ${copywriterEscape(new Date(copywriterGA4.lastSyncedAt).toLocaleString('id-ID'))}. Belum memengaruhi Point produksi.${period.metadata?.subjectToThresholding ? ' Google menerapkan ambang privasi pada laporan ini.' : ''}${period.metadata?.dataLossFromOtherRow ? ' Sebagian rincian digabung oleh Google ke baris lain.' : ''}</p>` : ''}
+        ${rows ? `<details><summary style="cursor:pointer; font-weight:700;">Rincian GA4 semua artikel</summary>${rows}</details>` : ''}
+    </div>`;
+}
