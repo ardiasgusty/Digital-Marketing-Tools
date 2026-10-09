@@ -4631,8 +4631,21 @@
             }
         }
 
+        function initializeMonthFilters(now = new Date()) {
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const monthIndex = Number(new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Jakarta', month: 'numeric' }).format(now)) - 1;
+            const filters = ['filter-mon-month', 'filter-conm-month', 'filter-kpi-month', 'report-weekly-month', 'report-kreator-month', 'dist-month', 'report-trend-target-month'];
+            for (const id of filters) {
+                const select = document.getElementById(id);
+                if (select && Array.from(select.options).some(option => option.value === months[monthIndex])) select.value = months[monthIndex];
+            }
+            const comparison = document.getElementById('report-trend-compare-month');
+            if (comparison) comparison.value = months[(monthIndex + 11) % 12];
+        }
+
         // ================= INIT CODE =================
         window.addEventListener('DOMContentLoaded', async () => {
+            initializeMonthFilters();
             await loadSystemConfig();
             checkSettingPermissions();
 
