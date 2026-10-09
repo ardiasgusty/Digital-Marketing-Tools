@@ -3139,7 +3139,7 @@
                         <select id="copywriter-month" class="form-control" style="width:155px; margin:0;" onchange="copywriterPage=1; renderCopywriter()"></select>
                         <button class="btn-sm bg-dark" onclick="loadCopywriterDatabase(true)">↓ Muat Database</button>
                         <button class="btn-sm bg-blue" onclick="syncCopywriterAll()">↻ Sinkronkan Semua</button>
-                        <a href="https://github.com/ardiasgusty/Digital-Marketing-Tools/actions/workflows/sync-copywriter.yml" target="_blank" rel="noopener noreferrer" style="font-size:12px;">Status Sinkronisasi</a>
+                        <a href="https://github.com/ardiasgusty/Digital-Marketing-Tools/actions/workflows/sync-copywriter.yml" target="_blank" rel="noopener noreferrer" class="btn-sm bg-dark" style="text-decoration:none; display:inline-flex; align-items:center;">📋 Status Sinkronisasi</a>
                         <button class="btn-sm bg-blue" onclick="syncCopywriterWordPress()">↻ Tarik WordPress</button>
                         <button class="btn-sm bg-green" onclick="saveCopywriterGitHub()">💾 Simpan ke GitHub</button>
                     </div>
@@ -3823,7 +3823,7 @@
     </button>
 
     <script src="scripts/copywriter-core.js"></script>
-    <script src="scripts/copywriter-ui.js?v=20261009-tables"></script>
+    <script src="scripts/copywriter-ui.js?v=20261009-autoload"></script>
     <script>
         // ================= GLOBAL CONFIGS & DBs =================
         const TARGET_HASH = "b3JhdG5pYmFkbm9obWQ="; // dmhondabintaro
@@ -7279,7 +7279,7 @@ Sapa pelanggan ramah: "${salutation} ${name}". Gunakan CARE framework, arahkan k
             document.querySelectorAll('.report-pane').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById(btn.dataset.pane).classList.add('active');
-            if (btn.dataset.pane === 'report-pane-copywriter') loadCopywriterDatabase();
+            if (btn.dataset.pane === 'report-pane-copywriter') loadCopywriterDatabase(true);
         }
 
         function renderBarChart(items, colorFn) {

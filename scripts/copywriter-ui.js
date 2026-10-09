@@ -101,6 +101,7 @@ async function loadCopywriterDatabase(force = false) {
     copywriterPage = 1;
     copywriterDB = CopywriterCore.empty(year);
     copywriterGSC = null;
+    copywriterGA4 = null;
     copywriterDirty = false;
     let cached = null;
     try { cached = copywriterValidate(JSON.parse(localStorage.getItem(copywriterKey(year))), year); } catch { /* No valid local cache. */ }
@@ -263,6 +264,7 @@ function initializeCopywriter() {
     document.getElementById('copywriter-year').value = today.slice(0, 4);
     document.getElementById('copywriter-month').innerHTML = '<option value="All">Semua Bulan</option>' + copywriterMonths.map((month, index) => `<option value="${index + 1}">${month}</option>`).join('');
     document.getElementById('copywriter-month').value = String(Number(today.slice(5, 7)));
+    loadCopywriterDatabase(true);
 }
 document.addEventListener('DOMContentLoaded', initializeCopywriter);
 
