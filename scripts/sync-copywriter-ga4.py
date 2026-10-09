@@ -59,10 +59,9 @@ def main():
     if database['year'] != year or database['authorId'] != 8:
         raise ValueError('Invalid Siska article database')
     paths = sorted({variant for article in database['articles'] for variant in [urlsplit(article['link']).path, urlsplit(article['link']).path.rstrip('/'), urlsplit(article['link']).path.rstrip('/') + '/']})
-    if not paths:
-        raise ValueError('No article paths to query')
     # Discover property timezone from report metadata. Re-query dates using that timezone.
-    _, meta = report(session, property_id, f'{year}-01-01', f'{year}-01-01', paths, [])
+    discovery_date = (dt.datetime.now(ZoneInfo('Asia/Jakarta')).date() - dt.timedelta(days=3)).isoformat()
+    _, meta = report(session, property_id, discovery_date, discovery_date, paths or ['/'], [])
     timezone = meta.get('timeZone')
     if not timezone:
         raise RuntimeError('GA4 did not return its reporting timezone.')
@@ -73,8 +72,8 @@ def main():
     months = []
     for month, start, end in periods:
         # Separate queries keep user counts deduplicated across paths and months.
-        rows, metadata = report(session, property_id, start, end, paths, ['pagePath'])
-        totals, _ = report(session, property_id, start, end, paths, [])
+        rows, metadata = report(session, property_id, start, end, paths, ['pagePath']) if paths else ([], meta)
+        totals, _ = report(session, property_id, start, end, paths, []) if paths else ([], meta)
         by_path = {row['dimensionValues'][0]['value']: metric(row) for row in rows}
         articles = []
         for article in database['articles']:

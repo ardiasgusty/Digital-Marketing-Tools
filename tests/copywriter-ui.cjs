@@ -84,6 +84,23 @@ async function run() {
     assert(element('copywriter-content').innerHTML.includes('45 detik'));
     assert.equal(context.copywriterAnalytics('All').total.activeUsers, 8);
     assert.equal(context.copywriterAnalytics('9'), null);
+    const analytics = context.copywriterAnalytics('10');
+    const selected = context.copywriterTrafficSelection('ga4', analytics);
+    assert.equal(selected.articles.length, 10);
+    assert.equal(selected.articles[0].wordpressId, older.wordpressId);
+    vm.runInContext('copywriterTables.ga4.page=2', context);
+    assert.equal(context.copywriterTrafficSelection('ga4',analytics).articles.length,10);
+    vm.runInContext("copywriterTables.ga4.query='no-matching-title-xyz'; copywriterTables.ga4.page=5",context);
+    const empty=context.copywriterTrafficSelection('ga4',analytics);
+    assert.equal(empty.count,0);
+    assert.equal(empty.pages,1);
+    assert(context.renderCopywriterTrafficTable('ga4',analytics).includes('Tidak ada artikel yang cocok'));
+    context.fetch = async (url,options) => { calls.push({url,options}); return {ok:true,status:204}; };
+    element('copywriter-year').value='2027';
+    await context.syncCopywriterAll();
+    const dispatch=calls.find(call=>call.url.includes('/dispatches'));
+    assert.equal(JSON.parse(dispatch.options.body).inputs.year,'2027');
+    assert(element('copywriter-status').textContent.includes('tahun 2027'));
     console.log('PASS: live-data rendering, links/calendar, holiday validation, JSON save with SHA, failure preserves existing data.');
 }
 run().catch(error => { console.error(error); process.exitCode = 1; });

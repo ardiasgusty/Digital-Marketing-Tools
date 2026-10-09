@@ -47,3 +47,11 @@ Run checks with `node tests/copywriter.cjs` and `node tests/copywriter-ui.cjs`.
 - Offline importer tests: `python3 tests/copywriter-gsc.py`.
 
 GA4: set repository variable `GA4_PROPERTY_ID` to numeric Property ID, enable Google Analytics Data API and grant the existing service account Viewer access inside GA4. Uses existing `GSC_SERVICE_ACCOUNT_JSON` secret. Writes separate annual `kpi-copywriter-siska-ga4-YEAR.json`. Reads article paths only on Honda hosts, excluding query parameters. Reports monthly and annual periods separately to preserve deduplicated active users, and average engagement = engagement seconds / active users. Yesterday is the latest date in the property's timezone, not a guarantee of finalized processing. Missing rows remain null. Does not change production points.
+
+
+## Year selection and manual sync
+
+Scheduled runs choose current WIB year once for all importers. At year rollover, new yearly article/GSC/GA4 files are created while previous years remain archived. Holidays must be configured for the new year. Empty-year GA4 reports remain valid with unavailable metrics.
+Manual workflow dispatch accepts optional `year` (2000–2100); blank uses current year. The UI `Sinkronkan Semua` passes the selected year through the existing GitHub token (Actions write permission required). This requests a server-side workflow, not a synchronous browser import. Follow `Status Sinkronisasi`, then `Muat Database` after completion. No Google credentials go to the browser. Scheduled sync updates only the current year; refresh previous years using manual dispatch subject to Google data availability.
+Each successful sync re-queries all elapsed months and replaces metric snapshots, never adds a fresh snapshot to old totals. GA4 includes through yesterday in property timezone; GSC through latest finalized date. Traffic covers saved Siska articles published in selected year, not prior-year articles or all website pages.
+GA4/GSC detail tables remain collapsible, show 10 rows per page with title search and independent page/open state, sorted by views/impressions. Summary totals remain for the full selected traffic period regardless of table search or page.

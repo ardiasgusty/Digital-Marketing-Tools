@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '17 * * * *'
   workflow_dispatch:
+    inputs:
+      year:
+        description: 'Tahun yang disinkronkan (kosong = tahun berjalan WIB)'
+        required: false
+        type: string
 permissions:
   contents: write
 concurrency:
@@ -13,6 +18,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Choose sync year
+        env:
+          REQUESTED_YEAR: ${{ inputs.year }}
+        run: |
+          python - <<'PYCODE'
+          import datetime, os, re
+          from zoneinfo import ZoneInfo
+          year = os.environ.get('REQUESTED_YEAR') or str(datetime.datetime.now(ZoneInfo('Asia/Jakarta')).year)
+          if not re.fullmatch(r'20[0-9]{2}|2100', year):
+              raise SystemExit('Year must be between 2000 and 2100')
+          with open(os.environ['GITHUB_ENV'], 'a') as target:
+              target.write(f'COPYWRITER_YEAR={year}\n')
+          PYCODE
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
