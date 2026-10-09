@@ -16,5 +16,14 @@
   "pathBanner": "honda/data/bannerhondabintaro.json",
   "pathBannerImg": "honda/assets/images/banner",
   "pathElearning": "honda/data/elearning.json",
-  "pathElearningImg": "honda/assets/elearning"
+  "pathElearningImg": "honda/assets/elearning",
+  "creatorTargets": {
+    "wafie": {
+      "reels": 12,
+      "youtube": 2
+    },
+    "rizky": {
+      "total": 35
+    }
+  }
 }

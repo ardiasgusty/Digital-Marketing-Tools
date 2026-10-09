@@ -3813,7 +3813,7 @@
                 <button class="btn-sm bg-gray" onclick="resetCreatorTargetsDefault()">↺ Reset Default</button>
                 <div style="display: flex; gap: 8px;">
                     <button class="btn-sm bg-dark" onclick="closeCreatorTargetModal()">Batal</button>
-                    <button class="btn-sm bg-green" onclick="saveCreatorTargetsFromModal()">💾 Simpan Target</button>
+                    <button id="creator-target-save" class="btn-sm bg-green" onclick="saveCreatorTargetsFromModal()">💾 Simpan Target</button>
                 </div>
             </div>
         </div>
@@ -4392,9 +4392,10 @@
         // ================= GLOBAL SYSTEM CONFIG MANAGEMENT =================
         async function loadSystemConfig() {
             try {
-                const res = await fetch('json/system-config.json?v=' + Date.now());
+                const res = await fetch('json/system-config.json?v=' + Date.now(), { cache: 'no-store' });
                 if (!res.ok) return;
                 const config = await res.json();
+                if (config.creatorTargets) localStorage.setItem('honda_creator_targets', JSON.stringify(config.creatorTargets));
 
                 let currentGH = {};
                 try {
@@ -4530,6 +4531,12 @@
                 if (getRes.ok) {
                     const fileData = await getRes.json();
                     sha = fileData.sha;
+                    const latest = JSON.parse(decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, '')))));
+                    Object.assign(systemConfigData, { ...latest, ...systemConfigData, creatorTargets: latest.creatorTargets || getCreatorTargets() });
+                } else if (getRes.status === 404) {
+                    systemConfigData.creatorTargets = getCreatorTargets();
+                } else {
+                    throw new Error(`Gagal membaca pengaturan terbaru (HTTP ${getRes.status}). Penyimpanan dibatalkan.`);
                 }
 
                 const contentStr = JSON.stringify(systemConfigData, null, 2);
@@ -6092,7 +6099,25 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
             };
         }
 
-        function saveCreatorTargets(targets) {
+        async function saveCreatorTargets(targets) {
+            const config = getGHConfig();
+            if (!config.token || !config.user || !config.repo) throw new Error('Konfigurasi GitHub dan token belum tersedia.');
+            const url = `https://api.github.com/repos/${encodeURIComponent(config.user)}/${encodeURIComponent(config.repo)}/contents/json/system-config.json`;
+            const headers = { Authorization: `token ${config.token}` };
+            // Merge into the latest revision to preserve all other system settings.
+            const response = await fetch(url, { headers, cache: 'no-store' });
+            if (!response.ok) throw new Error(`Gagal membaca pengaturan GitHub (HTTP ${response.status}). Target belum disimpan.`);
+            const file = await response.json();
+            const latest = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\s/g, '')))));
+            latest.creatorTargets = targets;
+            const saved = await fetch(url, {
+                method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: 'Update target bulanan kreator', sha: file.sha,
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(latest, null, 2) + '\n'))) })
+            });
+            if (!saved.ok) throw new Error(saved.status === 409 || saved.status === 422
+                ? 'Pengaturan berubah saat disimpan. Klik Simpan Target lagi.'
+                : `GitHub menolak penyimpanan (HTTP ${saved.status}). Target belum disimpan.`);
             localStorage.setItem('honda_creator_targets', JSON.stringify(targets));
         }
 
@@ -6113,7 +6138,7 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
             if (modal) modal.style.display = 'none';
         }
 
-        function saveCreatorTargetsFromModal() {
+        async function saveCreatorTargetsFromModal() {
             const wReels = Number(document.getElementById('target-input-wafie-reels').value);
             const wYt = Number(document.getElementById('target-input-wafie-youtube').value);
             const rTotal = Number(document.getElementById('target-input-rizky-total').value);
@@ -6121,15 +6146,26 @@ Buat analisa tajam berdasarkan status di atas. Jika ER off track tapi ERR on tra
                 alert('Target harus bilangan bulat: Reels dan Desain minimal 1, YouTube minimal 0.');
                 return;
             }
-            saveCreatorTargets({
-                wafie: { reels: wReels, youtube: wYt },
-                rizky: { total: rTotal }
-            });
-            closeCreatorTargetModal();
-            renderReportKreator();
-            renderReportWeekly();
-            renderReportMonthly();
-            alert("✅ Target bulanan kreator berhasil diperbarui dan disimpan!");
+            const button = document.getElementById('creator-target-save');
+            if (button.disabled) return;
+            button.disabled = true;
+            button.textContent = 'Menyimpan ke GitHub…';
+            try {
+                await saveCreatorTargets({
+                    wafie: { reels: wReels, youtube: wYt },
+                    rizky: { total: rTotal }
+                });
+                closeCreatorTargetModal();
+                renderReportKreator();
+                renderReportWeekly();
+                renderReportMonthly();
+                alert('✅ Target tersimpan di json/system-config.json dan berlaku untuk semua perangkat setelah memuat ulang website.');
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                button.disabled = false;
+                button.textContent = '💾 Simpan Target';
+            }
         }
 
         function resetCreatorTargetsDefault() {
