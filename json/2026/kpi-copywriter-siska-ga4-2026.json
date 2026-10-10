@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-10T18:36:41.122580+00:00",
+  "lastSyncedAt": "2026-10-10T22:32:39.397173+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -6075,8 +6075,8 @@
           "metrics": {
             "views": 1.0,
             "activeUsers": 1.0,
-            "engagementSeconds": 7.0,
-            "averageEngagementSeconds": 7.0
+            "engagementSeconds": 14.0,
+            "averageEngagementSeconds": 14.0
           }
         },
         {
@@ -6222,8 +6222,8 @@
       "total": {
         "views": 107.0,
         "activeUsers": 92.0,
-        "engagementSeconds": 483.0,
-        "averageEngagementSeconds": 5.25
+        "engagementSeconds": 490.0,
+        "averageEngagementSeconds": 5.326086956521739
       },
       "metadata": {
         "currencyCode": "IDR",
@@ -6906,8 +6906,8 @@
           "metrics": {
             "views": 28.0,
             "activeUsers": 26.0,
-            "engagementSeconds": 863.0,
-            "averageEngagementSeconds": 33.19230769230769
+            "engagementSeconds": 870.0,
+            "averageEngagementSeconds": 33.46153846153846
           }
         },
         {
@@ -7148,8 +7148,8 @@
       "total": {
         "views": 3455.0,
         "activeUsers": 2569.0,
-        "engagementSeconds": 51234.0,
-        "averageEngagementSeconds": 19.94316854807318
+        "engagementSeconds": 51241.0,
+        "averageEngagementSeconds": 19.945893343713507
       },
       "metadata": {
         "currencyCode": "IDR",
