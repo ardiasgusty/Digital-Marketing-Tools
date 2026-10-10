@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-09T06:32:45.727Z",
+  "lastSyncedAt": "2026-10-10T07:06:02.226Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13860,
+      "authorId": 8,
+      "title": "3 Kesalahan Sepele yang Bikin Aki Mobil Cepat Tekor",
+      "link": "https://www.honda-bintaro.com/3-kesalahan-sepele-yang-bikin-aki-mobil-cepat-tekor/",
+      "publishedAt": "2026-10-10T09:03:14",
+      "modifiedAt": "2026-10-10T09:03:14",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/3-Kesalahan-Sepele-yang-Bikin-Aki-Mobil-Cepat-Tekor-240x300.webp"
+    },
     {
       "wordpressId": 13856,
       "authorId": 8,

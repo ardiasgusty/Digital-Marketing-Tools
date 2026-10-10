@@ -3,13 +3,17 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-10T00:50:59.521107+00:00",
+  "lastSyncedAt": "2026-10-10T07:07:05.692597+00:00",
   "months": [
     {
       "month": "2026-01",
       "startDate": "2026-01-01",
       "endDate": "2026-01-31",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -487,6 +491,10 @@
       "startDate": "2026-02-01",
       "endDate": "2026-02-28",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -1015,6 +1023,10 @@
       "endDate": "2026-03-31",
       "articles": [
         {
+          "wordpressId": 13860,
+          "metrics": null
+        },
+        {
           "wordpressId": 13856,
           "metrics": null
         },
@@ -1536,6 +1548,10 @@
       "startDate": "2026-04-01",
       "endDate": "2026-04-30",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -2088,6 +2104,10 @@
       "startDate": "2026-05-01",
       "endDate": "2026-05-31",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -2725,6 +2745,10 @@
       "startDate": "2026-06-01",
       "endDate": "2026-06-30",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -3402,6 +3426,10 @@
       "startDate": "2026-07-01",
       "endDate": "2026-07-31",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -4094,6 +4122,10 @@
       "startDate": "2026-08-01",
       "endDate": "2026-08-31",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -4801,6 +4833,10 @@
       "startDate": "2026-09-01",
       "endDate": "2026-09-30",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": null
@@ -5554,6 +5590,10 @@
       "endDate": "2026-10-09",
       "articles": [
         {
+          "wordpressId": 13860,
+          "metrics": null
+        },
+        {
           "wordpressId": 13856,
           "metrics": {
             "views": 3.0,
@@ -6185,6 +6225,10 @@
       "startDate": "2026-01-01",
       "endDate": "2026-10-09",
       "articles": [
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
         {
           "wordpressId": 13856,
           "metrics": {
