@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-10T07:07:05.692597+00:00",
+  "lastSyncedAt": "2026-10-10T13:42:01.670661+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -5605,7 +5605,7 @@
         {
           "wordpressId": 13851,
           "metrics": {
-            "views": 2.0,
+            "views": 3.0,
             "activeUsers": 2.0,
             "engagementSeconds": 13.0,
             "averageEngagementSeconds": 6.5
@@ -5681,7 +5681,7 @@
         {
           "wordpressId": 13796,
           "metrics": {
-            "views": 3.0,
+            "views": 2.0,
             "activeUsers": 2.0,
             "engagementSeconds": 0.0,
             "averageEngagementSeconds": 0.0
@@ -5766,8 +5766,8 @@
         {
           "wordpressId": 13693,
           "metrics": {
-            "views": 1.0,
-            "activeUsers": 1.0,
+            "views": 2.0,
+            "activeUsers": 2.0,
             "engagementSeconds": 0.0,
             "averageEngagementSeconds": 0.0
           }
@@ -6176,10 +6176,10 @@
         {
           "wordpressId": 13173,
           "metrics": {
-            "views": 4.0,
+            "views": 3.0,
             "activeUsers": 3.0,
-            "engagementSeconds": 0.0,
-            "averageEngagementSeconds": 0.0
+            "engagementSeconds": 12.0,
+            "averageEngagementSeconds": 4.0
           }
         },
         {
@@ -6189,10 +6189,10 @@
         {
           "wordpressId": 13167,
           "metrics": {
-            "views": 5.0,
-            "activeUsers": 4.0,
+            "views": 6.0,
+            "activeUsers": 5.0,
             "engagementSeconds": 40.0,
-            "averageEngagementSeconds": 10.0
+            "averageEngagementSeconds": 8.0
           }
         },
         {
@@ -6210,10 +6210,10 @@
         }
       ],
       "total": {
-        "views": 99.0,
-        "activeUsers": 83.0,
-        "engagementSeconds": 428.0,
-        "averageEngagementSeconds": 5.156626506024097
+        "views": 100.0,
+        "activeUsers": 85.0,
+        "engagementSeconds": 440.0,
+        "averageEngagementSeconds": 5.176470588235294
       },
       "metadata": {
         "currencyCode": "IDR",
@@ -6241,7 +6241,7 @@
         {
           "wordpressId": 13851,
           "metrics": {
-            "views": 2.0,
+            "views": 3.0,
             "activeUsers": 2.0,
             "engagementSeconds": 13.0,
             "averageEngagementSeconds": 6.5
@@ -6322,7 +6322,7 @@
         {
           "wordpressId": 13796,
           "metrics": {
-            "views": 8.0,
+            "views": 7.0,
             "activeUsers": 5.0,
             "engagementSeconds": 19.0,
             "averageEngagementSeconds": 3.8
@@ -6457,8 +6457,8 @@
         {
           "wordpressId": 13693,
           "metrics": {
-            "views": 20.0,
-            "activeUsers": 18.0,
+            "views": 21.0,
+            "activeUsers": 19.0,
             "engagementSeconds": 0.0,
             "averageEngagementSeconds": 0.0
           }
@@ -7087,10 +7087,10 @@
         {
           "wordpressId": 13173,
           "metrics": {
-            "views": 148.0,
+            "views": 147.0,
             "activeUsers": 125.0,
-            "engagementSeconds": 3177.0,
-            "averageEngagementSeconds": 25.416
+            "engagementSeconds": 3189.0,
+            "averageEngagementSeconds": 25.512
           }
         },
         {
@@ -7105,10 +7105,10 @@
         {
           "wordpressId": 13167,
           "metrics": {
-            "views": 249.0,
-            "activeUsers": 219.0,
+            "views": 250.0,
+            "activeUsers": 220.0,
             "engagementSeconds": 2553.0,
-            "averageEngagementSeconds": 11.657534246575343
+            "averageEngagementSeconds": 11.604545454545455
           }
         },
         {
@@ -7131,10 +7131,10 @@
         }
       ],
       "total": {
-        "views": 3447.0,
-        "activeUsers": 2560.0,
-        "engagementSeconds": 51179.0,
-        "averageEngagementSeconds": 19.991796875
+        "views": 3448.0,
+        "activeUsers": 2562.0,
+        "engagementSeconds": 51191.0,
+        "averageEngagementSeconds": 19.98087431693989
       },
       "metadata": {
         "currencyCode": "IDR",
