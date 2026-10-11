@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-10T22:32:39.397173+00:00",
+  "lastSyncedAt": "2026-10-11T08:51:35.827279+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -5809,8 +5809,8 @@
           "metrics": {
             "views": 3.0,
             "activeUsers": 3.0,
-            "engagementSeconds": 0.0,
-            "averageEngagementSeconds": 0.0
+            "engagementSeconds": 7.0,
+            "averageEngagementSeconds": 2.3333333333333335
           }
         },
         {
@@ -6075,8 +6075,8 @@
           "metrics": {
             "views": 1.0,
             "activeUsers": 1.0,
-            "engagementSeconds": 14.0,
-            "averageEngagementSeconds": 14.0
+            "engagementSeconds": 7.0,
+            "averageEngagementSeconds": 7.0
           }
         },
         {
@@ -6199,7 +6199,7 @@
         {
           "wordpressId": 13167,
           "metrics": {
-            "views": 6.0,
+            "views": 7.0,
             "activeUsers": 6.0,
             "engagementSeconds": 58.0,
             "averageEngagementSeconds": 9.666666666666666
@@ -6220,7 +6220,7 @@
         }
       ],
       "total": {
-        "views": 107.0,
+        "views": 108.0,
         "activeUsers": 92.0,
         "engagementSeconds": 490.0,
         "averageEngagementSeconds": 5.326086956521739
@@ -6510,8 +6510,8 @@
           "metrics": {
             "views": 790.0,
             "activeUsers": 687.0,
-            "engagementSeconds": 8942.0,
-            "averageEngagementSeconds": 13.016011644832606
+            "engagementSeconds": 8949.0,
+            "averageEngagementSeconds": 13.026200873362445
           }
         },
         {
@@ -6906,8 +6906,8 @@
           "metrics": {
             "views": 28.0,
             "activeUsers": 26.0,
-            "engagementSeconds": 870.0,
-            "averageEngagementSeconds": 33.46153846153846
+            "engagementSeconds": 863.0,
+            "averageEngagementSeconds": 33.19230769230769
           }
         },
         {
@@ -7120,7 +7120,7 @@
         {
           "wordpressId": 13167,
           "metrics": {
-            "views": 250.0,
+            "views": 251.0,
             "activeUsers": 221.0,
             "engagementSeconds": 2571.0,
             "averageEngagementSeconds": 11.633484162895927
@@ -7146,7 +7146,7 @@
         }
       ],
       "total": {
-        "views": 3455.0,
+        "views": 3456.0,
         "activeUsers": 2569.0,
         "engagementSeconds": 51241.0,
         "averageEngagementSeconds": 19.945893343713507
