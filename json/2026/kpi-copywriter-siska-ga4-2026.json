@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-11T20:17:26.861704+00:00",
+  "lastSyncedAt": "2026-10-12T05:56:59.639693+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -5828,7 +5828,12 @@
         },
         {
           "wordpressId": 13664,
-          "metrics": null
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
         },
         {
           "wordpressId": 13658,
@@ -6209,7 +6214,7 @@
         {
           "wordpressId": 13167,
           "metrics": {
-            "views": 7.0,
+            "views": 8.0,
             "activeUsers": 7.0,
             "engagementSeconds": 72.0,
             "averageEngagementSeconds": 10.285714285714286
@@ -6230,10 +6235,10 @@
         }
       ],
       "total": {
-        "views": 121.0,
-        "activeUsers": 104.0,
+        "views": 123.0,
+        "activeUsers": 105.0,
         "engagementSeconds": 570.0,
-        "averageEngagementSeconds": 5.480769230769231
+        "averageEngagementSeconds": 5.428571428571429
       },
       "metadata": {
         "currencyCode": "IDR",
@@ -6545,10 +6550,10 @@
         {
           "wordpressId": 13664,
           "metrics": {
-            "views": 38.0,
-            "activeUsers": 32.0,
+            "views": 39.0,
+            "activeUsers": 33.0,
             "engagementSeconds": 290.0,
-            "averageEngagementSeconds": 9.0625
+            "averageEngagementSeconds": 8.787878787878787
           }
         },
         {
@@ -7130,7 +7135,7 @@
         {
           "wordpressId": 13167,
           "metrics": {
-            "views": 251.0,
+            "views": 252.0,
             "activeUsers": 222.0,
             "engagementSeconds": 2585.0,
             "averageEngagementSeconds": 11.644144144144144
@@ -7156,10 +7161,10 @@
         }
       ],
       "total": {
-        "views": 3469.0,
-        "activeUsers": 2581.0,
+        "views": 3471.0,
+        "activeUsers": 2582.0,
         "engagementSeconds": 51321.0,
-        "averageEngagementSeconds": 19.884153428903527
+        "averageEngagementSeconds": 19.87645236250968
       },
       "metadata": {
         "currencyCode": "IDR",
