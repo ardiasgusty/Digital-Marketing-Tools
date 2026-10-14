@@ -1610,8 +1610,55 @@
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
         }
+
+        .activity-config { margin-bottom:20px; }
+        .activity-config-body { padding:20px; }
+        .activity-card { padding:24px; border:1px solid var(--border); border-radius:14px; background:var(--card-bg); margin-bottom:24px; }
+        .activity-card-heading { margin-bottom:22px; }
+        .activity-card-heading h3 { margin:0 0 8px; font-size:18px; }
+        .activity-card-heading p, .activity-help, .activity-config small { font-size:13px; color:var(--text-muted); line-height:1.6; }
+        .activity-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+        .activity-wide { grid-column:1 / -1; }
+        .activity-grid .form-group, .activity-filters .form-group { min-width:0; }
+        #siska-activity-section .form-control { margin-bottom:0; box-sizing:border-box; min-height:44px; }
+        #siska-activity-section textarea { min-height:96px; resize:vertical; }
+        #siska-activity-section .input-group { display:flex; gap:8px; flex-wrap:wrap; }
+        #siska-activity-section .input-group input { flex:1; min-width:140px; }
+        .activity-actions { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:22px; }
+        .activity-actions button { min-height:42px; padding:10px 16px; }
+        .activity-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+        #activity-message { font-size:13px; line-height:1.6; color:var(--text-muted); margin:0 0 20px; }
+        @media(max-width:640px) {
+            .activity-grid, .activity-filters { grid-template-columns:1fr; }
+            .activity-card, .activity-config-body { padding:16px; }
+            .activity-actions button { width:100%; }
+        }
+
+     .activity-editor-toolbar { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px; }
+        .activity-editor { min-height:160px;line-height:1.7;overflow-wrap:anywhere; }
+        .activity-editor:empty:before { content:"Tulis keterangan pekerjaan di sini…";color:var(--text-muted);pointer-events:none; }
+        .activity-detail-modal { width:min(1100px,94vw);max-height:85vh;overflow:auto;padding:24px;border:1px solid var(--border);border-radius:14px;background:var(--card-bg);color:var(--text-main); }
+        .activity-detail-modal::backdrop { background:rgba(0,0,0,.5); }
+        #activity-detail-description { line-height:1.7;overflow-wrap:anywhere;font-size:14px; }
+        #activity-detail-description * { font-family:inherit; }
+        #activity-detail-description p { margin:0 0 1em; }
+        #activity-detail-description strong, #activity-detail-description b { font-weight:700; }
+        #activity-detail-description em, #activity-detail-description i { font-style:italic; }
+        #activity-detail-description u { text-decoration:underline; }
+        #activity-detail-description s { text-decoration:line-through; }
+        #activity-detail-description ul, #activity-detail-description ol { padding-left:2em;margin:1em 0; }
+        #activity-detail-description ul { list-style-type:disc; }
+        #activity-detail-description ol { list-style-type:decimal; }
+        #activity-detail-description blockquote { margin:1em 0;padding:8px 16px;border-left:4px solid var(--border);font-style:italic; }
+        #activity-detail-description pre { white-space:pre-wrap;background:var(--bg-secondary);padding:12px;border-radius:6px; }
+        #activity-detail-description pre, #activity-detail-description code { font-family:monospace; }
+        #activity-detail-description table { border-collapse:collapse;max-width:100%;display:block;overflow-x:auto;margin:1em 0; }
+        #activity-detail-description th, #activity-detail-description td { border:1px solid var(--border);padding:8px; }
+        #activity-detail-description a { color:var(--info);text-decoration:underline; }
+        #activity-detail-description hr { border:0;border-top:1px solid var(--border);margin:1em 0; }
     </style>
-    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script>if (window.CKEDITOR) CKEDITOR.config.versionCheck = false;</script>
 </head>
 
 <body>
@@ -1725,6 +1772,7 @@
                         <h3>Publish Log (Draf Tayang)</h3>
                         <p>Input link & metadata begitu konten publish (Auto Kreator <b>Wafie</b> / <b>Rizky</b>).</p>
                     </div>
+                    <div class="tool-card" onclick="openTool('siska-activity')"><div class="tool-icon" style="background:#e8f4fd;">📝</div><h3>Log Aktivitas Siska</h3><p>Catat script, caption, Report MKT, Voice Over, dan pekerjaan harian.</p></div>
                     <div class="tool-card" onclick="openTool('monitor')">
                         <div class="tool-icon" style="background: #ffeaa7; color: #d63031;">👀</div>
                         <h3>Content Performance Monitor</h3>
@@ -2278,7 +2326,43 @@
                 </div>
             </div>
 
-            <!-- ================= NEW PUBLISH LOG SECTION ================= -->
+<div id="siska-activity-section" class="tool-section">
+<div class="section-header"><h2>📝 Log Aktivitas Siska</h2><p>Catat hasil pekerjaan harian dan perbarui status pekerjaan yang masih berjalan.</p></div>
+<details class="config-accordion activity-config">
+<summary>🔗 Pengaturan Target &amp; GitHub Sync (Log Aktivitas Siska)</summary>
+<div class="activity-config-body">
+<div class="activity-grid">
+<div class="form-group"><label for="activity-year">Tahun database</label><input id="activity-year" type="number" min="2000" max="2100" class="form-control" onchange="SiskaActivity.load()"></div>
+<div class="form-group"><label for="gh-repo-activity">Repository</label><div class="input-group"><input id="gh-repo-activity" class="form-control gh-sync-repo" value="Digital-Marketing-Tools" onchange="syncGHFields(this.value, 'repo')"><button type="button" class="btn-sm bg-gray" onclick="openGHModal('repo', 'gh-repo-activity')">📂 Browse Repo</button></div></div>
+<div class="form-group activity-wide"><label for="gh-path-activity">File Path JSON Log Aktivitas (.json)</label><div class="input-group"><input id="gh-path-activity" class="form-control" placeholder="Contoh: json/2026/activity-log-siska-2026.json" onchange="SiskaActivity.setPath(this.value)"><button type="button" class="btn-sm bg-gray" onclick="openGHModal('file', 'gh-path-activity')">📂 Browse File</button></div></div>
+</div>
+
+</div></details>
+
+<form id="activity-form" class="activity-card">
+<div class="activity-card-heading"><h3 id="activity-form-title">Tambah aktivitas</h3><p>Isi satu catatan untuk setiap pekerjaan. Gunakan Edit untuk memperbarui pekerjaan yang sama.</p></div>
+<div class="activity-grid">
+<div class="form-group"><label for="activity-date">Tanggal aktivitas</label><input id="activity-date" type="date" class="form-control" required></div>
+<div class="form-group"><label for="activity-type">Jenis pekerjaan</label><select id="activity-type" class="form-control" required></select></div>
+<div class="form-group activity-wide"><label for="activity-title">Judul / hasil pekerjaan</label><input id="activity-title" class="form-control" maxlength="500" placeholder="Contoh: 2 script Reels promo Honda selesai" required></div>
+
+
+<div class="form-group activity-wide"><label id="activity-description-label">Keterangan</label><textarea id="activity-description" class="form-control" aria-labelledby="activity-description-label"></textarea></div>
+</div><div class="activity-actions"><button type="submit" class="btn-sm bg-blue">Simpan Aktivitas Lokal</button> <button type="button" class="btn-sm bg-dark" onclick="SiskaActivity.reset()">Batal / Reset</button></div>
+</form>
+<h4 style="margin-top:40px;border-bottom:1px solid var(--border);padding-bottom:10px;">Riwayat Aktivitas Siska</h4>
+<div class="filter-bar"><strong>Filter:</strong><input id="activity-search" class="form-control" style="width:200px;margin:0;" placeholder="Cari pekerjaan..." oninput="SiskaActivity.render(true)">
+<select style="width:180px;margin:0;" id="activity-filter-month" class="form-control" onchange="SiskaActivity.render(true)"></select>
+<select style="width:180px;margin:0;" id="activity-filter-type" class="form-control" onchange="SiskaActivity.render(true)"></select>
+
+</div>
+<div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:10px;flex-wrap:wrap;"><button type="button" class="btn-sm bg-dark" onclick="SiskaActivity.load(true)">↓ Tarik Data JSON</button><button id="btn-sync-activity" type="button" class="btn-sm bg-green" onclick="SiskaActivity.sync()">↑ Simpan JSON Langsung</button></div>
+<p id="github-status-activity" role="status" style="text-align:right;"></p>
+<div id="activity-history"></div><div class="pagination-controls" id="pg-activity"><div>Tampilkan: <select class="form-control" style="width:auto;display:inline-block;padding:4px;" onchange="changeLimit('activity', this.value)"><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="99999">Semua</option></select></div><div id="pagination-nav-activity" class="pagination-nav"></div></div></div>
+
+<dialog id="activity-detail-modal" class="activity-detail-modal" aria-labelledby="activity-detail-title"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;"><h3 id="activity-detail-title" style="margin:0;">Detail Aktivitas</h3><button type="button" class="btn-sm bg-dark" onclick="document.getElementById('activity-detail-modal').close()" aria-label="Tutup detail">✕</button></div><p id="activity-detail-meta" style="color:var(--text-muted);"></p><h4>Keterangan</h4><div id="activity-detail-description"></div><div style="text-align:right;margin-top:24px;"><button type="button" class="btn-sm bg-dark" onclick="document.getElementById('activity-detail-modal').close()">Tutup</button></div></dialog>
+
+<!-- ================= NEW PUBLISH LOG SECTION ================= -->
             <div id="publish-log-section" class="tool-section">
                 <div class="section-header">
                     <h2>🚀 Input Konten Tayang (Publish Log)</h2>
@@ -2388,6 +2472,13 @@
 
                 <button id="btn-save-pub-draft" class="btn btn-accent" onclick="savePublishedDraft()">🚀 Simpan Draf Konten Tayang</button>
 
+                <div class="filter-bar"><strong>Filter:</strong>
+                    <select style="width:160px;margin:0;" id="publish-filter-year" class="form-control" onchange="tableState.publish.page=1;renderPublishedDrafts()"></select>
+                    <select style="width:160px;margin:0;" id="publish-filter-month" class="form-control" onchange="tableState.publish.page=1;renderPublishedDrafts()"></select>
+                    <select style="width:160px;margin:0;" id="publish-filter-creator" class="form-control" onchange="tableState.publish.page=1;renderPublishedDrafts()"><option value="">Semua Kreator</option><option>Wafie</option><option>Rizky</option><option>Siska</option></select>
+                    <select style="width:160px;margin:0;" id="publish-filter-platform" class="form-control" onchange="tableState.publish.page=1;renderPublishedDrafts()"><option value="">Semua Platform</option><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option></select>
+                    <select style="width:160px;margin:0;" id="publish-filter-status" class="form-control" onchange="tableState.publish.page=1;renderPublishedDrafts()"><option value="">Semua Status</option><option value="evaluated">Sudah Dievaluasi</option><option value="ready">Siap Dievaluasi</option><option value="waiting">Menunggu</option></select>
+                </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-top:30px; margin-bottom:10px; flex-wrap:wrap; gap:10px; border-bottom:1px solid var(--border); padding-bottom:10px;">
                     <h4 style="margin:0;">📋 Daftar Draf Konten Tayang (Menunggu Evaluasi Hari ke-7)</h4>
                     <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
@@ -2397,6 +2488,7 @@
                 </div>
                 <div id="github-status-publish" style="font-size:12px; margin-bottom:10px; text-align:right;"></div>
 
+                <p id="publish-filter-count" style="font-size:13px;color:var(--text-muted);"></p>
                 <div class="table-responsive">
                     <table class="data-table">
                         <thead>
@@ -2414,6 +2506,7 @@
                         </tbody>
                     </table>
                 </div>
+<div class="pagination-controls" id="pg-publish"><div>Tampilkan: <select class="form-control" style="width:auto;display:inline-block;padding:4px;" onchange="changeLimit('publish', this.value)"><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="99999">Semua</option></select></div><div id="pagination-nav-publish" class="pagination-nav"></div></div>
             </div>
 
             <div id="monitor-section" class="tool-section">
@@ -3154,7 +3247,7 @@
                         <textarea id="copywriter-holidays" class="form-control" rows="4" placeholder="YYYY-MM-DD"></textarea>
                         <button class="btn-sm bg-dark" onclick="saveCopywriterHolidays()">Terapkan Hari Libur</button>
                     </details>
-                    <div id="copywriter-content"></div>
+                    <div id="copywriter-content"></div><div id="activity-report"></div>
                 </div>
             </div>
 
@@ -3826,6 +3919,7 @@
     </button>
 
     <script src="scripts/copywriter-core.js?v=20261009-target"></script>
+    <script src="scripts/siska-activity.js?v=20261014-owner-access"></script>
     <script src="scripts/copywriter-ui.js?v=20261009-target"></script>
     <script>
         // ================= GLOBAL CONFIGS & DBs =================
@@ -3848,6 +3942,8 @@
         };
 
         let tableState = {
+            activity: { page: 1, limit: 10, isFirstLoad: true },
+            publish: { page: 1, limit: 10, isFirstLoad: true },
             content: { page: 1, limit: 10, isFirstLoad: true },
             conm: { page: 1, limit: 10, isFirstLoad: true },
             kpi: { page: 1, limit: 10, isFirstLoad: true },
@@ -3888,7 +3984,8 @@
             let btnId = "";
             let statusId = "";
 
-            if (type === 'todo') { btnId = 'btn-sync-todo'; statusId = 'github-status-todo'; }
+            if (type === 'activity') { btnId = 'btn-sync-activity'; statusId = 'github-status-activity'; }
+            else if (type === 'todo') { btnId = 'btn-sync-todo'; statusId = 'github-status-todo'; }
             else if (type === 'publish') { btnId = 'btn-sync-publish'; statusId = 'github-status-publish'; }
             else if (type === 'links') { btnId = 'btn-sync-links'; statusId = 'github-status-links'; }
             else if (type === 'content') { btnId = 'btn-sync-content'; statusId = 'github-status-content-table'; }
@@ -4096,6 +4193,8 @@
             renderTableRouter(type);
         }
         function renderTableRouter(type) {
+            if (type === 'activity') SiskaActivity.render();
+            if (type === 'publish') renderPublishedDrafts();
             if (type === 'content') renderContentDatabase();
             if (type === 'conm') renderContentMonthlyDatabase();
             if (type === 'kpi') renderKPIDatabase();
@@ -4158,7 +4257,7 @@
             'superadmin': { password: 'dmhondabintaro', displayName: 'Superadmin', role: 'superadmin', kreatorName: 'Superadmin' },
             'wafie': { password: 'ninabobo', displayName: 'Wafie (Video Specialist)', role: 'kreator', kreatorName: 'Wafie' },
             'rizky': { password: '17april', displayName: 'Rizky (Design Specialist)', role: 'kreator', kreatorName: 'Rizky' },
-            'siska': { password: 'hondabintaro', displayName: 'Siska (Article Specialist)', role: 'evaluator', kreatorName: 'Siska' }
+            'siska': { password: 'enc::JTNCJTJCJTJDJTJGJTdEISUyMDI=', displayName: 'Siska (Article Specialist)', role: 'evaluator', kreatorName: 'Siska' }
         };
 
         function verifyPassword() {
@@ -4176,13 +4275,13 @@
             let authenticatedKey = null;
 
             // 1. Check selected user in dropdown
-            if (selectVal && USER_CREDENTIALS[selectVal] && USER_CREDENTIALS[selectVal].password === passInput) {
+            if (selectVal && USER_CREDENTIALS[selectVal] && decryptSecret(USER_CREDENTIALS[selectVal].password) === passInput) {
                 authenticatedUser = USER_CREDENTIALS[selectVal];
                 authenticatedKey = selectVal;
             } else {
                 // 2. Fallback check: match password against all registered users
                 for (const [key, userObj] of Object.entries(USER_CREDENTIALS)) {
-                    if (userObj.password === passInput) {
+                    if (decryptSecret(userObj.password) === passInput) {
                         authenticatedUser = userObj;
                         authenticatedKey = key;
                         break;
@@ -4237,15 +4336,15 @@
             }
         }
 
-        function canUserDeleteDraft(draft) {
-            const currentUser = (sessionStorage.getItem('auth_user') || '').toLowerCase();
-            if (currentUser === 'superadmin') return true;
-            if (!draft || !draft.kreator) return false;
-            const draftKreator = draft.kreator.toLowerCase();
-            if (currentUser === draftKreator) return true;
-            if (draft.createdBy && currentUser === draft.createdBy.toLowerCase()) return true;
-            return false;
+        function isSuperadmin() {
+            return (sessionStorage.getItem('auth_user') || '').toLowerCase() === 'superadmin';
         }
+        function canManageOwnedRecord(row) {
+            if (isSuperadmin()) return true;
+            const user = (sessionStorage.getItem('auth_user') || '').toLowerCase();
+            return Boolean(user && row && typeof row.createdBy === 'string' && user === row.createdBy.toLowerCase());
+        }
+        function canUserDeleteDraft(draft) { return canManageOwnedRecord(draft); }
 
         function syncApiKey(val) {
             const plainKey = val.trim();
@@ -4714,6 +4813,7 @@
             } else {
                 document.getElementById(toolId + '-section').style.display = 'block';
                 if (toolId === 'report') { renderReportWeekly(); renderReportMonthly(); renderReportChannel(); renderReportTrend(); renderReportKreator(); }
+                if (toolId === 'siska-activity') { SiskaActivity.load(); }
                 if (toolId === 'publish-log') { renderPublishedDrafts(); setDefaultPublishDate(); }
                 if (toolId === 'monitor') { populateDraftSelectDropdown(); }
             }
@@ -4802,7 +4902,7 @@
             let currentId = '';
             activeSections.forEach(sec => { if (sec.style.display === 'block') currentId = sec.id; });
 
-            if (['publish-log-section', 'monitor-section', 'monitor-monthly-section', 'kpi-channel-section', 'report-section', 'distribution-section'].includes(currentId)) {
+            if (['siska-activity-section', 'publish-log-section', 'monitor-section', 'monitor-monthly-section', 'kpi-channel-section', 'report-section', 'distribution-section'].includes(currentId)) {
                 openTool('analytics-hub');
             } else if (['blogger-editor-section', 'pricelist-editor-section', 'byd-editor-section', 'banner-editor-section', 'elearning-editor-section'].includes(currentId)) {
                 openTool('jsoneditor');
@@ -5192,6 +5292,7 @@
                             document.getElementById(currentGHTargetInput).value = item.path;
 
                             let pType = "";
+                            if (currentGHTargetInput === 'gh-path-activity') SiskaActivity.setPath(item.path);
                             if (currentGHTargetInput === 'gh-path-cpm') pType = 'pathContent';
                             else if (currentGHTargetInput === 'gh-path-cpmm') pType = 'pathContentMonthly';
                             else if (currentGHTargetInput === 'gh-path-kpi') pType = 'pathKPI';
@@ -5531,6 +5632,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             const currentUserKey = sessionStorage.getItem('auth_user') || 'guest';
 
             if (editDraftIdx > -1) {
+                if (!canManageOwnedRecord(publishedDraftDB[editDraftIdx])) return alert('Hanya pembuat data atau Superadmin yang dapat mengedit.');
                 publishedDraftDB[editDraftIdx] = {
                     ...publishedDraftDB[editDraftIdx],
                     title, link, shortcode, datePub, platform, category, pilar, kreator,
@@ -5572,6 +5674,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
         function editPublishedDraft(idx) {
             const draft = publishedDraftDB[idx];
             if (!draft) return;
+            if (!canManageOwnedRecord(draft)) return alert('Hanya pembuat data atau Superadmin yang dapat mengedit.');
             editDraftIdx = idx;
 
             document.getElementById('pub-title').value = draft.title || '';
@@ -5657,17 +5760,48 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             return false;
         }
 
+        function initializePublishFilters() {
+            const today = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+            const yearSelect = document.getElementById('publish-filter-year');
+            const monthSelect = document.getElementById('publish-filter-month');
+            if (!monthSelect.options.length) {
+                monthSelect.innerHTML = '<option value="">Semua Bulan</option>' + Array.from({length:12}, (_, i) => `<option value="${i+1}">${new Intl.DateTimeFormat('id-ID',{month:'long'}).format(new Date(2026,i,1))}</option>`).join('');
+                monthSelect.value = String(Number(today.slice(5,7)));
+            }
+            const selected = yearSelect.options.length ? yearSelect.value : today.slice(0,4);
+            const years = [...new Set([today.slice(0,4), ...(publishedDraftDB || []).map(row => String(row.datePub || '').slice(0,4)).filter(year => /^\d{4}$/.test(year)), ...(selected ? [selected] : [])])].sort().reverse();
+            yearSelect.innerHTML = '<option value="">Semua Tahun</option>' + years.map(year => `<option>${year}</option>`).join('');
+            yearSelect.value = selected;
+        }
+
         function renderPublishedDrafts() {
             const tbody = document.getElementById('db-body-published-drafts');
             if (!tbody) return;
             tbody.innerHTML = '';
+            initializePublishFilters();
+            const value = id => document.getElementById(id).value;
+            const filtered = (publishedDraftDB || []).map((draft, idx) => ({draft, idx})).filter(({draft}) => {
+                const evaluated = isDraftEvaluated(draft);
+                const status = evaluated ? 'evaluated' : getDaysElapsed(draft.datePub) >= 7 ? 'ready' : 'waiting';
+                return (!value('publish-filter-year') || String(draft.datePub).slice(0,4) === value('publish-filter-year'))
+                    && (!value('publish-filter-month') || Number(String(draft.datePub).slice(5,7)) === Number(value('publish-filter-month')))
+                    && (!value('publish-filter-creator') || draft.kreator === value('publish-filter-creator'))
+                    && (!value('publish-filter-platform') || draft.platform === value('publish-filter-platform'))
+                    && (!value('publish-filter-status') || status === value('publish-filter-status'));
+            });
+            const paginated = paginateData(filtered, 'publish');
+            document.getElementById('publish-filter-count').textContent = `${filtered.length} dari ${(publishedDraftDB || []).length} konten`;
 
             if (!publishedDraftDB || publishedDraftDB.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">Belum ada draf konten tayang.</td></tr>`;
                 return;
             }
 
-            publishedDraftDB.forEach((draft, idx) => {
+            if (!filtered.length) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Tidak ada konten untuk filter ini. Pilih Semua Bulan untuk melihat bulan lainnya.</td></tr>';
+                return;
+            }
+            paginated.forEach(({draft, idx}) => {
                 const thumb = draft.shortcode ? `<img src="${buildIGThumbUrl(draft.shortcode)}" class="thumb-preview" onerror="this.outerHTML='<div class=\\'thumb-preview\\' style=\\'font-size:24px;\\'>📸</div>'">` : `<div class="thumb-preview" style="font-size:24px;">📸</div>`;
                 const kreatorBadge = draft.kreator === 'Wafie' ? '<span class="badge bg-accent">🎥 Wafie</span>' : (draft.kreator === 'Rizky' ? '<span class="badge bg-info">🎨 Rizky</span>' : (draft.kreator === 'Siska' ? '<span class="badge bg-gold">✍️ Siska</span>' : `<span class="badge bg-gray">👤 ${draft.kreator}</span>`));
 
@@ -5686,15 +5820,15 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
                 const canDelete = canUserDeleteDraft(draft);
 
-                const evaluateBtn = evaluated
-                    ? `<button class="btn-sm bg-gray" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi ulang atau perbarui data performa konten ini">🔄 Evaluasi Ulang</button>`
-                    : `<button class="btn-sm bg-blue" onclick="triggerEvaluateDraft(${idx})" title="Evaluasi sekarang ke Content Performance Monitor">⚡ Evaluasi Sekarang</button>`;
-
-                const editBtn = `<button class="btn-sm bg-info" onclick="editPublishedDraft(${idx})" title="Edit metadata draf ini">✏️ Edit</button>`;
-
+                const evaluateBtn = isSuperadmin()
+                    ? `<button class="btn-sm ${evaluated ? 'bg-gray' : 'bg-blue'}" onclick="triggerEvaluateDraft(${idx})">${evaluated ? '🔄 Evaluasi Ulang' : '⚡ Evaluasi Sekarang'}</button>`
+                    : '';
+                const editBtn = canManageOwnedRecord(draft)
+                    ? `<button class="btn-sm bg-info" onclick="editPublishedDraft(${idx})">✏️ Edit</button>`
+                    : '';
                 const deleteBtn = canDelete
-                    ? `<button class="btn-sm bg-red" onclick="deletePublishedDraft(${idx})" title="Hapus draf ini">❌ Hapus</button>`
-                    : `<button class="btn-sm bg-gray" style="opacity:0.45; cursor:not-allowed;" title="Hanya ${draft.kreator} atau Superadmin yang dapat menghapus" disabled>🔒 Hapus (Terkunci)</button>`;
+                    ? `<button class="btn-sm bg-red" onclick="deletePublishedDraft(${idx})">❌ Hapus</button>`
+                    : '';
 
                 tbody.innerHTML += `<tr>
                     <td>${thumb}</td>
@@ -5767,6 +5901,7 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
             const idx = parseInt(draftIndexStr);
             const draft = publishedDraftDB[idx];
             if (!draft) return;
+            if (!isSuperadmin()) return alert('Evaluasi hanya dapat dilakukan oleh Superadmin.');
 
             document.getElementById('mon-title').value = draft.title || '';
             document.getElementById('mon-link').value = draft.link || '';
@@ -5782,12 +5917,14 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
         }
 
         function triggerEvaluateDraft(idx) {
+            if (!isSuperadmin()) return alert('Evaluasi hanya dapat dilakukan oleh Superadmin.');
             const draft = publishedDraftDB[idx];
             if (!draft) return;
 
             const days = getDaysElapsed(draft.datePub);
             const evaluated = isDraftEvaluated(draft);
 
+            if (evaluated && !isSuperadmin()) return alert('Evaluasi ulang hanya dapat dilakukan oleh Superadmin.');
             if (evaluated) {
                 const confirmReEval = confirm(`ℹ️ Konten "${draft.title}" sudah pernah dievaluasi di Content Performance Monitor.\n\nApakah Anda ingin mengevaluasi ulang / memperbarui data performa konten ini?`);
                 if (!confirmReEval) return;
@@ -5814,9 +5951,12 @@ ${catStr ? `<span style="font-weight: normal; font-size: 12px; color: var(--text
 
         // ================= UNIFIED CONTENT PERFORMANCE MONITOR =================
         async function evaluateCPMUnified() {
+            if (!isSuperadmin()) return alert('Evaluasi hanya dapat dilakukan oleh Superadmin.');
             try {
                 const title = document.getElementById('mon-title').value.trim();
                 const link = document.getElementById('mon-link').value.trim();
+                const existingDraft = publishedDraftDB.find(draft => draft.link && draft.link.split('?')[0].replace(/\/+$/, '') === link.split('?')[0].replace(/\/+$/, ''));
+                if (existingDraft && isDraftEvaluated(existingDraft) && !isSuperadmin()) return alert('Evaluasi ulang hanya dapat dilakukan oleh Superadmin.');
                 const datePub = document.getElementById('mon-date').value;
                 const evalDateRaw = document.getElementById('mon-eval-date').value;
                 const week = document.getElementById('mon-week').value.trim();

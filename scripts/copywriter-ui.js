@@ -192,6 +192,7 @@ function copywriterMissingMetric(article, performance) {
     return 'Google belum mengembalikan baris untuk URL ini pada periode trafik terpilih; bukan bukti trafiknya 0.';
 }
 function renderCopywriter() {
+    if (typeof SiskaActivity !== 'undefined') SiskaActivity.report();
     if (!copywriterDB) return;
     const month = document.getElementById('copywriter-month').value;
     const result = CopywriterCore.calculate(copywriterDB, month);
