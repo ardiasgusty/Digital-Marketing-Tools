@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-15T18:19:18.483829+00:00",
+  "lastSyncedAt": "2026-10-15T22:18:03.142959+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -6308,7 +6308,12 @@
         },
         {
           "wordpressId": 13195,
-          "metrics": null
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
         },
         {
           "wordpressId": 13186,
@@ -6360,10 +6365,10 @@
         }
       ],
       "total": {
-        "views": 184.0,
-        "activeUsers": 155.0,
+        "views": 185.0,
+        "activeUsers": 156.0,
         "engagementSeconds": 1765.0,
-        "averageEngagementSeconds": 11.387096774193548
+        "averageEngagementSeconds": 11.314102564102564
       },
       "metadata": {
         "currencyCode": "IDR",
@@ -7233,10 +7238,10 @@
         {
           "wordpressId": 13195,
           "metrics": {
-            "views": 25.0,
-            "activeUsers": 19.0,
+            "views": 26.0,
+            "activeUsers": 20.0,
             "engagementSeconds": 710.0,
-            "averageEngagementSeconds": 37.36842105263158
+            "averageEngagementSeconds": 35.5
           }
         },
         {
@@ -7304,10 +7309,10 @@
         }
       ],
       "total": {
-        "views": 3532.0,
-        "activeUsers": 2632.0,
+        "views": 3533.0,
+        "activeUsers": 2633.0,
         "engagementSeconds": 52516.0,
-        "averageEngagementSeconds": 19.95288753799392
+        "averageEngagementSeconds": 19.94530953285226
       },
       "metadata": {
         "currencyCode": "IDR",
