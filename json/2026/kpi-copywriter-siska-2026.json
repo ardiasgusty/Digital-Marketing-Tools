@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-10T07:06:02.226Z",
+  "lastSyncedAt": "2026-10-15T07:25:40.704Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13864,
+      "authorId": 8,
+      "title": "Nikmati Penawaran Honda Terbaik di Tangsel Otozone 2026",
+      "link": "https://www.honda-bintaro.com/nikmati-penawaran-honda-terbaik-di-tangsel-otozone-2026/",
+      "publishedAt": "2026-10-15T09:15:02",
+      "modifiedAt": "2026-10-15T09:15:02",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Nikmati-Penawaran-Honda-Terbaik-di-Tangsel-Otozone-2026-240x300.webp"
+    },
     {
       "wordpressId": 13860,
       "authorId": 8,
