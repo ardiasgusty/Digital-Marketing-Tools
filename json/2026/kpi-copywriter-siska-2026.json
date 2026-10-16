@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-15T13:25:24.261Z",
+  "lastSyncedAt": "2026-10-16T16:38:16.385Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13875,
+      "authorId": 8,
+      "title": "Nikmati Keuntungan Honda Flexi Pay: Cicilan Mulai Rp 1 Jutaan",
+      "link": "https://www.honda-bintaro.com/nikmati-keuntungan-honda-flexi-pay-cicilan-mulai-rp-1-jutaan/",
+      "publishedAt": "2026-10-16T20:21:47",
+      "modifiedAt": "2026-10-16T20:23:16",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Nikmati-Keuntungan-Honda-Flexi-Pay-Cicilan-Mulai-Rp-1-Jutaan-240x300.webp"
+    },
     {
       "wordpressId": 13864,
       "authorId": 8,
