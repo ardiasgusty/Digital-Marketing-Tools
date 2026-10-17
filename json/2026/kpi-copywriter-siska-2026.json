@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-16T16:38:16.385Z",
+  "lastSyncedAt": "2026-10-17T06:56:28.706Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13881,
+      "authorId": 8,
+      "title": "Bunyi Aneh di Kolong Mobil? Atasi Masalah Kaki-Kaki di Honda Bintaro",
+      "link": "https://www.honda-bintaro.com/bunyi-aneh-di-kolong-mobil-atasi-masalah-kaki-kaki-di-honda-bintaro/",
+      "publishedAt": "2026-10-17T08:26:51",
+      "modifiedAt": "2026-10-17T08:26:51",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Bunyi-Aneh-di-Kolong-Mobil-Atasi-Masalah-Kaki-Kaki-di-Honda-Bintaro-240x300.webp"
+    },
     {
       "wordpressId": 13875,
       "authorId": 8,
@@ -48,6 +57,15 @@
       "publishedAt": "2026-10-14T15:59:18",
       "modifiedAt": "2026-10-15T16:05:02",
       "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Pilih-Sesuai-Budget-Banyak-Pilihan-penawaran-Honda-Brio-Satya-240x300.webp"
+    },
+    {
+      "wordpressId": 13885,
+      "authorId": 8,
+      "title": "Jangan Tunggu Rusak! Pentingnya Servis Berkala untuk Mobil Anda",
+      "link": "https://www.honda-bintaro.com/jangan-tunggu-rusak-pentingnya-servis-berkala-untuk-mobil-anda/",
+      "publishedAt": "2026-10-12T08:36:34",
+      "modifiedAt": "2026-10-17T08:56:27",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Jangan-Tunggu-Rusak-Pentingnya-Servis-Berkala-Tepat-Waktu-untuk-Mobil-Anda-240x300.webp"
     },
     {
       "wordpressId": 13860,
