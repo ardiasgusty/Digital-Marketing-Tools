@@ -32,5 +32,22 @@
     "what": "Platform: <b>Instagram</b>. Periode: 2026-08-01 s/d 2026-08-31 (53 post). ER by Reach: <b>2.58%</b>. Avg Reach/Post: <b>889</b>. Target -> ER >3.5% | Avg Reach >1.000.",
     "soWhat": "Interaksi terhadap reach masih rendah, indikasi konten kurang relevan dengan audiens yang terjangkau.",
     "nowWhat": "Tingkatkan distribusi (hashtag, kolaborasi, boosting) agar reach per post naik."
+  },
+  {
+    "title": "Honda Bintaro",
+    "platform": "Instagram",
+    "dateStart": "2026-09-01",
+    "dateEnd": "2026-09-30",
+    "month": "September",
+    "foll": 15436,
+    "postCount": 56,
+    "reach": 681912,
+    "interaksi": 26207,
+    "erByReach": 3.843164513896221,
+    "avgReachPerPost": 12177,
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>ER by Reach:</b> 3,84% <span class=\"badge bg-green\">On Track</span></div><div><b>Avg Reach/Post:</b> 12.177 <span class=\"badge bg-green\">On Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Periode: 2026-09-01 s/d 2026-09-30 (56 post). ER by Reach: <b>3.84%</b>. Avg Reach/Post: <b>12.177</b>. Target -> ER >3.5% | Avg Reach >1.000.",
+    "soWhat": "Performa akun sangat dominan karena rata-rata reach per post (12.177) hampir menyamai total followers (15.436) didukung konsistensi 56 postingan. Hal ini menandakan konten sukses terdistribusi secara viral ke audiens luar (non-followers) tanpa mengorbankan kualitas interaksi, terbukti dari ER yang tetap di atas target (3,84%).",
+    "nowWhat": "Kapitalisasi jangkauan luas ini dengan memperkuat Call-to-Action (CTA) konversi di setiap konten agar audiens baru terdorong menjadi followers atau leads. Selain itu, bedah dan replikasi formula dari 20% konten dengan reach tertinggi untuk diimplementasikan pada pilar konten bulan depan."
   }
 ]
