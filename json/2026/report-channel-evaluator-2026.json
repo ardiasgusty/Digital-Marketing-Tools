@@ -130,5 +130,93 @@
     "int": 107,
     "er": "0.70",
     "status": "<span class=\"badge bg-red\">Kurang</span>"
+  },
+  {
+    "month": "September",
+    "week": "1",
+    "evalDateRaw": "2026-09-07",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15436,
+    "int": 448,
+    "er": "2.90",
+    "status": "<span class=\"badge bg-blue\">Ideal</span>"
+  },
+  {
+    "month": "September",
+    "week": "2",
+    "evalDateRaw": "2026-09-14",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15436,
+    "int": 550,
+    "er": "3.56",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "September",
+    "week": "3",
+    "evalDateRaw": "2026-09-21",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15436,
+    "int": 569,
+    "er": "3.69",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "September",
+    "week": "4",
+    "evalDateRaw": "2026-09-28",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15436,
+    "int": 21198,
+    "er": "137.33",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "September",
+    "week": "5",
+    "evalDateRaw": "2026-09-30",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15436,
+    "int": 3442,
+    "er": "22.30",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "Oktober",
+    "week": "1",
+    "evalDateRaw": "2026-10-07",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15450,
+    "int": 10201,
+    "er": "66.03",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "Oktober",
+    "week": "2",
+    "evalDateRaw": "2026-10-14",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15450,
+    "int": 5631,
+    "er": "36.45",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
+  },
+  {
+    "month": "Oktober",
+    "week": "2",
+    "evalDateRaw": "2026-10-14",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15450,
+    "int": 5631,
+    "er": "36.45",
+    "status": "<span class=\"badge bg-green\">Sangat Baik</span>"
   }
 ]
