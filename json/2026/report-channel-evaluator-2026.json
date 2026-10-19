@@ -75,5 +75,60 @@
     "int": 120,
     "er": "0.78",
     "status": "<span class=\"badge bg-red\">Kurang</span>"
+  },
+  {
+    "month": "Agustus",
+    "week": "1",
+    "evalDateRaw": "2026-08-07",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15379,
+    "int": 358,
+    "er": "2.33",
+    "status": "<span class=\"badge bg-blue\">Ideal</span>"
+  },
+  {
+    "month": "Agustus",
+    "week": "2",
+    "evalDateRaw": "2026-08-14",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15379,
+    "int": 253,
+    "er": "1.65",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
+  },
+  {
+    "month": "Agustus",
+    "week": "3",
+    "evalDateRaw": "2026-08-21",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15379,
+    "int": 196,
+    "er": "1.27",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
+  },
+  {
+    "month": "Agustus",
+    "week": "4",
+    "evalDateRaw": "2026-08-28",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15379,
+    "int": 298,
+    "er": "1.94",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
+  },
+  {
+    "month": "Agustus",
+    "week": "5",
+    "evalDateRaw": "2026-08-31",
+    "period": "Weekly",
+    "platform": "Instagram",
+    "foll": 15379,
+    "int": 107,
+    "er": "0.70",
+    "status": "<span class=\"badge bg-red\">Kurang</span>"
   }
 ]
