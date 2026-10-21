@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-20T02:03:44.733Z",
+  "lastSyncedAt": "2026-10-21T07:38:11.186Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13890,
+      "authorId": 8,
+      "title": "Service Mobil 120.000 KM: Ini Komponen yang Wajib Diperiksa",
+      "link": "https://www.honda-bintaro.com/service-mobil-120-000-km-ini-komponen-yang-wajib-diperiksa/",
+      "publishedAt": "2026-10-21T14:34:51",
+      "modifiedAt": "2026-10-21T14:34:51",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Service-Mobil-120.000-KM-Ini-Komponen-yang-Wajib-Diperiksa-240x300.webp"
+    },
     {
       "wordpressId": 13881,
       "authorId": 8,
