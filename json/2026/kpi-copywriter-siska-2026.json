@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-21T13:47:11.664Z",
+  "lastSyncedAt": "2026-10-23T13:25:29.161Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13899,
+      "authorId": 8,
+      "title": "Throttle Body Mobil: Fungsi dan Cara Kerja",
+      "link": "https://www.honda-bintaro.com/throttle-body-mobil-fungsi-dan-cara-kerja/",
+      "publishedAt": "2026-10-23T15:04:27",
+      "modifiedAt": "2026-10-23T15:04:27",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Throttle-Body-Mobil-Fungsi-dan-Cara-Kerja-240x300.webp"
+    },
     {
       "wordpressId": 13890,
       "authorId": 8,
