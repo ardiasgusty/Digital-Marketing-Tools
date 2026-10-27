@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-26T12:59:54.257Z",
+  "lastSyncedAt": "2026-10-27T10:32:34.543Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13909,
+      "authorId": 8,
+      "title": "Cegah Overheat! Begini Cara Merawat Radiator Mobil agar Awet",
+      "link": "https://www.honda-bintaro.com/cegah-overheat-begini-cara-merawat-radiator-mobil-agar-awet/",
+      "publishedAt": "2026-10-27T15:17:42",
+      "modifiedAt": "2026-10-27T15:17:42",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Cegah-Overheat-Begini-Cara-Merawat-Radiator-Mobil-Agar-Awet-240x300.webp"
+    },
     {
       "wordpressId": 13904,
       "authorId": 8,
