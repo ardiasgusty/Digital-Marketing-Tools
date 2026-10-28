@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-28T08:28:48.787Z",
+  "lastSyncedAt": "2026-10-28T16:00:36.996Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -23,13 +23,13 @@
   ],
   "articles": [
     {
-      "wordpressId": 13913,
+      "wordpressId": 13917,
       "authorId": 8,
-      "title": "Kenali Masalah dan Penanganan Catalytic Converter",
-      "link": "https://www.honda-bintaro.com/kenali-masalah-dan-penanganan-catalytic-converter/",
-      "publishedAt": "2026-10-28T15:16:48",
-      "modifiedAt": "2026-10-28T15:16:48",
-      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Kenali-Masalah-dan-Penanganan-Catalytic-Converter-240x300.webp"
+      "title": "Honda Brio: Wujud Ekspresi dan Spirit Pemuda",
+      "link": "https://www.honda-bintaro.com/honda-brio-wujud-ekspresi-dan-spirit-pemuda/",
+      "publishedAt": "2026-10-28T15:52:20",
+      "modifiedAt": "2026-10-28T15:52:20",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Honda-Brio-Wujud-Ekspresi-dan-Spirit-Pemuda-240x300.webp"
     },
     {
       "wordpressId": 13909,
@@ -48,6 +48,15 @@
       "publishedAt": "2026-10-26T14:25:42",
       "modifiedAt": "2026-10-26T14:25:42",
       "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/HRI-Borong-Lima-Gelar-Juara-Nasional-240x300.webp"
+    },
+    {
+      "wordpressId": 13913,
+      "authorId": 8,
+      "title": "Kenali Masalah dan Penanganan Catalytic Converter",
+      "link": "https://www.honda-bintaro.com/kenali-masalah-dan-penanganan-catalytic-converter/",
+      "publishedAt": "2026-10-24T15:16:48",
+      "modifiedAt": "2026-10-28T15:41:43",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Kenali-Masalah-dan-Penanganan-Catalytic-Converter-240x300.webp"
     },
     {
       "wordpressId": 13899,

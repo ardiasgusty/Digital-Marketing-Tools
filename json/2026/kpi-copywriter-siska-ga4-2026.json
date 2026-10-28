@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-28T08:31:45.554769+00:00",
+  "lastSyncedAt": "2026-10-28T16:07:42.439987+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -11,7 +11,7 @@
       "endDate": "2026-01-31",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -20,6 +20,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -536,7 +540,7 @@
       "endDate": "2026-02-28",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -545,6 +549,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -1111,7 +1119,7 @@
       "endDate": "2026-03-31",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -1120,6 +1128,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -1681,7 +1693,7 @@
       "endDate": "2026-04-30",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -1690,6 +1702,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -2281,7 +2297,7 @@
       "endDate": "2026-05-31",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -2290,6 +2306,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -2966,7 +2986,7 @@
       "endDate": "2026-06-30",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -2975,6 +2995,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -3691,7 +3715,7 @@
       "endDate": "2026-07-31",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -3700,6 +3724,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -4431,7 +4459,7 @@
       "endDate": "2026-08-31",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -4440,6 +4468,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -5186,7 +5218,7 @@
       "endDate": "2026-09-30",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -5195,6 +5227,10 @@
         },
         {
           "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
           "metrics": null
         },
         {
@@ -5986,7 +6022,7 @@
       "endDate": "2026-10-27",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -6006,6 +6042,10 @@
             "engagementSeconds": 11.0,
             "averageEngagementSeconds": 3.6666666666666665
           }
+        },
+        {
+          "wordpressId": 13913,
+          "metrics": null
         },
         {
           "wordpressId": 13899,
@@ -6856,7 +6896,7 @@
       "endDate": "2026-10-27",
       "articles": [
         {
-          "wordpressId": 13913,
+          "wordpressId": 13917,
           "metrics": null
         },
         {
@@ -6876,6 +6916,10 @@
             "engagementSeconds": 11.0,
             "averageEngagementSeconds": 3.6666666666666665
           }
+        },
+        {
+          "wordpressId": 13913,
+          "metrics": null
         },
         {
           "wordpressId": 13899,
