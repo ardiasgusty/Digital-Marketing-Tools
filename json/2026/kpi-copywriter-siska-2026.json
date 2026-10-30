@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-28T16:00:36.996Z",
+  "lastSyncedAt": "2026-10-30T12:53:28.998Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13924,
+      "authorId": 8,
+      "title": "Promo Service: November Action Ultimate Care!",
+      "link": "https://www.honda-bintaro.com/promo-service-november-action-ultimate-care/",
+      "publishedAt": "2026-10-30T15:33:08",
+      "modifiedAt": "2026-10-30T15:33:08",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/10/Promo-Service-November-Action-Ultimate-Care-240x300.webp"
+    },
     {
       "wordpressId": 13917,
       "authorId": 8,
