@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-30T22:59:54.602861+00:00",
+  "lastSyncedAt": "2026-10-31T09:40:45.489181+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -12,6 +12,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -545,6 +549,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -1131,6 +1139,10 @@
           "metrics": null
         },
         {
+          "wordpressId": 13929,
+          "metrics": null
+        },
+        {
           "wordpressId": 13917,
           "metrics": null
         },
@@ -1706,6 +1718,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -2314,6 +2330,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -3007,6 +3027,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -3740,6 +3764,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -4488,6 +4516,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -5251,6 +5283,10 @@
       "articles": [
         {
           "wordpressId": 13924,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13929,
           "metrics": null
         },
         {
@@ -6065,6 +6101,10 @@
             "engagementSeconds": 6.0,
             "averageEngagementSeconds": 6.0
           }
+        },
+        {
+          "wordpressId": 13929,
+          "metrics": null
         },
         {
           "wordpressId": 13917,
@@ -6963,6 +7003,10 @@
             "engagementSeconds": 6.0,
             "averageEngagementSeconds": 6.0
           }
+        },
+        {
+          "wordpressId": 13929,
+          "metrics": null
         },
         {
           "wordpressId": 13917,
