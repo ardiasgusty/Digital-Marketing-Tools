@@ -5,8 +5,8 @@
   "searchType": "web",
   "dateTimezone": "America/Los_Angeles",
   "dataState": "final",
-  "latestFinalDate": "2026-10-28",
-  "lastSyncedAt": "2026-10-31T09:37:12.529464+00:00",
+  "latestFinalDate": "2026-10-29",
+  "lastSyncedAt": "2026-10-31T15:44:26.683621+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -8434,7 +8434,7 @@
     {
       "month": "2026-10",
       "startDate": "2026-10-01",
-      "endDate": "2026-10-28",
+      "endDate": "2026-10-29",
       "articles": [
         {
           "wordpressId": 13924,
@@ -8454,9 +8454,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-brio-wujud-ekspresi-dan-spirit-pemuda/",
           "metrics": {
             "clicks": 0,
-            "impressions": 3,
+            "impressions": 7,
             "ctr": 0.0,
-            "position": 6
+            "position": 7.285714285714286
           }
         },
         {
@@ -8465,9 +8465,9 @@
           "matchedPage": "https://www.honda-bintaro.com/cegah-overheat-begini-cara-merawat-radiator-mobil-agar-awet/",
           "metrics": {
             "clicks": 0,
-            "impressions": 1,
+            "impressions": 4,
             "ctr": 0.0,
-            "position": 9
+            "position": 8
           }
         },
         {
@@ -8476,9 +8476,9 @@
           "matchedPage": "https://www.honda-bintaro.com/hri-borong-lima-gelar-juara-nasional/",
           "metrics": {
             "clicks": 0,
-            "impressions": 6,
+            "impressions": 7,
             "ctr": 0.0,
-            "position": 25.333333333333332
+            "position": 22
           }
         },
         {
@@ -8487,9 +8487,9 @@
           "matchedPage": "https://www.honda-bintaro.com/kenali-masalah-dan-penanganan-catalytic-converter/",
           "metrics": {
             "clicks": 0,
-            "impressions": 7,
+            "impressions": 12,
             "ctr": 0.0,
-            "position": 5.285714285714286
+            "position": 5.5
           }
         },
         {
@@ -8498,9 +8498,9 @@
           "matchedPage": "https://www.honda-bintaro.com/throttle-body-mobil-fungsi-dan-cara-kerja/",
           "metrics": {
             "clicks": 0,
-            "impressions": 104,
+            "impressions": 125,
             "ctr": 0.0,
-            "position": 5.375
+            "position": 5.416
           }
         },
         {
@@ -8508,10 +8508,10 @@
           "link": "https://www.honda-bintaro.com/service-mobil-120-000-km-ini-komponen-yang-wajib-diperiksa/",
           "matchedPage": "https://www.honda-bintaro.com/service-mobil-120-000-km-ini-komponen-yang-wajib-diperiksa/",
           "metrics": {
-            "clicks": 3,
-            "impressions": 51,
-            "ctr": 0.058823529411764705,
-            "position": 3.235294117647059
+            "clicks": 4,
+            "impressions": 58,
+            "ctr": 0.06896551724137931,
+            "position": 3.1724137931034484
           }
         },
         {
@@ -8520,9 +8520,9 @@
           "matchedPage": "https://www.honda-bintaro.com/baret-pada-mobil-kenali-layanan-body-paint-honda-bintaro/",
           "metrics": {
             "clicks": 0,
-            "impressions": 11,
+            "impressions": 13,
             "ctr": 0.0,
-            "position": 29.272727272727273
+            "position": 25.846153846153847
           }
         },
         {
@@ -8541,10 +8541,10 @@
           "link": "https://www.honda-bintaro.com/nikmati-keuntungan-honda-flexi-pay-cicilan-mulai-rp-1-jutaan/",
           "matchedPage": "https://www.honda-bintaro.com/nikmati-keuntungan-honda-flexi-pay-cicilan-mulai-rp-1-jutaan/",
           "metrics": {
-            "clicks": 2,
-            "impressions": 127,
-            "ctr": 0.015748031496062992,
-            "position": 5.307086614173229
+            "clicks": 5,
+            "impressions": 158,
+            "ctr": 0.03164556962025317,
+            "position": 4.810126582278481
           }
         },
         {
@@ -8553,9 +8553,9 @@
           "matchedPage": "https://www.honda-bintaro.com/nikmati-penawaran-honda-terbaik-di-tangsel-otozone-2026/",
           "metrics": {
             "clicks": 1,
-            "impressions": 94,
-            "ctr": 0.010638297872340425,
-            "position": 7.680851063829787
+            "impressions": 95,
+            "ctr": 0.010526315789473684,
+            "position": 7.631578947368421
           }
         },
         {
@@ -8564,9 +8564,9 @@
           "matchedPage": "https://www.honda-bintaro.com/pilih-sesuai-budget-banyak-pilihan-penawaran-honda-brio-satya/",
           "metrics": {
             "clicks": 0,
-            "impressions": 9,
+            "impressions": 11,
             "ctr": 0.0,
-            "position": 36.666666666666664
+            "position": 31.09090909090909
           }
         },
         {
@@ -8586,9 +8586,9 @@
           "matchedPage": "https://www.honda-bintaro.com/3-kesalahan-sepele-yang-bikin-aki-mobil-cepat-tekor/",
           "metrics": {
             "clicks": 0,
-            "impressions": 88,
+            "impressions": 95,
             "ctr": 0.0,
-            "position": 7.204545454545454
+            "position": 7.242105263157895
           }
         },
         {
@@ -8607,10 +8607,10 @@
           "link": "https://www.honda-bintaro.com/begini-cara-menggunakan-dongkrak-di-honda-brio/",
           "matchedPage": "https://www.honda-bintaro.com/begini-cara-menggunakan-dongkrak-di-honda-brio/",
           "metrics": {
-            "clicks": 14,
-            "impressions": 867,
-            "ctr": 0.016147635524798153,
-            "position": 5.975778546712803
+            "clicks": 15,
+            "impressions": 910,
+            "ctr": 0.016483516483516484,
+            "position": 5.941758241758242
           }
         },
         {
@@ -8619,9 +8619,9 @@
           "matchedPage": "https://www.honda-bintaro.com/affordable-1st-family-car-diraih-honda-brio-satya-s-cvt/",
           "metrics": {
             "clicks": 2,
-            "impressions": 96,
-            "ctr": 0.020833333333333332,
-            "position": 8.708333333333332
+            "impressions": 102,
+            "ctr": 0.0196078431372549,
+            "position": 8.774509803921568
           }
         },
         {
@@ -8641,9 +8641,9 @@
           "matchedPage": "https://www.honda-bintaro.com/tiga-gelar-utama-diraih-honda-melalui-indycar-series-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 15,
+            "impressions": 16,
             "ctr": 0.0,
-            "position": 7.2
+            "position": 7.25
           }
         },
         {
@@ -8652,9 +8652,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-gelar-honda-culture-indonesia-hci-night-meet-up/",
           "metrics": {
             "clicks": 0,
-            "impressions": 125,
+            "impressions": 126,
             "ctr": 0.0,
-            "position": 8.032
+            "position": 8.055555555555555
           }
         },
         {
@@ -8663,9 +8663,9 @@
           "matchedPage": "https://www.honda-bintaro.com/mengenal-fitur-rain-sensor-pada-mobil-honda/",
           "metrics": {
             "clicks": 1,
-            "impressions": 38,
-            "ctr": 0.02631578947368421,
-            "position": 5.052631578947368
+            "impressions": 40,
+            "ctr": 0.025,
+            "position": 5.3
           }
         },
         {
@@ -8673,10 +8673,10 @@
           "link": "https://www.honda-bintaro.com/tips-mengatasi-keluhan-listrik-statis-pada-mobil/",
           "matchedPage": "https://www.honda-bintaro.com/tips-mengatasi-keluhan-listrik-statis-pada-mobil/",
           "metrics": {
-            "clicks": 0,
-            "impressions": 54,
-            "ctr": 0.0,
-            "position": 7.12962962962963
+            "clicks": 1,
+            "impressions": 61,
+            "ctr": 0.01639344262295082,
+            "position": 6.983606557377049
           }
         },
         {
@@ -8685,9 +8685,9 @@
           "matchedPage": "https://www.honda-bintaro.com/rahasia-mobil-usia-15-tahun-ke-atas-tetap-prima/",
           "metrics": {
             "clicks": 2,
-            "impressions": 25,
-            "ctr": 0.08,
-            "position": 4.720000000000001
+            "impressions": 26,
+            "ctr": 0.07692307692307693,
+            "position": 4.8076923076923075
           }
         },
         {
@@ -8696,9 +8696,9 @@
           "matchedPage": "https://www.honda-bintaro.com/promo-spesial-honda-hr-v-dp-mulai-78-jutaan/",
           "metrics": {
             "clicks": 0,
-            "impressions": 29,
+            "impressions": 31,
             "ctr": 0.0,
-            "position": 17.344827586206897
+            "position": 16.64516129032258
           }
         },
         {
@@ -8707,9 +8707,9 @@
           "matchedPage": "https://www.honda-bintaro.com/dilema-memilih-mobil-konvensional-atau-hybrid/",
           "metrics": {
             "clicks": 0,
-            "impressions": 32,
+            "impressions": 37,
             "ctr": 0.0,
-            "position": 6.1875
+            "position": 5.864864864864865
           }
         },
         {
@@ -8718,9 +8718,9 @@
           "matchedPage": "https://www.honda-bintaro.com/lakukan-ini-saat-terjadi-percikan-api-pada-kap-mobil/",
           "metrics": {
             "clicks": 0,
-            "impressions": 65,
+            "impressions": 67,
             "ctr": 0.0,
-            "position": 6.2
+            "position": 6.149253731343284
           }
         },
         {
@@ -8740,9 +8740,9 @@
           "matchedPage": "https://www.honda-bintaro.com/mengenal-program-cop-untuk-pembelian-honda-step-wgn-ehev/",
           "metrics": {
             "clicks": 0,
-            "impressions": 291,
+            "impressions": 299,
             "ctr": 0.0,
-            "position": 7.151202749140894
+            "position": 7.1237458193979935
           }
         },
         {
@@ -8751,9 +8751,9 @@
           "matchedPage": "https://www.honda-bintaro.com/tips-membersihkan-mobil-yang-tedampak-abu-vulkanik/",
           "metrics": {
             "clicks": 0,
-            "impressions": 22,
+            "impressions": 23,
             "ctr": 0.0,
-            "position": 10.227272727272727
+            "position": 10.130434782608695
           }
         },
         {
@@ -8762,9 +8762,9 @@
           "matchedPage": "https://www.honda-bintaro.com/promo-service-september-service-mobil-bisa-dapat-brio/",
           "metrics": {
             "clicks": 3,
-            "impressions": 83,
-            "ctr": 0.03614457831325301,
-            "position": 12.939759036144578
+            "impressions": 84,
+            "ctr": 0.03571428571428571,
+            "position": 12.869047619047619
           }
         },
         {
@@ -8773,9 +8773,9 @@
           "matchedPage": "https://www.honda-bintaro.com/promo-honda-september-beli-mobil-bisa-dapat-brio/",
           "metrics": {
             "clicks": 0,
-            "impressions": 117,
+            "impressions": 120,
             "ctr": 0.0,
-            "position": 7.811965811965812
+            "position": 7.858333333333333
           }
         },
         {
@@ -8817,9 +8817,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-culture-indonesia-2026-buka-babak-baru-10-tahun-perjalanan/",
           "metrics": {
             "clicks": 0,
-            "impressions": 140,
+            "impressions": 149,
             "ctr": 0.0,
-            "position": 9.571428571428571
+            "position": 9.939597315436242
           }
         },
         {
@@ -8828,9 +8828,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-super-one-jadi-awal-era-elektrifikasi-honda-di-indonesia/",
           "metrics": {
             "clicks": 0,
-            "impressions": 81,
+            "impressions": 86,
             "ctr": 0.0,
-            "position": 4.938271604938272
+            "position": 4.930232558139535
           }
         },
         {
@@ -8839,9 +8839,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-membuka-100-kuota-pemesanan-honda-super-one-di-indonesia/",
           "metrics": {
             "clicks": 0,
-            "impressions": 100,
+            "impressions": 105,
             "ctr": 0.0,
-            "position": 4.71
+            "position": 4.828571428571429
           }
         },
         {
@@ -8850,9 +8850,9 @@
           "matchedPage": "https://www.honda-bintaro.com/lebih-dekat-dengan-honda-giias-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 27,
+            "impressions": 30,
             "ctr": 0.0,
-            "position": 6.666666666666667
+            "position": 6.6
           }
         },
         {
@@ -8872,9 +8872,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-giias-2026-transformasi-menuju-era-baru/",
           "metrics": {
             "clicks": 0,
-            "impressions": 65,
+            "impressions": 72,
             "ctr": 0.0,
-            "position": 6.415384615384616
+            "position": 6.416666666666667
           }
         },
         {
@@ -8883,9 +8883,9 @@
           "matchedPage": "https://www.honda-bintaro.com/drive-your-dream-program-eksklusif-honda-giias-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 108,
+            "impressions": 111,
             "ctr": 0.0,
-            "position": 9.25925925925926
+            "position": 9.162162162162161
           }
         },
         {
@@ -8900,9 +8900,9 @@
           "matchedPage": "https://www.honda-bintaro.com/kegunaan-fitur-paddle-shift-di-honda-wr-v/",
           "metrics": {
             "clicks": 5,
-            "impressions": 194,
-            "ctr": 0.02577319587628866,
-            "position": 5.257731958762887
+            "impressions": 198,
+            "ctr": 0.025252525252525252,
+            "position": 5.252525252525253
           }
         },
         {
@@ -8911,9 +8911,9 @@
           "matchedPage": "https://www.honda-bintaro.com/pilihan-mobil-hybrid-honda-berkapasitas-7-penumpang/",
           "metrics": {
             "clicks": 5,
-            "impressions": 321,
-            "ctr": 0.01557632398753894,
-            "position": 6.389408099688474
+            "impressions": 331,
+            "ctr": 0.015105740181268883,
+            "position": 6.314199395770393
           }
         },
         {
@@ -8922,9 +8922,9 @@
           "matchedPage": "https://www.honda-bintaro.com/fitur-fitur-andalan-keluarga-di-honda-step-wgn-ehev/",
           "metrics": {
             "clicks": 0,
-            "impressions": 137,
+            "impressions": 139,
             "ctr": 0.0,
-            "position": 5.766423357664234
+            "position": 5.81294964028777
           }
         },
         {
@@ -8933,9 +8933,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-culture-indonesia-car-culture-belongs-to-everyone/",
           "metrics": {
             "clicks": 0,
-            "impressions": 87,
+            "impressions": 88,
             "ctr": 0.0,
-            "position": 6.517241379310345
+            "position": 6.488636363636363
           }
         },
         {
@@ -8955,9 +8955,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-brio-mobil-mungil-dengan-fitur-menarik/",
           "metrics": {
             "clicks": 0,
-            "impressions": 737,
+            "impressions": 771,
             "ctr": 0.0,
-            "position": 8.006784260515603
+            "position": 7.98443579766537
           }
         },
         {
@@ -8999,9 +8999,9 @@
           "matchedPage": "https://www.honda-bintaro.com/cara-hemat-melakukan-service-mobil-di-bengkel-honda/",
           "metrics": {
             "clicks": 1,
-            "impressions": 26,
-            "ctr": 0.038461538461538464,
-            "position": 7.653846153846154
+            "impressions": 27,
+            "ctr": 0.037037037037037035,
+            "position": 7.444444444444445
           }
         },
         {
@@ -9010,9 +9010,9 @@
           "matchedPage": "https://www.honda-bintaro.com/alasan-honda-hr-v-hybrid-semakin-diminati-di-segmen-suv-modern/",
           "metrics": {
             "clicks": 2,
-            "impressions": 62,
-            "ctr": 0.03225806451612903,
-            "position": 12.14516129032258
+            "impressions": 65,
+            "ctr": 0.03076923076923077,
+            "position": 11.815384615384616
           }
         },
         {
@@ -9032,9 +9032,9 @@
           "matchedPage": "https://www.honda-bintaro.com/nobar-undian-periode-mei-dan-showroom-event-spesial-honda-bintaro/",
           "metrics": {
             "clicks": 0,
-            "impressions": 27,
+            "impressions": 30,
             "ctr": 0.0,
-            "position": 10.222222222222221
+            "position": 9.933333333333334
           }
         },
         {
@@ -9043,9 +9043,9 @@
           "matchedPage": "https://www.honda-bintaro.com/raih-penawaran-spesial-honda-di-jakarta-fair-kemayoran-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 12,
+            "impressions": 15,
             "ctr": 0.0,
-            "position": 6.833333333333333
+            "position": 6.733333333333333
           }
         },
         {
@@ -9065,9 +9065,9 @@
           "matchedPage": "https://www.honda-bintaro.com/tiga-penghargaan-honda-di-otomotif-award-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 58,
+            "impressions": 59,
             "ctr": 0.0,
-            "position": 5.275862068965517
+            "position": 5.305084745762712
           }
         },
         {
@@ -9076,9 +9076,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-brio-satya-solusi-mobil-pertama-dengan-skema-pembayaran-fleksibel/",
           "metrics": {
             "clicks": 0,
-            "impressions": 145,
+            "impressions": 151,
             "ctr": 0.0,
-            "position": 5.6
+            "position": 5.52317880794702
           }
         },
         {
@@ -9120,9 +9120,9 @@
           "matchedPage": "https://www.honda-bintaro.com/promo-honda-juni-2026-beli-hondanya-dan-menangkan-undiannya/",
           "metrics": {
             "clicks": 0,
-            "impressions": 119,
+            "impressions": 121,
             "ctr": 0.0,
-            "position": 2.7394957983193278
+            "position": 2.7107438016528924
           }
         },
         {
@@ -9130,10 +9130,10 @@
           "link": "https://www.honda-bintaro.com/menilik-deretan-mobil-langka-honda-di-honda-culture-2026/",
           "matchedPage": "https://www.honda-bintaro.com/menilik-deretan-mobil-langka-honda-di-honda-culture-2026/",
           "metrics": {
-            "clicks": 0,
-            "impressions": 109,
-            "ctr": 0.0,
-            "position": 5.761467889908257
+            "clicks": 1,
+            "impressions": 113,
+            "ctr": 0.008849557522123894,
+            "position": 5.716814159292035
           }
         },
         {
@@ -9153,9 +9153,9 @@
           "matchedPage": "https://www.honda-bintaro.com/punya-honda-brio-satya-e-cvt-kini-lebih-untung-dengan-gratis-paket-prima/",
           "metrics": {
             "clicks": 1,
-            "impressions": 263,
-            "ctr": 0.0038022813688212928,
-            "position": 8.125475285171103
+            "impressions": 283,
+            "ctr": 0.0035335689045936395,
+            "position": 8.236749116607774
           }
         },
         {
@@ -9186,9 +9186,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-dinobatkan-sebagai-merek-mobil-pilihan-konsumen-di-wow-brand-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 25,
+            "impressions": 26,
             "ctr": 0.0,
-            "position": 7.28
+            "position": 7.384615384615385
           }
         },
         {
@@ -9197,9 +9197,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-step-wgn-ehev-mobil-keluarga-modern-dengan-fungsi-maksimal/",
           "metrics": {
             "clicks": 0,
-            "impressions": 23,
+            "impressions": 25,
             "ctr": 0.0,
-            "position": 9.217391304347826
+            "position": 8.879999999999999
           }
         },
         {
@@ -9208,9 +9208,9 @@
           "matchedPage": "https://www.honda-bintaro.com/tips-servis-mobil-lebih-cepat-dan-praktis-di-bengkel-resmi/",
           "metrics": {
             "clicks": 0,
-            "impressions": 261,
+            "impressions": 272,
             "ctr": 0.0,
-            "position": 8.421455938697317
+            "position": 8.411764705882353
           }
         },
         {
@@ -9219,9 +9219,9 @@
           "matchedPage": "https://www.honda-bintaro.com/rekomendasi-mobil-honda-untuk-pekerja-gaji-umr/",
           "metrics": {
             "clicks": 0,
-            "impressions": 212,
+            "impressions": 229,
             "ctr": 0.0,
-            "position": 6.89622641509434
+            "position": 6.820960698689956
           }
         },
         {
@@ -9241,9 +9241,9 @@
           "matchedPage": "https://www.honda-bintaro.com/extra-cashback-5-juta-untung-dari-awal-punya-honda-brio/",
           "metrics": {
             "clicks": 0,
-            "impressions": 139,
+            "impressions": 146,
             "ctr": 0.0,
-            "position": 5.16546762589928
+            "position": 5.212328767123288
           }
         },
         {
@@ -9280,9 +9280,9 @@
           "matchedPage": "https://www.honda-bintaro.com/biaya-perbaikan-cvt-mahal-cegah-dari-sekarang-dengan-cara-ini/",
           "metrics": {
             "clicks": 1,
-            "impressions": 425,
-            "ctr": 0.002352941176470588,
-            "position": 7.590588235294118
+            "impressions": 440,
+            "ctr": 0.0022727272727272726,
+            "position": 7.588636363636364
           }
         },
         {
@@ -9291,9 +9291,9 @@
           "matchedPage": "https://www.honda-bintaro.com/kenapa-transmisi-cvt-cepat-rusak-ini-kesalahan-yang-sering-diabaikan/",
           "metrics": {
             "clicks": 7,
-            "impressions": 827,
-            "ctr": 0.008464328899637243,
-            "position": 5.894800483675938
+            "impressions": 848,
+            "ctr": 0.008254716981132075,
+            "position": 5.933962264150943
           }
         },
         {
@@ -9302,9 +9302,9 @@
           "matchedPage": "https://www.honda-bintaro.com/perbedaan-honda-brio-satya-s-cvt-dan-e-special-edition-cvt/",
           "metrics": {
             "clicks": 36,
-            "impressions": 6656,
-            "ctr": 0.005408653846153846,
-            "position": 7.754056490384615
+            "impressions": 6907,
+            "ctr": 0.00521210366295063,
+            "position": 7.7212972346894455
           }
         },
         {
@@ -9341,9 +9341,9 @@
           "matchedPage": "https://www.honda-bintaro.com/cara-mengikuti-program-undian-honda-brio/",
           "metrics": {
             "clicks": 6,
-            "impressions": 344,
-            "ctr": 0.01744186046511628,
-            "position": 7.116279069767442
+            "impressions": 358,
+            "ctr": 0.01675977653631285,
+            "position": 7.134078212290503
           }
         },
         {
@@ -9352,9 +9352,9 @@
           "matchedPage": "https://www.honda-bintaro.com/promo-honda-april-2026-honda-baru-di-garasi-hadiah-brio-menanti/",
           "metrics": {
             "clicks": 0,
-            "impressions": 139,
+            "impressions": 145,
             "ctr": 0.0,
-            "position": 5.273381294964029
+            "position": 5.268965517241379
           }
         },
         {
@@ -9363,9 +9363,9 @@
           "matchedPage": "https://www.honda-bintaro.com/promo-service-terbaru-service-rutin-hari-ini-hadiah-brio-menanti/",
           "metrics": {
             "clicks": 0,
-            "impressions": 32,
+            "impressions": 34,
             "ctr": 0.0,
-            "position": 7.84375
+            "position": 7.705882352941177
           }
         },
         {
@@ -9374,9 +9374,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-bintaro-melayani-repair-transmisi-cvt-mobil-honda/",
           "metrics": {
             "clicks": 1,
-            "impressions": 30,
-            "ctr": 0.03333333333333333,
-            "position": 6.133333333333334
+            "impressions": 32,
+            "ctr": 0.03125,
+            "position": 6.15625
           }
         },
         {
@@ -9385,9 +9385,9 @@
           "matchedPage": "https://www.honda-bintaro.com/tips-merawat-transmisi-cvt-mobil-honda/",
           "metrics": {
             "clicks": 2,
-            "impressions": 158,
-            "ctr": 0.012658227848101266,
-            "position": 7.886075949367089
+            "impressions": 164,
+            "ctr": 0.012195121951219513,
+            "position": 7.926829268292683
           }
         },
         {
@@ -9407,9 +9407,9 @@
           "matchedPage": "https://www.honda-bintaro.com/5-mobil-honda-andalan-untuk-mudik-lebaran/",
           "metrics": {
             "clicks": 0,
-            "impressions": 158,
+            "impressions": 164,
             "ctr": 0.0,
-            "position": 8.556962025316455
+            "position": 8.463414634146343
           }
         },
         {
@@ -9440,9 +9440,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-civic-hybrid-raih-edmunds-top-rated-car-award-2026/",
           "metrics": {
             "clicks": 0,
-            "impressions": 6,
+            "impressions": 8,
             "ctr": 0.0,
-            "position": 8.333333333333332
+            "position": 8.25
           }
         },
         {
@@ -9451,9 +9451,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-brio-raih-best-city-car-dan-best-local-content-car/",
           "metrics": {
             "clicks": 0,
-            "impressions": 387,
+            "impressions": 396,
             "ctr": 0.0,
-            "position": 6.426356589147287
+            "position": 6.376262626262626
           }
         },
         {
@@ -9462,9 +9462,9 @@
           "matchedPage": "https://www.honda-bintaro.com/penyerahan-hadiah-undian-program-double-hoki-di-honda-bintaro/",
           "metrics": {
             "clicks": 1,
-            "impressions": 27,
-            "ctr": 0.037037037037037035,
-            "position": 4.62962962962963
+            "impressions": 29,
+            "ctr": 0.034482758620689655,
+            "position": 4.620689655172414
           }
         },
         {
@@ -9506,9 +9506,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-iims-2026-usung-tema-power-for-every-drive-start-with-trust/",
           "metrics": {
             "clicks": 0,
-            "impressions": 22,
+            "impressions": 23,
             "ctr": 0.0,
-            "position": 7.545454545454546
+            "position": 7.521739130434782
           }
         },
         {
@@ -9517,9 +9517,9 @@
           "matchedPage": "https://www.honda-bintaro.com/mobil-lama-jadi-prima-mobil-baru-siap-diterima/",
           "metrics": {
             "clicks": 0,
-            "impressions": 19,
+            "impressions": 23,
             "ctr": 0.0,
-            "position": 6.842105263157895
+            "position": 6.913043478260869
           }
         },
         {
@@ -9550,9 +9550,9 @@
           "matchedPage": "https://www.honda-bintaro.com/tips-merawat-baterai-hybrid-mobil-honda/",
           "metrics": {
             "clicks": 1,
-            "impressions": 363,
-            "ctr": 0.0027548209366391185,
-            "position": 8.013774104683195
+            "impressions": 369,
+            "ctr": 0.0027100271002710027,
+            "position": 7.975609756097561
           }
         },
         {
@@ -9561,9 +9561,9 @@
           "matchedPage": "https://www.honda-bintaro.com/100-unit-honda-prelude-telah-habis-terjual/",
           "metrics": {
             "clicks": 0,
-            "impressions": 20,
+            "impressions": 24,
             "ctr": 0.0,
-            "position": 8.3
+            "position": 8.208333333333332
           }
         },
         {
@@ -9572,9 +9572,9 @@
           "matchedPage": "https://www.honda-bintaro.com/honda-prelude-resmi-dipasarkan-di-indonesia/",
           "metrics": {
             "clicks": 1,
-            "impressions": 409,
-            "ctr": 0.0024449877750611247,
-            "position": 7.701711491442543
+            "impressions": 435,
+            "ctr": 0.0022988505747126436,
+            "position": 7.76551724137931
           }
         },
         {
@@ -9583,9 +9583,9 @@
           "matchedPage": "https://www.honda-bintaro.com/begini-alur-klaim-asuransi-di-honda-bintaro/",
           "metrics": {
             "clicks": 0,
-            "impressions": 12,
+            "impressions": 13,
             "ctr": 0.0,
-            "position": 7.083333333333333
+            "position": 6.615384615384615
           }
         },
         {
@@ -9594,9 +9594,9 @@
           "matchedPage": "https://www.honda-bintaro.com/sepenting-apa-fitur-ion-plasmacluster-air-purification-system/",
           "metrics": {
             "clicks": 0,
-            "impressions": 188,
+            "impressions": 192,
             "ctr": 0.0,
-            "position": 6.047872340425532
+            "position": 6.083333333333333
           }
         },
         {
@@ -9605,9 +9605,9 @@
           "matchedPage": "https://www.honda-bintaro.com/pembaruan-desain-logo-h-pada-mobil-honda/",
           "metrics": {
             "clicks": 0,
-            "impressions": 1077,
+            "impressions": 1127,
             "ctr": 0.0,
-            "position": 4.1541318477251625
+            "position": 4.134871339840284
           }
         },
         {
@@ -9616,9 +9616,9 @@
           "matchedPage": "https://www.honda-bintaro.com/deal-sekarang-beli-mobil-honda-apapun-dapat-tambahan-honda-brio/",
           "metrics": {
             "clicks": 0,
-            "impressions": 122,
+            "impressions": 131,
             "ctr": 0.0,
-            "position": 7.213114754098361
+            "position": 7.038167938931298
           }
         },
         {
@@ -9626,10 +9626,10 @@
           "link": "https://www.honda-bintaro.com/beli-mobil-baru-makin-untung-promo-honda-januari-2026/",
           "matchedPage": "https://www.honda-bintaro.com/beli-mobil-baru-makin-untung-promo-honda-januari-2026/",
           "metrics": {
-            "clicks": 2,
-            "impressions": 876,
-            "ctr": 0.00228310502283105,
-            "position": 5.675799086757991
+            "clicks": 3,
+            "impressions": 906,
+            "ctr": 0.0033112582781456954,
+            "position": 5.664459161147903
           }
         },
         {
@@ -9638,9 +9638,9 @@
           "matchedPage": "https://www.honda-bintaro.com/service-anti-baper-service-mobil-honda-bisa-dapat-brio/",
           "metrics": {
             "clicks": 0,
-            "impressions": 38,
+            "impressions": 39,
             "ctr": 0.0,
-            "position": 7.2894736842105265
+            "position": 7.358974358974359
           }
         },
         {
@@ -9648,10 +9648,10 @@
           "link": "https://www.honda-bintaro.com/cara-membuka-pintu-mobil-dengan-kunci-integrasi/",
           "matchedPage": "https://www.honda-bintaro.com/cara-membuka-pintu-mobil-dengan-kunci-integrasi/",
           "metrics": {
-            "clicks": 17,
-            "impressions": 2962,
-            "ctr": 0.005739365293720459,
-            "position": 6.560094530722485
+            "clicks": 18,
+            "impressions": 3048,
+            "ctr": 0.005905511811023622,
+            "position": 6.573490813648294
           }
         },
         {
