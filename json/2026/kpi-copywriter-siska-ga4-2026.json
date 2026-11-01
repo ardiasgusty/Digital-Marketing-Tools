@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-10-31T23:25:00.302070+00:00",
+  "lastSyncedAt": "2026-11-01T18:57:04.423892+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -6996,17 +6996,549 @@
       }
     },
     {
-      "month": "All",
-      "startDate": "2026-01-01",
-      "endDate": "2026-10-31",
+      "month": "2026-11",
+      "startDate": "2026-11-01",
+      "endDate": "2026-11-01",
       "articles": [
         {
           "wordpressId": 13924,
           "metrics": {
+            "views": 2.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13929,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13917,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13909,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13904,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13913,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13899,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13890,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13894,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13881,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13875,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13864,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13868,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13885,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13860,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13856,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13851,
+          "metrics": {
+            "views": 2.0,
+            "activeUsers": 2.0,
+            "engagementSeconds": 151.0,
+            "averageEngagementSeconds": 75.5
+          }
+        },
+        {
+          "wordpressId": 13843,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13847,
+          "metrics": {
             "views": 1.0,
             "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13835,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13839,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13818,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13811,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13823,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13804,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13796,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13790,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13783,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13779,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13765,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13773,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13769,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13759,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13752,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13736,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13732,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13722,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13715,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13711,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13707,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13693,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13727,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13688,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13683,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13678,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13674,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13670,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13664,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13658,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13651,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13641,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13632,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13627,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13621,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13616,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13612,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13608,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13604,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13599,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13593,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13580,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13576,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13572,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13567,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13585,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13559,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13555,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13542,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13538,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13528,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13523,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13519,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13508,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13504,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13482,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13487,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13491,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13495,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13479,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13476,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13497,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13472,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13511,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13500,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13463,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13367,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13355,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13435,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13438,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13418,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13413,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13391,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13382,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13350,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13347,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13344,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13318,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13321,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13236,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13233,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13229,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13240,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13218,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13213,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13210,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13207,
+          "metrics": {
+            "views": 1.0,
+            "activeUsers": 1.0,
+            "engagementSeconds": 0.0,
+            "averageEngagementSeconds": 0.0
+          }
+        },
+        {
+          "wordpressId": 13198,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13195,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13186,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13181,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13173,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13177,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13167,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13163,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13160,
+          "metrics": null
+        }
+      ],
+      "total": {
+        "views": 13.0,
+        "activeUsers": 12.0,
+        "engagementSeconds": 151.0,
+        "averageEngagementSeconds": 12.583333333333334
+      },
+      "metadata": {
+        "currencyCode": "IDR",
+        "timeZone": "Asia/Jakarta"
+      }
+    },
+    {
+      "month": "All",
+      "startDate": "2026-01-01",
+      "endDate": "2026-11-01",
+      "articles": [
+        {
+          "wordpressId": 13924,
+          "metrics": {
+            "views": 3.0,
+            "activeUsers": 2.0,
             "engagementSeconds": 6.0,
-            "averageEngagementSeconds": 6.0
+            "averageEngagementSeconds": 3.0
           }
         },
         {
@@ -7147,10 +7679,10 @@
         {
           "wordpressId": 13851,
           "metrics": {
-            "views": 23.0,
-            "activeUsers": 19.0,
-            "engagementSeconds": 441.0,
-            "averageEngagementSeconds": 23.210526315789473
+            "views": 25.0,
+            "activeUsers": 21.0,
+            "engagementSeconds": 592.0,
+            "averageEngagementSeconds": 28.19047619047619
           }
         },
         {
@@ -7165,10 +7697,10 @@
         {
           "wordpressId": 13847,
           "metrics": {
-            "views": 4.0,
-            "activeUsers": 4.0,
+            "views": 5.0,
+            "activeUsers": 5.0,
             "engagementSeconds": 7.0,
-            "averageEngagementSeconds": 1.75
+            "averageEngagementSeconds": 1.4
           }
         },
         {
@@ -7327,19 +7859,19 @@
         {
           "wordpressId": 13722,
           "metrics": {
-            "views": 11.0,
-            "activeUsers": 10.0,
+            "views": 12.0,
+            "activeUsers": 11.0,
             "engagementSeconds": 21.0,
-            "averageEngagementSeconds": 2.1
+            "averageEngagementSeconds": 1.9090909090909092
           }
         },
         {
           "wordpressId": 13715,
           "metrics": {
-            "views": 30.0,
-            "activeUsers": 28.0,
+            "views": 31.0,
+            "activeUsers": 29.0,
             "engagementSeconds": 82.0,
-            "averageEngagementSeconds": 2.9285714285714284
+            "averageEngagementSeconds": 2.8275862068965516
           }
         },
         {
@@ -7354,10 +7886,10 @@
         {
           "wordpressId": 13707,
           "metrics": {
-            "views": 16.0,
-            "activeUsers": 14.0,
+            "views": 17.0,
+            "activeUsers": 15.0,
             "engagementSeconds": 16.0,
-            "averageEngagementSeconds": 1.1428571428571428
+            "averageEngagementSeconds": 1.0666666666666667
           }
         },
         {
@@ -7399,10 +7931,10 @@
         {
           "wordpressId": 13678,
           "metrics": {
-            "views": 797.0,
-            "activeUsers": 693.0,
+            "views": 798.0,
+            "activeUsers": 694.0,
             "engagementSeconds": 9102.0,
-            "averageEngagementSeconds": 13.134199134199134
+            "averageEngagementSeconds": 13.115273775216139
           }
         },
         {
@@ -7453,10 +7985,10 @@
         {
           "wordpressId": 13641,
           "metrics": {
-            "views": 12.0,
-            "activeUsers": 11.0,
+            "views": 13.0,
+            "activeUsers": 12.0,
             "engagementSeconds": 111.0,
-            "averageEngagementSeconds": 10.090909090909092
+            "averageEngagementSeconds": 9.25
           }
         },
         {
@@ -7516,10 +8048,10 @@
         {
           "wordpressId": 13604,
           "metrics": {
-            "views": 29.0,
-            "activeUsers": 21.0,
+            "views": 30.0,
+            "activeUsers": 22.0,
             "engagementSeconds": 66.0,
-            "averageEngagementSeconds": 3.142857142857143
+            "averageEngagementSeconds": 3.0
           }
         },
         {
@@ -7795,10 +8327,10 @@
         {
           "wordpressId": 13438,
           "metrics": {
-            "views": 30.0,
-            "activeUsers": 28.0,
+            "views": 31.0,
+            "activeUsers": 29.0,
             "engagementSeconds": 863.0,
-            "averageEngagementSeconds": 30.821428571428573
+            "averageEngagementSeconds": 29.75862068965517
           }
         },
         {
@@ -7948,10 +8480,10 @@
         {
           "wordpressId": 13207,
           "metrics": {
-            "views": 73.0,
-            "activeUsers": 65.0,
+            "views": 74.0,
+            "activeUsers": 66.0,
             "engagementSeconds": 769.0,
-            "averageEngagementSeconds": 11.830769230769231
+            "averageEngagementSeconds": 11.651515151515152
           }
         },
         {
@@ -8037,10 +8569,10 @@
         }
       ],
       "total": {
-        "views": 3822.0,
-        "activeUsers": 2840.0,
-        "engagementSeconds": 55874.0,
-        "averageEngagementSeconds": 19.67394366197183
+        "views": 3835.0,
+        "activeUsers": 2852.0,
+        "engagementSeconds": 56025.0,
+        "averageEngagementSeconds": 19.644109396914445
       },
       "metadata": {
         "currencyCode": "IDR",
