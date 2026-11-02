@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-10-31T09:37:07.265Z",
+  "lastSyncedAt": "2026-11-02T20:45:55.418Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,24 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13937,
+      "authorId": 8,
+      "title": "Ini Deretan Unit Test Drive di Honda Bintaro",
+      "link": "https://www.honda-bintaro.com/ini-deretan-unit-test-drive-di-honda-bintaro/",
+      "publishedAt": "2026-11-02T16:06:39",
+      "modifiedAt": "2026-11-02T16:06:39",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Ini-Deretan-Unit-Test-Drive-di-Honda-Bintaro-240x300.webp"
+    },
+    {
+      "wordpressId": 13933,
+      "authorId": 8,
+      "title": "Waktu yang Tepat Untuk Melakukan Spooring &amp; Balancing",
+      "link": "https://www.honda-bintaro.com/waktu-yang-tepat-untuk-melakukan-spooring-balancing/",
+      "publishedAt": "2026-10-31T09:50:19",
+      "modifiedAt": "2026-11-02T09:54:44",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Waktu-yang-Tepat-Untuk-Melakukan-Spooring-Balancing-240x300.webp"
+    },
     {
       "wordpressId": 13924,
       "authorId": 8,
