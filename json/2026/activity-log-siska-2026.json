@@ -1,5 +1,14 @@
 {
   "version": 1,
   "year": 2026,
-  "activities": []
+  "activities": [
+    {
+      "createdBy": "siska",
+      "id": "3fdaaa91-b51a-4673-b86b-abdcd42eb713",
+      "date": "2026-11-04",
+      "type": "Membuat Script Konten",
+      "title": "Booking Service via Website",
+      "description": "<p>(Script)</p>\n"
+    }
+  ]
 }
