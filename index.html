@@ -1221,6 +1221,12 @@
         .copywriter-day.missing { background:rgba(234,179,8,.14); border-color:rgba(234,179,8,.5); }
         .copywriter-day.holiday { background:rgba(239,68,68,.12); border-color:rgba(239,68,68,.45); }
         .copywriter-day.future { border-style:dashed; color:var(--text-muted); }
+        .siska-activity-calendar-item { display:block; width:100%; margin-top:4px; padding:4px 5px; border:0; border-radius:5px; background:rgba(59,130,246,.12); color:var(--accent); font:inherit; font-size:9px; line-height:1.3; text-align:left; cursor:pointer; overflow-wrap:anywhere; }
+        .siska-activity-calendar-item:hover, .siska-activity-calendar-item:focus-visible { background:rgba(59,130,246,.22); outline:2px solid var(--accent); outline-offset:1px; }
+        .siska-activity-day { min-height:76px; text-align:left; }
+        .siska-activity-day.has-activity { background:rgba(59,130,246,.06); }
+        .siska-activity-day.holiday { background:rgba(239,68,68,.12); border-color:rgba(239,68,68,.45); }
+        .siska-activity-empty { display:block; color:var(--text-muted); text-align:center; }
         .copywriter-article { overflow:hidden; border:1px solid var(--border); border-radius:12px; background:var(--bg); }
         .copywriter-article img { width:100%; height:150px; object-fit:cover; }
 
@@ -1637,8 +1643,15 @@
      .activity-editor-toolbar { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px; }
         .activity-editor { min-height:160px;line-height:1.7;overflow-wrap:anywhere; }
         .activity-editor:empty:before { content:"Tulis keterangan pekerjaan di sini…";color:var(--text-muted);pointer-events:none; }
-        .activity-detail-modal { width:min(1100px,94vw);max-height:85vh;overflow:auto;padding:24px;border:1px solid var(--border);border-radius:14px;background:var(--card-bg);color:var(--text-main); }
-        .activity-detail-modal::backdrop { background:rgba(0,0,0,.5); }
+        .activity-detail-modal { width:min(1100px,94vw);max-height:85vh;overflow:auto;padding:24px;border:1px solid var(--border);border-radius:16px;background:var(--card-bg);color:var(--text-main);box-shadow:0 24px 80px rgba(0,0,0,.28);opacity:0;transform:translateY(12px) scale(.985);transition:opacity .22s ease,transform .22s cubic-bezier(.2,.8,.2,1),overlay .22s allow-discrete,display .22s allow-discrete; }
+        .activity-detail-modal[open] { opacity:1;transform:translateY(0) scale(1); }
+        .activity-detail-modal.is-closing { opacity:0;transform:translateY(8px) scale(.985); }
+        @starting-style { .activity-detail-modal[open] { opacity:0;transform:translateY(12px) scale(.985); } }
+        .activity-detail-modal::backdrop { background:rgba(0,0,0,0);transition:background .22s ease,overlay .22s allow-discrete,display .22s allow-discrete; }
+        .activity-detail-modal[open]::backdrop { background:rgba(0,0,0,.52); }
+        .activity-detail-modal.is-closing::backdrop { background:rgba(0,0,0,0); }
+        @starting-style { .activity-detail-modal[open]::backdrop { background:rgba(0,0,0,0); } }
+        @media (prefers-reduced-motion:reduce) { .activity-detail-modal,.activity-detail-modal::backdrop { transition:none; } }
         #activity-detail-description { line-height:1.7;overflow-wrap:anywhere;font-size:14px; }
         #activity-detail-description * { font-family:inherit; }
         #activity-detail-description p { margin:0 0 1em; }
@@ -2360,7 +2373,7 @@
 <p id="github-status-activity" role="status" style="text-align:right;"></p>
 <div id="activity-history"></div><div class="pagination-controls" id="pg-activity"><div>Tampilkan: <select class="form-control" style="width:auto;display:inline-block;padding:4px;" onchange="changeLimit('activity', this.value)"><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="99999">Semua</option></select></div><div id="pagination-nav-activity" class="pagination-nav"></div></div></div>
 
-<dialog id="activity-detail-modal" class="activity-detail-modal" aria-labelledby="activity-detail-title"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;"><h3 id="activity-detail-title" style="margin:0;">Detail Aktivitas</h3><button type="button" class="btn-sm bg-dark" onclick="document.getElementById('activity-detail-modal').close()" aria-label="Tutup detail">✕</button></div><p id="activity-detail-meta" style="color:var(--text-muted);"></p><h4>Keterangan</h4><div id="activity-detail-description"></div><div style="text-align:right;margin-top:24px;"><button type="button" class="btn-sm bg-dark" onclick="document.getElementById('activity-detail-modal').close()">Tutup</button></div></dialog>
+<dialog id="activity-detail-modal" class="activity-detail-modal" aria-labelledby="activity-detail-title"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;"><h3 id="activity-detail-title" style="margin:0;">Detail Aktivitas</h3><button type="button" class="btn-sm bg-dark" onclick="closeSiskaActivityDetail()" aria-label="Tutup detail">✕</button></div><p id="activity-detail-meta" style="color:var(--text-muted);"></p><h4>Keterangan</h4><div id="activity-detail-description"></div><div style="text-align:right;margin-top:24px;"><button type="button" class="btn-sm bg-dark" onclick="closeSiskaActivityDetail()">Tutup</button></div></dialog>
 
 <!-- ================= NEW PUBLISH LOG SECTION ================= -->
             <div id="publish-log-section" class="tool-section">

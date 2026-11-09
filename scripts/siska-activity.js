@@ -12,6 +12,7 @@ const SiskaActivity = (() => {
     const localDate = () => new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const validDate = date => /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(date)) && new Date(date).toISOString().slice(0,10) === date;
     let state = null, editing = null, busy = false;
+    let detailCloseTimer = null;
     const reportLoads = new Map();
     function validate(data, year) {
         if (data?.year !== year || !Array.isArray(data.activities)) throw Error('Format log aktivitas tidak sesuai.');
@@ -209,10 +210,20 @@ const SiskaActivity = (() => {
     function detail(id, year) {
         const database = state?.database.year === Number(year) ? state.database : cache(Number(year)).database;
         const row = database.activities.find(item=>item.id===id); if (!row) return;
+        clearTimeout(detailCloseTimer);
         el('activity-detail-title').textContent = row.title;
         el('activity-detail-meta').textContent = `${row.date} • ${row.type}`;
         el('activity-detail-description').innerHTML = description(row) || '<p>Belum ada keterangan.</p>';
+        el('activity-detail-modal').classList.remove('is-closing');
         el('activity-detail-modal').showModal();
+    }
+    function closeDetail() {
+        const modal = el('activity-detail-modal');
+        if (!modal.open) return;
+        clearTimeout(detailCloseTimer);
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return modal.close();
+        modal.classList.add('is-closing');
+        detailCloseTimer = setTimeout(()=>{ if (modal.open) modal.close(); modal.classList.remove('is-closing'); },230);
     }
     function remove(id) {
         if (busy || !state) return;
@@ -242,18 +253,43 @@ const SiskaActivity = (() => {
         const paginated = paginateData(filtered, 'activity');
         el('activity-history').innerHTML = `<p>${filtered.length} pekerjaan • ${Object.keys(state.pending).length} perubahan belum disimpan ke GitHub</p>`+table(paginated,true);
     }
+    function reportCalendar(rows, year, selectedMonth) {
+        const months = selectedMonth === 'All' ? Array.from({length:12},(_,index)=>index+1) : [Number(selectedMonth)];
+        const weekdays = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+        const holidays = new Set(typeof copywriterDB !== 'undefined' && copywriterDB?.year === year ? copywriterDB.holidays : []);
+        return `<div class="copywriter-calendar-grid siska-activity-calendar">${months.map(month=>{
+            const monthRows = rows.filter(row=>Number(row.date.slice(5,7))===month);
+            const firstWeekday = (new Date(Date.UTC(year,month-1,1)).getUTCDay()+6)%7;
+            const daysInMonth = new Date(Date.UTC(year,month,0)).getUTCDate();
+            const byDate = new Map();
+            for (const row of monthRows) {
+                if (!byDate.has(row.date)) byDate.set(row.date,[]);
+                byDate.get(row.date).push(row);
+            }
+            const blanks = Array.from({length:firstWeekday},()=>'<div aria-hidden="true"></div>').join('');
+            const days = Array.from({length:daysInMonth},(_,index)=>{
+                const day = index+1, date = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                const activities = byDate.get(date) || [];
+                const isHoliday = holidays.has(date) || new Date(Date.UTC(year,month-1,day)).getUTCDay() === 0;
+                const items = activities.map(row=>`<button type="button" class="siska-activity-calendar-item" data-activity-action="detail" data-activity-year="${year}" data-activity-id="${esc(row.id)}" title="${esc(row.title)}">${esc(row.type)}</button>`).join('');
+                return `<div class="copywriter-day siska-activity-day${isHoliday?' holiday':''}${activities.length?' has-activity':''}"${isHoliday?` title="${holidays.has(date)?'Hari libur':'Minggu'}"`:''}><b>${day}</b>${items||'<small class="siska-activity-empty">—</small>'}</div>`;
+            }).join('');
+            return `<section><h4 style="font-size:14px;margin:0 0 12px;">${new Intl.DateTimeFormat('id-ID',{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(year,month-1,1)))}</h4><div class="copywriter-calendar">${weekdays.map(day=>`<small style="text-align:center;color:var(--text-muted);">${day}</small>`).join('')}${blanks}${days}</div></section>`;
+        }).join('')}</div>`;
+    }
     function report() {
         const target = el('activity-report'); if (!target) return;
         const year = Number(el('copywriter-year').value), month = el('copywriter-month').value;
         const local = state?.database.year===year ? state : cache(year);
         const rows = local.database.activities.filter(row=>month==='All' || Number(row.date.slice(5,7))===Number(month));
-        target.innerHTML = `<div class="creator-overview-box" style="padding:20px;margin-top:20px;"><h3>📝 Aktivitas Pendukung Siska</h3><p>${rows.length} aktivitas tercatat</p><p style="color:var(--text-muted);">Rekap aktivitas belum memengaruhi skor KPI artikel.</p>${types.map(type=>{const total=rows.filter(row=>row.type===type).length;return total?`<p><b>${esc(type)}:</b> ${total} aktivitas</p>`:'';}).join('')}${table(rows,false,year)}<button class="btn-sm bg-blue" onclick="openTool('siska-activity')">Buka Log Aktivitas</button></div>`;
+        target.innerHTML = `<div class="creator-overview-box" style="padding:20px;margin-top:20px;"><h3>📝 Aktivitas Pendukung Siska</h3><div style="margin:18px 0;">${reportCalendar(rows,year,month)}</div><button class="btn-sm bg-blue" onclick="openTool('siska-activity')">Buka Log Aktivitas</button></div>`;
         if (!reportLoads.has(year) && !busy) {
             reportLoads.set(year,true);
             read(year).then(saved=>{const cached=cache(year);cached.database=merge(saved.database,cached);persist(cached);if(state?.database.year===year)state=cached;report();}).catch(()=>{target.insertAdjacentHTML('beforeend','<p>Rekap memakai data lokal; buka Log Aktivitas untuk menarik data terbaru.</p>');});
         }
     }
     document.addEventListener('DOMContentLoaded',()=>{
+        el('activity-detail-modal').addEventListener('cancel',event=>{event.preventDefault();closeDetail();});
         el('activity-year').value = localDate().slice(0,4);
         el('gh-path-activity').value = path(Number(el('activity-year').value));
         el('activity-type').innerHTML = types.map(type=>`<option>${esc(type)}</option>`).join('');
@@ -271,5 +307,6 @@ const SiskaActivity = (() => {
         initializeEditor();
         reset();
     });
-    return {load,sync,reset,render,report,validate,merge,setPath};
+    return {load,sync,reset,render,report,validate,merge,setPath,closeDetail};
 })();
+function closeSiskaActivityDetail() { SiskaActivity.closeDetail(); }
