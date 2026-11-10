@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-11-10T17:50:07.634253+00:00",
+  "lastSyncedAt": "2026-11-10T23:20:08.435661+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -7333,8 +7333,8 @@
         {
           "wordpressId": 13904,
           "metrics": {
-            "views": 3.0,
-            "activeUsers": 3.0,
+            "views": 4.0,
+            "activeUsers": 4.0,
             "engagementSeconds": 0.0,
             "averageEngagementSeconds": 0.0
           }
@@ -7445,8 +7445,8 @@
         {
           "wordpressId": 13843,
           "metrics": {
-            "views": 2.0,
-            "activeUsers": 2.0,
+            "views": 3.0,
+            "activeUsers": 3.0,
             "engagementSeconds": 0.0,
             "averageEngagementSeconds": 0.0
           }
@@ -8206,10 +8206,10 @@
         }
       ],
       "total": {
-        "views": 278.0,
-        "activeUsers": 241.0,
+        "views": 280.0,
+        "activeUsers": 243.0,
         "engagementSeconds": 2181.0,
-        "averageEngagementSeconds": 9.049792531120332
+        "averageEngagementSeconds": 8.975308641975309
       },
       "metadata": {
         "currencyCode": "IDR",
@@ -8314,10 +8314,10 @@
         {
           "wordpressId": 13904,
           "metrics": {
-            "views": 9.0,
-            "activeUsers": 7.0,
+            "views": 10.0,
+            "activeUsers": 8.0,
             "engagementSeconds": 15.0,
-            "averageEngagementSeconds": 2.142857142857143
+            "averageEngagementSeconds": 1.875
           }
         },
         {
@@ -8431,10 +8431,10 @@
         {
           "wordpressId": 13843,
           "metrics": {
-            "views": 6.0,
-            "activeUsers": 5.0,
+            "views": 7.0,
+            "activeUsers": 6.0,
             "engagementSeconds": 31.0,
-            "averageEngagementSeconds": 6.2
+            "averageEngagementSeconds": 5.166666666666667
           }
         },
         {
@@ -9312,10 +9312,10 @@
         }
       ],
       "total": {
-        "views": 4100.0,
-        "activeUsers": 3079.0,
+        "views": 4102.0,
+        "activeUsers": 3081.0,
         "engagementSeconds": 58055.0,
-        "averageEngagementSeconds": 18.855147775251705
+        "averageEngagementSeconds": 18.842908146705614
       },
       "metadata": {
         "currencyCode": "IDR",
