@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-11-10T02:07:07.092Z",
+  "lastSyncedAt": "2026-11-12T11:04:24.061Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,24 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13962,
+      "authorId": 8,
+      "title": "Pilihan Paket Kredit Honda Brio Satya",
+      "link": "https://www.honda-bintaro.com/pilihan-paket-kredit-honda-brio-satya/",
+      "publishedAt": "2026-11-12T11:13:15",
+      "modifiedAt": "2026-11-12T11:13:15",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Pilihan-Paket-Kredit-Honda-Brio-Satya-240x300.webp"
+    },
+    {
+      "wordpressId": 13966,
+      "authorId": 8,
+      "title": "Raih Keuntungan Honda Special Deals November 2026",
+      "link": "https://www.honda-bintaro.com/raih-keuntungan-honda-special-deals-november-2026/",
+      "publishedAt": "2026-11-11T14:28:26",
+      "modifiedAt": "2026-11-12T14:31:18",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Raih-Keuntungan-Honda-Special-Deals-November-2026-240x300.webp"
+    },
     {
       "wordpressId": 13958,
       "authorId": 8,
