@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-11-12T11:04:24.061Z",
+  "lastSyncedAt": "2026-11-13T07:55:36.648Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13972,
+      "authorId": 8,
+      "title": "Honda Loyalist Deals: Keuntungan Khusus untuk Anda!",
+      "link": "https://www.honda-bintaro.com/honda-loyalist-deals-keuntungan-khusus-untuk-anda/",
+      "publishedAt": "2026-11-13T09:13:59",
+      "modifiedAt": "2026-11-13T09:13:59",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Honda-Loyalist-Deals-Keuntungan-Khusus-untuk-Anda-240x300.webp"
+    },
     {
       "wordpressId": 13962,
       "authorId": 8,
