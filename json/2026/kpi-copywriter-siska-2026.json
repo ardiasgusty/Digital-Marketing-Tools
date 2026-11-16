@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-11-16T02:04:15.979Z",
+  "lastSyncedAt": "2026-11-16T09:40:30.574Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,15 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 13977,
+      "authorId": 8,
+      "title": "Kembalikan Kilau Mobil Kesayangan dengan Layanan Poles",
+      "link": "https://www.honda-bintaro.com/kembalikan-kilau-mobil-kesayangan-dengan-layanan-poles/",
+      "publishedAt": "2026-11-16T14:52:36",
+      "modifiedAt": "2026-11-16T14:52:36",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Kembalikan-Kilau-Mobil-Kesayangan-dengan-Layanan-Poles-240x300.webp"
+    },
     {
       "wordpressId": 13972,
       "authorId": 8,
