@@ -3,7 +3,7 @@
   "year": 2026,
   "property": "367491218",
   "dateTimezone": "Asia/Jakarta",
-  "lastSyncedAt": "2026-11-17T03:53:22.115829+00:00",
+  "lastSyncedAt": "2026-11-17T13:24:58.364344+00:00",
   "months": [
     {
       "month": "2026-01",
@@ -32,6 +32,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -613,6 +621,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -1247,6 +1263,14 @@
           "metrics": null
         },
         {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
+          "metrics": null
+        },
+        {
           "wordpressId": 13948,
           "metrics": null
         },
@@ -1870,6 +1894,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -2526,6 +2558,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -3267,6 +3307,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -4048,6 +4096,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -4844,6 +4900,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -5655,6 +5719,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -6511,6 +6583,14 @@
         },
         {
           "wordpressId": 13954,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
           "metrics": null
         },
         {
@@ -7493,6 +7573,14 @@
             "engagementSeconds": 65.0,
             "averageEngagementSeconds": 8.125
           }
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
+          "metrics": null
         },
         {
           "wordpressId": 13948,
@@ -8534,6 +8622,14 @@
             "engagementSeconds": 65.0,
             "averageEngagementSeconds": 8.125
           }
+        },
+        {
+          "wordpressId": 13991,
+          "metrics": null
+        },
+        {
+          "wordpressId": 13986,
+          "metrics": null
         },
         {
           "wordpressId": 13948,
