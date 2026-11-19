@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-11-18T21:55:18.455Z",
+  "lastSyncedAt": "2026-11-19T03:26:28.932Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -30,6 +30,15 @@
       "publishedAt": "2026-11-18T19:23:59",
       "modifiedAt": "2026-11-18T19:23:59",
       "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Dua-Hybrid-Honda-Borong-Penghargaan-GridOto-Award-2026-240x300.webp"
+    },
+    {
+      "wordpressId": 14000,
+      "authorId": 8,
+      "title": "Mengapa Honda Bintaro Layak Menjadi Dealer Pilihan Anda",
+      "link": "https://www.honda-bintaro.com/mengapa-honda-bintaro-layak-menjadi-dealer-pilihan-anda/",
+      "publishedAt": "2026-11-17T10:19:08",
+      "modifiedAt": "2026-11-19T10:25:38",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Mengapa-Honda-Bintaro-Layak-Menjadi-Dealer-Pilihan-Anda-240x300.webp"
     },
     {
       "wordpressId": 13977,
