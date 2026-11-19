@@ -4738,5 +4738,26 @@
     "what": "Platform: <b>Instagram</b>. Reach Rate: <b>1.6%</b>. ER: <b>0.05%</b>. ERR: <b>3.25%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
     "soWhat": "Distribusi gagal memancing minat, indikasi audiens drop-off cepat.",
     "nowWhat": "Evaluasi hook 3 detik pertama dan CTA."
+  },
+  {
+    "title": "Mau Service Mobil Tanpa Antre?",
+    "link": "https://www.instagram.com/p/DfZDxVdGQBK/?img_index=1",
+    "shortcode": "DfZDxVdGQBK",
+    "month": "November",
+    "week": "1",
+    "evalDateRaw": "2026-11-13",
+    "datePub": "2026-11-06",
+    "pilar": "Dealer Credibility",
+    "platform": "Instagram",
+    "category": "Feed / Photo",
+    "kreator": "Rizky",
+    "foll": 15564,
+    "reach": 197,
+    "interaksi": 10,
+    "dmCount": "0",
+    "statusBadge": "<div style=\"margin-bottom:2px;\"><b>Reach Rate:</b> 1.3% <span class=\"badge bg-red\">Off Track</span></div><div style=\"margin-bottom:2px;\"><b>ER:</b> 0.06% <span class=\"badge bg-red\">Off Track</span></div><div><b>ERR:</b> 5.08% <span class=\"badge bg-green\">On Track</span></div>",
+    "what": "Platform: <b>Instagram</b>. Reach Rate: <b>1.3%</b>. ER: <b>0.06%</b>. ERR: <b>5.08%</b>. DM Konversi: <b>0</b>. Target -> RR >15% | ER >1% | ERR >3.5%.",
+    "soWhat": "Kualitas konten Rizky sebenarnya sangat menarik bagi audiens yang melihatnya (ERR 5.08% On Track), namun performanya terhambat oleh distribusi dan jangkauan yang sangat minim (Reach Rate 1.3%). Akibat kegagalan distribusi algoritma ini, interaksi dari total pengikut menjadi sangat rendah (ER 0.06%) dan gagal memicu konversi DM.",
+    "nowWhat": "Rizky harus berfokus membenahi distribusi konten melalui dorongan Paid Ads, optimasi SEO/hashtag, serta mendorong jam tayang postingan yang lebih presisi. Selain itu, sisipkan Call-to-Action (CTA) yang lebih persuasif pada caption dan gambar untuk secara spesifik memancing audiens melakukan konversi via DM."
   }
 ]
