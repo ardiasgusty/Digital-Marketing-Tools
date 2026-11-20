@@ -1,5 +1,19 @@
 [
   {
+    "id": "draft_1795139955579",
+    "title": "2 Days To Go (GAW 2026)",
+    "link": "https://www.instagram.com/p/Df375kWRttv/",
+    "shortcode": "Df375kWRttv",
+    "datePub": "2026-11-18",
+    "platform": "Instagram",
+    "category": "Feed / Photo",
+    "pilar": "Product Value & Info",
+    "kreator": "Rizky",
+    "evaluated": false,
+    "createdBy": "rizky",
+    "createdAt": "2026-11-20T01:59:15.579Z"
+  },
+  {
     "id": "draft_1795078150479",
     "title": "Ini penglaman servis versi bapak Ariel di Honda Bintaro",
     "link": "https://www.instagram.com/p/Df6jZsshyU8/",
@@ -79,7 +93,7 @@
     "category": "Feed / Photo",
     "pilar": "Product Value & Info",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:29:38.369Z"
   },
@@ -93,7 +107,7 @@
     "category": "Carousel",
     "pilar": "Promo Activation",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:29:01.897Z"
   },
@@ -107,7 +121,7 @@
     "category": "Feed / Photo",
     "pilar": "Product Value & Info",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:26:25.650Z"
   },
@@ -121,7 +135,7 @@
     "category": "Feed / Photo",
     "pilar": "Promo Activation",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:24:45.674Z"
   },
@@ -135,7 +149,7 @@
     "category": "Feed / Photo",
     "pilar": "Promo Activation",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:23:11.282Z"
   },
@@ -149,7 +163,7 @@
     "category": "Feed / Photo",
     "pilar": "Customer Story",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:21:26.906Z"
   },
@@ -163,7 +177,7 @@
     "category": "Feed / Photo",
     "pilar": "Dealer Credibility",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-13T01:19:01.700Z"
   },
@@ -177,7 +191,7 @@
     "category": "Reels",
     "pilar": "Promo Activation",
     "kreator": "Wafie",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "wafie",
     "createdAt": "2026-11-12T07:44:19.694Z"
   },
@@ -191,7 +205,7 @@
     "category": "Reels",
     "pilar": "Customer Story",
     "kreator": "Wafie",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "wafie",
     "createdAt": "2026-11-11T01:38:23.511Z"
   },
@@ -205,7 +219,7 @@
     "category": "Reels",
     "pilar": "Product Value & Info",
     "kreator": "Wafie",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "wafie",
     "createdAt": "2026-11-11T01:37:03.440Z"
   },
@@ -219,7 +233,7 @@
     "category": "Carousel",
     "pilar": "Product Value & Info",
     "kreator": "Rizky",
-    "evaluated": true,
+    "evaluated": false,
     "createdBy": "rizky",
     "createdAt": "2026-11-09T01:20:28.552Z",
     "updatedAt": "2026-11-09T01:21:24.568Z"
