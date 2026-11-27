@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-11-19T03:26:28.932Z",
+  "lastSyncedAt": "2026-11-27T06:41:14.593Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -22,6 +22,24 @@
     "2026-12-25"
   ],
   "articles": [
+    {
+      "wordpressId": 14009,
+      "authorId": 8,
+      "title": "Honda Prelude Racing Blue Pearl Hadir di GAW 2026",
+      "link": "https://www.honda-bintaro.com/honda-prelude-racing-blue-pearl-hadir-di-gaw-2026/",
+      "publishedAt": "2026-11-23T08:32:57",
+      "modifiedAt": "2026-11-27T08:45:35",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Honda-Prelude-Racing-Blue-Pearl-Hadir-di-GAW-2026-240x300.webp"
+    },
+    {
+      "wordpressId": 14005,
+      "authorId": 8,
+      "title": "Intip 7 Mobil Honda yang Hadir di Gaikindo Auto Week 2026",
+      "link": "https://www.honda-bintaro.com/intip-7-mobil-honda-yang-hadir-di-gaikindo-auto-week-2026/",
+      "publishedAt": "2026-11-21T08:18:51",
+      "modifiedAt": "2026-11-27T08:30:11",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Intip-7-Mobil-Honda-yang-Hadir-di-Gaikindo-Auto-Week-2026-240x300.webp"
+    },
     {
       "wordpressId": 13995,
       "authorId": 8,
