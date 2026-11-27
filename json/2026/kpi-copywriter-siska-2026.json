@@ -3,7 +3,7 @@
   "year": 2026,
   "authorId": 8,
   "authorName": "Siska Irma Diana",
-  "lastSyncedAt": "2026-11-27T06:41:14.593Z",
+  "lastSyncedAt": "2026-11-27T06:51:56.420Z",
   "holidays": [
     "2026-01-01",
     "2026-01-05",
@@ -39,6 +39,15 @@
       "publishedAt": "2026-11-21T08:18:51",
       "modifiedAt": "2026-11-27T08:30:11",
       "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Intip-7-Mobil-Honda-yang-Hadir-di-Gaikindo-Auto-Week-2026-240x300.webp"
+    },
+    {
+      "wordpressId": 14013,
+      "authorId": 8,
+      "title": "Lebih Praktis! Booking Service Honda Bisa Langsung Melalui Website",
+      "link": "https://www.honda-bintaro.com/lebih-praktis-booking-service-honda-bisa-langsung-melalui-website/",
+      "publishedAt": "2026-11-19T13:22:59",
+      "modifiedAt": "2026-11-27T13:43:23",
+      "thumbnailUrl": "https://www.honda-bintaro.com/wp-content/uploads/2026/11/Lebih-Praktis-Booking-Service-Honda-Bisa-Langsung-Melalui-Website-240x300.webp"
     },
     {
       "wordpressId": 13995,
